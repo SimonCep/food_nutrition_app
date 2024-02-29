@@ -42,16 +42,6 @@ yarn-error.log*
 expo-env.d.ts
 # @end expo-cli
 
-# Docker
-## Ignore Dockerfile (galimai)
-# Dockerfile
-
-## Docker-compose files (galimai)
-# docker-compose*.yml
-
-## Docker volumes
-volumes/
-
 ## Docker env files
 *.env
 
