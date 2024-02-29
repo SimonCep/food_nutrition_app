@@ -16,6 +16,8 @@
 **/.vscode
 **/.next
 **/.cache
+**/.expo
+**/web-build
 **/*.*proj.user
 **/*.dbmdl
 **/*.jfm
