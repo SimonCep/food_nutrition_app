@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+    stdin_open: true
+    tty: true
+    ports:
+      - 8081:8081
+    develop:
+      watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: ./yarn.lock
+          action: rebuild
+        - path: ./
+          target: /opt/food-app
+          action: sync
+    # volumes:
+    #   - ./:/opt/food-app
+    #   - /opt/food-app/node_modules # sudu kruva cia nxaxui
+    environment:
+         - WATCHPACK_POLLING=true # karstiem dalykam ;)
+
+volumes:
+  food-volumes:
