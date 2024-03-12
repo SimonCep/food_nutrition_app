@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "expo start --clear",
+    "tunnel": "expo start --tunnel",
     "start-no-clear": "expo start",
     "android": "expo start --android --clear",
     "ios": "expo start --ios",
