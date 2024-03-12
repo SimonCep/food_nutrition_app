@@ -22,7 +22,9 @@ export default function UserInfoTab() {
       <ScrollView>
         <View className="flex-grow items-center justify-center">
           <View className="items-center mt-20 mb-5">
-            <Image source={user.profilePicture} className="w-32 h-32 rounded-full mb-4 shadow border-4 border-black" />
+            <View className="w-32 h-32 rounded-full mb-4 shadow border-4 border-black">
+              <Image source={user.profilePicture} className="w-32 h-32 rounded-full" />
+            </View>
             <Text className="text-lg font-bold mb-2">{user.name}</Text>
             <Text>{user.otherData}</Text>
           </View>
