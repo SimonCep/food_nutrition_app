@@ -9,7 +9,6 @@ export default function TabOneScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Tab One</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Link href="/sign-in" style={{ color: 'red', fontWeight: 'bold', fontSize: 15 }}>Sign in</Link>
       <EditScreenInfo path="app/(tabs)/index.tsx" />
     </View>
   );
