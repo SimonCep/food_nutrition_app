@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import { TouchableOpacity, Text, useColorScheme } from 'react-native';
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { View } from '@/components/Themed';
 import { Link } from 'expo-router';
 
 export default function TabTwoScreen() {
-  const [text, setText] = useState('Tab Two');
+  const text = 'Tab Two';
   const colorScheme = useColorScheme();
 
   return (
