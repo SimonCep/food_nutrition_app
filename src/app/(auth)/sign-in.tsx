@@ -7,7 +7,7 @@ const SignInScreen = () => {
   const [password, setPassword] = useState('');
 
   const handleSignIn = () => {
-    // Handle sign in action here
+    // TODO: Handle sign in action here
   };
 
   return (

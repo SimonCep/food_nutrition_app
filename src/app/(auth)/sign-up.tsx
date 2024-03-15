@@ -8,7 +8,7 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState('');
 
   const handleSignUp = () => {
-    // Handle sign up action here
+    // TODO: Handle sign up action here
   };
 
   return (
