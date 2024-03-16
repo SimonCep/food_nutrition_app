@@ -15,7 +15,7 @@ const SignInScreen = () => {
   return (
     <ImageBackground
       source={require('../../assets/images/backgroundImage2.png')}
-      className={`${colorScheme === 'dark' ? 'bg-gray-800' : 'bg-white'} flex-1 justify-center resize-y`}
+      className={`${colorScheme === 'dark' ? 'bg-black' : 'bg-white'} flex-1 justify-center resize-y`}
     >
       <View className="flex-1 p-5 justify-center">
         <Stack.Screen options={{ title: 'Sign in', headerTitleAlign: 'center' }} />
