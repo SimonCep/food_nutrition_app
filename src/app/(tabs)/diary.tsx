@@ -13,7 +13,7 @@ export default function Diary() {
   };
 
   return (
-    <View className="flex-1 p-6 bg-gray-100 dark:bg-gray-800">
+    <View className="flex-1 p-6 bg-gray-100 dark:bg-black">
       <View className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
         <Text className="text-xl font-bold mb-2 text-black dark:text-white">Exercise</Text>
         <View className="border-b border-gray-300 dark:border-gray-600 mb-4" />
@@ -26,7 +26,7 @@ export default function Diary() {
       </View>
 
       <Modal visible={isFormVisible} animationType="slide">
-        <View className="flex-1 p-6 bg-gray-100 dark:bg-gray-800">
+        <View className="flex-1 p-6 bg-gray-100 dark:bg-black">
           <Text className="text-2xl font-bold mb-6 text-center text-black dark:text-white">Add Exercise</Text>
           <View className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
             <TextInput
