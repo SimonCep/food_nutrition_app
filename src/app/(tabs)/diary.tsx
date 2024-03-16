@@ -13,52 +13,54 @@ export default function Diary() {
   };
 
   return (
-    <View className="flex-1 p-6 bg-gray-100">
-
-      <View className="bg-white p-4 rounded-lg shadow-md">
-        <Text className="text-xl font-bold mb-2">Exercise</Text>
-        <View className="border-b border-gray-300 mb-4" />
+    <View className="flex-1 p-6 bg-gray-100 dark:bg-gray-800">
+      <View className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
+        <Text className="text-xl font-bold mb-2 text-black dark:text-white">Exercise</Text>
+        <View className="border-b border-gray-300 dark:border-gray-600 mb-4" />
         <TouchableOpacity
           onPress={() => setIsFormVisible(true)}
-          className="bg-yellow-400 py-2 px-4 rounded-full border-2 border-black mb-4"
+          className="bg-yellow-400 dark:bg-yellow-600 py-2 px-4 rounded-full border-2 border-black dark:border-white mb-4"
         >
-          <Text className="text-black font-bold text-center">Add Exercise</Text>
+          <Text className="text-black dark:text-white font-bold text-center">Add Exercise</Text>
         </TouchableOpacity>
       </View>
 
       <Modal visible={isFormVisible} animationType="slide">
-        <View className="flex-1 p-6 bg-gray-100">
-          <Text className="text-2xl font-bold mb-6 text-center text-black">Add Exercise</Text>
-          <View className="bg-white p-4 rounded-lg shadow-md">
+        <View className="flex-1 p-6 bg-gray-100 dark:bg-gray-800">
+          <Text className="text-2xl font-bold mb-6 text-center text-black dark:text-white">Add Exercise</Text>
+          <View className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
             <TextInput
               value={exercise}
               onChangeText={setExercise}
               placeholder="Exercise"
-              className="border-b border-gray-300 p-2 mb-4 text-lg"
+              placeholderTextColor="#6B7280"
+              className="border-b border-gray-300 dark:border-gray-600 p-2 mb-4 text-lg text-black dark:text-white"
             />
             <TextInput
               value={duration}
               onChangeText={setDuration}
               placeholder="Duration"
-              className="border-b border-gray-300 p-2 mb-4 text-lg"
+              placeholderTextColor="#6B7280"
+              className="border-b border-gray-300 dark:border-gray-600 p-2 mb-4 text-lg text-black dark:text-white"
             />
             <TextInput
               value={calories}
               onChangeText={setCalories}
               placeholder="Calories Burned"
-              className="border-b border-gray-300 p-2 mb-6 text-lg"
+              placeholderTextColor="#6B7280"
+              className="border-b border-gray-300 dark:border-gray-600 p-2 mb-6 text-lg text-black dark:text-white"
             />
             <TouchableOpacity
               onPress={handleAddExercise}
-              className="bg-yellow-400 py-3 rounded-full border-2 border-black mb-4"
+              className="bg-yellow-400 dark:bg-yellow-600 py-3 rounded-full border-2 border-black dark:border-white mb-4"
             >
-              <Text className="text-black font-bold text-lg text-center">Add</Text>
+              <Text className="text-black dark:text-white font-bold text-lg text-center">Add</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setIsFormVisible(false)}
-              className="bg-gray-300 py-3 px-6 rounded-full"
+              className="bg-gray-300 dark:bg-gray-600 py-3 px-6 rounded-full"
             >
-              <Text className="text-gray-700 font-bold text-lg text-center">Cancel</Text>
+              <Text className="text-gray-700 dark:text-gray-200 font-bold text-lg text-center">Cancel</Text>
             </TouchableOpacity>
           </View>
         </View>
