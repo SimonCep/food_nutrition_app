@@ -4,19 +4,39 @@ import {
   TextInput,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { Link, Stack } from "expo-router";
 import { useColorScheme } from "nativewind";
+import { supabase } from "@/lib/supabase";
 
 const SignInScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { colorScheme } = useColorScheme();
 
-  const handleSignIn = () => {
-    // TODO: Handle sign in action here
-  };
+  async function handleSignIn() {
+    //   const { error } = await supabase.auth.signUp({
+    //     email,
+    //     password,
+    //   });
+    //   if (error) {
+    //     Alert.alert(error.message);
+    //   }
+
+    Alert.alert("gejus");
+    const { error } = await supabase.from("food").insert({
+      id: 20,
+      name: "aasdasdasdsa",
+      nutritional_value: "WSDFWSDEFEDWFWEF",
+      calories: 505,
+    });
+
+    if (error) {
+      Alert.alert(error.message);
+    }
+  }
 
   return (
     <ImageBackground
