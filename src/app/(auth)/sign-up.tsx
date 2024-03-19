@@ -4,10 +4,12 @@ import {
   TextInput,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { Link, Stack } from "expo-router";
 import { useColorScheme } from "nativewind";
+import { supabase } from "@/lib/supabase";
 
 const SignUpScreen = () => {
   const [name, setName] = useState("");
@@ -15,9 +17,26 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState("");
   const { colorScheme } = useColorScheme();
 
-  const handleSignUp = () => {
-    // TODO: Handle sign up action here
-  };
+  async function handleSignIn() {
+    //   const { error } = await supabase.auth.signUp({
+    //     email,
+    //     password,
+    //   });
+    //   if (error) {
+    //     Alert.alert(error.message);
+    //   }
+    Alert.alert("gejus");
+    const { error } = await supabase.from("food").insert({
+      id: 12,
+      name: "aasdasdasdsa",
+      nutritional_value: "Bybys tasej",
+      calories: 505,
+    });
+
+    if (error) {
+      Alert.alert(error.message);
+    }
+  }
 
   return (
     <ImageBackground
@@ -82,7 +101,7 @@ const SignUpScreen = () => {
             secureTextEntry
           />
           <TouchableOpacity
-            onPress={handleSignUp}
+            onPress={async () => handleSignIn}
             className={`${
               colorScheme === "dark" ? "bg-yellow-600" : "bg-yellow-400"
             } py-3 rounded-full border-2 ${
