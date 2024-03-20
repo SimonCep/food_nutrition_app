@@ -17,24 +17,27 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState("");
   const { colorScheme } = useColorScheme();
 
-  async function handleSignIn() {
-    //   const { error } = await supabase.auth.signUp({
-    //     email,
-    //     password,
-    //   });
-    //   if (error) {
-    //     Alert.alert(error.message);
-    //   }
-    Alert.alert("gejus");
-    const { error } = await supabase.from("food").insert({
-      id: 12,
-      name: "aasdasdasdsa",
-      nutritional_value: "Bybys tasej",
-      calories: 505,
-    });
-
-    if (error) {
-      Alert.alert(error.message);
+  async function handleSignUp() {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            name,
+          },
+        },
+      });
+  
+      if (error) {
+        Alert.alert("Error", error.message);
+      } else {
+        Alert.alert("Success", "Account created successfully!");
+        // Optionally, navigate to another screen or perform any other action
+      }
+    } catch (error) {
+      Alert.alert("Error", "An error occurred while signing up.");
+      console.error("Sign up error:", error);
     }
   }
 
@@ -101,7 +104,7 @@ const SignUpScreen = () => {
             secureTextEntry
           />
           <TouchableOpacity
-            onPress={async () => handleSignIn}
+            onPress={handleSignUp}
             className={`${
               colorScheme === "dark" ? "bg-yellow-600" : "bg-yellow-400"
             } py-3 rounded-full border-2 ${
