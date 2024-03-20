@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
-import { Link, Stack } from "expo-router";
+import { Link, Stack, useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { supabase } from "@/lib/supabase";
 
@@ -17,6 +17,7 @@ const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { colorScheme } = useColorScheme();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleSignUp() {
@@ -38,6 +39,7 @@ const SignUpScreen = () => {
       } else {
         Alert.alert("Success", "Account created successfully!");
         // Optionally, navigate to another screen or perform any other action
+        router.push("/sign-in");
       }
     } catch (error) {
       Alert.alert("Error", "An error occurred while signing up.");

@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
-import { Link, Stack } from "expo-router";
+import { Link, Stack, useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { supabase } from "@/lib/supabase";
 
@@ -17,6 +17,7 @@ const SignInScreen = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { colorScheme } = useColorScheme();
+  const router = useRouter();
 
   async function handleSignIn() {
     try {
@@ -31,6 +32,7 @@ const SignInScreen = () => {
         Alert.alert("Error", error.message);
       } else {
         Alert.alert("Success", "Signed in successfully!");
+        router.push("/");
       }
     } catch (error) {
       Alert.alert("Error", "An error occurred while signing in.");
