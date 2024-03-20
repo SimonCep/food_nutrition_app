@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { Link, Stack } from "expo-router";
@@ -14,27 +15,28 @@ import { supabase } from "@/lib/supabase";
 const SignInScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { colorScheme } = useColorScheme();
 
   async function handleSignIn() {
-    //   const { error } = await supabase.auth.signUp({
-    //     email,
-    //     password,
-    //   });
-    //   if (error) {
-    //     Alert.alert(error.message);
-    //   }
+    try {
+      setIsLoading(true);
 
-    Alert.alert("gejus");
-    const { error } = await supabase.from("food").insert({
-      id: 20,
-      name: "aasdasdasdsa",
-      nutritional_value: "WSDFWSDEFEDWFWEF",
-      calories: 505,
-    });
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (error) {
-      Alert.alert(error.message);
+      if (error) {
+        Alert.alert("Error", error.message);
+      } else {
+        Alert.alert("Success", "Signed in successfully!");
+      }
+    } catch (error) {
+      Alert.alert("Error", "An error occurred while signing in.");
+      console.error("Sign in error:", error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -87,19 +89,26 @@ const SignInScreen = () => {
           />
           <TouchableOpacity
             onPress={handleSignIn}
+            disabled={isLoading}
             className={`${
               colorScheme === "dark" ? "bg-yellow-600" : "bg-yellow-400"
             } py-3 rounded-full border-2 ${
               colorScheme === "dark" ? "border-white" : "border-black"
             }`}
           >
-            <Text
-              className={`${
-                colorScheme === "dark" ? "text-white" : "text-black"
-              } font-bold text-lg text-center`}
-            >
-              Sign in
-            </Text>
+            {isLoading ? (
+              <ActivityIndicator
+                color={colorScheme === "dark" ? "white" : "black"}
+              />
+            ) : (
+              <Text
+                className={`${
+                  colorScheme === "dark" ? "text-white" : "text-black"
+                } font-bold text-lg text-center`}
+              >
+                Sign in
+              </Text>
+            )}
           </TouchableOpacity>
           <Link
             href="/sign-up"
