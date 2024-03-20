@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { Link, Stack } from "expo-router";
@@ -16,9 +17,12 @@ const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { colorScheme } = useColorScheme();
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSignUp() {
     try {
+      setIsLoading(true); // Set loading state to true
+
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -28,7 +32,7 @@ const SignUpScreen = () => {
           },
         },
       });
-  
+
       if (error) {
         Alert.alert("Error", error.message);
       } else {
@@ -38,6 +42,8 @@ const SignUpScreen = () => {
     } catch (error) {
       Alert.alert("Error", "An error occurred while signing up.");
       console.error("Sign up error:", error);
+    } finally {
+      setIsLoading(false); // Set loading state to false
     }
   }
 
@@ -105,19 +111,24 @@ const SignUpScreen = () => {
           />
           <TouchableOpacity
             onPress={handleSignUp}
+            disabled={isLoading}
             className={`${
               colorScheme === "dark" ? "bg-yellow-600" : "bg-yellow-400"
             } py-3 rounded-full border-2 ${
               colorScheme === "dark" ? "border-white" : "border-black"
             } mb-4`}
           >
-            <Text
-              className={`${
-                colorScheme === "dark" ? "text-white" : "text-black"
-              } font-bold text-lg text-center`}
-            >
-              Create account
-            </Text>
+            {isLoading ? (
+              <ActivityIndicator color={colorScheme === "dark" ? "white" : "black"} />
+            ) : (
+              <Text
+                className={`${
+                  colorScheme === "dark" ? "text-white" : "text-black"
+                } font-bold text-lg text-center`}
+              >
+                Create account
+              </Text>
+            )}
           </TouchableOpacity>
           <Link
             href="/sign-in"
