@@ -22,6 +22,7 @@
     "@react-navigation/native": "^6.0.2",
     "@supabase/supabase-js": "^2.39.8",
     "@types/aes-js": "^3.1.4",
+    "@types/react-native-get-random-values": "^1.8.2",
     "aes-js": "^3.1.2",
     "expo": "~50.0.13",
     "expo-font": "~11.10.3",
