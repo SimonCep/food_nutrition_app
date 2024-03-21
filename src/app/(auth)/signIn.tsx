@@ -2,7 +2,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ImageBackground,
   Alert,
   ActivityIndicator,
 } from "react-native";
@@ -46,11 +45,10 @@ const SignInScreen = () => {
   const router = useRouter();
 
   return (
-    <ImageBackground
-      source={require("../../assets/images/backgroundImage2.png")}
+    <View
       className={`${
         colorScheme === "dark" ? "bg-black" : "bg-white"
-      } flex-1 justify-center resize-y`}
+      } flex-1 justify-center`}
     >
       <View className="flex-1 p-5 justify-center">
         <Stack.Screen
@@ -101,7 +99,7 @@ const SignInScreen = () => {
           </Link>
         </View>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
