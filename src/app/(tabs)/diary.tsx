@@ -21,7 +21,7 @@ const addExercise = async (
 ) => {
   try {
     setIsLoading(true);
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("exercises")
       .insert({ exercise, duration, calories, user_id: userId });
     if (error) {
