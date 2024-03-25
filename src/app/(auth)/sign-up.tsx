@@ -33,7 +33,7 @@ const signUp = async (
       Alert.alert("Error", error.message);
     } else {
       Alert.alert("Success", "Account created successfully!");
-      router.push("/signIn");
+      router.push("/sign-in");
     }
   } catch (error) {
     Alert.alert("Error", "An error occurred while signing up.");
@@ -99,7 +99,7 @@ const SignUpScreen = () => {
             )}
           </TouchableOpacity>
           <Link
-            href="/signIn"
+            href="/sign-in"
             className={`self-center font-bold ${
               colorScheme === "dark" ? "text-white" : "text-black"
             } text-lg`}

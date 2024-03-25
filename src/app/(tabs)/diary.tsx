@@ -9,25 +9,24 @@ import {
 } from "react-native";
 import ExerciseForm from "@/components/ExerciseForm";
 import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/providers/AuthProvider";
 
 const addExercise = async (
   exercise: string,
   duration: number,
   calories: number,
+  userId: string,
   setIsLoading: (isLoading: boolean) => void,
   onSuccess: () => void,
 ) => {
   try {
     setIsLoading(true);
-
     const { data, error } = await supabase
       .from("exercises")
-      .insert({ exercise, duration, calories });
-
+      .insert({ exercise, duration, calories, user_id: userId });
     if (error) {
       throw error;
     }
-
     onSuccess();
   } catch (error) {
     console.error("Error adding exercise:", error);
@@ -44,6 +43,7 @@ export default function Diary() {
   const [calories, setCalories] = useState(0);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { session } = useAuth();
 
   useEffect(() => {
     fetchExercises();
@@ -54,12 +54,11 @@ export default function Diary() {
       const { data, error } = await supabase
         .from("exercises")
         .select("*")
+        .eq("user_id", session?.user?.id)
         .order("created_at", { ascending: false });
-
       if (error) {
         throw error;
       }
-
       setExercises(data);
     } catch (error) {
       console.error("Error fetching exercises:", error);
@@ -68,13 +67,20 @@ export default function Diary() {
   };
 
   const handleAddExercise = () => {
-    addExercise(exercise, duration, calories, setIsLoading, () => {
-      setExercise("");
-      setDuration(0);
-      setCalories(0);
-      setIsFormVisible(false);
-      fetchExercises();
-    });
+    addExercise(
+      exercise,
+      duration,
+      calories,
+      session?.user?.id || "",
+      setIsLoading,
+      () => {
+        setExercise("");
+        setDuration(0);
+        setCalories(0);
+        setIsFormVisible(false);
+        fetchExercises();
+      },
+    );
   };
 
   const renderExerciseItem = ({ item }: { item: any }) => (

@@ -1,7 +1,6 @@
-import { TouchableOpacity, Text, useColorScheme } from "react-native";
+import { Text, useColorScheme } from "react-native";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { View } from "@/components/Themed";
-import { Link } from "expo-router";
 
 export default function TabTwoScreen() {
   const text = "Tab Two";
@@ -18,11 +17,6 @@ export default function TabTwoScreen() {
       >
         {text}
       </Text>
-      <Link href="/signIn" asChild>
-        <TouchableOpacity className="mt-4 px-6 py-2 bg-red-500 rounded-full">
-          <Text className="text-white font-bold">Sign In</Text>
-        </TouchableOpacity>
-      </Link>
       <View
         className="my-8 h-px w-4/5 bg-gray-300"
         lightColor="#eee"

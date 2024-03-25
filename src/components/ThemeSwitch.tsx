@@ -1,10 +1,6 @@
 import React from "react";
 import { View, Text, Switch } from "react-native";
-
-interface ThemeSwitchProps {
-  colorScheme: "light" | "dark" | undefined;
-  toggleColorScheme: () => void;
-}
+import { ThemeSwitchProps } from "@/types";
 
 const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
   colorScheme,

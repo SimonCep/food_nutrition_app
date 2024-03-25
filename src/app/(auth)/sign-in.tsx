@@ -27,7 +27,6 @@ const signIn = async (
       Alert.alert("Error", error.message);
     } else {
       Alert.alert("Success", "Signed in successfully!");
-      router.push("/");
     }
   } catch (error) {
     Alert.alert("Error", "An error occurred while signing in.");
@@ -90,7 +89,7 @@ const SignInScreen = () => {
             )}
           </TouchableOpacity>
           <Link
-            href="/signUp"
+            href="/sign-up"
             className={`self-center font-bold ${
               colorScheme === "dark" ? "text-white" : "text-black"
             } text-lg`}

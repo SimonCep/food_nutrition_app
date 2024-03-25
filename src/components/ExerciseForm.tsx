@@ -7,17 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-interface ExerciseFormProps {
-  exercise: string;
-  setExercise: (exercise: string) => void;
-  duration: number;
-  setDuration: (duration: number) => void;
-  calories: number;
-  setCalories: (calories: number) => void;
-  onAddExercise: () => void;
-  onCancel: () => void;
-  isLoading: boolean;
-}
+import { ExerciseFormProps } from "@/types";
 
 const ExerciseForm: React.FC<ExerciseFormProps> = ({
   exercise,
@@ -57,7 +47,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
           placeholder="Calories Burned"
           placeholderTextColor="#6B7280"
           keyboardType="numeric"
-          className="border-b border-gray-300 dark:border-gray-600 p-2 mb-6 text-lg text-black dark:text-white"
+          className="border-b border-gray-300 dark:border-gray-600 p-2 mb-4 text-lg text-black dark:text-white"
         />
         <TouchableOpacity
           onPress={onAddExercise}

@@ -1,15 +1,6 @@
 import React from "react";
 import { TextInput } from "react-native";
-
-interface SignUpFormProps {
-  name: string;
-  setName: (name: string) => void;
-  email: string;
-  setEmail: (email: string) => void;
-  password: string;
-  setPassword: (password: string) => void;
-  colorScheme: "dark" | "light" | undefined;
-}
+import { SignUpFormProps } from "@/types";
 
 const SignUpForm: React.FC<SignUpFormProps> = ({
   name,

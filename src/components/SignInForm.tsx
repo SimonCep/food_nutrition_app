@@ -1,14 +1,7 @@
 // components/SignInForm.tsx
 import React from "react";
 import { TextInput } from "react-native";
-
-interface SignInFormProps {
-  email: string;
-  setEmail: (email: string) => void;
-  password: string;
-  setPassword: (password: string) => void;
-  colorScheme: "dark" | "light" | undefined;
-}
+import { SignInFormProps } from "@/types";
 
 const SignInForm: React.FC<SignInFormProps> = ({
   email,
