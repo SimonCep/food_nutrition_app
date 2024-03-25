@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
-import { Link, Stack, useRouter } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { supabase } from "@/lib/supabase";
 import SignInForm from "@/components/SignInForm";
@@ -15,7 +15,6 @@ const signIn = async (
   email: string,
   password: string,
   setIsLoading: (isLoading: boolean) => void,
-  router: ReturnType<typeof useRouter>,
 ) => {
   try {
     setIsLoading(true);
@@ -41,7 +40,6 @@ const SignInScreen = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { colorScheme } = useColorScheme();
-  const router = useRouter();
 
   return (
     <View
@@ -66,7 +64,7 @@ const SignInScreen = () => {
             colorScheme={colorScheme}
           />
           <TouchableOpacity
-            onPress={() => signIn(email, password, setIsLoading, router)}
+            onPress={() => signIn(email, password, setIsLoading)}
             disabled={isLoading}
             className={`${
               colorScheme === "dark" ? "bg-yellow-600" : "bg-yellow-400"
