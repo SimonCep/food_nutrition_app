@@ -20,7 +20,9 @@ const AuthContext = createContext<AuthData>({
   profile: null,
 });
 
-export default function AuthProvider({ children }: PropsWithChildren) {
+export default function AuthProvider({
+  children,
+}: Readonly<PropsWithChildren>) {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState(null); // [1
   const [loading, setLoading] = useState(true);
