@@ -71,7 +71,7 @@ export default function Diary() {
       exercise,
       duration,
       calories,
-      session?.user?.id || "",
+      session?.user?.id ?? "",
       setIsLoading,
       () => {
         setExercise("");
