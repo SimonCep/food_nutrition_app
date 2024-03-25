@@ -20,20 +20,36 @@ const signUp = async (
 ) => {
   try {
     setIsLoading(true);
-    const { error } = await supabase.auth.signUp({
+
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: {
-          name,
+          username: name,
         },
       },
     });
+
     if (error) {
       Alert.alert("Error", error.message);
     } else {
-      Alert.alert("Success", "Account created successfully!");
-      router.push("/sign-in");
+      // Update the user's profile with the entered name as the username
+      const { error: updateError } = await supabase
+        .from("profiles")
+        .update({ username: name })
+        .eq("id", user?.id);
+
+      if (updateError) {
+        Alert.alert("Error", "Failed to update username");
+        console.error("Update username error:", updateError);
+      } else {
+        Alert.alert("Success", "Account created successfully!");
+        router.push("/sign-in");
+      }
     }
   } catch (error) {
     Alert.alert("Error", "An error occurred while signing up.");
