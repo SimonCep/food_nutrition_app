@@ -1,8 +1,7 @@
-import { ActivityIndicator, TouchableOpacity, Text, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import { useEffect } from "react";
 import { useRouter } from "expo-router";
 import { useAuth } from "@/providers/AuthProvider";
-import { supabase } from "@/lib/supabase";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { useColorScheme } from "nativewind";
 
@@ -17,11 +16,6 @@ export default function TabOneScreen() {
     }
   }, [loading, session, router]);
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.replace("/sign-in");
-  };
-
   if (loading) {
     return (
       <View className="flex-1 items-center justify-center">
@@ -31,10 +25,6 @@ export default function TabOneScreen() {
         />
       </View>
     );
-  }
-
-  if (!session) {
-    return null;
   }
 
   return (
