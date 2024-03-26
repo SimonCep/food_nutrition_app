@@ -1,9 +1,8 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Redirect, Tabs } from 'expo-router';
-import { ImageBackground, Pressable } from 'react-native';
-import { useColorScheme } from 'nativewind';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import React from "react";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Redirect, Tabs } from "expo-router";
+import { useColorScheme } from "nativewind";
+import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { useAuth } from "@/providers/AuthProvider";
 
 function TabBarIcon(props: {
@@ -32,7 +31,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: "Home",
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
@@ -47,7 +46,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="user-info"
         options={{
-          title: 'Profile',
+          title: "Profile",
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
