@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
-import { Link, Stack } from "expo-router";
+import { Link, Stack, useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { supabase } from "@/lib/supabase";
 import SignInForm from "@/components/SignInForm";
@@ -15,6 +15,7 @@ const signIn = async (
   email: string,
   password: string,
   setIsLoading: (isLoading: boolean) => void,
+  onSuccess: () => void,
 ) => {
   try {
     setIsLoading(true);
@@ -24,6 +25,8 @@ const signIn = async (
     });
     if (error) {
       Alert.alert("Error", error.message);
+    } else {
+      onSuccess();
     }
   } catch (error) {
     Alert.alert("Error", "An error occurred while signing in.");
@@ -38,6 +41,11 @@ const SignInScreen = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { colorScheme } = useColorScheme();
+  const router = useRouter();
+
+  const handleSignInSuccess = () => {
+    router.replace("/");
+  };
 
   return (
     <View
@@ -62,7 +70,9 @@ const SignInScreen = () => {
             colorScheme={colorScheme}
           />
           <TouchableOpacity
-            onPress={() => signIn(email, password, setIsLoading)}
+            onPress={() =>
+              signIn(email, password, setIsLoading, handleSignInSuccess)
+            }
             disabled={isLoading}
             className={`${
               colorScheme === "dark" ? "bg-yellow-600" : "bg-yellow-400"
