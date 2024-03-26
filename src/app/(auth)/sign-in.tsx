@@ -24,8 +24,6 @@ const signIn = async (
     });
     if (error) {
       Alert.alert("Error", error.message);
-    } else {
-      Alert.alert("Success", "Signed in successfully!");
     }
   } catch (error) {
     Alert.alert("Error", "An error occurred while signing in.");
