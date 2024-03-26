@@ -1,3 +1,5 @@
+import { Database } from "./database.types";
+
 // Sign-in related types
 export interface SignInData {
   email: string;
@@ -30,13 +32,7 @@ export interface SignUpFormProps {
 }
 
 // Exercise-related types
-export interface Exercise {
-  id: number;
-  exercise: string;
-  duration: number;
-  calories: number;
-  created_at: string;
-}
+export type Exercise = Tables<"exercises">;
 
 export interface ExerciseFormProps {
   exercise: string;
@@ -57,3 +53,9 @@ export interface ThemeSwitchProps {
   colorScheme: ColorScheme;
   toggleColorScheme: () => void;
 }
+
+// Type helpers
+export type Tables<T extends keyof Database["public"]["Tables"]> =
+  Database["public"]["Tables"][T]["Row"];
+export type Enums<T extends keyof Database["public"]["Enums"]> =
+  Database["public"]["Enums"][T];

@@ -10,6 +10,7 @@ import {
 import ExerciseForm from "@/components/ExerciseForm";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
+import { Tables } from "@/types";
 
 const addExercise = async (
   exercise: string,
@@ -37,7 +38,7 @@ const addExercise = async (
 };
 
 export default function Diary() {
-  const [exercises, setExercises] = useState<any[]>([]);
+  const [exercises, setExercises] = useState<Tables<"exercises">[]>([]);
   const [exercise, setExercise] = useState("");
   const [duration, setDuration] = useState(0);
   const [calories, setCalories] = useState(0);
@@ -85,7 +86,7 @@ export default function Diary() {
     );
   };
 
-  const renderExerciseItem = ({ item }: { item: any }) => (
+  const renderExerciseItem = ({ item }: { item: Tables<"exercises"> }) => (
     <View className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
       <Text className="text-lg font-bold text-black dark:text-white">
         {item.exercise}

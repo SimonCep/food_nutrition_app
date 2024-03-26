@@ -8,11 +8,11 @@ import {
   useState,
   useMemo,
 } from "react";
-import { Database } from "@/database.types";
+import { Tables } from "@/types";
 
 type AuthData = {
   session: Session | null;
-  profile: Database["public"]["Tables"]["profiles"]["Row"] | null;
+  profile: Tables<"profiles"> | null;
   loading: boolean;
 };
 
@@ -26,9 +26,7 @@ export default function AuthProvider({
   children,
 }: Readonly<PropsWithChildren>) {
   const [session, setSession] = useState<Session | null>(null);
-  const [profile, setProfile] = useState<
-    Database["public"]["Tables"]["profiles"]["Row"] | null
-  >(null);
+  const [profile, setProfile] = useState<Tables<"profiles"> | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -38,7 +36,6 @@ export default function AuthProvider({
       } = await supabase.auth.getSession();
 
       setSession(session);
-
       if (session?.user?.id) {
         // Fetch the profile data when the user is already logged in
         const { data } = await supabase
@@ -49,7 +46,6 @@ export default function AuthProvider({
 
         setProfile(data || null);
       }
-
       setLoading(false);
     };
 
@@ -59,7 +55,6 @@ export default function AuthProvider({
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       setSession(session);
-
       if (event === "SIGNED_OUT") {
         setProfile(null); // Clear the profile data when the user logs out
       } else if (event === "SIGNED_IN" && session?.user?.id) {
