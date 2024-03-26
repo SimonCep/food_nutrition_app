@@ -7,16 +7,18 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import { Link, Redirect } from "expo-router";
+import { useRouter } from "expo-router";
 import { useAuth } from "@/providers/AuthProvider";
 import { useColorScheme } from "nativewind";
 
 export default function HomePage() {
+  const router = useRouter();
   const { session, loading } = useAuth();
   const { colorScheme } = useColorScheme();
 
   if (!loading && !session) {
-    return <Redirect href="/(auth)/sign-in" />;
+    router.replace("/(auth)/sign-in");
+    return null;
   }
 
   if (loading) {
@@ -29,6 +31,14 @@ export default function HomePage() {
       </View>
     );
   }
+
+  const handleDiaryPress = () => {
+    router.push("./diary");
+  };
+
+  const handleProfilePress = () => {
+    router.push("./user-info");
+  };
 
   return (
     <ImageBackground
@@ -44,19 +54,21 @@ export default function HomePage() {
         <Text className="text-xl text-black mb-7">
           Track your calories and health
         </Text>
-        <TouchableOpacity className="bg-white/50 py-4 px-7 rounded-full mb-4">
-          <Link href="./diary">
-            <Text className="text-xl text-black font-bold text-center">
-              Diary
-            </Text>
-          </Link>
+        <TouchableOpacity
+          className="bg-white/50 py-4 px-7 rounded-full mb-4"
+          onPress={handleDiaryPress}
+        >
+          <Text className="text-xl text-black font-bold text-center">
+            Diary
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity className="bg-white/50 py-4 px-7 rounded-full">
-          <Link href="./user-info">
-            <Text className="text-xl text-black font-bold text-center">
-              Profile
-            </Text>
-          </Link>
+        <TouchableOpacity
+          className="bg-white/50 py-4 px-7 rounded-full"
+          onPress={handleProfilePress}
+        >
+          <Text className="text-xl text-black font-bold text-center">
+            Profile
+          </Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
