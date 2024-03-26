@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
-import { Link, Stack } from "expo-router";
+import { Link, Stack, useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { supabase } from "@/lib/supabase";
 import SignUpForm from "@/components/SignUpForm";
@@ -16,6 +16,7 @@ const signUp = async (
   email: string,
   password: string,
   setIsLoading: (isLoading: boolean) => void,
+  onSuccess: () => void,
 ) => {
   try {
     setIsLoading(true);
@@ -39,6 +40,8 @@ const signUp = async (
         console.error("Update username error:", updateError);
       } else {
         Alert.alert("Success", "Account created successfully!");
+        onSuccess();
+        await supabase.auth.signOut(); // Sign out the user
       }
     }
   } catch (error) {
@@ -55,6 +58,11 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState("");
   const { colorScheme } = useColorScheme();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSignUpSuccess = () => {
+    router.push("/sign-in");
+  };
 
   return (
     <View
@@ -81,7 +89,9 @@ const SignUpScreen = () => {
             colorScheme={colorScheme}
           />
           <TouchableOpacity
-            onPress={() => signUp(name, email, password, setIsLoading)}
+            onPress={() =>
+              signUp(name, email, password, setIsLoading, handleSignUpSuccess)
+            }
             disabled={isLoading}
             className={`${
               colorScheme === "dark" ? "bg-yellow-600" : "bg-yellow-400"
