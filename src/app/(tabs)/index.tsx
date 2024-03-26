@@ -1,20 +1,16 @@
 import { ActivityIndicator, Text, View } from "react-native";
-import { useEffect } from "react";
-import { useRouter } from "expo-router";
+import { Redirect } from "expo-router";
 import { useAuth } from "@/providers/AuthProvider";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { useColorScheme } from "nativewind";
 
 export default function TabOneScreen() {
   const { session, loading } = useAuth();
-  const router = useRouter();
   const { colorScheme } = useColorScheme();
 
-  useEffect(() => {
-    if (!loading && !session) {
-      router.replace("/sign-in");
-    }
-  }, [loading, session, router]);
+  if (!loading && !session) {
+    return <Redirect href="/(auth)/sign-in" />;
+  }
 
   if (loading) {
     return (
