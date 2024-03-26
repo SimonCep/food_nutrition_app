@@ -39,8 +39,11 @@ const signUp = async (
         Alert.alert("Error", "Failed to update username");
         console.error("Update username error:", updateError);
       } else {
-        Alert.alert("Success", "Account created successfully!");
-        onSuccess();
+        Alert.alert(
+          "Success",
+          "Account created successfully! You can now log in.",
+          [{ text: "OK", onPress: () => onSuccess() }],
+        );
         await supabase.auth.signOut(); // Sign out the user
       }
     }
