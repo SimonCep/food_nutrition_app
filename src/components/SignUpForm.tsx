@@ -16,7 +16,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
       <TextInput
         value={name}
         onChangeText={setName}
-        placeholder="Name"
+        placeholder="Username"
         placeholderTextColor={colorScheme === "dark" ? "#A0AEC0" : "#4B5563"}
         className={`border-2 ${
           colorScheme === "dark" ? "border-gray-600" : "border-black"
