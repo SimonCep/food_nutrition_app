@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { useColorScheme } from "nativewind";
-import { Stack } from "expo-router";
 import ThemeSwitch from "@/components/ThemeSwitch";
 
 export default function Theme() {
@@ -13,9 +12,6 @@ export default function Theme() {
 
   return (
     <View className="flex-1 items-center justify-center bg-white dark:bg-black">
-      <Stack.Screen
-        options={{ title: "Theme Settings", headerTitleAlign: "center" }}
-      />
       <Text className="text-black dark:text-white text-2xl font-bold mb-8">
         Theme
       </Text>
