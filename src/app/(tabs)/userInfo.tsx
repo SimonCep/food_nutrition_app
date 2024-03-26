@@ -33,6 +33,10 @@ export default function UserInfoTab() {
     router.push("../theme");
   };
 
+  const handleAboutUs = () => {
+    router.push("../about");
+  };
+
   return (
     <ImageBackground
       source={require("../../assets/images/backgroundImage2.png")}
@@ -70,6 +74,14 @@ export default function UserInfoTab() {
             >
               <Text>Theme Settings</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={handleAboutUs}
+              className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
+            >
+              <Text>About us</Text>
+            </TouchableOpacity>
+
           </View>
           <TouchableOpacity
             onPress={handleLogout}
