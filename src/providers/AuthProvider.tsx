@@ -38,8 +38,9 @@ export default function AuthProvider({
       } = await supabase.auth.getSession();
 
       setSession(session);
+
       if (session?.user?.id) {
-        // fetch profile
+        // Fetch the profile data when the user is already logged in
         const { data } = await supabase
           .from("profiles")
           .select("*")
@@ -48,14 +49,34 @@ export default function AuthProvider({
 
         setProfile(data || null);
       }
+
       setLoading(false);
     };
 
     fetchSession();
 
-    supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
       setSession(session);
+
+      if (event === "SIGNED_OUT") {
+        setProfile(null); // Clear the profile data when the user logs out
+      } else if (event === "SIGNED_IN" && session?.user?.id) {
+        // Fetch the profile data when the user logs in
+        const { data } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", session.user.id)
+          .single();
+
+        setProfile(data || null);
+      }
     });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   const authData = useMemo(
