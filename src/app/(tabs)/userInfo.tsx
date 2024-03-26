@@ -34,7 +34,7 @@ export default function UserInfoTab() {
   };
 
   const handleAboutUs = () => {
-    router.push("../about");
+    router.push("../(settings)/about");
   };
 
   return (
@@ -81,7 +81,6 @@ export default function UserInfoTab() {
             >
               <Text>About us</Text>
             </TouchableOpacity>
-
           </View>
           <TouchableOpacity
             onPress={handleLogout}
