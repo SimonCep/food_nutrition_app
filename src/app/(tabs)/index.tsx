@@ -37,7 +37,7 @@ export default function HomePage() {
   };
 
   const handleProfilePress = () => {
-    router.push("./user-info");
+    router.push("./userInfo");
   };
 
   return (
