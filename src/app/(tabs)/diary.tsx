@@ -37,7 +37,7 @@ const addExercise = async (
   }
 };
 
-export default function Diary() {
+const Diary = () => {
   const [exercises, setExercises] = useState<Tables<"exercises">[]>([]);
   const [exercise, setExercise] = useState("");
   const [duration, setDuration] = useState(0);
@@ -137,4 +137,6 @@ export default function Diary() {
       </Modal>
     </View>
   );
-}
+};
+
+export default Diary;
