@@ -1,4 +1,6 @@
-export type Json =
+Need to install the following packages:
+supabase@1.151.1
+Ok to proceed? (y) export type Json =
   | string
   | number
   | boolean
@@ -164,7 +166,7 @@ export type Database = {
           full_name: string | null
           id: string
           updated_at: string | null
-          username: string | null
+          username: string
           website: string | null
         }
         Insert: {
@@ -172,7 +174,7 @@ export type Database = {
           full_name?: string | null
           id: string
           updated_at?: string | null
-          username?: string | null
+          username: string
           website?: string | null
         }
         Update: {
@@ -180,7 +182,7 @@ export type Database = {
           full_name?: string | null
           id?: string
           updated_at?: string | null
-          username?: string | null
+          username?: string
           website?: string | null
         }
         Relationships: [
