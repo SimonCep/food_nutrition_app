@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useState,
+  useMemo,
 } from "react";
 import { Database } from "@/database.types";
 
@@ -37,7 +38,7 @@ export default function AuthProvider({
       } = await supabase.auth.getSession();
 
       setSession(session);
-      if (session) {
+      if (session?.user?.id) {
         // fetch profile
         const { data } = await supabase
           .from("profiles")
@@ -57,10 +58,13 @@ export default function AuthProvider({
     });
   }, []);
 
+  const authData = useMemo(
+    () => ({ session, loading, profile }),
+    [session, loading, profile],
+  );
+
   return (
-    <AuthContext.Provider value={{ session, loading, profile }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>
   );
 }
 
