@@ -25,11 +25,6 @@ const signUp = async (
     } = await supabase.auth.signUp({
       email,
       password,
-      options: {
-        data: {
-          username: name,
-        },
-      },
     });
     if (error) {
       Alert.alert("Error", error.message);
