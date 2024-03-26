@@ -7,7 +7,7 @@ import {
   Text,
   ImageBackground,
 } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { supabase } from "@/lib/supabase";
 
 export default function UserInfoTab() {
@@ -26,6 +26,10 @@ export default function UserInfoTab() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     router.replace("/sign-in");
+  };
+
+  const handleThemeSettings = () => {
+    router.push("../theme");
   };
 
   return (
@@ -55,10 +59,11 @@ export default function UserInfoTab() {
             <TouchableOpacity className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4">
               <Text>Privacy Settings</Text>
             </TouchableOpacity>
-            <TouchableOpacity className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4">
-              <Link href="../theme">
-                <Text>Theme Settings</Text>
-              </Link>
+            <TouchableOpacity
+              onPress={handleThemeSettings}
+              className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
+            >
+              <Text>Theme Settings</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
