@@ -30,27 +30,27 @@ export type Database = {
       exercises: {
         Row: {
           calories: number
-          created_at: string | null
+          created_at: string
           duration: number
           exercise: string
           id: number
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           calories: number
-          created_at?: string | null
+          created_at?: string
           duration: number
           exercise: string
           id?: never
-          user_id?: string | null
+          user_id?: string
         }
         Update: {
           calories?: number
-          created_at?: string | null
+          created_at?: string
           duration?: number
           exercise?: string
           id?: never
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: [
           {
