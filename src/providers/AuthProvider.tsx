@@ -7,10 +7,11 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Database } from "@/database.types";
 
 type AuthData = {
   session: Session | null;
-  profile: any;
+  profile: Database["public"]["Tables"]["profiles"]["Row"] | null;
   loading: boolean;
 };
 
@@ -24,7 +25,9 @@ export default function AuthProvider({
   children,
 }: Readonly<PropsWithChildren>) {
   const [session, setSession] = useState<Session | null>(null);
-  const [profile, setProfile] = useState(null); // [1
+  const [profile, setProfile] = useState<
+    Database["public"]["Tables"]["profiles"]["Row"] | null
+  >(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,8 +35,8 @@ export default function AuthProvider({
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      setSession(session);
 
+      setSession(session);
       if (session) {
         // fetch profile
         const { data } = await supabase
@@ -41,9 +44,9 @@ export default function AuthProvider({
           .select("*")
           .eq("id", session.user.id)
           .single();
+
         setProfile(data || null);
       }
-
       setLoading(false);
     };
 
@@ -53,6 +56,7 @@ export default function AuthProvider({
       setSession(session);
     });
   }, []);
+
   return (
     <AuthContext.Provider value={{ session, loading, profile }}>
       {children}

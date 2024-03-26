@@ -20,7 +20,6 @@ const signUp = async (
 ) => {
   try {
     setIsLoading(true);
-
     const {
       data: { user },
       error,
@@ -33,16 +32,14 @@ const signUp = async (
         },
       },
     });
-
     if (error) {
       Alert.alert("Error", error.message);
-    } else {
+    } else if (user?.id) {
       // Update the user's profile with the entered name as the username
       const { error: updateError } = await supabase
         .from("profiles")
         .update({ username: name })
-        .eq("id", user?.id);
-
+        .eq("id", user.id);
       if (updateError) {
         Alert.alert("Error", "Failed to update username");
         console.error("Update username error:", updateError);

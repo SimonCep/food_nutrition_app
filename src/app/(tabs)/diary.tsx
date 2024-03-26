@@ -51,15 +51,17 @@ export default function Diary() {
 
   const fetchExercises = async () => {
     try {
-      const { data, error } = await supabase
-        .from("exercises")
-        .select("*")
-        .eq("user_id", session?.user?.id)
-        .order("created_at", { ascending: false });
-      if (error) {
-        throw error;
+      if (session && session.user) {
+        const { data, error } = await supabase
+          .from("exercises")
+          .select("*")
+          .eq("user_id", session.user.id)
+          .order("created_at", { ascending: false });
+        if (error) {
+          throw error;
+        }
+        setExercises(data);
       }
-      setExercises(data);
     } catch (error) {
       console.error("Error fetching exercises:", error);
       Alert.alert("Error", "An error occurred while fetching exercises.");
