@@ -9,10 +9,11 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function UserInfoTab() {
+  const { profile } = useAuth();
   const user = {
-    name: "User name",
     profilePicture: require("../../assets/images/profilePicture.png"),
     otherData: "Plan/description/etc.",
   };
@@ -46,7 +47,11 @@ export default function UserInfoTab() {
                 className="w-28 h-28 rounded-full"
               />
             </View>
-            <Text className="text-lg font-bold mb-2">{user.name}</Text>
+            {profile && profile.username ? (
+              <Text className="text-lg font-bold mb-2">{profile.username}</Text>
+            ) : (
+              <Text className="text-lg font-bold mb-2">Loading...</Text>
+            )}
             <Text>{user.otherData}</Text>
           </View>
           <View className="justify-center m-10 w-screen p-5">
