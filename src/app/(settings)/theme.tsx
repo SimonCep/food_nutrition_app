@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, Switch } from 'react-native';
-import { useColorScheme } from 'nativewind';
+import React from "react";
+import { View, Text } from "react-native";
+import { useColorScheme } from "nativewind";
 import { Stack } from "expo-router";
-import ThemeSwitch from '@/components/ThemeSwitch';
+import ThemeSwitch from "@/components/ThemeSwitch";
 
 export default function Theme() {
   const { colorScheme, setColorScheme } = useColorScheme();
