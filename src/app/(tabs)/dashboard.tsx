@@ -60,7 +60,7 @@ const screenWidth = Dimensions.get('window').width * 9/12;
   
 export default function Dashboard() {
   return (
-    <ImageBackground source={require('../../assets/images/backgroundImage2.png')} className='bg-white dark:bg-black flex-1 justify-center resize-y'>
+    <ImageBackground source={require('../../assets/images/gradientBackground.png')} className='bg-white dark:bg-black flex-1 justify-center resize-y'>
       <ScrollView>
         <View className="flex-grow items-center p-5">
         <Text className='pb-5 text-4xl dark:text-white'>Your journey</Text>

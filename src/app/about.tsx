@@ -5,7 +5,7 @@ export default function AboutUs() {
   
   return (
     
-    <ImageBackground source={require('../assets/images/backgroundImage2.png')} className='bg-white dark:bg-black flex-1 justify-center resize-y'>
+    <ImageBackground source={require('../assets/images/gradientBackground.png')} className='bg-white dark:bg-black flex-1 justify-center resize-y'>
       <ScrollView>
         <View className="flex-grow flex-row justify-center">
           <Text className='uppercase text-left ml-11 mt-10 text-6xl font-bold color-green-500'>
@@ -31,7 +31,7 @@ export default function AboutUs() {
           </View>
         </View>
 
-        <View className=' bg-emerald-100 rounded-3xl m-5 mr-14'>
+        <View className=' bg-emerald-100 dark:bg-emerald-800 rounded-3xl m-5 mr-14'>
           <Text className='text-left ml-10 mt-10 text-3xl text-black dark:text-white'>
             Our mission
           </Text>
@@ -40,7 +40,7 @@ export default function AboutUs() {
           </Text>
         </View>
 
-        <View className=' bg-emerald-100 rounded-3xl m-5 ml-14'>
+        <View className=' bg-emerald-100 dark:bg-emerald-800 rounded-3xl m-5 ml-14'>
           <Text className='text-right mr-10 mt-10 text-3xl text-black dark:text-white'>
             Our Values
           </Text>
@@ -55,7 +55,7 @@ export default function AboutUs() {
           </Text>
         </View>
 
-        <View className=' bg-emerald-100 rounded-3xl m-5 mr-14'>
+        <View className=' bg-emerald-100 dark:bg-emerald-800 rounded-3xl m-5 mr-14'>
           <Text className='text-left ml-10 mt-10 text-3xl text-black dark:text-white'>
             Meet the team
           </Text>
@@ -97,7 +97,7 @@ export default function AboutUs() {
           </Text>
         </View>
 
-        <View className=' bg-emerald-100 rounded-3xl m-5 ml-14'>
+        <View className=' bg-emerald-100 dark:bg-emerald-800 rounded-3xl m-5 ml-14'>
           <Text className='text-right mr-10 mt-10 text-3xl text-black dark:text-white'>
             Contacts
           </Text>
