@@ -1,7 +1,7 @@
 import React from "react";
 import { View, FlatList } from "react-native";
 import { useColorScheme } from "nativewind";
-import ExerciseTab from "@/components/ExerciseSection";
+import ExerciseSection from "@/components/ExerciseSection";
 import { useAuth } from "@/providers/AuthProvider";
 import { lightColorsExercise, darkColorsExercise } from "@/constants/Colors";
 
@@ -12,7 +12,7 @@ const Diary = () => {
     colorScheme === "dark" ? darkColorsExercise : lightColorsExercise;
 
   const renderExerciseSection = () => (
-    <ExerciseTab userId={session?.user?.id ?? ""} />
+    <ExerciseSection userId={session?.user?.id ?? ""} />
   );
 
   return (
