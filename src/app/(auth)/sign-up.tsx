@@ -45,7 +45,7 @@ const SignUpScreen = () => {
             className={`${colors.buttonBackground} py-3 rounded-full border-2 ${colors.border} mb-4`}
           >
             {isLoading ? (
-              <ActivityIndicator color={colors.primaryText} />
+              <ActivityIndicator color={colors.activityIndicatorColor} />
             ) : (
               <Text
                 className={`${colors.primaryText} font-bold text-lg text-center`}
