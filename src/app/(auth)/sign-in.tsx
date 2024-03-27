@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 
-import { signIn } from "@/api/auth";
+import { signIn } from "@/api/authService";
 import SignInForm from "@/components/SignInForm";
 import { lightColorsAuth, darkColorsAuth } from "@/constants/Colors";
 
