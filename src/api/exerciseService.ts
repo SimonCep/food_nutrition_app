@@ -4,13 +4,13 @@ import * as Yup from "yup";
 import { Tables } from "@/types";
 
 export const addExerciseValidationSchema = Yup.object().shape({
-  exercise: Yup.string().required("Exercise name is required"),
-  duration: Yup.number()
-    .min(1, "Duration must be at least 1 minute")
-    .required("Duration is required"),
   calories: Yup.number()
     .min(1, "Calories must be at least 1")
     .required("Calories are required"),
+  duration: Yup.number()
+    .min(1, "Duration must be at least 1 minute")
+    .required("Duration is required"),
+  exercise: Yup.string().required("Exercise name is required"),
 });
 
 export const addExercise = async (
