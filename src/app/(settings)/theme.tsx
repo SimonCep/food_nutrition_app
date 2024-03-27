@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { useColorScheme } from "nativewind";
 import ThemeSwitch from "@/components/ThemeSwitch";
 
-export default function Theme() {
+const Theme = () => {
   const { colorScheme, setColorScheme } = useColorScheme();
 
   const toggleColorScheme = () => {
@@ -21,4 +21,6 @@ export default function Theme() {
       />
     </View>
   );
-}
+};
+
+export default Theme;
