@@ -11,7 +11,7 @@ import { useRouter } from "expo-router";
 import { useAuth } from "@/providers/AuthProvider";
 import { useColorScheme } from "nativewind";
 
-export default function HomePage() {
+const HomePage = () => {
   const router = useRouter();
   const { session, loading } = useAuth();
   const { colorScheme } = useColorScheme();
@@ -73,4 +73,6 @@ export default function HomePage() {
       </View>
     </ImageBackground>
   );
-}
+};
+
+export default HomePage;

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { useColorScheme } from "nativewind";
+
 import ThemeSwitch from "@/components/ThemeSwitch";
 
 const Theme = () => {

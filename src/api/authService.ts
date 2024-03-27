@@ -1,9 +1,9 @@
 import { Alert } from "react-native";
+import { Session } from "@supabase/supabase-js";
 import * as Yup from "yup";
 
 import { supabase } from "@/lib/supabase";
 import { Tables } from "@/types";
-import { Session } from "@supabase/supabase-js";
 
 export const signInValidationSchema = Yup.object().shape({
   password: Yup.string().required("Password is required"),

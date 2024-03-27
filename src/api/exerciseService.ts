@@ -1,6 +1,7 @@
 import { Alert } from "react-native";
-import { supabase } from "@/lib/supabase";
 import * as Yup from "yup";
+
+import { supabase } from "@/lib/supabase";
 import { Tables } from "@/types";
 
 export const addExerciseValidationSchema = Yup.object().shape({
