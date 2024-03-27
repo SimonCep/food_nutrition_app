@@ -1,16 +1,9 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-  Alert,
-} from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import React, { useState } from "react";
 import { Link, Stack, useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
-import * as Yup from "yup";
 
-import { signUp, signUpValidationSchema } from "@/api/auth";
+import { signUp } from "@/api/auth";
 import SignUpForm from "@/components/SignUpForm";
 import { lightColors, darkColors } from "@/constants/Colors";
 
@@ -19,26 +12,14 @@ const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const { colorScheme } = useColorScheme();
   const colors = colorScheme === "dark" ? darkColors : lightColors;
 
+  const router = useRouter();
+
   const handleSignUpSuccess = () => {
     router.push("/sign-in");
-  };
-
-  const handleSignUp = async () => {
-    try {
-      await signUpValidationSchema.validate({ name, email, password });
-      await signUp(name, email, password, setIsLoading, handleSignUpSuccess);
-    } catch (error) {
-      if (error instanceof Yup.ValidationError) {
-        Alert.alert("Validation Error", error.message);
-      } else {
-        throw error;
-      }
-    }
   };
 
   return (
@@ -60,7 +41,9 @@ const SignUpScreen = () => {
             colorScheme={colorScheme}
           />
           <TouchableOpacity
-            onPress={handleSignUp}
+            onPress={() =>
+              signUp(name, email, password, setIsLoading, handleSignUpSuccess)
+            }
             disabled={isLoading}
             className={`${colors.buttonBackground} py-3 rounded-full border-2 ${colors.border} mb-4`}
           >

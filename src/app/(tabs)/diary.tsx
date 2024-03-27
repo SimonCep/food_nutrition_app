@@ -1,41 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  Alert,
-  FlatList,
-} from "react-native";
+import { View, Text, TouchableOpacity, Modal, FlatList } from "react-native";
+import { useColorScheme } from "nativewind";
+
 import ExerciseForm from "@/components/ExerciseForm";
-import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 import { Tables } from "@/types";
-
-const addExercise = async (
-  exercise: string,
-  duration: number,
-  calories: number,
-  userId: string,
-  setIsLoading: (isLoading: boolean) => void,
-  onSuccess: () => void,
-) => {
-  try {
-    setIsLoading(true);
-    const { error } = await supabase
-      .from("exercises")
-      .insert({ exercise, duration, calories, user_id: userId });
-    if (error) {
-      throw error;
-    }
-    onSuccess();
-  } catch (error) {
-    console.error("Error adding exercise:", error);
-    Alert.alert("Error", "An error occurred while adding the exercise.");
-  } finally {
-    setIsLoading(false);
-  }
-};
+import { addExercise, fetchExercises } from "@/api/exerciseService";
+import { lightColorsExercise, darkColorsExercise } from "@/constants/Colors";
 
 const Diary = () => {
   const [exercises, setExercises] = useState<Tables<"exercises">[]>([]);
@@ -44,69 +15,66 @@ const Diary = () => {
   const [calories, setCalories] = useState(0);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const { session } = useAuth();
 
-  useEffect(() => {
-    fetchExercises();
-  }, []);
+  const { colorScheme } = useColorScheme();
+  const colors =
+    colorScheme === "dark" ? darkColorsExercise : lightColorsExercise;
 
-  const fetchExercises = async () => {
-    try {
+  useEffect(() => {
+    const fetchData = async () => {
       if (session && session.user) {
-        const { data, error } = await supabase
-          .from("exercises")
-          .select("*")
-          .eq("user_id", session.user.id)
-          .order("created_at", { ascending: false });
-        if (error) {
-          throw error;
-        }
+        const data = await fetchExercises(session.user.id);
         setExercises(data);
       }
-    } catch (error) {
-      console.error("Error fetching exercises:", error);
-      Alert.alert("Error", "An error occurred while fetching exercises.");
-    }
-  };
+    };
+    fetchData();
+  }, [session]);
 
-  const handleAddExercise = () => {
-    addExercise(
+  const handleAddExercise = async () => {
+    await addExercise(
       exercise,
       duration,
       calories,
       session?.user?.id ?? "",
       setIsLoading,
-      () => {
+      async () => {
         setExercise("");
         setDuration(0);
         setCalories(0);
         setIsFormVisible(false);
-        fetchExercises();
+        if (session && session.user) {
+          const data = await fetchExercises(session.user.id);
+          setExercises(data);
+        }
       },
     );
   };
 
   const renderExerciseItem = ({ item }: { item: Tables<"exercises"> }) => (
-    <View className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-      <Text className="text-lg font-bold text-black dark:text-white">
+    <View
+      className={`${colors.primaryBackground} p-4 rounded-lg shadow-md mb-4`}
+    >
+      <Text className={`text-lg font-bold ${colors.primaryText}`}>
         {item.exercise}
       </Text>
-      <Text className="text-gray-500 dark:text-gray-400">
+      <Text className={`${colors.secondaryText}`}>
         Duration: {item.duration} minutes
       </Text>
-      <Text className="text-gray-500 dark:text-gray-400">
+      <Text className={`${colors.secondaryText}`}>
         Calories Burned: {item.calories}
       </Text>
     </View>
   );
 
   return (
-    <View className="flex-1 p-6 bg-gray-100 dark:bg-black">
-      <View className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
-        <Text className="text-xl font-bold mb-2 text-black dark:text-white">
+    <View className={`flex-1 p-6 ${colors.background}`}>
+      <View className={`${colors.primaryBackground} p-4 rounded-lg shadow-md`}>
+        <Text className={`text-xl font-bold mb-2 ${colors.primaryText}`}>
           Exercise
         </Text>
-        <View className="border-b border-gray-300 dark:border-gray-600 mb-4" />
+        <View className={`border-b ${colors.border} mb-4`} />
         <FlatList
           data={exercises}
           renderItem={renderExerciseItem}
@@ -115,9 +83,9 @@ const Diary = () => {
         />
         <TouchableOpacity
           onPress={() => setIsFormVisible(true)}
-          className="bg-yellow-400 dark:bg-yellow-600 py-2 px-4 rounded-full border-2 border-black dark:border-white mb-4"
+          className={`${colors.buttonBackground} py-2 px-4 rounded-full border-2 ${colors.buttonBorder} mb-4`}
         >
-          <Text className="text-black dark:text-white font-bold text-center">
+          <Text className={`${colors.buttonText} font-bold text-center`}>
             Add Exercise
           </Text>
         </TouchableOpacity>

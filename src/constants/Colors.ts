@@ -39,3 +39,29 @@ export const darkColors = {
   border: "border-white",
   buttonBackground: "bg-yellow-600",
 };
+
+export const lightColorsExercise = {
+  background: "bg-gray-100",
+  primaryBackground: "bg-white",
+  secondaryBackground: "bg-gray-200",
+  text: "text-black",
+  primaryText: "text-black",
+  secondaryText: "text-gray-500",
+  buttonBorder: "border-black",
+  border: "border-gray-300",
+  buttonBackground: "bg-yellow-400",
+  buttonText: "text-black",
+};
+
+export const darkColorsExercise = {
+  background: "bg-black",
+  primaryBackground: "bg-gray-700",
+  secondaryBackground: "bg-gray-800",
+  text: "text-white",
+  primaryText: "text-white",
+  secondaryText: "text-gray-400",
+  buttonBorder: "border-white",
+  border: "border-gray-600",
+  buttonBackground: "bg-yellow-600",
+  buttonText: "text-white",
+};

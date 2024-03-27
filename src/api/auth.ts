@@ -14,6 +14,8 @@ export const signIn = async (
   onSuccess: () => void,
 ) => {
   try {
+    await signInValidationSchema.validate({ email, password });
+
     setIsLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -26,8 +28,12 @@ export const signIn = async (
       onSuccess();
     }
   } catch (error) {
-    Alert.alert("Error", "An error occurred while signing in.");
-    console.error("Sign in error:", error);
+    if (error instanceof Yup.ValidationError) {
+      Alert.alert("Validation Error", error.message);
+    } else {
+      Alert.alert("Error", "An error occurred while signing in.");
+      console.error("Sign in error:", error);
+    }
   } finally {
     setIsLoading(false);
   }
