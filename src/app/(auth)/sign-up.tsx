@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import React, { useState } from "react";
-import { Link, Stack, useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 
 import { signUp } from "@/api/auth";
 import SignUpForm from "@/components/SignUpForm";
-import { lightColors, darkColors } from "@/constants/Colors";
+import { lightColorsAuth, darkColorsAuth } from "@/constants/Colors";
 
 const SignUpScreen = () => {
   const [name, setName] = useState("");
@@ -14,7 +14,7 @@ const SignUpScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { colorScheme } = useColorScheme();
-  const colors = colorScheme === "dark" ? darkColors : lightColors;
+  const colors = colorScheme === "dark" ? darkColorsAuth : lightColorsAuth;
 
   const router = useRouter();
 
@@ -25,9 +25,6 @@ const SignUpScreen = () => {
   return (
     <View className={`${colors.background} flex-1 justify-center`}>
       <View className="flex-1 p-5 justify-center">
-        <Stack.Screen
-          options={{ title: "Sign up", headerTitleAlign: "center" }}
-        />
         <View
           className={`${colors.primaryBackground} p-8 rounded-xl shadow-md`}
         >

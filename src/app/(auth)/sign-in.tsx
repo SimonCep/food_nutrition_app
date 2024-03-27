@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import React, { useState } from "react";
-import { Link, Stack, useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 
 import { signIn } from "@/api/auth";
 import SignInForm from "@/components/SignInForm";
-import { lightColors, darkColors } from "@/constants/Colors";
+import { lightColorsAuth, darkColorsAuth } from "@/constants/Colors";
 
 const SignInScreen = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +13,7 @@ const SignInScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { colorScheme } = useColorScheme();
-  const colors = colorScheme === "dark" ? darkColors : lightColors;
+  const colors = colorScheme === "dark" ? darkColorsAuth : lightColorsAuth;
 
   const router = useRouter();
 
@@ -24,9 +24,6 @@ const SignInScreen = () => {
   return (
     <View className={`${colors.background} flex-1 justify-center`}>
       <View className="flex-1 p-5 justify-center">
-        <Stack.Screen
-          options={{ title: "Sign in", headerTitleAlign: "center" }}
-        />
         <View
           className={`${colors.primaryBackground} p-8 rounded-xl shadow-md`}
         >
@@ -45,7 +42,7 @@ const SignInScreen = () => {
             className={`${colors.buttonBackground} py-3 rounded-full border-2 ${colors.border}`}
           >
             {isLoading ? (
-              <ActivityIndicator color={colors.primaryText} />
+              <ActivityIndicator color={colors.activityIndicatorColor} />
             ) : (
               <Text
                 className={`${colors.primaryText} font-bold text-lg text-center`}

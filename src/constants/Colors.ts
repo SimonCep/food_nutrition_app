@@ -18,7 +18,7 @@ export default {
   },
 };
 
-export const lightColors = {
+export const lightColorsAuth = {
   background: "bg-white",
   primaryBackground: "bg-white",
   secondaryBackground: "bg-gray-100",
@@ -27,9 +27,10 @@ export const lightColors = {
   secondaryText: "text-gray-600",
   border: "border-black",
   buttonBackground: "bg-yellow-400",
+  activityIndicatorColor: "#000000",
 };
 
-export const darkColors = {
+export const darkColorsAuth = {
   background: "bg-black",
   primaryBackground: "bg-gray-900",
   secondaryBackground: "bg-gray-800",
@@ -38,6 +39,7 @@ export const darkColors = {
   secondaryText: "text-gray-400",
   border: "border-white",
   buttonBackground: "bg-yellow-600",
+  activityIndicatorColor: "#FFFFFF",
 };
 
 export const lightColorsExercise = {

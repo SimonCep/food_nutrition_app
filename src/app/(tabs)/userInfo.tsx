@@ -79,7 +79,7 @@ export default function UserInfoTab() {
               onPress={handleAboutUs}
               className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
             >
-              <Text>About us</Text>
+              <Text>About Us</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
