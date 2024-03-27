@@ -1,6 +1,9 @@
 import { Alert } from "react-native";
-import { supabase } from "@/lib/supabase";
 import * as Yup from "yup";
+
+import { supabase } from "@/lib/supabase";
+import { Tables } from "@/types";
+import { Session } from "@supabase/supabase-js";
 
 export const signInValidationSchema = Yup.object().shape({
   password: Yup.string().required("Password is required"),
@@ -97,4 +100,29 @@ export const signUp = async (
   } finally {
     setIsLoading(false);
   }
+};
+
+export const fetchSession = async () => {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  return session;
+};
+
+export const fetchProfile = async (userId: string) => {
+  const { data } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .single();
+  return data as Tables<"profiles"> | null;
+};
+
+export const subscribeToAuthStateChange = (
+  callback: (event: string, session: Session | null) => void,
+) => {
+  const {
+    data: { subscription },
+  } = supabase.auth.onAuthStateChange(callback);
+  return subscription;
 };

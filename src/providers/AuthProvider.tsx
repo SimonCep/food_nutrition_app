@@ -1,4 +1,3 @@
-import { supabase } from "@/lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import {
   PropsWithChildren,
@@ -9,6 +8,11 @@ import {
   useMemo,
 } from "react";
 import { Tables } from "@/types";
+import {
+  fetchSession,
+  fetchProfile,
+  subscribeToAuthStateChange,
+} from "@/api/authService";
 
 type AuthData = {
   session: Session | null;
@@ -30,42 +34,25 @@ export default function AuthProvider({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-
+    const fetchInitialData = async () => {
+      const session = await fetchSession();
       setSession(session);
       if (session?.user?.id) {
-        // Fetch the profile data when the user is already logged in
-        const { data } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", session.user.id)
-          .single();
-
-        setProfile(data || null);
+        const profile = await fetchProfile(session.user.id);
+        setProfile(profile);
       }
       setLoading(false);
     };
 
-    fetchSession();
+    fetchInitialData();
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const subscription = subscribeToAuthStateChange(async (event, session) => {
       setSession(session);
       if (event === "SIGNED_OUT") {
-        setProfile(null); // Clear the profile data when the user logs out
+        setProfile(null);
       } else if (event === "SIGNED_IN" && session?.user?.id) {
-        // Fetch the profile data when the user logs in
-        const { data } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", session.user.id)
-          .single();
-
-        setProfile(data || null);
+        const profile = await fetchProfile(session.user.id);
+        setProfile(profile);
       }
     });
 
