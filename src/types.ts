@@ -46,6 +46,10 @@ export interface ExerciseFormProps {
   isLoading: boolean;
 }
 
+export interface ExerciseSectionProps {
+  userId: string;
+}
+
 // Theme switcher types
 export type ColorScheme = "light" | "dark" | undefined;
 
