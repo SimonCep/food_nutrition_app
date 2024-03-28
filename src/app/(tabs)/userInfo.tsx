@@ -18,11 +18,15 @@ export default function UserInfoTab() {
     otherData: "Plan/description/etc.",
   };
 
+  const router = useRouter();
+
   const handleEditProfile = () => {
-    // Handle edit profile action here
+    router.push("../editProfile");
   };
 
-  const router = useRouter();
+  const handleEditGoals = () => {
+    router.push("../editGoals");
+  };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -59,8 +63,17 @@ export default function UserInfoTab() {
             <Text>{user.otherData}</Text>
           </View>
           <View className="justify-center m-10 w-screen p-5">
-            <TouchableOpacity className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4">
+            <TouchableOpacity 
+              className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
+              onPress={handleEditProfile}
+            >
               <Text>Profile Settings</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
+              onPress={handleEditGoals}
+            >
+              <Text>Dietary Goals</Text>
             </TouchableOpacity>
             <TouchableOpacity className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4">
               <Text>Account Security</Text>
