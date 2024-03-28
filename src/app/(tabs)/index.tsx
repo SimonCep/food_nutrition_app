@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -16,12 +16,14 @@ const HomePage = () => {
   const { session, loading } = useAuth();
   const { colorScheme } = useColorScheme();
 
-  if (!loading && !session) {
-    router.replace("/(auth)/sign-in");
-    return null;
-  }
+  useEffect(() => {
+    if (!loading && !session) {
+      router.replace("/(auth)/sign-in");
+    }
+  }, [loading, session, router]);
 
   if (loading) {
+    // Render loading state
     return (
       <View className="flex-1 items-center justify-center">
         <ActivityIndicator

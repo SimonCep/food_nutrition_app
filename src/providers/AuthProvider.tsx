@@ -13,6 +13,7 @@ import {
   fetchProfile,
   subscribeToAuthStateChange,
 } from "@/api/authService";
+import { router } from "expo-router";
 
 type AuthData = {
   session: Session | null;
@@ -36,15 +37,23 @@ export default function AuthProvider({
   useEffect(() => {
     const fetchInitialData = async () => {
       const session = await fetchSession();
-      setSession(session);
-      if (session?.user?.id) {
-        const profile = await fetchProfile(session.user.id);
-        setProfile(profile);
+      if (!session) {
+        // Redirect to the login screen if the session is not found
+        router.replace("../(auth)/sign-in");
+      } else {
+        setSession(session);
+        if (session?.user?.id) {
+          const profile = await fetchProfile(session.user.id);
+          setProfile(profile);
+        }
       }
       setLoading(false);
     };
 
-    fetchInitialData();
+    fetchInitialData().catch((error) => {
+      console.error("Error fetching initial data:", error);
+      setLoading(false);
+    });
 
     const subscription = subscribeToAuthStateChange(async (event, session) => {
       setSession(session);

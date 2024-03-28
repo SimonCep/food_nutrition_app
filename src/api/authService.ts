@@ -1,6 +1,7 @@
 import { Alert } from "react-native";
 import { Session } from "@supabase/supabase-js";
 import * as Yup from "yup";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { supabase } from "@/lib/supabase";
 import { Tables } from "@/types";
@@ -18,9 +19,9 @@ export const signIn = async (
 ) => {
   try {
     await signInValidationSchema.validate({ email, password });
-
     setIsLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
+
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -28,6 +29,12 @@ export const signIn = async (
     if (error) {
       Alert.alert("Error", error.message);
     } else {
+      // Store the session and refresh token securely
+      await AsyncStorage.setItem("session", JSON.stringify(data.session));
+      await AsyncStorage.setItem(
+        "refreshToken",
+        data.session?.refresh_token || "",
+      );
       onSuccess();
     }
   } catch (error) {
@@ -59,8 +66,8 @@ export const signUp = async (
 ) => {
   try {
     await signUpValidationSchema.validate({ name, email, password });
-
     setIsLoading(true);
+
     const {
       data: { user },
       error,
@@ -82,11 +89,32 @@ export const signUp = async (
         Alert.alert("Error", "Failed to update username");
         console.error("Update username error:", updateError);
       } else {
+        // Retrieve the session data after a successful sign-up
+        const {
+          data: { session },
+          error: sessionError,
+        } = await supabase.auth.getSession();
+
+        if (sessionError) {
+          console.error(
+            "Error retrieving session after sign-up:",
+            sessionError,
+          );
+        } else {
+          // Store the session and refresh token securely
+          await AsyncStorage.setItem("session", JSON.stringify(session));
+          await AsyncStorage.setItem(
+            "refreshToken",
+            session?.refresh_token ?? "",
+          );
+        }
+
         Alert.alert(
           "Success",
           "Account created successfully! You can now log in.",
           [{ text: "OK", onPress: () => onSuccess() }],
         );
+
         await supabase.auth.signOut(); // Sign out the user
       }
     }
