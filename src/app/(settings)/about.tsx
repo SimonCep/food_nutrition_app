@@ -77,40 +77,40 @@ export default function AboutUs() {
             Meet the team
           </Text>
           <Text className="text-left mt-10 ml-10 text-pretty text-black dark:text-white">
-            Studentas:
+            Simas Čeponis
           </Text>
           <Text className="text-left ml-10 text-pretty text-black dark:text-white">
-            studento.pastas@ktu.edu
+            simas.ceponis@ktu.edu
           </Text>
           <Text className="text-left mt-10 ml-10 text-pretty text-black dark:text-white">
-            Studentas:
+            Dovydas Šiurkus
           </Text>
           <Text className="text-left ml-10 text-pretty text-black dark:text-white">
-            studento.pastas@ktu.edu
+            dvoydas.siurkus@ktu.edu
           </Text>
           <Text className="text-left mt-10 ml-10 text-pretty text-black dark:text-white">
-            Studentas:
+            Dominykas Valčiukas
           </Text>
           <Text className="text-left ml-10 text-pretty text-black dark:text-white">
-            studento.pastas@ktu.edu
+            dominykas.valciukas@ktu.edu
           </Text>
           <Text className="text-left mt-10 ml-10 text-pretty text-black dark:text-white">
-            Studentas:
+            Viltė Sakalauskaitė
           </Text>
           <Text className="text-left ml-10 text-pretty text-black dark:text-white">
-            studento.pastas@ktu.edu
+            vilte.sakalauskaite@ktu.edu
           </Text>
           <Text className="text-left mt-10 ml-10 text-pretty text-black dark:text-white">
-            Studentas:
+            Paulius Alešiūnas
           </Text>
           <Text className="text-left ml-10 text-pretty text-black dark:text-white">
-            studento.pastas@ktu.edu
+            paulius.alesiunas@ktu.edu
           </Text>
           <Text className="text-left mt-10 ml-10 text-pretty text-black dark:text-white">
-            Studentas:
+            Gerda Kaunietytė
           </Text>
           <Text className="text-left ml-10 mb-10 text-pretty text-black dark:text-white">
-            studento.pastas@ktu.edu
+            gerda.kaunietyte@ktu.edu
           </Text>
         </View>
 
