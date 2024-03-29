@@ -6,10 +6,25 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { supabase } from "@/lib/supabase";
 import { Tables } from "@/types";
 
+export const signUpValidationSchema = Yup.object().shape({
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  username: Yup.string()
+    .min(3, "Username must be at least 3 characters")
+    .required("Username is required"),
+});
+
 export const signInValidationSchema = Yup.object().shape({
   password: Yup.string().required("Password is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
 });
+
+const storeSessionData = async (session: Session | null) => {
+  await AsyncStorage.setItem("session", JSON.stringify(session));
+  await AsyncStorage.setItem("refreshToken", session?.refresh_token ?? "");
+};
 
 export const signIn = async (
   email: string,
@@ -27,106 +42,104 @@ export const signIn = async (
     });
 
     if (error) {
-      Alert.alert("Error", error.message);
+      handleSignInError(error);
     } else {
-      // Store the session and refresh token securely
-      await AsyncStorage.setItem("session", JSON.stringify(data.session));
-      await AsyncStorage.setItem(
-        "refreshToken",
-        data.session?.refresh_token || "",
-      );
+      await storeSessionData(data.session);
       onSuccess();
     }
   } catch (error) {
-    if (error instanceof Yup.ValidationError) {
-      Alert.alert("Validation Error", error.message);
-    } else {
-      Alert.alert("Error", "An error occurred while signing in.");
-      console.error("Sign in error:", error);
-    }
+    handleSignInValidationError(error);
   } finally {
     setIsLoading(false);
   }
 };
 
-export const signUpValidationSchema = Yup.object().shape({
-  password: Yup.string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  name: Yup.string().required("Username is required"),
-});
+const handleSignInError = (error: any) => {
+  Alert.alert("Error", error.message);
+};
+
+const handleSignInValidationError = (error: any) => {
+  if (error instanceof Yup.ValidationError) {
+    Alert.alert("Validation Error", error.message);
+  } else {
+    Alert.alert("Error", "An error occurred while signing in.");
+    console.error("Sign in error:", error);
+  }
+};
 
 export const signUp = async (
-  name: string,
+  username: string,
   email: string,
   password: string,
   setIsLoading: (isLoading: boolean) => void,
   onSuccess: () => void,
 ) => {
   try {
-    await signUpValidationSchema.validate({ name, email, password });
+    await signUpValidationSchema.validate({ username, email, password });
     setIsLoading(true);
 
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    const { data, error } = await supabase.auth.signUp({ email, password });
 
     if (error) {
-      Alert.alert("Error", error.message);
-    } else if (user?.id) {
-      // Update the user's profile with the entered name as the username
-      const { error: updateError } = await supabase
-        .from("profiles")
-        .update({ username: name })
-        .eq("id", user.id);
-
-      if (updateError) {
-        Alert.alert("Error", "Failed to update username");
-        console.error("Update username error:", updateError);
-      } else {
-        // Retrieve the session data after a successful sign-up
-        const {
-          data: { session },
-          error: sessionError,
-        } = await supabase.auth.getSession();
-
-        if (sessionError) {
-          console.error(
-            "Error retrieving session after sign-up:",
-            sessionError,
-          );
-        } else {
-          // Store the session and refresh token securely
-          await AsyncStorage.setItem("session", JSON.stringify(session));
-          await AsyncStorage.setItem(
-            "refreshToken",
-            session?.refresh_token ?? "",
-          );
-        }
-
-        Alert.alert(
-          "Success",
-          "Account created successfully! You can now log in.",
-          [{ text: "OK", onPress: () => onSuccess() }],
-        );
-
-        await supabase.auth.signOut(); // Sign out the user
-      }
+      handleSignUpError(error);
+    } else if (data.user?.id) {
+      await handleProfileUpdate(data.user.id, username, onSuccess);
     }
   } catch (error) {
-    if (error instanceof Yup.ValidationError) {
-      Alert.alert("Validation Error", error.message);
-    } else {
-      Alert.alert("Error", "An error occurred while signing up.");
-      console.error("Sign up error:", error);
-    }
+    handleSignUpValidationError(error);
   } finally {
     setIsLoading(false);
+  }
+};
+
+const handleSignUpError = (error: any) => {
+  Alert.alert("Error", error.message);
+};
+
+const handleProfileUpdate = async (
+  userId: string,
+  username: string,
+  onSuccess: () => void,
+) => {
+  const { error: updateError } = await supabase
+    .from("profiles")
+    .update({ username })
+    .eq("id", userId);
+
+  if (updateError) {
+    handleUpdateError(updateError);
+    await supabase.auth.signOut();
+  } else {
+    await handleSessionRetrieval(onSuccess);
+  }
+};
+
+const handleUpdateError = (error: any) => {
+  Alert.alert("Error", "Failed to update username");
+  console.error("Update username error:", error);
+};
+
+const handleSessionRetrieval = async (onSuccess: () => void) => {
+  const { data, error } = await supabase.auth.getSession();
+
+  if (error) {
+    console.error("Error retrieving session after sign-up:", error);
+  } else {
+    await storeSessionData(data.session);
+    Alert.alert(
+      "Success",
+      "Account created successfully! You can now log in.",
+      [{ text: "OK", onPress: onSuccess }],
+    );
+  }
+};
+
+const handleSignUpValidationError = (error: any) => {
+  if (error instanceof Yup.ValidationError) {
+    Alert.alert("Validation Error", error.message);
+  } else {
+    Alert.alert("Error", "An error occurred while signing up.");
+    console.error("Sign up error:", error);
   }
 };
 
@@ -138,11 +151,17 @@ export const fetchSession = async () => {
 };
 
 export const fetchProfile = async (userId: string) => {
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", userId)
     .single();
+
+  if (error) {
+    console.error("Error fetching profile:", error);
+    return null;
+  }
+
   return data as Tables<"profiles"> | null;
 };
 
