@@ -29,9 +29,7 @@ const AuthContext = createContext<AuthData>({
   updateProfileData: async () => {},
 });
 
-export default function AuthProvider({
-  children,
-}: Readonly<PropsWithChildren>) {
+const AuthProvider = ({ children }: Readonly<PropsWithChildren>) => {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Tables<"profiles"> | null>(null);
   const [loading, setLoading] = useState(true);
@@ -89,6 +87,8 @@ export default function AuthProvider({
   return (
     <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>
   );
-}
+};
+
+export default AuthProvider;
 
 export const useAuth = () => useContext(AuthContext);

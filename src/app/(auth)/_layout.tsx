@@ -2,7 +2,7 @@ import { Redirect, Stack, useSegments } from "expo-router";
 
 import { useAuth } from "@/providers/AuthProvider";
 
-export default function AuthLayout() {
+const AuthLayout = () => {
   const { session } = useAuth();
   const segments = useSegments();
 
@@ -22,4 +22,6 @@ export default function AuthLayout() {
       />
     </Stack>
   );
-}
+};
+
+export default AuthLayout;
