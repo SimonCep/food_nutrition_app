@@ -35,8 +35,6 @@ const EditProfile: React.FC = () => {
         await updateProfileData(profile!.id);
         Alert.alert("Success", "Profile saved successfully!");
         router.push("/(tabs)/userInfo");
-      } else {
-        Alert.alert("Error", "Failed to save profile. Please try again.");
       }
     } catch (error) {
       console.error("Error saving profile:", error);
