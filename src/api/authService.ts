@@ -21,6 +21,10 @@ export const signInValidationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
 });
 
+const updateProfileValidationSchema = Yup.object().shape({
+  username: Yup.string().min(3, "Username must be at least 3 characters"),
+});
+
 const storeSessionData = async (session: Session | null) => {
   await AsyncStorage.setItem("session", JSON.stringify(session));
   await AsyncStorage.setItem("refreshToken", session?.refresh_token ?? "");
@@ -178,16 +182,29 @@ export const updateProfile = async (
   userId: string,
   data: Partial<Tables<"profiles">>,
 ) => {
-  const { data: updatedProfile, error } = await supabase
-    .from("profiles")
-    .update(data)
-    .eq("id", userId)
-    .single();
+  try {
+    await updateProfileValidationSchema.validate(data);
 
-  if (error) {
-    console.error("Error updating profile:", error);
-    throw error;
+    const { data: updatedProfile, error } = await supabase
+      .from("profiles")
+      .update(data)
+      .eq("id", userId)
+      .single();
+
+    if (error) {
+      console.error("Error updating profile:", error);
+      throw error;
+    }
+
+    return updatedProfile;
+  } catch (error) {
+    if (error instanceof Yup.ValidationError) {
+      Alert.alert("Validation Error", error.message);
+    } else {
+      Alert.alert("Error", "An error occurred while updating the profile.");
+      console.error("Update profile error:", error);
+    }
+
+    return null;
   }
-
-  return updatedProfile;
 };
