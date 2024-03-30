@@ -21,10 +21,6 @@ export const signInValidationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
 });
 
-const updateProfileValidationSchema = Yup.object().shape({
-  username: Yup.string().min(3, "Username must be at least 3 characters"),
-});
-
 const storeSessionData = async (session: Session | null) => {
   await AsyncStorage.setItem("session", JSON.stringify(session));
   await AsyncStorage.setItem("refreshToken", session?.refresh_token ?? "");
