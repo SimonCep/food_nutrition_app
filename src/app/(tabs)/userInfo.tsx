@@ -63,13 +63,13 @@ export default function UserInfoTab() {
             <Text>{user.otherData}</Text>
           </View>
           <View className="justify-center m-10 w-screen p-5">
-            <TouchableOpacity 
+            <TouchableOpacity
               className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
               onPress={handleEditProfile}
             >
               <Text>Profile Settings</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
               onPress={handleEditGoals}
             >

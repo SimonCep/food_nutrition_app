@@ -19,12 +19,14 @@ type AuthData = {
   session: Session | null;
   profile: Tables<"profiles"> | null;
   loading: boolean;
+  updateProfileData: (userId: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthData>({
   session: null,
   loading: true,
   profile: null,
+  updateProfileData: async () => {},
 });
 
 export default function AuthProvider({
@@ -70,8 +72,17 @@ export default function AuthProvider({
     };
   }, []);
 
+  const updateProfileData = async (userId: string) => {
+    try {
+      const updatedProfile = await fetchProfile(userId);
+      setProfile(updatedProfile);
+    } catch (error) {
+      console.error("Error updating profile data:", error);
+    }
+  };
+
   const authData = useMemo(
-    () => ({ session, loading, profile }),
+    () => ({ session, loading, profile, updateProfileData }),
     [session, loading, profile],
   );
 

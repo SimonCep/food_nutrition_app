@@ -173,3 +173,21 @@ export const subscribeToAuthStateChange = (
   } = supabase.auth.onAuthStateChange(callback);
   return subscription;
 };
+
+export const updateProfile = async (
+  userId: string,
+  data: Partial<Tables<"profiles">>,
+) => {
+  const { data: updatedProfile, error } = await supabase
+    .from("profiles")
+    .update(data)
+    .eq("id", userId)
+    .single();
+
+  if (error) {
+    console.error("Error updating profile:", error);
+    throw error;
+  }
+
+  return updatedProfile;
+};
