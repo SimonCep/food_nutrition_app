@@ -33,7 +33,9 @@ export const addExercise = async (
       .from("exercises")
       .insert({ exercise, duration, calories, user_id: userId });
     if (error) {
-      throw error;
+      console.error("Error adding exercise:", error);
+      Alert.alert("Error", "An error occurred while adding the exercise.");
+      return;
     }
     onSuccess();
   } catch (error) {
@@ -41,7 +43,7 @@ export const addExercise = async (
       Alert.alert("Validation Error", error.message);
     } else {
       console.error("Error adding exercise:", error);
-      Alert.alert("Error", "An error occurred while adding the exercise.");
+      Alert.alert("Error", "An unexpected error occurred.");
     }
   } finally {
     setIsLoading(false);
@@ -55,13 +57,17 @@ export const fetchExercises = async (userId: string) => {
       .select("*")
       .eq("user_id", userId)
       .order("created_at", { ascending: false });
+
     if (error) {
-      throw error;
+      console.error("Error fetching exercises:", error);
+      Alert.alert("Error", "An error occurred while fetching exercises.");
+      return [];
     }
+
     return data as Tables<"exercises">[];
   } catch (error) {
     console.error("Error fetching exercises:", error);
-    Alert.alert("Error", "An error occurred while fetching exercises.");
+    Alert.alert("Error", "An unexpected error occurred.");
     return [];
   }
 };

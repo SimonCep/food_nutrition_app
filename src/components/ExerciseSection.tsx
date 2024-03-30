@@ -6,7 +6,7 @@ import { Tables, ExerciseSectionProps } from "@/types";
 import { addExercise, fetchExercises } from "@/api/exerciseService";
 import { lightColorsExercise, darkColorsExercise } from "@/constants/Colors";
 
-const ExerciseTab: React.FC<ExerciseSectionProps> = ({ userId }) => {
+const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
   const [exercises, setExercises] = useState<Tables<"exercises">[]>([]);
   const [exercise, setExercise] = useState("");
   const [duration, setDuration] = useState(0);
@@ -18,12 +18,14 @@ const ExerciseTab: React.FC<ExerciseSectionProps> = ({ userId }) => {
     colorScheme === "dark" ? darkColorsExercise : lightColorsExercise;
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchExercises(userId);
-      setExercises(data);
-    };
-
-    fetchData();
+    (async () => {
+      try {
+        const data = await fetchExercises(userId);
+        setExercises(data);
+      } catch (error) {
+        console.error("Error fetching exercises:", error);
+      }
+    })();
   }, [userId]);
 
   const handleAddExercise = async () => {
@@ -99,4 +101,4 @@ const ExerciseTab: React.FC<ExerciseSectionProps> = ({ userId }) => {
   );
 };
 
-export default ExerciseTab;
+export default ExerciseSection;
