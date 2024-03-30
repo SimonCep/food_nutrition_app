@@ -6,9 +6,8 @@ import {
   Button,
   TouchableOpacity,
   Modal,
-  Alert,
 } from "react-native";
-import { updateProfile } from "@/api/authService";
+import { updateProfile } from "@/api/profileService";
 import { useAuth } from "@/providers/AuthProvider";
 import { router } from "expo-router";
 
@@ -23,22 +22,16 @@ const EditProfile: React.FC = () => {
   const [newAvatarUrl, setNewAvatarUrl] = useState<string>("");
 
   const handleSaveProfile = async () => {
-    try {
-      const isProfileUpdated = await updateProfile(profile!.id, {
-        username,
-        full_name: fullname,
-        avatar_url: avatarUrl,
-        website,
-      });
+    const isProfileUpdated = await updateProfile(profile!.id, {
+      username,
+      full_name: fullname,
+      avatar_url: avatarUrl,
+      website,
+    });
 
-      if (isProfileUpdated) {
-        await updateProfileData(profile!.id);
-        Alert.alert("Success", "Profile saved successfully!");
-        router.push("/(tabs)/userInfo");
-      }
-    } catch (error) {
-      console.error("Error saving profile:", error);
-      Alert.alert("Error", "An error occurred while saving the profile.");
+    if (isProfileUpdated) {
+      await updateProfileData(profile!.id);
+      router.push("/(tabs)/userInfo");
     }
   };
 

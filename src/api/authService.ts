@@ -177,32 +177,3 @@ export const subscribeToAuthStateChange = (
   } = supabase.auth.onAuthStateChange(callback);
   return subscription;
 };
-
-export const updateProfile = async (
-  userId: string,
-  data: Partial<Tables<"profiles">>,
-) => {
-  try {
-    await updateProfileValidationSchema.validate(data);
-
-    const { error } = await supabase
-      .from("profiles")
-      .update(data)
-      .eq("id", userId);
-
-    if (error) {
-      console.error("Error updating profile:", error);
-      throw error;
-    }
-
-    return true;
-  } catch (error) {
-    if (error instanceof Yup.ValidationError) {
-      Alert.alert("Validation Error", error.message);
-    } else {
-      Alert.alert("Error", "An error occurred while updating the profile.");
-      console.error("Update profile error:", error);
-    }
-    return false;
-  }
-};
