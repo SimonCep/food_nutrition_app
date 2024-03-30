@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { updateProfile } from "@/api/authService";
 import { useAuth } from "@/providers/AuthProvider";
+import { router } from "expo-router";
 
 const EditProfile: React.FC = () => {
   const { profile, updateProfileData } = useAuth();
@@ -33,6 +34,7 @@ const EditProfile: React.FC = () => {
       if (isProfileUpdated) {
         await updateProfileData(profile!.id);
         Alert.alert("Success", "Profile saved successfully!");
+        router.push("/(tabs)/userInfo");
       } else {
         Alert.alert("Error", "Failed to save profile. Please try again.");
       }
