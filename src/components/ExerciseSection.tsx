@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Modal, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
 import { useColorScheme } from "nativewind";
 import ExerciseForm from "@/components/ExerciseForm";
-import { Tables, ExerciseSectionProps } from "@/types";
+import { ExerciseSectionProps, Tables } from "@/types";
 import { addExercise, fetchExercises } from "@/api/exerciseService";
-import { lightColorsExercise, darkColorsExercise } from "@/constants/Colors";
+import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
 
 const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
   const [exercises, setExercises] = useState<Tables<"exercises">[]>([]);

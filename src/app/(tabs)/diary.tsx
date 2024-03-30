@@ -1,10 +1,10 @@
 import React from "react";
-import { View, FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import { useColorScheme } from "nativewind";
 
 import ExerciseSection from "@/components/ExerciseSection";
 import { useAuth } from "@/providers/AuthProvider";
-import { lightColorsExercise, darkColorsExercise } from "@/constants/Colors";
+import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
 
 const Diary = () => {
   const { session } = useAuth();

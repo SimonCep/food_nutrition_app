@@ -1,11 +1,11 @@
 import React from "react";
 import {
   Image,
+  ImageBackground,
   ScrollView,
+  Text,
   TouchableOpacity,
   View,
-  Text,
-  ImageBackground,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { supabase } from "@/lib/supabase";
@@ -45,7 +45,7 @@ export default function UserInfoTab() {
         <View className="flex-grow items-center justify-center">
           <View className="items-center mt-20 mb-5">
             <View className="w-32 h-32 flex items-center justify-center rounded-full mb-4 shadow-lg bg-white border-4 border-black">
-              {profile && profile.avatar_url ? (
+              {profile?.avatar_url ? (
                 <Image
                   source={{ uri: profile.avatar_url }}
                   className="w-28 h-28 rounded-full"
@@ -57,7 +57,7 @@ export default function UserInfoTab() {
                 />
               )}
             </View>
-            {profile && profile.username ? (
+            {profile?.username ? (
               <Text className="text-lg font-bold mb-2">{profile.username}</Text>
             ) : (
               <Text className="text-lg font-bold mb-2">Loading...</Text>

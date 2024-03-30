@@ -1,11 +1,11 @@
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { Link, useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 
 import { signUp } from "@/api/authService";
 import SignUpForm from "@/components/SignUpForm";
-import { lightColorsAuth, darkColorsAuth } from "@/constants/Colors";
+import { darkColorsAuth, lightColorsAuth } from "@/constants/Colors";
 
 const SignUpScreen = () => {
   const [name, setName] = useState("");

@@ -1,10 +1,10 @@
 import React from "react";
 import {
-  View,
+  ActivityIndicator,
   Text,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator,
+  View,
 } from "react-native";
 
 import { ExerciseFormProps } from "@/types";
