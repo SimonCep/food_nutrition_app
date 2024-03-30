@@ -86,7 +86,7 @@ export default function AboutUs() {
             Dovydas Šiurkus
           </Text>
           <Text className="text-left ml-10 text-pretty text-black dark:text-white">
-            dvoydas.siurkus@ktu.edu
+            dovydas.siurkus@ktu.edu
           </Text>
           <Text className="text-left mt-10 ml-10 text-pretty text-black dark:text-white">
             Dominykas Valčiukas
