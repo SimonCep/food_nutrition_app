@@ -185,18 +185,17 @@ export const updateProfile = async (
   try {
     await updateProfileValidationSchema.validate(data);
 
-    const { data: updatedProfile, error } = await supabase
+    const { error } = await supabase
       .from("profiles")
       .update(data)
-      .eq("id", userId)
-      .single();
+      .eq("id", userId);
 
     if (error) {
       console.error("Error updating profile:", error);
       throw error;
     }
 
-    return updatedProfile;
+    return true;
   } catch (error) {
     if (error instanceof Yup.ValidationError) {
       Alert.alert("Validation Error", error.message);
@@ -204,7 +203,6 @@ export const updateProfile = async (
       Alert.alert("Error", "An error occurred while updating the profile.");
       console.error("Update profile error:", error);
     }
-
-    return null;
+    return false;
   }
 };

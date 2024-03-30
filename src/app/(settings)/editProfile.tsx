@@ -6,6 +6,7 @@ import {
   Button,
   TouchableOpacity,
   Modal,
+  Alert,
 } from "react-native";
 import { updateProfile } from "@/api/authService";
 import { useAuth } from "@/providers/AuthProvider";
@@ -22,16 +23,22 @@ const EditProfile: React.FC = () => {
 
   const handleSaveProfile = async () => {
     try {
-      await updateProfile(profile!.id, {
+      const isProfileUpdated = await updateProfile(profile!.id, {
         username,
         full_name: fullname,
         avatar_url: avatarUrl,
         website,
       });
-      await updateProfileData(profile!.id);
-      console.log("Profile saved!");
+
+      if (isProfileUpdated) {
+        await updateProfileData(profile!.id);
+        Alert.alert("Success", "Profile saved successfully!");
+      } else {
+        Alert.alert("Error", "Failed to save profile. Please try again.");
+      }
     } catch (error) {
       console.error("Error saving profile:", error);
+      Alert.alert("Error", "An error occurred while saving the profile.");
     }
   };
 
