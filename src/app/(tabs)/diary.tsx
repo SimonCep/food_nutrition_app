@@ -21,7 +21,7 @@ const Diary = () => {
       <FlatList
         data={[]}
         renderItem={null}
-        ListEmptyComponent={session && session.user && renderExerciseSection()}
+        ListEmptyComponent={session?.user && renderExerciseSection()}
         contentContainerStyle={{ flexGrow: 1 }}
         keyExtractor={() => "diary"}
       />
