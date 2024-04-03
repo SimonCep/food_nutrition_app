@@ -7,6 +7,10 @@ export default function SettingsLayout() {
       <Stack.Screen name="about" options={{ title: "About Us" }} />
       <Stack.Screen name="editProfile" options={{ title: "Edit Profile" }} />
       <Stack.Screen name="editGoals" options={{ title: "Edit Goals" }} />
+      <Stack.Screen
+        name="accountSecurity"
+        options={{ title: "Account Security" }}
+      />
     </Stack>
   );
 }

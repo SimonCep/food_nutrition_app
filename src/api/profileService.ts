@@ -2,10 +2,7 @@ import { Tables } from "@/types";
 import { supabase } from "@/lib/supabase";
 import { Alert } from "react-native";
 import * as Yup from "yup";
-
-const updateProfileValidationSchema = Yup.object().shape({
-  username: Yup.string().min(3, "Username must be at least 3 characters"),
-});
+import { updateProfileValidationSchema } from "@/utils/validationSchemas";
 
 export const updateProfile = async (
   userId: string,

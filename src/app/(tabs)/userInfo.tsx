@@ -33,7 +33,11 @@ export default function UserInfoTab() {
   };
 
   const handleAboutUs = () => {
-    router.push("../(settings)/about");
+    router.push("../about");
+  };
+
+  const handleAccountSecurity = () => {
+    router.push("../accountSecurity");
   };
 
   return (
@@ -77,7 +81,10 @@ export default function UserInfoTab() {
             >
               <Text>Dietary Goals</Text>
             </TouchableOpacity>
-            <TouchableOpacity className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4">
+            <TouchableOpacity
+              onPress={handleAccountSecurity}
+              className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
+            >
               <Text>Account Security</Text>
             </TouchableOpacity>
             <TouchableOpacity className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4">

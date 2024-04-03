@@ -5,25 +5,23 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { supabase } from "@/lib/supabase";
 import { Tables } from "@/types";
-
-export const signUpValidationSchema = Yup.object().shape({
-  password: Yup.string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  username: Yup.string()
-    .min(3, "Username must be at least 3 characters")
-    .required("Username is required"),
-});
-
-export const signInValidationSchema = Yup.object().shape({
-  password: Yup.string().required("Password is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-});
+import {
+  signInValidationSchema,
+  signUpValidationSchema,
+} from "@/utils/validationSchemas";
 
 const storeSessionData = async (session: Session | null) => {
   await AsyncStorage.setItem("session", JSON.stringify(session));
   await AsyncStorage.setItem("refreshToken", session?.refresh_token ?? "");
+};
+
+export const isSessionExpired = (session: Session | null): boolean => {
+  if (!session) return true;
+
+  const currentTime = Math.floor(Date.now() / 1000);
+  const expiresAt = session.expires_at ?? 0;
+
+  return currentTime > expiresAt;
 };
 
 export const signIn = async (
@@ -172,4 +170,46 @@ export const subscribeToAuthStateChange = (
     data: { subscription },
   } = supabase.auth.onAuthStateChange(callback);
   return subscription;
+};
+
+export const changeEmail = async (newEmail: string) => {
+  try {
+    // Check if the user is authenticated
+    const { data: user } = await supabase.auth.getUser();
+
+    if (!user?.user) {
+      console.error("User not found. Please log in and try again.");
+      return false;
+    }
+
+    // Step 2: Initiate the email change
+    const { error } = await supabase.auth.updateUser({ email: newEmail });
+
+    if (error) {
+      console.error("Error initiating email change:", error);
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Error changing email:", error);
+    return false;
+  }
+};
+
+export const changePassword = async (newPassword: string) => {
+  try {
+    const { error: updateError } = await supabase.auth.updateUser({
+      password: newPassword,
+    });
+    if (updateError) {
+      console.error("Error changing password:", updateError);
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Error changing password:", error);
+    return false;
+  }
 };

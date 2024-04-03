@@ -12,6 +12,7 @@ import {
   fetchSession,
   fetchProfile,
   subscribeToAuthStateChange,
+  isSessionExpired,
 } from "@/api/authService";
 import { router } from "expo-router";
 
@@ -37,8 +38,8 @@ const AuthProvider = ({ children }: Readonly<PropsWithChildren>) => {
   useEffect(() => {
     const fetchInitialData = async () => {
       const session = await fetchSession();
-      if (!session) {
-        // Redirect to the login screen if the session is not found
+      if (!session || isSessionExpired(session)) {
+        // Redirect to the login screen if the session is not found or has expired
         router.replace("../(auth)/sign-in");
       } else {
         setSession(session);
