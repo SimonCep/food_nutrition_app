@@ -7,7 +7,7 @@ services:
     stdin_open: true
     tty: true
     ports:
-      - 8081:8081
+      - "8081:8081"
     develop:
       watch:
         - path: ./package.json
