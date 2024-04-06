@@ -28,6 +28,11 @@ export const lightColorsAuth = {
   border: "border-black",
   buttonBackground: "bg-yellow-400",
   activityIndicatorColor: "#000000",
+  inputBackground: "bg-gray-100",
+  inputBorder: "border-gray-300",
+  inputPlaceholder: "text-gray-400",
+  buttonText: "text-black",
+  errorText: "text-red-500",
 };
 
 export const darkColorsAuth = {
@@ -40,6 +45,11 @@ export const darkColorsAuth = {
   border: "border-white",
   buttonBackground: "bg-yellow-600",
   activityIndicatorColor: "#FFFFFF",
+  inputBackground: "bg-gray-800",
+  inputBorder: "border-gray-600",
+  inputPlaceholder: "text-gray-400",
+  buttonText: "text-white",
+  errorText: "text-red-500",
 };
 
 export const lightColorsExercise = {
@@ -53,6 +63,12 @@ export const lightColorsExercise = {
   border: "border-gray-300",
   buttonBackground: "bg-yellow-400",
   buttonText: "text-black",
+  inputBackground: "bg-white",
+  inputBorder: "border-gray-300",
+  inputPlaceholder: "text-gray-400",
+  cancelButtonBackground: "bg-gray-300",
+  cancelButtonText: "text-gray-700",
+  errorText: "text-red-500",
 };
 
 export const darkColorsExercise = {
@@ -66,4 +82,10 @@ export const darkColorsExercise = {
   border: "border-gray-600",
   buttonBackground: "bg-yellow-600",
   buttonText: "text-white",
+  inputBackground: "bg-gray-700",
+  inputBorder: "border-gray-600",
+  inputPlaceholder: "text-gray-400",
+  cancelButtonBackground: "bg-gray-600",
+  cancelButtonText: "text-gray-200",
+  errorText: "text-red-500",
 };
