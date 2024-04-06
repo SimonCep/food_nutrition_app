@@ -14,7 +14,7 @@ export const updateProfile = async (
 
     const { error } = await supabase
       .from("profiles")
-      .update(data)
+      .update({ ...data, updated_at: new Date().toISOString() })
       .eq("id", userId);
 
     if (error) {
