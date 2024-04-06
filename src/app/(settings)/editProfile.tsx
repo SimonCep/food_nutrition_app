@@ -6,11 +6,15 @@ import {
   Button,
   TouchableOpacity,
   Modal,
+  Text,
+  Alert,
 } from "react-native";
 import { router } from "expo-router";
+import * as Yup from "yup";
 
 import { updateProfile } from "@/api/profileService";
 import { useAuth } from "@/providers/AuthProvider";
+import { updateProfileValidationSchema } from "@/utils/validationSchemas";
 
 const EditProfile: React.FC = () => {
   const { profile, updateProfileData } = useAuth();
@@ -21,18 +25,38 @@ const EditProfile: React.FC = () => {
   const [website, setWebsite] = useState<string>(profile?.website ?? "");
   const [showModal, setShowModal] = useState<boolean>(false);
   const [newAvatarUrl, setNewAvatarUrl] = useState<string>("");
+  const [validationErrors, setValidationErrors] =
+    useState<Yup.ValidationError | null>(null);
 
   const handleSaveProfile = async () => {
-    const isProfileUpdated = await updateProfile(profile!.id, {
-      username,
-      full_name: fullname,
-      avatar_url: avatarUrl,
-      website,
-    });
+    try {
+      await updateProfileValidationSchema.validate(
+        { username, full_name: fullname, avatar_url: avatarUrl, website },
+        { abortEarly: false },
+      );
+      setValidationErrors(null);
 
-    if (isProfileUpdated) {
-      await updateProfileData(profile!.id);
-      router.push("/(tabs)/userInfo");
+      const isProfileUpdated = await updateProfile(profile!.id, {
+        username,
+        full_name: fullname,
+        avatar_url: avatarUrl,
+        website,
+      });
+
+      if (isProfileUpdated) {
+        await updateProfileData(profile!.id);
+        Alert.alert("Success", "Profile updated successfully.");
+        router.push("/(tabs)/userInfo");
+      } else {
+        Alert.alert("Error", "Failed to update profile. Please try again.");
+      }
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        setValidationErrors(error);
+      } else {
+        console.error("Error updating profile:", error);
+        Alert.alert("Error", "An unexpected error occurred. Please try again.");
+      }
     }
   };
 
@@ -43,9 +67,15 @@ const EditProfile: React.FC = () => {
   const handleModalClose = () => {
     setShowModal(false);
   };
+
   const handleAvatarUrlChange = () => {
     setAvatarUrl(newAvatarUrl);
     handleModalClose();
+  };
+
+  const getFieldError = (field: string) => {
+    return validationErrors?.inner.find((error) => error.path === field)
+      ?.message;
   };
 
   return (
@@ -67,7 +97,7 @@ const EditProfile: React.FC = () => {
           borderBottomWidth: 1,
           borderBottomColor: "#ccc",
           padding: 10,
-          marginBottom: 20,
+          marginBottom: 2,
           fontSize: 18,
           color: "#000",
         }}
@@ -76,12 +106,17 @@ const EditProfile: React.FC = () => {
         value={username}
         onChangeText={setUsername}
       />
+      {getFieldError("username") && (
+        <Text style={{ color: "red", marginBottom: 10 }}>
+          {getFieldError("username")}
+        </Text>
+      )}
       <TextInput
         style={{
           borderBottomWidth: 1,
           borderBottomColor: "#ccc",
           padding: 10,
-          marginBottom: 20,
+          marginBottom: 2,
           fontSize: 18,
           color: "#000",
         }}
@@ -90,12 +125,17 @@ const EditProfile: React.FC = () => {
         value={fullname}
         onChangeText={setFullname}
       />
+      {getFieldError("full_name") && (
+        <Text style={{ color: "red", marginBottom: 10 }}>
+          {getFieldError("full_name")}
+        </Text>
+      )}
       <TextInput
         style={{
           borderBottomWidth: 1,
           borderBottomColor: "#ccc",
           padding: 10,
-          marginBottom: 20,
+          marginBottom: 2,
           fontSize: 18,
           color: "#000",
         }}
@@ -104,6 +144,11 @@ const EditProfile: React.FC = () => {
         value={website}
         onChangeText={setWebsite}
       />
+      {getFieldError("website") && (
+        <Text style={{ color: "red", marginBottom: 10 }}>
+          {getFieldError("website")}
+        </Text>
+      )}
       <Button title="Save" onPress={handleSaveProfile} />
       <Modal
         visible={showModal}

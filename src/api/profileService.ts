@@ -19,18 +19,15 @@ export const updateProfile = async (
 
     if (error) {
       console.error("Error updating profile:", error);
-      Alert.alert("Error", "An error occurred while updating the profile.");
       return false;
     }
 
-    Alert.alert("Success", "Profile saved successfully!");
     return true;
   } catch (error) {
     if (error instanceof Yup.ValidationError) {
-      Alert.alert("Validation Error", error.message);
+      console.error("Validation error updating profile:", error);
     } else {
-      console.error("Update profile error:", error);
-      Alert.alert("Error", "An unexpected error occurred.");
+      console.error("Error updating profile:", error);
     }
     return false;
   }

@@ -59,6 +59,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
       if (error instanceof Yup.ValidationError) {
         setValidationErrors(error);
       } else {
+        console.error("Error adding exercise:", error);
         Alert.alert("Error", "An unexpected error occurred. Please try again.");
       }
     } finally {
