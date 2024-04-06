@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import { useColorScheme } from "nativewind";
-import { changePassword } from "@/api/authService";
 import * as Yup from "yup";
+
+import { changePassword } from "@/api/authService";
 import {
   inputClassName,
   buttonClassName,

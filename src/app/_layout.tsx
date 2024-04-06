@@ -9,6 +9,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "nativewind";
+
 import AuthProvider from "@/providers/AuthProvider";
 
 import "../../global.css"; // For Tailwind CSS styles. XDDDD

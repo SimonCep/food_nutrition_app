@@ -8,8 +8,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useAuth } from "@/providers/AuthProvider";
 import { useColorScheme } from "nativewind";
+
+import { useAuth } from "@/providers/AuthProvider";
 
 const HomePage = () => {
   const router = useRouter();

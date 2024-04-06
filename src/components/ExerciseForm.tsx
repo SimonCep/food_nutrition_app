@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+
 import { ExerciseFormProps } from "@/types";
 
 const ExerciseForm: React.FC<ExerciseFormProps> = ({

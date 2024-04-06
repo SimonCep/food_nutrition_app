@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import { useColorScheme } from "nativewind";
+import * as Yup from "yup";
+
 import { changeEmail } from "@/api/authService";
 import { supabase } from "@/lib/supabase";
-import * as Yup from "yup";
 import {
   inputClassName,
   buttonClassName,

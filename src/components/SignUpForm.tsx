@@ -1,5 +1,6 @@
 import React from "react";
 import { TextInput } from "react-native";
+
 import { SignUpFormProps } from "@/types";
 
 const SignUpForm: React.FC<SignUpFormProps> = ({

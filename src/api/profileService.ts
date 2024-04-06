@@ -1,7 +1,8 @@
-import { Tables } from "@/types";
-import { supabase } from "@/lib/supabase";
 import { Alert } from "react-native";
 import * as Yup from "yup";
+
+import { Tables } from "@/types";
+import { supabase } from "@/lib/supabase";
 import { updateProfileValidationSchema } from "@/utils/validationSchemas";
 
 export const updateProfile = async (

@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
+import { router } from "expo-router";
+
 import { updateProfile } from "@/api/profileService";
 import { useAuth } from "@/providers/AuthProvider";
-import { router } from "expo-router";
 
 const EditProfile: React.FC = () => {
   const { profile, updateProfileData } = useAuth();

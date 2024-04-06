@@ -8,11 +8,12 @@ import {
   View,
 } from "react-native";
 import { useColorScheme } from "nativewind";
+import * as Yup from "yup";
+
 import ExerciseForm from "@/components/ExerciseForm";
 import { ExerciseSectionProps, Tables } from "@/types";
 import { addExercise, fetchExercises } from "@/api/exerciseService";
 import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
-import * as Yup from "yup";
 import { addExerciseValidationSchema } from "@/utils/validationSchemas";
 
 const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {

@@ -1,5 +1,6 @@
-import { Database } from "./database.types";
 import * as Yup from "yup";
+
+import { Database } from "@/database.types";
 
 // Sign-in related types
 export interface SignInData {

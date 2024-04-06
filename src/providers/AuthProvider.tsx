@@ -7,6 +7,8 @@ import {
   useState,
   useMemo,
 } from "react";
+import { router } from "expo-router";
+
 import { Tables } from "@/types";
 import {
   fetchSession,
@@ -14,7 +16,6 @@ import {
   subscribeToAuthStateChange,
   isSessionExpired,
 } from "@/api/authService";
-import { router } from "expo-router";
 
 type AuthData = {
   session: Session | null;

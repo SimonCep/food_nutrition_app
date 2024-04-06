@@ -1,9 +1,8 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Redirect, Tabs } from "expo-router";
+import { Tabs } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
-import { useAuth } from "@/providers/AuthProvider";
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];

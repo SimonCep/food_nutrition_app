@@ -1,4 +1,3 @@
-import { Alert } from "react-native";
 import * as Yup from "yup";
 
 import { supabase } from "@/lib/supabase";

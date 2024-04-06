@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Text, View } from "react-native";
+
 import { ThemeSwitchProps } from "@/types";
 
 const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
