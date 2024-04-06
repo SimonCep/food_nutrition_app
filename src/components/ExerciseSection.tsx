@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  Modal,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useColorScheme } from "nativewind";
 import ExerciseForm from "@/components/ExerciseForm";
 import { ExerciseSectionProps, Tables } from "@/types";
 import { addExercise, fetchExercises } from "@/api/exerciseService";
 import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
+import * as Yup from "yup";
+import { addExerciseValidationSchema } from "@/utils/validationSchemas";
 
 const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
   const [exercises, setExercises] = useState<Tables<"exercises">[]>([]);
@@ -16,34 +25,49 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
   const { colorScheme } = useColorScheme();
   const colors =
     colorScheme === "dark" ? darkColorsExercise : lightColorsExercise;
+  const [validationErrors, setValidationErrors] =
+    useState<Yup.ValidationError | null>(null);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const data = await fetchExercises(userId);
-        setExercises(data);
-      } catch (error) {
-        console.error("Error fetching exercises:", error);
-      }
-    })();
+    fetchExercises(userId)
+      .then((data) => setExercises(data))
+      .catch((error) => console.error("Error fetching exercises:", error));
   }, [userId]);
 
   const handleAddExercise = async () => {
-    await addExercise(
-      exercise,
-      duration,
-      calories,
-      userId,
-      setIsLoading,
-      async () => {
+    try {
+      setIsLoading(true);
+      await addExerciseValidationSchema.validate(
+        { exercise, duration, calories },
+        { abortEarly: false },
+      );
+      setValidationErrors(null);
+
+      const success = await addExercise(exercise, duration, calories, userId);
+      if (success) {
         setExercise("");
         setDuration(0);
         setCalories(0);
         setIsFormVisible(false);
         const data = await fetchExercises(userId);
         setExercises(data);
-      },
-    );
+      } else {
+        Alert.alert("Error", "Failed to add exercise. Please try again.");
+      }
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        setValidationErrors(error);
+      } else {
+        Alert.alert("Error", "An unexpected error occurred. Please try again.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleOpenForm = () => {
+    setIsFormVisible(true);
+    setValidationErrors(null); // Reset validation errors when opening the form
   };
 
   const renderExerciseItem = ({ item }: { item: Tables<"exercises"> }) => (
@@ -76,7 +100,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
           contentContainerStyle={{ paddingBottom: 16 }}
         />
         <TouchableOpacity
-          onPress={() => setIsFormVisible(true)}
+          onPress={handleOpenForm}
           className={`${colors.buttonBackground} py-2 px-4 rounded-full border-2 ${colors.buttonBorder} mb-4`}
         >
           <Text className={`${colors.buttonText} font-bold text-center`}>
@@ -95,6 +119,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
           onAddExercise={handleAddExercise}
           onCancel={() => setIsFormVisible(false)}
           isLoading={isLoading}
+          validationErrors={validationErrors}
         />
       </Modal>
     </View>

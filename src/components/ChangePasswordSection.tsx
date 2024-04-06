@@ -37,7 +37,6 @@ const ChangePasswordSection = () => {
       if (error instanceof Yup.ValidationError) {
         setValidationErrors(error);
       } else {
-        console.error("Error changing password:", error);
         Alert.alert("Error", "An unexpected error occurred. Please try again.");
       }
     }

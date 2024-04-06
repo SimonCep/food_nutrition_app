@@ -10,34 +10,31 @@ export const addExercise = async (
   duration: number,
   calories: number,
   userId: string,
-  setIsLoading: (isLoading: boolean) => void,
-  onSuccess: () => void,
 ) => {
   try {
-    setIsLoading(true);
     await addExerciseValidationSchema.validate({
       exercise,
       duration,
       calories,
     });
+
     const { error } = await supabase
       .from("exercises")
       .insert({ exercise, duration, calories, user_id: userId });
+
     if (error) {
       console.error("Error adding exercise:", error);
-      Alert.alert("Error", "An error occurred while adding the exercise.");
-      return;
+      return false;
     }
-    onSuccess();
+
+    return true;
   } catch (error) {
     if (error instanceof Yup.ValidationError) {
-      Alert.alert("Validation Error", error.message);
+      console.error("Validation error adding exercise:", error);
     } else {
       console.error("Error adding exercise:", error);
-      Alert.alert("Error", "An unexpected error occurred.");
     }
-  } finally {
-    setIsLoading(false);
+    return false;
   }
 };
 
@@ -51,14 +48,12 @@ export const fetchExercises = async (userId: string) => {
 
     if (error) {
       console.error("Error fetching exercises:", error);
-      Alert.alert("Error", "An error occurred while fetching exercises.");
       return [];
     }
 
     return data as Tables<"exercises">[];
   } catch (error) {
     console.error("Error fetching exercises:", error);
-    Alert.alert("Error", "An unexpected error occurred.");
     return [];
   }
 };

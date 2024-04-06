@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
 import { ExerciseFormProps } from "@/types";
 
 const ExerciseForm: React.FC<ExerciseFormProps> = ({
@@ -19,7 +18,13 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
   onAddExercise,
   onCancel,
   isLoading,
+  validationErrors,
 }) => {
+  const getFieldError = (field: string) => {
+    return validationErrors?.inner.find((error) => error.path === field)
+      ?.message;
+  };
+
   return (
     <View className="flex-1 p-6 bg-gray-100 dark:bg-black">
       <Text className="text-2xl font-bold mb-6 text-center text-black dark:text-white">
@@ -31,24 +36,33 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
           onChangeText={setExercise}
           placeholder="Exercise"
           placeholderTextColor="#6B7280"
-          className="border-b border-gray-300 dark:border-gray-600 p-2 mb-4 text-lg text-black dark:text-white"
+          className="border-b border-gray-300 dark:border-gray-600 p-2 mb-2 text-lg text-black dark:text-white"
         />
+        {getFieldError("exercise") && (
+          <Text className="text-red-500 mb-2">{getFieldError("exercise")}</Text>
+        )}
         <TextInput
           value={duration > 0 ? duration.toString() : ""}
           onChangeText={(text) => setDuration(parseInt(text) || 0)}
           placeholder="Duration (in minutes)"
           placeholderTextColor="#6B7280"
           keyboardType="numeric"
-          className="border-b border-gray-300 dark:border-gray-600 p-2 mb-4 text-lg text-black dark:text-white"
+          className="border-b border-gray-300 dark:border-gray-600 p-2 mb-2 text-lg text-black dark:text-white"
         />
+        {getFieldError("duration") && (
+          <Text className="text-red-500 mb-2">{getFieldError("duration")}</Text>
+        )}
         <TextInput
           value={calories > 0 ? calories.toString() : ""}
           onChangeText={(text) => setCalories(parseInt(text) || 0)}
           placeholder="Calories Burned"
           placeholderTextColor="#6B7280"
           keyboardType="numeric"
-          className="border-b border-gray-300 dark:border-gray-600 p-2 mb-4 text-lg text-black dark:text-white"
+          className="border-b border-gray-300 dark:border-gray-600 p-2 mb-2 text-lg text-black dark:text-white"
         />
+        {getFieldError("calories") && (
+          <Text className="text-red-500 mb-4">{getFieldError("calories")}</Text>
+        )}
         <TouchableOpacity
           onPress={onAddExercise}
           disabled={isLoading}

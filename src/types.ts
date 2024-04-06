@@ -1,4 +1,5 @@
 import { Database } from "./database.types";
+import * as Yup from "yup";
 
 // Sign-in related types
 export interface SignInData {
@@ -44,6 +45,7 @@ export interface ExerciseFormProps {
   onAddExercise: () => void;
   onCancel: () => void;
   isLoading: boolean;
+  validationErrors: Yup.ValidationError | null;
 }
 
 export interface ExerciseSectionProps {
