@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  Modal,
-} from "react-native";
+import { View, Text, TextInput, Button, TouchableOpacity } from "react-native";
 
 const EditGoals: React.FC = () => {
   const [totalCalories, setTotalCalories] = useState<string>("");

@@ -44,62 +44,62 @@ export default function UserInfoTab() {
   return (
     <ImageBackground
       source={require("../../assets/images/backgroundImage2.png")}
-      className="bg-white flex-1 justify-center resize-y"
+      className="flex-1 resize-y justify-center bg-white"
     >
       <ScrollView>
         <View className="flex-grow items-center justify-center">
-          <View className="items-center mt-20 mb-5">
-            <View className="w-32 h-32 flex items-center justify-center rounded-full mb-4 shadow-lg bg-white border-4 border-black">
+          <View className="mb-5 mt-20 items-center">
+            <View className="mb-4 flex h-32 w-32 items-center justify-center rounded-full border-4 border-black bg-white shadow-lg">
               {profile?.avatar_url ? (
                 <Image
                   source={{ uri: profile.avatar_url }}
-                  className="w-28 h-28 rounded-full"
+                  className="h-28 w-28 rounded-full"
                 />
               ) : (
                 <Image
                   source={require("../../assets/images/profilePicture.png")}
-                  className="w-28 h-28 rounded-full"
+                  className="h-28 w-28 rounded-full"
                 />
               )}
             </View>
             {profile?.username ? (
-              <Text className="text-lg font-bold mb-2">{profile.username}</Text>
+              <Text className="mb-2 text-lg font-bold">{profile.username}</Text>
             ) : (
-              <Text className="text-lg font-bold mb-2">Loading...</Text>
+              <Text className="mb-2 text-lg font-bold">Loading...</Text>
             )}
           </View>
 
-          <View className="justify-center m-10 w-screen p-5">
+          <View className="m-10 w-screen justify-center p-5">
             <TouchableOpacity
-              className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
+              className="mb-4 rounded-xl border-2 border-black bg-yellow-200 px-6 py-4"
               onPress={handleEditProfile}
             >
               <Text>Profile Settings</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
+              className="mb-4 rounded-xl border-2 border-black bg-yellow-200 px-6 py-4"
               onPress={handleEditGoals}
             >
               <Text>Dietary Goals</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleAccountSecurity}
-              className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
+              className="mb-4 rounded-xl border-2 border-black bg-yellow-200 px-6 py-4"
             >
               <Text>Account Security</Text>
             </TouchableOpacity>
-            <TouchableOpacity className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4">
+            <TouchableOpacity className="mb-4 rounded-xl border-2 border-black bg-yellow-200 px-6 py-4">
               <Text>Privacy Settings</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleThemeSettings}
-              className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
+              className="mb-4 rounded-xl border-2 border-black bg-yellow-200 px-6 py-4"
             >
               <Text>Theme Settings</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleAboutUs}
-              className="py-4 px-6 bg-yellow-200 rounded-xl border-2 border-black mb-4"
+              className="mb-4 rounded-xl border-2 border-black bg-yellow-200 px-6 py-4"
             >
               <Text>About Us</Text>
             </TouchableOpacity>
@@ -107,9 +107,9 @@ export default function UserInfoTab() {
 
           <TouchableOpacity
             onPress={handleLogout}
-            className="py-4 px-6 rounded-md w-1/3 mb-10"
+            className="mb-10 w-1/3 rounded-md px-6 py-4"
           >
-            <Text className="text-red-500 text-lg font-bold text-center">
+            <Text className="text-center text-lg font-bold text-red-500">
               Logout
             </Text>
           </TouchableOpacity>

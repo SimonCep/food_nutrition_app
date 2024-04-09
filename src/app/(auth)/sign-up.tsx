@@ -24,9 +24,9 @@ const SignUpScreen = () => {
 
   return (
     <View className={`${colors.background} flex-1 justify-center`}>
-      <View className="flex-1 p-5 justify-center">
+      <View className="flex-1 justify-center p-5">
         <View
-          className={`${colors.primaryBackground} p-8 rounded-xl shadow-md`}
+          className={`${colors.primaryBackground} rounded-xl p-8 shadow-md`}
         >
           <SignUpForm
             name={name}
@@ -42,13 +42,13 @@ const SignUpScreen = () => {
               signUp(name, email, password, setIsLoading, handleSignUpSuccess)
             }
             disabled={isLoading}
-            className={`${colors.buttonBackground} py-3 rounded-full border-2 ${colors.border} mb-4`}
+            className={`${colors.buttonBackground} rounded-full border-2 py-3 ${colors.border} mb-4`}
           >
             {isLoading ? (
               <ActivityIndicator color={colors.activityIndicatorColor} />
             ) : (
               <Text
-                className={`${colors.primaryText} font-bold text-lg text-center`}
+                className={`${colors.primaryText} text-center text-lg font-bold`}
               >
                 Create account
               </Text>

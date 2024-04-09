@@ -70,12 +70,12 @@ export default function Dashboard() {
   return (
     <ImageBackground
       source={require("../../assets/images/gradientBackground.png")}
-      className="bg-white dark:bg-black flex-1 justify-center resize-y"
+      className="flex-1 resize-y justify-center bg-white dark:bg-black"
     >
       <ScrollView>
         <View className="flex-grow items-center p-5">
           <Text className="pb-5 text-4xl dark:text-white">Your journey</Text>
-          <View className="mt-5 p-5 container h-96 bg-emerald-200 rounded-3xl">
+          <View className="container mt-5 h-96 rounded-3xl bg-emerald-200 p-5">
             <Text className="pb-5 text-3xl ">Weight</Text>
             <LineChart
               data={lineData}
@@ -87,7 +87,7 @@ export default function Dashboard() {
             />
           </View>
 
-          <View className="mt-5 p-5 container h-96 bg-emerald-200 rounded-3xl">
+          <View className="container mt-5 h-96 rounded-3xl bg-emerald-200 p-5">
             <Text className="pb-5 text-3xl ">Food intake</Text>
             <PieChart
               data={pieChartData}
@@ -102,7 +102,7 @@ export default function Dashboard() {
             />
           </View>
 
-          <View className="mt-5 p-5 container h-96 bg-emerald-200 rounded-3xl">
+          <View className="container mt-5 h-96 rounded-3xl bg-emerald-200 p-5">
             <Text className="pb-5 text-3xl ">Monthly activity</Text>
             <BarChart
               data={columnChartData}
@@ -115,7 +115,7 @@ export default function Dashboard() {
             />
           </View>
 
-          <View className="mt-5 p-5 container h-96 bg-emerald-200 rounded-3xl">
+          <View className="container mt-5 h-96 rounded-3xl bg-emerald-200 p-5">
             <Text className="pb-5 text-3xl ">Daily activity</Text>
             <ProgressChart
               data={progressData}
