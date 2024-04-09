@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Alert,
   FlatList,
@@ -26,7 +26,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
   userId,
   selectedDate,
 }) => {
-  const [exercises, setExercises] = useState<Tables<"exercises">[]>([]);
+  const [exercises, setExercises] = useState<Exercise[]>([]);
   const [exercise, setExercise] = useState("");
   const [duration, setDuration] = useState(0);
   const [calories, setCalories] = useState(0);
@@ -45,32 +45,28 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
     null,
   );
 
+  const filterExercisesByDate = useCallback(
+    (exercises: Exercise[], selectedDate: Date) => {
+      return exercises.filter((exercise) => {
+        const exerciseDate = new Date(exercise.created_at);
+        return (
+          exerciseDate.getFullYear() === selectedDate.getFullYear() &&
+          exerciseDate.getMonth() === selectedDate.getMonth() &&
+          exerciseDate.getDate() === selectedDate.getDate()
+        );
+      });
+    },
+    [],
+  );
+
   useEffect(() => {
     fetchExercises(userId)
       .then((data) => {
-        const filteredExercises = data.filter((exercise) => {
-          const exerciseDate = new Date(exercise.created_at);
-          return (
-            exerciseDate.getFullYear() === selectedDate.getFullYear() &&
-            exerciseDate.getMonth() === selectedDate.getMonth() &&
-            exerciseDate.getDate() === selectedDate.getDate()
-          );
-        });
+        const filteredExercises = filterExercisesByDate(data, selectedDate);
         setExercises(filteredExercises);
       })
       .catch((error) => console.error("Error fetching exercises:", error));
-  }, [userId, selectedDate]);
-
-  const filterExercisesByDate = (exercises: Exercise[], selectedDate: Date) => {
-    return exercises.filter((exercise) => {
-      const exerciseDate = new Date(exercise.created_at);
-      return (
-        exerciseDate.getFullYear() === selectedDate.getFullYear() &&
-        exerciseDate.getMonth() === selectedDate.getMonth() &&
-        exerciseDate.getDate() === selectedDate.getDate()
-      );
-    });
-  };
+  }, [userId, selectedDate, filterExercisesByDate]);
 
   const handleAddExercise = async () => {
     try {
