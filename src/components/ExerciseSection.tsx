@@ -126,7 +126,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
           holdingExerciseId === item.id
             ? colors.holdingBackground
             : colors.primaryBackground
-        } p-4 rounded-lg shadow-md mb-4`}
+        } mb-4 rounded-lg p-4 shadow-md`}
       >
         <Text className={`text-lg font-bold ${colors.primaryText}`}>
           {item.exercise}
@@ -143,8 +143,8 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
 
   return (
     <View className={`p-5 ${colors.background}`}>
-      <View className={`${colors.primaryBackground} p-4 rounded-lg shadow-md`}>
-        <Text className={`text-xl font-bold mb-2 ${colors.primaryText}`}>
+      <View className={`${colors.primaryBackground} rounded-lg p-4 shadow-md`}>
+        <Text className={`mb-2 text-xl font-bold ${colors.primaryText}`}>
           Exercise
         </Text>
         <View className={`border-b ${colors.border} mb-4`} />
@@ -156,9 +156,9 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
         />
         <TouchableOpacity
           onPress={handleOpenForm}
-          className={`${colors.buttonBackground} py-2 px-4 rounded-full border-2 ${colors.buttonBorder} mb-4`}
+          className={`${colors.buttonBackground} rounded-full border-2 px-4 py-2 ${colors.buttonBorder} mb-4`}
         >
-          <Text className={`${colors.buttonText} font-bold text-center`}>
+          <Text className={`${colors.buttonText} text-center font-bold`}>
             Add Exercise
           </Text>
         </TouchableOpacity>
@@ -178,11 +178,11 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
         />
       </Modal>
       <Modal visible={isDeleteModalVisible} animationType="fade" transparent>
-        <View className="flex-1 justify-center items-center bg-black/40 px-4">
+        <View className="flex-1 items-center justify-center bg-black/40 px-4">
           <View
-            className={`${colors.modalBackground} p-6 rounded-lg shadow-md w-full max-w-md`}
+            className={`${colors.modalBackground} w-full max-w-md rounded-lg p-6 shadow-md`}
           >
-            <Text className={`${colors.modalText} text-lg font-bold mb-4`}>
+            <Text className={`${colors.modalText} mb-4 text-lg font-bold`}>
               Delete Exercise
             </Text>
             <Text className={`${colors.modalText} mb-4`}>
@@ -191,7 +191,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
             <View className="flex-row justify-end">
               <TouchableOpacity
                 onPress={() => setIsDeleteModalVisible(false)}
-                className={`${colors.cancelButtonBackground} py-2 px-4 rounded-full border-2 ${colors.cancelButtonBorder} mr-2`}
+                className={`${colors.cancelButtonBackground} rounded-full border-2 px-4 py-2 ${colors.cancelButtonBorder} mr-2`}
               >
                 <Text className={`${colors.cancelButtonText} font-bold`}>
                   Cancel
@@ -199,7 +199,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={handleDeleteExercise}
-                className={`${colors.deleteButtonBackground} py-2 px-4 rounded-full border-2 ${colors.deleteButtonBorder}`}
+                className={`${colors.deleteButtonBackground} rounded-full border-2 px-4 py-2 ${colors.deleteButtonBorder}`}
               >
                 <Text className={`${colors.deleteButtonText} font-bold`}>
                   Delete

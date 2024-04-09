@@ -20,7 +20,7 @@ const SignInForm: React.FC<SignInFormProps> = ({
         placeholderTextColor={colorScheme === "dark" ? "#A0AEC0" : "#4B5563"}
         className={`border-2 ${
           colorScheme === "dark" ? "border-gray-600" : "border-black"
-        } p-3 mt-1 mb-4 ${
+        } mb-4 mt-1 p-3 ${
           colorScheme === "dark" ? "bg-gray-800" : "bg-white"
         } rounded-md text-lg ${
           colorScheme === "dark" ? "text-white" : "text-black"
@@ -33,7 +33,7 @@ const SignInForm: React.FC<SignInFormProps> = ({
         placeholderTextColor={colorScheme === "dark" ? "#A0AEC0" : "#4B5563"}
         className={`border-2 ${
           colorScheme === "dark" ? "border-gray-600" : "border-black"
-        } p-3 mt-1 mb-6 ${
+        } mb-6 mt-1 p-3 ${
           colorScheme === "dark" ? "bg-gray-800" : "bg-white"
         } rounded-md text-lg ${
           colorScheme === "dark" ? "text-white" : "text-black"

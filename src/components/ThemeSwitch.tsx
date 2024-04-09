@@ -8,8 +8,8 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
   toggleColorScheme,
 }) => {
   return (
-    <View className="flex-row items-center bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg">
-      <Text className="text-black dark:text-white mr-4 text-lg">
+    <View className="flex-row items-center rounded-lg bg-gray-100 px-4 py-2 dark:bg-gray-800">
+      <Text className="mr-4 text-lg text-black dark:text-white">
         {colorScheme === "dark" ? "Dark Mode" : "Light Mode"}
       </Text>
       <Switch

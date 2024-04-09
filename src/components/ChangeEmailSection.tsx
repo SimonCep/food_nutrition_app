@@ -66,10 +66,10 @@ const ChangeEmailSection = () => {
 
   return (
     <View
-      className={`${isDarkMode ? "bg-gray-800" : "bg-white"} p-4 rounded-lg shadow-md mb-4`}
+      className={`${isDarkMode ? "bg-gray-800" : "bg-white"} mb-4 rounded-lg p-4 shadow-md`}
     >
       <Text
-        className={`text-xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-800"}`}
+        className={`mb-4 text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}
       >
         Change Email
       </Text>
@@ -90,14 +90,14 @@ const ChangeEmailSection = () => {
           placeholderTextColor={isDarkMode ? "#9ca3af" : "#6b7280"}
         />
         {validationError !== "" && (
-          <Text className="text-red-500 mt-1">{validationError}</Text>
+          <Text className="mt-1 text-red-500">{validationError}</Text>
         )}
       </View>
       <TouchableOpacity
         onPress={handleChangeEmail}
         className={buttonClassName(isDarkMode)}
       >
-        <Text className="text-white font-bold text-center">Change Email</Text>
+        <Text className="text-center font-bold text-white">Change Email</Text>
       </TouchableOpacity>
     </View>
   );

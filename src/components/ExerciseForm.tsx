@@ -27,20 +27,20 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
   };
 
   return (
-    <View className="flex-1 p-6 bg-gray-100 dark:bg-black">
-      <Text className="text-2xl font-bold mb-6 text-center text-black dark:text-white">
+    <View className="flex-1 bg-gray-100 p-6 dark:bg-black">
+      <Text className="mb-6 text-center text-2xl font-bold text-black dark:text-white">
         Add Exercise
       </Text>
-      <View className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
+      <View className="rounded-lg bg-white p-4 shadow-md dark:bg-gray-700">
         <TextInput
           value={exercise}
           onChangeText={setExercise}
           placeholder="Exercise"
           placeholderTextColor="#6B7280"
-          className="border-b border-gray-300 dark:border-gray-600 p-2 mb-2 text-lg text-black dark:text-white"
+          className="mb-2 border-b border-gray-300 p-2 text-lg text-black dark:border-gray-600 dark:text-white"
         />
         {getFieldError("exercise") && (
-          <Text className="text-red-500 mb-2">{getFieldError("exercise")}</Text>
+          <Text className="mb-2 text-red-500">{getFieldError("exercise")}</Text>
         )}
         <TextInput
           value={duration > 0 ? duration.toString() : ""}
@@ -48,10 +48,10 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
           placeholder="Duration (in minutes)"
           placeholderTextColor="#6B7280"
           keyboardType="numeric"
-          className="border-b border-gray-300 dark:border-gray-600 p-2 mb-2 text-lg text-black dark:text-white"
+          className="mb-2 border-b border-gray-300 p-2 text-lg text-black dark:border-gray-600 dark:text-white"
         />
         {getFieldError("duration") && (
-          <Text className="text-red-500 mb-2">{getFieldError("duration")}</Text>
+          <Text className="mb-2 text-red-500">{getFieldError("duration")}</Text>
         )}
         <TextInput
           value={calories > 0 ? calories.toString() : ""}
@@ -59,29 +59,29 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
           placeholder="Calories Burned"
           placeholderTextColor="#6B7280"
           keyboardType="numeric"
-          className="border-b border-gray-300 dark:border-gray-600 p-2 mb-2 text-lg text-black dark:text-white"
+          className="mb-2 border-b border-gray-300 p-2 text-lg text-black dark:border-gray-600 dark:text-white"
         />
         {getFieldError("calories") && (
-          <Text className="text-red-500 mb-4">{getFieldError("calories")}</Text>
+          <Text className="mb-4 text-red-500">{getFieldError("calories")}</Text>
         )}
         <TouchableOpacity
           onPress={onAddExercise}
           disabled={isLoading}
-          className="bg-yellow-400 dark:bg-yellow-600 py-3 rounded-full border-2 border-black dark:border-white mb-4"
+          className="mb-4 rounded-full border-2 border-black bg-yellow-400 py-3 dark:border-white dark:bg-yellow-600"
         >
           {isLoading ? (
             <ActivityIndicator color="black" />
           ) : (
-            <Text className="text-black dark:text-white font-bold text-lg text-center">
+            <Text className="text-center text-lg font-bold text-black dark:text-white">
               Add
             </Text>
           )}
         </TouchableOpacity>
         <TouchableOpacity
           onPress={onCancel}
-          className="bg-gray-300 dark:bg-gray-600 py-3 px-6 rounded-full"
+          className="rounded-full bg-gray-300 px-6 py-3 dark:bg-gray-600"
         >
-          <Text className="text-gray-700 dark:text-gray-200 font-bold text-lg text-center">
+          <Text className="text-center text-lg font-bold text-gray-700 dark:text-gray-200">
             Cancel
           </Text>
         </TouchableOpacity>

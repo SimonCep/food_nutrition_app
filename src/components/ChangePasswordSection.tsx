@@ -45,10 +45,10 @@ const ChangePasswordSection = () => {
 
   return (
     <View
-      className={`${isDarkMode ? "bg-gray-800" : "bg-white"} p-4 rounded-lg shadow-md`}
+      className={`${isDarkMode ? "bg-gray-800" : "bg-white"} rounded-lg p-4 shadow-md`}
     >
       <Text
-        className={`text-xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-800"}`}
+        className={`mb-4 text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}
       >
         Change Password
       </Text>
@@ -64,7 +64,7 @@ const ChangePasswordSection = () => {
         {validationErrors?.inner.some(
           (error) => error.path === "newPassword",
         ) && (
-          <Text className="text-red-500 mt-1">
+          <Text className="mt-1 text-red-500">
             {
               validationErrors.inner.find(
                 (error) => error.path === "newPassword",
@@ -85,7 +85,7 @@ const ChangePasswordSection = () => {
         {validationErrors?.inner.some(
           (error) => error.path === "confirmPassword",
         ) && (
-          <Text className="text-red-500 mt-1">
+          <Text className="mt-1 text-red-500">
             {
               validationErrors.inner.find(
                 (error) => error.path === "confirmPassword",
@@ -98,7 +98,7 @@ const ChangePasswordSection = () => {
         onPress={handleChangePassword}
         className={buttonClassName(isDarkMode)}
       >
-        <Text className="text-white font-bold text-center">
+        <Text className="text-center font-bold text-white">
           Change Password
         </Text>
       </TouchableOpacity>
