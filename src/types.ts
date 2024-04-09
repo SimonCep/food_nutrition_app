@@ -51,6 +51,7 @@ export interface ExerciseFormProps {
 
 export interface ExerciseSectionProps {
   userId: string;
+  selectedDate: Date; // Add this line
 }
 
 // Theme switcher types

@@ -13,7 +13,7 @@ import * as Yup from "yup";
 import { runOnJS } from "react-native-reanimated";
 
 import ExerciseForm from "@/components/ExerciseForm";
-import { ExerciseSectionProps, Tables } from "@/types";
+import { ExerciseSectionProps, Tables, Exercise } from "@/types";
 import {
   addExercise,
   fetchExercises,
@@ -22,7 +22,10 @@ import {
 import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
 import { addExerciseValidationSchema } from "@/utils/validationSchemas";
 
-const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
+const ExerciseSection: React.FC<ExerciseSectionProps> = ({
+  userId,
+  selectedDate,
+}) => {
   const [exercises, setExercises] = useState<Tables<"exercises">[]>([]);
   const [exercise, setExercise] = useState("");
   const [duration, setDuration] = useState(0);
@@ -44,9 +47,30 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
 
   useEffect(() => {
     fetchExercises(userId)
-      .then((data) => setExercises(data))
+      .then((data) => {
+        const filteredExercises = data.filter((exercise) => {
+          const exerciseDate = new Date(exercise.created_at);
+          return (
+            exerciseDate.getFullYear() === selectedDate.getFullYear() &&
+            exerciseDate.getMonth() === selectedDate.getMonth() &&
+            exerciseDate.getDate() === selectedDate.getDate()
+          );
+        });
+        setExercises(filteredExercises);
+      })
       .catch((error) => console.error("Error fetching exercises:", error));
-  }, [userId]);
+  }, [userId, selectedDate]);
+
+  const filterExercisesByDate = (exercises: Exercise[], selectedDate: Date) => {
+    return exercises.filter((exercise) => {
+      const exerciseDate = new Date(exercise.created_at);
+      return (
+        exerciseDate.getFullYear() === selectedDate.getFullYear() &&
+        exerciseDate.getMonth() === selectedDate.getMonth() &&
+        exerciseDate.getDate() === selectedDate.getDate()
+      );
+    });
+  };
 
   const handleAddExercise = async () => {
     try {
@@ -57,14 +81,22 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
       );
       setValidationErrors(null);
 
-      const success = await addExercise(exercise, duration, calories, userId);
+      const formattedDate = selectedDate.toISOString(); // Convert Date to ISO string
+      const success = await addExercise(
+        exercise,
+        duration,
+        calories,
+        userId,
+        formattedDate,
+      );
       if (success) {
         setExercise("");
         setDuration(0);
         setCalories(0);
         setIsFormVisible(false);
         const data = await fetchExercises(userId);
-        setExercises(data);
+        const filteredExercises = filterExercisesByDate(data, selectedDate);
+        setExercises(filteredExercises);
       } else {
         Alert.alert("Error", "Failed to add exercise. Please try again.");
       }
@@ -86,7 +118,8 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
         const success = await deleteExercise(selectedExerciseId);
         if (success) {
           const data = await fetchExercises(userId);
-          setExercises(data);
+          const filteredExercises = filterExercisesByDate(data, selectedDate);
+          setExercises(filteredExercises);
           setSelectedExerciseId(null);
           setIsDeleteModalVisible(false);
         } else {
