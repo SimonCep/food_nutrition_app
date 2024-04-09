@@ -12,7 +12,7 @@ import { GestureDetector } from "react-native-gesture-handler";
 import * as Yup from "yup";
 
 import ExerciseForm from "@/components/ExerciseForm";
-import DeleteConfirmationModal from "@/components/DeleteConfirmationModal"; // Import the new component
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal";
 import { Exercise, ExerciseSectionProps, Tables } from "@/types";
 import {
   addExercise,
@@ -233,13 +233,13 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
           calories={calories}
           setCalories={setCalories}
           onSubmit={handleSaveExercise}
-          onCancel={handleCancelForm} // Use handleCancelForm instead of inline function
+          onCancel={handleCancelForm}
           isLoading={isLoading}
           validationErrors={validationErrors}
           isEditing={!!editingExercise}
         />
       </Modal>
-      <DeleteConfirmationModal // Use the new component
+      <DeleteConfirmationModal
         isVisible={isDeleteModalVisible}
         onCancel={() => setIsDeleteModalVisible(false)}
         onDelete={handleDeleteExercise}
