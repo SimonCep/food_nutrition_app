@@ -82,6 +82,11 @@ export const lightColorsExercise = {
   editButtonBackground: "bg-blue-500",
   editButtonBorder: "border-blue-700",
   editButtonText: "text-white",
+
+  datePickerBackground: "bg-white",
+  datePickerText: "text-black",
+  arrowText: "text-black",
+  arrowColor: "black",
 };
 
 export const darkColorsExercise = {
@@ -114,4 +119,9 @@ export const darkColorsExercise = {
   editButtonBackground: "bg-blue-600",
   editButtonBorder: "border-blue-800",
   editButtonText: "text-white",
+
+  datePickerBackground: "bg-gray-800",
+  datePickerText: "text-white",
+  arrowText: "text-white",
+  arrowColor: "white",
 };
