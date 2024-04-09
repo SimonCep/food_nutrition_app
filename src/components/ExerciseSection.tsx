@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   FlatList,
@@ -8,20 +8,22 @@ import {
   View,
 } from "react-native";
 import { useColorScheme } from "nativewind";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { GestureDetector } from "react-native-gesture-handler";
 import * as Yup from "yup";
-import { runOnJS } from "react-native-reanimated";
 
 import ExerciseForm from "@/components/ExerciseForm";
-import { ExerciseSectionProps, Tables, Exercise } from "@/types";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal"; // Import the new component
+import { Exercise, ExerciseSectionProps, Tables } from "@/types";
 import {
   addExercise,
-  fetchExercises,
   deleteExercise,
+  fetchExercises,
   updateExercise,
 } from "@/api/exerciseService";
 import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
 import { addExerciseValidationSchema } from "@/utils/validationSchemas";
+import { longPressGesture, pressGesture } from "@/utils/gestureHandlers";
+import { filterExercisesByDate } from "@/utils/exerciseUtils";
 
 const ExerciseSection: React.FC<ExerciseSectionProps> = ({
   userId,
@@ -46,20 +48,6 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
     null,
   );
   const [editingExercise, setEditingExercise] = useState<Exercise | null>(null);
-
-  const filterExercisesByDate = useCallback(
-    (exercises: Exercise[], selectedDate: Date) => {
-      return exercises.filter((exercise) => {
-        const exerciseDate = new Date(exercise.created_at);
-        return (
-          exerciseDate.getFullYear() === selectedDate.getFullYear() &&
-          exerciseDate.getMonth() === selectedDate.getMonth() &&
-          exerciseDate.getDate() === selectedDate.getDate()
-        );
-      });
-    },
-    [],
-  );
 
   useEffect(() => {
     fetchExercises(userId)
@@ -174,16 +162,6 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
     setIsDeleteModalVisible(true);
   };
 
-  const longPressGesture = (exerciseId: number) =>
-    Gesture.LongPress()
-      .onStart(() => {
-        runOnJS(setHoldingExerciseId)(exerciseId);
-        runOnJS(handleLongPress)(exerciseId);
-      })
-      .onEnd(() => {
-        runOnJS(setHoldingExerciseId)(null);
-      });
-
   const handlePress = (exerciseId: number) => {
     const exercise = exercises.find((item) => item.id === exerciseId);
     if (exercise) {
@@ -196,18 +174,13 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
     setHoldingExerciseId(null);
   };
 
-  const pressGesture = (exerciseId: number) =>
-    Gesture.Tap()
-      .onStart(() => {
-        runOnJS(setHoldingExerciseId)(exerciseId);
-      })
-      .onEnd(() => {
-        runOnJS(handlePress)(exerciseId);
-      });
-
   const renderExerciseItem = ({ item }: { item: Tables<"exercises"> }) => (
-    <GestureDetector gesture={longPressGesture(item.id)}>
-      <GestureDetector gesture={pressGesture(item.id)}>
+    <GestureDetector
+      gesture={longPressGesture(item.id, setHoldingExerciseId, handleLongPress)}
+    >
+      <GestureDetector
+        gesture={pressGesture(item.id, setHoldingExerciseId, handlePress)}
+      >
         <View
           className={`${
             holdingExerciseId === item.id
@@ -266,38 +239,12 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
           isEditing={!!editingExercise}
         />
       </Modal>
-      <Modal visible={isDeleteModalVisible} animationType="fade" transparent>
-        <View className="flex-1 items-center justify-center bg-black/40 px-4">
-          <View
-            className={`${colors.modalBackground} w-full max-w-md rounded-lg p-6 shadow-md`}
-          >
-            <Text className={`${colors.modalText} mb-4 text-lg font-bold`}>
-              Delete Exercise
-            </Text>
-            <Text className={`${colors.modalText} mb-4`}>
-              Are you sure you want to delete this exercise entry?
-            </Text>
-            <View className="flex-row justify-end">
-              <TouchableOpacity
-                onPress={() => setIsDeleteModalVisible(false)}
-                className={`${colors.cancelButtonBackground} rounded-full border-2 px-4 py-2 ${colors.cancelButtonBorder} mr-2`}
-              >
-                <Text className={`${colors.cancelButtonText} font-bold`}>
-                  Cancel
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={handleDeleteExercise}
-                className={`${colors.deleteButtonBackground} rounded-full border-2 px-4 py-2 ${colors.deleteButtonBorder}`}
-              >
-                <Text className={`${colors.deleteButtonText} font-bold`}>
-                  Delete
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+      <DeleteConfirmationModal // Use the new component
+        isVisible={isDeleteModalVisible}
+        onCancel={() => setIsDeleteModalVisible(false)}
+        onDelete={handleDeleteExercise}
+        colors={colors}
+      />
     </View>
   );
 };
