@@ -169,7 +169,7 @@ const EditProfile: React.FC = () => {
             }}
             placeholder="Avatar URL"
             placeholderTextColor="#6B7280"
-            value={newAvatarUrl}
+            value={avatarUrl}
             onChangeText={setNewAvatarUrl}
           />
           <Button title="Save Avatar URL" onPress={handleAvatarUrlChange} />
