@@ -16,10 +16,11 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
   setDuration,
   calories,
   setCalories,
-  onAddExercise,
+  onSubmit,
   onCancel,
   isLoading,
   validationErrors,
+  isEditing,
 }) => {
   const getFieldError = (field: string) => {
     return validationErrors?.inner.find((error) => error.path === field)
@@ -29,7 +30,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
   return (
     <View className="flex-1 bg-gray-100 p-6 dark:bg-black">
       <Text className="mb-6 text-center text-2xl font-bold text-black dark:text-white">
-        Add Exercise
+        {isEditing ? "Edit Exercise" : "Add Exercise"}
       </Text>
       <View className="rounded-lg bg-white p-4 shadow-md dark:bg-gray-700">
         <TextInput
@@ -65,7 +66,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
           <Text className="mb-4 text-red-500">{getFieldError("calories")}</Text>
         )}
         <TouchableOpacity
-          onPress={onAddExercise}
+          onPress={onSubmit}
           disabled={isLoading}
           className="mb-4 rounded-full border-2 border-black bg-yellow-400 py-3 dark:border-white dark:bg-yellow-600"
         >
@@ -73,7 +74,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
             <ActivityIndicator color="black" />
           ) : (
             <Text className="text-center text-lg font-bold text-black dark:text-white">
-              Add
+              {isEditing ? "Save" : "Add"}
             </Text>
           )}
         </TouchableOpacity>

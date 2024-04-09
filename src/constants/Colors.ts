@@ -79,6 +79,9 @@ export const lightColorsExercise = {
   deleteButtonBorder: "border-red-700",
   deleteButtonText: "text-white",
   holdingBackground: "bg-yellow-200",
+  editButtonBackground: "bg-blue-500",
+  editButtonBorder: "border-blue-700",
+  editButtonText: "text-white",
 };
 
 export const darkColorsExercise = {
@@ -108,4 +111,7 @@ export const darkColorsExercise = {
   deleteButtonBorder: "border-red-900",
   deleteButtonText: "text-white",
   holdingBackground: "bg-yellow-700",
+  editButtonBackground: "bg-blue-600",
+  editButtonBorder: "border-blue-800",
+  editButtonText: "text-white",
 };

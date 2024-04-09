@@ -43,10 +43,11 @@ export interface ExerciseFormProps {
   setDuration: (duration: number) => void;
   calories: number;
   setCalories: (calories: number) => void;
-  onAddExercise: () => void;
+  onSubmit: () => void;
   onCancel: () => void;
   isLoading: boolean;
   validationErrors: Yup.ValidationError | null;
+  isEditing: boolean;
 }
 
 export interface ExerciseSectionProps {

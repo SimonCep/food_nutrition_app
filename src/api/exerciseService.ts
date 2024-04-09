@@ -18,15 +18,13 @@ export const addExercise = async (
       calories,
     });
 
-    const { error } = await supabase
-      .from("exercises")
-      .insert({
-        exercise,
-        duration,
-        calories,
-        user_id: userId,
-        created_at: selectedDate,
-      }); // Use selectedDate for created_at
+    const { error } = await supabase.from("exercises").insert({
+      exercise,
+      duration,
+      calories,
+      user_id: userId,
+      created_at: selectedDate,
+    }); // Use selectedDate for created_at
 
     if (error) {
       console.error("Error adding exercise:", error);
@@ -79,6 +77,48 @@ export const deleteExercise = async (exerciseId: number) => {
     return true;
   } catch (error) {
     console.error("Error deleting exercise:", error);
+    return false;
+  }
+};
+
+export const updateExercise = async (
+  exerciseId: number,
+  exercise: string,
+  duration: number,
+  calories: number,
+  userId: string,
+  selectedDate: string,
+) => {
+  try {
+    await addExerciseValidationSchema.validate({
+      exercise,
+      duration,
+      calories,
+    });
+
+    const { error } = await supabase
+      .from("exercises")
+      .update({
+        exercise,
+        duration,
+        calories,
+        user_id: userId,
+        created_at: selectedDate,
+      })
+      .eq("id", exerciseId);
+
+    if (error) {
+      console.error("Error updating exercise:", error);
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    if (error instanceof Yup.ValidationError) {
+      console.error("Validation error updating exercise:", error);
+    } else {
+      console.error("Error updating exercise:", error);
+    }
     return false;
   }
 };

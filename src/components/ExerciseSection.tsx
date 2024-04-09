@@ -18,6 +18,7 @@ import {
   addExercise,
   fetchExercises,
   deleteExercise,
+  updateExercise,
 } from "@/api/exerciseService";
 import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
 import { addExerciseValidationSchema } from "@/utils/validationSchemas";
@@ -44,6 +45,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
   const [holdingExerciseId, setHoldingExerciseId] = useState<number | null>(
     null,
   );
+  const [editingExercise, setEditingExercise] = useState<Exercise | null>(null);
 
   const filterExercisesByDate = useCallback(
     (exercises: Exercise[], selectedDate: Date) => {
@@ -68,7 +70,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
       .catch((error) => console.error("Error fetching exercises:", error));
   }, [userId, selectedDate, filterExercisesByDate]);
 
-  const handleAddExercise = async () => {
+  const handleSaveExercise = async () => {
     try {
       setIsLoading(true);
       await addExerciseValidationSchema.validate(
@@ -77,35 +79,58 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
       );
       setValidationErrors(null);
 
-      const formattedDate = selectedDate.toISOString(); // Convert Date to ISO string
-      const success = await addExercise(
-        exercise,
-        duration,
-        calories,
-        userId,
-        formattedDate,
-      );
+      const formattedDate = selectedDate.toISOString();
+      let success;
+      if (editingExercise) {
+        success = await updateExercise(
+          editingExercise.id,
+          exercise,
+          duration,
+          calories,
+          userId,
+          formattedDate,
+        );
+      } else {
+        success = await addExercise(
+          exercise,
+          duration,
+          calories,
+          userId,
+          formattedDate,
+        );
+      }
+
       if (success) {
         setExercise("");
         setDuration(0);
         setCalories(0);
         setIsFormVisible(false);
+        setEditingExercise(null);
+        setValidationErrors(null); // Clear validation errors on successful submission
         const data = await fetchExercises(userId);
         const filteredExercises = filterExercisesByDate(data, selectedDate);
         setExercises(filteredExercises);
       } else {
-        Alert.alert("Error", "Failed to add exercise. Please try again.");
+        Alert.alert(
+          "Error",
+          `Failed to ${editingExercise ? "update" : "add"} exercise. Please try again.`,
+        );
       }
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         setValidationErrors(error);
       } else {
-        console.error("Error adding exercise:", error);
+        console.error("Error saving exercise:", error);
         Alert.alert("Error", "An unexpected error occurred. Please try again.");
       }
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleCancelForm = () => {
+    setIsFormVisible(false);
+    setValidationErrors(null); // Clear validation errors on form cancel
   };
 
   const handleDeleteExercise = async () => {
@@ -128,9 +153,20 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
     }
   };
 
-  const handleOpenForm = () => {
+  const handleOpenForm = (exercise?: Exercise) => {
+    if (exercise) {
+      setEditingExercise(exercise);
+      setExercise(exercise.exercise);
+      setDuration(exercise.duration);
+      setCalories(exercise.calories);
+    } else {
+      setEditingExercise(null);
+      setExercise("");
+      setDuration(0);
+      setCalories(0);
+    }
     setIsFormVisible(true);
-    setValidationErrors(null); // Reset validation errors when opening the form
+    setValidationErrors(null);
   };
 
   const handleLongPress = (exerciseId: number) => {
@@ -148,25 +184,48 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
         runOnJS(setHoldingExerciseId)(null);
       });
 
+  const handlePress = (exerciseId: number) => {
+    const exercise = exercises.find((item) => item.id === exerciseId);
+    if (exercise) {
+      setEditingExercise(exercise);
+      setExercise(exercise.exercise);
+      setDuration(exercise.duration);
+      setCalories(exercise.calories);
+      setIsFormVisible(true);
+    }
+    setHoldingExerciseId(null);
+  };
+
+  const pressGesture = (exerciseId: number) =>
+    Gesture.Tap()
+      .onStart(() => {
+        runOnJS(setHoldingExerciseId)(exerciseId);
+      })
+      .onEnd(() => {
+        runOnJS(handlePress)(exerciseId);
+      });
+
   const renderExerciseItem = ({ item }: { item: Tables<"exercises"> }) => (
     <GestureDetector gesture={longPressGesture(item.id)}>
-      <View
-        className={`${
-          holdingExerciseId === item.id
-            ? colors.holdingBackground
-            : colors.primaryBackground
-        } mb-4 rounded-lg p-4 shadow-md`}
-      >
-        <Text className={`text-lg font-bold ${colors.primaryText}`}>
-          {item.exercise}
-        </Text>
-        <Text className={`${colors.secondaryText}`}>
-          Duration: {item.duration} minutes
-        </Text>
-        <Text className={`${colors.secondaryText}`}>
-          Calories Burned: {item.calories}
-        </Text>
-      </View>
+      <GestureDetector gesture={pressGesture(item.id)}>
+        <View
+          className={`${
+            holdingExerciseId === item.id
+              ? colors.holdingBackground
+              : colors.primaryBackground
+          } mb-4 rounded-lg p-4 shadow-md`}
+        >
+          <Text className={`text-lg font-bold ${colors.primaryText}`}>
+            {item.exercise}
+          </Text>
+          <Text className={`${colors.secondaryText}`}>
+            Duration: {item.duration} minutes
+          </Text>
+          <Text className={`${colors.secondaryText}`}>
+            Calories Burned: {item.calories}
+          </Text>
+        </View>
+      </GestureDetector>
     </GestureDetector>
   );
 
@@ -184,7 +243,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
           contentContainerStyle={{ paddingBottom: 16 }}
         />
         <TouchableOpacity
-          onPress={handleOpenForm}
+          onPress={() => handleOpenForm()}
           className={`${colors.buttonBackground} rounded-full border-2 px-4 py-2 ${colors.buttonBorder} mb-4`}
         >
           <Text className={`${colors.buttonText} text-center font-bold`}>
@@ -200,10 +259,11 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
           setDuration={setDuration}
           calories={calories}
           setCalories={setCalories}
-          onAddExercise={handleAddExercise}
-          onCancel={() => setIsFormVisible(false)}
+          onSubmit={handleSaveExercise}
+          onCancel={handleCancelForm} // Use handleCancelForm instead of inline function
           isLoading={isLoading}
           validationErrors={validationErrors}
+          isEditing={!!editingExercise}
         />
       </Modal>
       <Modal visible={isDeleteModalVisible} animationType="fade" transparent>
