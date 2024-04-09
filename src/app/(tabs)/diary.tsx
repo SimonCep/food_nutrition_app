@@ -11,7 +11,6 @@ const Diary = () => {
   const { colorScheme } = useColorScheme();
   const colors =
     colorScheme === "dark" ? darkColorsExercise : lightColorsExercise;
-
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleDateChange = (direction: number) => {
