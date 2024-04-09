@@ -69,6 +69,16 @@ export const lightColorsExercise = {
   cancelButtonBackground: "bg-gray-300",
   cancelButtonText: "text-gray-700",
   errorText: "text-red-500",
+
+  modalBackground: "bg-white",
+  modalText: "text-black",
+  //cancelButtonBackground: "bg-gray-300",
+  cancelButtonBorder: "border-gray-400",
+  //cancelButtonText: "text-gray-700",
+  deleteButtonBackground: "bg-red-500",
+  deleteButtonBorder: "border-red-700",
+  deleteButtonText: "text-white",
+  holdingBackground: "bg-yellow-200",
 };
 
 export const darkColorsExercise = {
@@ -88,4 +98,14 @@ export const darkColorsExercise = {
   cancelButtonBackground: "bg-gray-600",
   cancelButtonText: "text-gray-200",
   errorText: "text-red-500",
+
+  modalBackground: "bg-gray-800",
+  modalText: "text-white",
+  //cancelButtonBackground: "bg-gray-600",
+  cancelButtonBorder: "border-gray-700",
+  //cancelButtonText: "text-gray-200",
+  deleteButtonBackground: "bg-red-700",
+  deleteButtonBorder: "border-red-900",
+  deleteButtonText: "text-white",
+  holdingBackground: "bg-yellow-700",
 };

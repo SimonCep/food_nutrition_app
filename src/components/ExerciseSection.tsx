@@ -8,11 +8,17 @@ import {
   View,
 } from "react-native";
 import { useColorScheme } from "nativewind";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import * as Yup from "yup";
+import { runOnJS } from "react-native-reanimated";
 
 import ExerciseForm from "@/components/ExerciseForm";
 import { ExerciseSectionProps, Tables } from "@/types";
-import { addExercise, fetchExercises } from "@/api/exerciseService";
+import {
+  addExercise,
+  fetchExercises,
+  deleteExercise,
+} from "@/api/exerciseService";
 import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
 import { addExerciseValidationSchema } from "@/utils/validationSchemas";
 
@@ -28,6 +34,13 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
     colorScheme === "dark" ? darkColorsExercise : lightColorsExercise;
   const [validationErrors, setValidationErrors] =
     useState<Yup.ValidationError | null>(null);
+  const [selectedExerciseId, setSelectedExerciseId] = useState<number | null>(
+    null,
+  );
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [holdingExerciseId, setHoldingExerciseId] = useState<number | null>(
+    null,
+  );
 
   useEffect(() => {
     fetchExercises(userId)
@@ -67,25 +80,65 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
     }
   };
 
+  const handleDeleteExercise = async () => {
+    if (selectedExerciseId) {
+      try {
+        const success = await deleteExercise(selectedExerciseId);
+        if (success) {
+          const data = await fetchExercises(userId);
+          setExercises(data);
+          setSelectedExerciseId(null);
+          setIsDeleteModalVisible(false);
+        } else {
+          Alert.alert("Error", "Failed to delete exercise. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error deleting exercise:", error);
+        Alert.alert("Error", "An unexpected error occurred. Please try again.");
+      }
+    }
+  };
+
   const handleOpenForm = () => {
     setIsFormVisible(true);
     setValidationErrors(null); // Reset validation errors when opening the form
   };
 
+  const handleLongPress = (exerciseId: number) => {
+    setSelectedExerciseId(exerciseId);
+    setIsDeleteModalVisible(true);
+  };
+
+  const longPressGesture = (exerciseId: number) =>
+    Gesture.LongPress()
+      .onStart(() => {
+        runOnJS(setHoldingExerciseId)(exerciseId);
+        runOnJS(handleLongPress)(exerciseId);
+      })
+      .onEnd(() => {
+        runOnJS(setHoldingExerciseId)(null);
+      });
+
   const renderExerciseItem = ({ item }: { item: Tables<"exercises"> }) => (
-    <View
-      className={`${colors.primaryBackground} p-4 rounded-lg shadow-md mb-4`}
-    >
-      <Text className={`text-lg font-bold ${colors.primaryText}`}>
-        {item.exercise}
-      </Text>
-      <Text className={`${colors.secondaryText}`}>
-        Duration: {item.duration} minutes
-      </Text>
-      <Text className={`${colors.secondaryText}`}>
-        Calories Burned: {item.calories}
-      </Text>
-    </View>
+    <GestureDetector gesture={longPressGesture(item.id)}>
+      <View
+        className={`${
+          holdingExerciseId === item.id
+            ? colors.holdingBackground
+            : colors.primaryBackground
+        } p-4 rounded-lg shadow-md mb-4`}
+      >
+        <Text className={`text-lg font-bold ${colors.primaryText}`}>
+          {item.exercise}
+        </Text>
+        <Text className={`${colors.secondaryText}`}>
+          Duration: {item.duration} minutes
+        </Text>
+        <Text className={`${colors.secondaryText}`}>
+          Calories Burned: {item.calories}
+        </Text>
+      </View>
+    </GestureDetector>
   );
 
   return (
@@ -123,6 +176,38 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({ userId }) => {
           isLoading={isLoading}
           validationErrors={validationErrors}
         />
+      </Modal>
+      <Modal visible={isDeleteModalVisible} animationType="fade" transparent>
+        <View className="flex-1 justify-center items-center bg-black/40 px-4">
+          <View
+            className={`${colors.modalBackground} p-6 rounded-lg shadow-md w-full max-w-md`}
+          >
+            <Text className={`${colors.modalText} text-lg font-bold mb-4`}>
+              Delete Exercise
+            </Text>
+            <Text className={`${colors.modalText} mb-4`}>
+              Are you sure you want to delete this exercise entry?
+            </Text>
+            <View className="flex-row justify-end">
+              <TouchableOpacity
+                onPress={() => setIsDeleteModalVisible(false)}
+                className={`${colors.cancelButtonBackground} py-2 px-4 rounded-full border-2 ${colors.cancelButtonBorder} mr-2`}
+              >
+                <Text className={`${colors.cancelButtonText} font-bold`}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleDeleteExercise}
+                className={`${colors.deleteButtonBackground} py-2 px-4 rounded-full border-2 ${colors.deleteButtonBorder}`}
+              >
+                <Text className={`${colors.deleteButtonText} font-bold`}>
+                  Delete
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
       </Modal>
     </View>
   );
