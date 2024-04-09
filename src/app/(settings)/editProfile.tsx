@@ -24,7 +24,6 @@ const EditProfile: React.FC = () => {
   const [avatarUrl, setAvatarUrl] = useState<string>(profile?.avatar_url ?? "");
   const [website, setWebsite] = useState<string>(profile?.website ?? "");
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [newAvatarUrl, setNewAvatarUrl] = useState<string>("");
   const [validationErrors, setValidationErrors] =
     useState<Yup.ValidationError | null>(null);
 
@@ -66,11 +65,6 @@ const EditProfile: React.FC = () => {
 
   const handleModalClose = () => {
     setShowModal(false);
-  };
-
-  const handleAvatarUrlChange = () => {
-    setAvatarUrl(newAvatarUrl);
-    handleModalClose();
   };
 
   const getFieldError = (field: string) => {
@@ -170,9 +164,9 @@ const EditProfile: React.FC = () => {
             placeholder="Avatar URL"
             placeholderTextColor="#6B7280"
             value={avatarUrl}
-            onChangeText={setNewAvatarUrl}
+            onChangeText={setAvatarUrl}
           />
-          <Button title="Save Avatar URL" onPress={handleAvatarUrlChange} />
+          <Button title="Save Avatar URL" onPress={handleModalClose} />
           <Button title="Cancel" onPress={handleModalClose} />
         </View>
       </Modal>
