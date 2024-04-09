@@ -56,3 +56,22 @@ export const fetchExercises = async (userId: string) => {
     return [];
   }
 };
+
+export const deleteExercise = async (exerciseId: number) => {
+  try {
+    const { error } = await supabase
+      .from("exercises")
+      .delete()
+      .eq("id", exerciseId);
+
+    if (error) {
+      console.error("Error deleting exercise:", error);
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Error deleting exercise:", error);
+    return false;
+  }
+};
