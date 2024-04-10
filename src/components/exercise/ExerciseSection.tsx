@@ -11,7 +11,7 @@ import { useColorScheme } from "nativewind";
 import { GestureDetector } from "react-native-gesture-handler";
 import * as Yup from "yup";
 
-import ExerciseForm from "@/components/ExerciseForm";
+import ExerciseForm from "@/components/exercise/ExerciseForm";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal";
 import { Exercise, ExerciseSectionProps, Tables } from "@/types";
 import {

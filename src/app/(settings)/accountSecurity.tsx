@@ -2,8 +2,8 @@ import React from "react";
 import { View } from "react-native";
 import { useColorScheme } from "nativewind";
 
-import ChangeEmailSection from "@/components/ChangeEmailSection";
-import ChangePasswordSection from "@/components/ChangePasswordSection";
+import ChangeEmailSection from "@/components/accountSecurity/ChangeEmailSection";
+import ChangePasswordSection from "@/components/accountSecurity/ChangePasswordSection";
 import { darkColorsAuth, lightColorsAuth } from "@/constants/Colors";
 
 const AccountSecurityScreen = () => {

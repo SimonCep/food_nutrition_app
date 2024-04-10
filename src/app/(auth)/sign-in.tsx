@@ -4,7 +4,7 @@ import { Link, useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 
 import { signIn } from "@/api/authService";
-import SignInForm from "@/components/SignInForm";
+import SignInForm from "@/components/authentication/SignInForm";
 import { darkColorsAuth, lightColorsAuth } from "@/constants/Colors";
 
 const SignInScreen = () => {

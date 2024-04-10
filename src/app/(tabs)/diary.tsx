@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FlatList, View } from "react-native";
 import { useColorScheme } from "nativewind";
 
-import ExerciseSection from "@/components/ExerciseSection";
+import ExerciseSection from "@/components/exercise/ExerciseSection";
 import DatePicker from "@/components/DatePicker";
 import { useAuth } from "@/providers/AuthProvider";
 import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
