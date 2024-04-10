@@ -63,6 +63,22 @@ export interface ThemeSwitchProps {
   toggleColorScheme: () => void;
 }
 
+export interface DeleteConfirmationModalProps {
+  isVisible: boolean;
+  onCancel: () => void;
+  onDelete: () => void;
+  colors: {
+    modalBackground: string;
+    modalText: string;
+    cancelButtonBackground: string;
+    cancelButtonBorder: string;
+    cancelButtonText: string;
+    deleteButtonBackground: string;
+    deleteButtonBorder: string;
+    deleteButtonText: string;
+  };
+}
+
 // Type helpers
 export type Tables<T extends keyof Database["public"]["Tables"]> =
   Database["public"]["Tables"][T]["Row"];

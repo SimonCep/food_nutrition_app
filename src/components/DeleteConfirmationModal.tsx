@@ -1,21 +1,7 @@
 import React from "react";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 
-interface DeleteConfirmationModalProps {
-  isVisible: boolean;
-  onCancel: () => void;
-  onDelete: () => void;
-  colors: {
-    modalBackground: string;
-    modalText: string;
-    cancelButtonBackground: string;
-    cancelButtonBorder: string;
-    cancelButtonText: string;
-    deleteButtonBackground: string;
-    deleteButtonBorder: string;
-    deleteButtonText: string;
-  };
-}
+import { DeleteConfirmationModalProps } from "@/types";
 
 const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
   isVisible,
