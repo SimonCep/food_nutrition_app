@@ -63,6 +63,11 @@ export interface ThemeSwitchProps {
   toggleColorScheme: () => void;
 }
 
+export interface DatePickerProps {
+  selectedDate: Date;
+  onDateChange: (date: Date) => void;
+}
+
 export interface DeleteConfirmationModalProps {
   isVisible: boolean;
   onCancel: () => void;
