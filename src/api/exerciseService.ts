@@ -9,7 +9,7 @@ export const addExercise = async (
   duration: number,
   calories: number,
   userId: string,
-  selectedDate: string, // Add this parameter
+  selectedDate: string,
 ) => {
   try {
     await addExerciseValidationSchema.validate({
@@ -24,7 +24,7 @@ export const addExercise = async (
       calories,
       user_id: userId,
       created_at: selectedDate,
-    }); // Use selectedDate for created_at
+    });
 
     if (error) {
       console.error("Error adding exercise:", error);
