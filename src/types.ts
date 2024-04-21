@@ -55,6 +55,25 @@ export interface ExerciseSectionProps {
   selectedDate: Date;
 }
 
+export type WaterConsumption = Tables<"water_consumption">;
+
+export interface WaterFormProps {
+  amount: number;
+  setAmount: (amount: number) => void;
+  unit: string;
+  setUnit: (unit: string) => void;
+  onSubmit: () => Promise<void>;
+  onCancel: () => void;
+  isLoading: boolean;
+  validationErrors: Yup.ValidationError | null;
+  isEditing: boolean;
+}
+
+export type WaterSectionProps = {
+  userId: string;
+  selectedDate: Date;
+};
+
 // Theme switcher types
 export type ColorScheme = "light" | "dark" | undefined;
 
@@ -82,6 +101,7 @@ export interface DeleteConfirmationModalProps {
     deleteButtonBorder: string;
     deleteButtonText: string;
   };
+  recordType: "exercise" | "water";
 }
 
 // Type helpers

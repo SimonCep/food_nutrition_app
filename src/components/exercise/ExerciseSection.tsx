@@ -244,6 +244,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
         onCancel={() => setIsDeleteModalVisible(false)}
         onDelete={handleDeleteExercise}
         colors={colors}
+        recordType={"exercise"}
       />
     </View>
   );

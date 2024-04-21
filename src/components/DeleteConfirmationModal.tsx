@@ -8,7 +8,30 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
   onCancel,
   onDelete,
   colors,
+  recordType,
 }) => {
+  const getHeadingText = () => {
+    switch (recordType) {
+      case "exercise":
+        return "Delete Exercise";
+      case "water":
+        return "Delete Water Consumption";
+      default:
+        return "Delete Record";
+    }
+  };
+
+  const getBodyText = () => {
+    switch (recordType) {
+      case "exercise":
+        return "Are you sure you want to delete this exercise entry?";
+      case "water":
+        return "Are you sure you want to delete this water entry?";
+      default:
+        return "Are you sure you want to delete this record?";
+    }
+  };
+
   return (
     <Modal visible={isVisible} animationType="fade" transparent>
       <View className="flex-1 items-center justify-center bg-black/40 px-4">
@@ -16,11 +39,9 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
           className={`${colors.modalBackground} w-full max-w-md rounded-lg p-6 shadow-md`}
         >
           <Text className={`${colors.modalText} mb-4 text-lg font-bold`}>
-            Delete Exercise
+            {getHeadingText()}
           </Text>
-          <Text className={`${colors.modalText} mb-4`}>
-            Are you sure you want to delete this exercise entry?
-          </Text>
+          <Text className={`${colors.modalText} mb-4`}>{getBodyText()}</Text>
           <View className="flex-row justify-end">
             <TouchableOpacity
               onPress={onCancel}

@@ -43,3 +43,10 @@ export const changePasswordValidationSchema = Yup.object().shape({
     .oneOf([Yup.ref("newPassword")], "Passwords must match")
     .required("Confirm password is required"),
 });
+
+export const addWaterConsumptionValidationSchema = Yup.object().shape({
+  amount: Yup.number()
+    .min(1, "Amount must be at least 1")
+    .required("Amount is required"),
+  unit: Yup.string().required("Unit is required"),
+});
