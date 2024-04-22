@@ -41,7 +41,7 @@ export const changePasswordValidationSchema = Yup.object().shape({
     .required("New password is required"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("newPassword")], "Passwords must match")
-    .required("Confirm password is required"),
+    .required("Password confirmation is required"),
 });
 
 export const addWaterConsumptionValidationSchema = Yup.object().shape({
