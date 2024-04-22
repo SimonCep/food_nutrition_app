@@ -20,7 +20,7 @@ import {
   fetchWaterConsumption,
   updateWaterConsumption,
 } from "@/api/waterService";
-import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
+import { darkColorsDiary, lightColorsDiary } from "@/constants/Colors";
 import { addWaterConsumptionValidationSchema } from "@/utils/validationSchemas";
 import { longPressGesture, pressGesture } from "@/utils/gestureHandlers";
 import { filterWaterConsumptionByDate } from "@/utils/waterUtils";
@@ -37,8 +37,7 @@ const WaterSection: React.FC<WaterSectionProps> = ({
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { colorScheme } = useColorScheme();
-  const colors =
-    colorScheme === "dark" ? darkColorsExercise : lightColorsExercise;
+  const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
   const [validationErrors, setValidationErrors] =
     useState<Yup.ValidationError | null>(null);
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);

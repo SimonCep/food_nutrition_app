@@ -26,7 +26,7 @@ export const lightColorsAuth = {
   primaryText: "text-black",
   secondaryText: "text-gray-600",
   border: "border-black",
-  buttonBackground: "bg-yellow-400",
+  buttonBackground: "bg-green-100",
   activityIndicatorColor: "#000000",
   inputBackground: "bg-gray-100",
   inputBorder: "border-gray-300",
@@ -43,7 +43,7 @@ export const darkColorsAuth = {
   primaryText: "text-white",
   secondaryText: "text-gray-400",
   border: "border-white",
-  buttonBackground: "bg-yellow-600",
+  buttonBackground: "bg-green-400/50",
   activityIndicatorColor: "#FFFFFF",
   inputBackground: "bg-gray-800",
   inputBorder: "border-gray-600",
@@ -52,7 +52,7 @@ export const darkColorsAuth = {
   errorText: "text-red-500",
 };
 
-export const lightColorsExercise = {
+export const lightColorsDiary = {
   background: "bg-gray-100",
   primaryBackground: "bg-white",
   secondaryBackground: "bg-gray-200",
@@ -61,7 +61,7 @@ export const lightColorsExercise = {
   secondaryText: "text-gray-500",
   buttonBorder: "border-black",
   border: "border-gray-300",
-  buttonBackground: "bg-yellow-400",
+  buttonBackground: "bg-green-100",
   buttonText: "text-black",
   inputBackground: "bg-white",
   inputBorder: "border-gray-300",
@@ -78,7 +78,7 @@ export const lightColorsExercise = {
   deleteButtonBackground: "bg-red-500",
   deleteButtonBorder: "border-red-700",
   deleteButtonText: "text-white",
-  holdingBackground: "bg-yellow-200",
+  holdingBackground: "bg-green-200",
   editButtonBackground: "bg-blue-500",
   editButtonBorder: "border-blue-700",
   editButtonText: "text-white",
@@ -89,7 +89,7 @@ export const lightColorsExercise = {
   arrowColor: "black",
 };
 
-export const darkColorsExercise = {
+export const darkColorsDiary = {
   background: "bg-black",
   primaryBackground: "bg-gray-700",
   secondaryBackground: "bg-gray-800",
@@ -98,7 +98,7 @@ export const darkColorsExercise = {
   secondaryText: "text-gray-400",
   buttonBorder: "border-white",
   border: "border-gray-600",
-  buttonBackground: "bg-yellow-600",
+  buttonBackground: "bg-green-400/50",
   buttonText: "text-white",
   inputBackground: "bg-gray-700",
   inputBorder: "border-gray-600",
@@ -115,7 +115,7 @@ export const darkColorsExercise = {
   deleteButtonBackground: "bg-red-700",
   deleteButtonBorder: "border-red-900",
   deleteButtonText: "text-white",
-  holdingBackground: "bg-yellow-700",
+  holdingBackground: "bg-green-700",
   editButtonBackground: "bg-blue-600",
   editButtonBorder: "border-blue-800",
   editButtonText: "text-white",

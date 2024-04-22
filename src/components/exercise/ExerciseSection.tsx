@@ -20,7 +20,7 @@ import {
   fetchExercises,
   updateExercise,
 } from "@/api/exerciseService";
-import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
+import { darkColorsDiary, lightColorsDiary } from "@/constants/Colors";
 import { addExerciseValidationSchema } from "@/utils/validationSchemas";
 import { longPressGesture, pressGesture } from "@/utils/gestureHandlers";
 import { filterExercisesByDate } from "@/utils/exerciseUtils";
@@ -36,8 +36,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { colorScheme } = useColorScheme();
-  const colors =
-    colorScheme === "dark" ? darkColorsExercise : lightColorsExercise;
+  const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
   const [validationErrors, setValidationErrors] =
     useState<Yup.ValidationError | null>(null);
   const [selectedExerciseId, setSelectedExerciseId] = useState<number | null>(

@@ -6,13 +6,12 @@ import ExerciseSection from "@/components/exercise/ExerciseSection";
 import WaterSection from "@/components/water/WaterSection";
 import DatePicker from "@/components/DatePicker";
 import { useAuth } from "@/providers/AuthProvider";
-import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
+import { darkColorsDiary, lightColorsDiary } from "@/constants/Colors";
 
 const Diary = () => {
   const { session } = useAuth();
   const { colorScheme } = useColorScheme();
-  const colors =
-    colorScheme === "dark" ? darkColorsExercise : lightColorsExercise;
+  const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const renderExerciseSection = () => (

@@ -68,7 +68,7 @@ const WaterForm: React.FC<WaterFormProps> = ({
         <TouchableOpacity
           onPress={onSubmit}
           disabled={isLoading}
-          className="mb-4 rounded-full border-2 border-black bg-yellow-400 py-3 dark:border-white dark:bg-yellow-600"
+          className="mb-4 rounded-full border-2 border-black bg-green-100 py-3 dark:border-white dark:bg-green-400/50"
         >
           {isLoading ? (
             <ActivityIndicator color="black" />

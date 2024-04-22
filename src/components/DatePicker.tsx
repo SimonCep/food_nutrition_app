@@ -4,7 +4,7 @@ import { useColorScheme } from "nativewind";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Ionicons } from "@expo/vector-icons";
 
-import { darkColorsExercise, lightColorsExercise } from "@/constants/Colors";
+import { darkColorsDiary, lightColorsDiary } from "@/constants/Colors";
 import { DatePickerProps } from "@/types";
 
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -12,8 +12,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   onDateChange,
 }) => {
   const { colorScheme } = useColorScheme();
-  const colors =
-    colorScheme === "dark" ? darkColorsExercise : lightColorsExercise;
+  const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleDateChange = (_event: any, date?: Date) => {
