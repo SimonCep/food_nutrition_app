@@ -29,6 +29,24 @@ const DatePicker: React.FC<DatePickerProps> = ({
     onDateChange(newDate);
   };
 
+  const getFormattedDate = (date: Date) => {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    if (date.toDateString() === today.toDateString()) {
+      return "Today";
+    } else if (date.toDateString() === yesterday.toDateString()) {
+      return "Yesterday";
+    } else if (date.toDateString() === tomorrow.toDateString()) {
+      return "Tomorrow";
+    } else {
+      return date.toLocaleDateString();
+    }
+  };
+
   return (
     <View className="flex-row items-center justify-between px-6 py-4">
       <TouchableOpacity
@@ -42,7 +60,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         className={`rounded-lg px-4 py-2 shadow-md ${colors.datePickerBackground}`}
       >
         <Text className={`${colors.datePickerText} text-lg font-bold`}>
-          {selectedDate.toLocaleDateString()}
+          {getFormattedDate(selectedDate)}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
