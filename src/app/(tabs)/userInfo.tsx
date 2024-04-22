@@ -14,7 +14,7 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 import { darkColorsUserInfo, lightColorsUserInfo } from "@/constants/Colors";
 
-export default function UserInfoTab() {
+const UserInfoTab = () => {
   const { profile } = useAuth();
   const router = useRouter();
   const { colorScheme } = useColorScheme();
@@ -132,4 +132,6 @@ export default function UserInfoTab() {
       </ScrollView>
     </ImageBackground>
   );
-}
+};
+
+export default UserInfoTab;
