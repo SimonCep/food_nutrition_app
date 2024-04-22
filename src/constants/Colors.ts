@@ -91,8 +91,8 @@ export const lightColorsDiary = {
 
 export const darkColorsDiary = {
   background: "bg-black",
-  primaryBackground: "bg-gray-700",
-  secondaryBackground: "bg-gray-800",
+  primaryBackground: "bg-gray-800",
+  secondaryBackground: "bg-gray-900",
   text: "text-white",
   primaryText: "text-white",
   secondaryText: "text-gray-400",
