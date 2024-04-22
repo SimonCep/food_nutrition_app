@@ -85,6 +85,8 @@ export const lightColorsDiary = {
   datePickerText: "text-black",
   arrowText: "text-black",
   arrowColor: "black",
+
+  unitBackground: "#f0f0f0",
 };
 
 export const darkColorsDiary = {
@@ -120,6 +122,8 @@ export const darkColorsDiary = {
   datePickerText: "text-white",
   arrowText: "text-white",
   arrowColor: "white",
+
+  unitBackground: "#323b4b",
 };
 
 export const lightColorsUserInfo = {

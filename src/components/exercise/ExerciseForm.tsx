@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useColorScheme } from "nativewind";
 
 import { ExerciseFormProps } from "@/types";
+import { lightColorsDiary, darkColorsDiary } from "@/constants/Colors";
 
 const ExerciseForm: React.FC<ExerciseFormProps> = ({
   exercise,
@@ -22,67 +24,80 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
   validationErrors,
   isEditing,
 }) => {
+  const { colorScheme } = useColorScheme();
+  const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
+
   const getFieldError = (field: string) => {
     return validationErrors?.inner.find((error) => error.path === field)
       ?.message;
   };
 
   return (
-    <View className="flex-1 bg-gray-100 p-6 dark:bg-black">
-      <Text className="mb-6 text-center text-2xl font-bold text-black dark:text-white">
+    <View className={`flex-1 p-6 ${colors.background}`}>
+      <Text className={`mb-6 text-center text-2xl font-bold ${colors.text}`}>
         {isEditing ? "Edit Exercise" : "Add Exercise"}
       </Text>
-      <View className="rounded-lg bg-white p-4 shadow-md dark:bg-gray-700">
+      <View className={`rounded-lg p-4 shadow-md ${colors.primaryBackground}`}>
         <TextInput
           value={exercise}
           onChangeText={setExercise}
           placeholder="Exercise"
-          placeholderTextColor="#6B7280"
-          className="mb-2 border-b border-gray-300 p-2 text-lg text-black dark:border-gray-600 dark:text-white"
+          placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+          className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
         />
         {getFieldError("exercise") && (
-          <Text className="mb-2 text-red-500">{getFieldError("exercise")}</Text>
+          <Text className={`mb-2 ${colors.errorText}`}>
+            {getFieldError("exercise")}
+          </Text>
         )}
         <TextInput
           value={duration > 0 ? duration.toString() : ""}
           onChangeText={(text) => setDuration(parseInt(text) || 0)}
           placeholder="Duration (in minutes)"
-          placeholderTextColor="#6B7280"
+          placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
           keyboardType="numeric"
-          className="mb-2 border-b border-gray-300 p-2 text-lg text-black dark:border-gray-600 dark:text-white"
+          className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
         />
         {getFieldError("duration") && (
-          <Text className="mb-2 text-red-500">{getFieldError("duration")}</Text>
+          <Text className={`mb-2 ${colors.errorText}`}>
+            {getFieldError("duration")}
+          </Text>
         )}
         <TextInput
           value={calories > 0 ? calories.toString() : ""}
           onChangeText={(text) => setCalories(parseInt(text) || 0)}
           placeholder="Calories Burned"
-          placeholderTextColor="#6B7280"
+          placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
           keyboardType="numeric"
-          className="mb-2 border-b border-gray-300 p-2 text-lg text-black dark:border-gray-600 dark:text-white"
+          className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
         />
         {getFieldError("calories") && (
-          <Text className="mb-4 text-red-500">{getFieldError("calories")}</Text>
+          <Text className={`mb-4 ${colors.errorText}`}>
+            {getFieldError("calories")}
+          </Text>
         )}
         <TouchableOpacity
           onPress={onSubmit}
           disabled={isLoading}
-          className="mb-4 rounded-full border-2 border-black bg-green-100 py-3 dark:border-white dark:bg-green-400/50"
+          className={`mb-4 rounded-full border-2 py-3 ${colors.buttonBorder} ${colors.buttonBackground}`}
         >
           {isLoading ? (
-            <ActivityIndicator color="black" />
+            <ActivityIndicator color={colors.buttonText.split("-")[1]} />
           ) : (
-            <Text className="text-center text-lg font-bold text-black dark:text-white">
+            <Text
+              className={`text-center text-lg font-bold ${colors.buttonText}`}
+            >
               {isEditing ? "Save" : "Add"}
             </Text>
           )}
         </TouchableOpacity>
         <TouchableOpacity
           onPress={onCancel}
-          className="rounded-full bg-gray-300 px-6 py-3 dark:bg-gray-600"
+          className={`rounded-full px-6 py-3 ${colors.cancelButtonBackground}`}
         >
-          <Text className="text-center text-lg font-bold text-gray-700 dark:text-gray-200">
+          <Text
+            className={`text-center text-lg font-bold ${colors.cancelButtonText}`}
+          >
             Cancel
           </Text>
         </TouchableOpacity>
