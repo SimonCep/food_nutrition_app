@@ -27,6 +27,9 @@ const SignInScreen = () => {
         <View
           className={`${colors.primaryBackground} rounded-xl p-8 shadow-md`}
         >
+          <Text className={`${colors.primaryText} mb-4 text-2xl font-bold`}>
+            Member Login:
+          </Text>
           <SignInForm
             email={email}
             setEmail={setEmail}
