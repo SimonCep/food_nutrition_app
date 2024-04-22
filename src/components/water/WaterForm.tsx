@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
 import { WaterFormProps } from "@/types";
 
@@ -20,6 +21,8 @@ const WaterForm: React.FC<WaterFormProps> = ({
   validationErrors,
   isEditing,
 }) => {
+  const predefinedUnits = ["ml", "l"];
+
   const getFieldError = (field: string) => {
     return validationErrors?.inner.find((error) => error.path === field)
       ?.message;
@@ -42,13 +45,23 @@ const WaterForm: React.FC<WaterFormProps> = ({
         {getFieldError("amount") && (
           <Text className="mb-2 text-red-500">{getFieldError("amount")}</Text>
         )}
-        <TextInput
-          value={unit}
-          onChangeText={setUnit}
-          placeholder="Unit"
-          placeholderTextColor="#6B7280"
-          className="mb-2 border-b border-gray-300 p-2 text-lg text-black dark:border-gray-600 dark:text-white"
-        />
+        <View className="mb-2">
+          <View className="border-b border-gray-300 dark:border-gray-600">
+            <Picker
+              selectedValue={unit}
+              onValueChange={setUnit}
+              style={{
+                color: "#1F2937",
+                backgroundColor: "#F3F4F6",
+                marginBottom: 8,
+              }}
+            >
+              {predefinedUnits.map((unitItem) => (
+                <Picker.Item key={unitItem} label={unitItem} value={unitItem} />
+              ))}
+            </Picker>
+          </View>
+        </View>
         {getFieldError("unit") && (
           <Text className="mb-4 text-red-500">{getFieldError("unit")}</Text>
         )}

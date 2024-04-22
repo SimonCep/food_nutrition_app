@@ -160,7 +160,7 @@ const WaterSection: React.FC<WaterSectionProps> = ({
     } else {
       setEditingRecord(null);
       setAmount(0);
-      setUnit("");
+      setUnit("ml");
     }
     setIsFormVisible(true);
     setValidationErrors(null);
