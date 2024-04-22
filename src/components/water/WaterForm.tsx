@@ -33,11 +33,15 @@ const WaterForm: React.FC<WaterFormProps> = ({
   };
 
   return (
-    <View className={`flex-1 p-6 ${colors.background}`}>
+    <View
+      className={`flex-1 items-center justify-center p-6 ${colors.background}`}
+    >
       <Text className={`mb-6 text-center text-2xl font-bold ${colors.text}`}>
         {isEditing ? "Edit Water" : "Add Water"}
       </Text>
-      <View className={`rounded-lg p-4 shadow-md ${colors.primaryBackground}`}>
+      <View
+        className={`w-full max-w-md rounded-lg p-4 shadow-md ${colors.primaryBackground}`}
+      >
         <TextInput
           value={amount > 0 ? amount.toString() : ""}
           onChangeText={(text) => setAmount(parseInt(text) || 0)}
