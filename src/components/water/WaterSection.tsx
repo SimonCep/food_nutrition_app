@@ -10,6 +10,7 @@ import {
 import { useColorScheme } from "nativewind";
 import { GestureDetector } from "react-native-gesture-handler";
 import * as Yup from "yup";
+import { format } from "date-fns";
 
 import WaterForm from "@/components/water/WaterForm";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal";
@@ -203,7 +204,7 @@ const WaterSection: React.FC<WaterSectionProps> = ({
             Amount: {item.amount} {item.unit}
           </Text>
           <Text className={`${colors.secondaryText}`}>
-            Consumed At: {new Date(item.consumed_at).toLocaleString()}
+            Consumed At: {format(new Date(item.consumed_at), "HH:mm")}
           </Text>
         </View>
       </GestureDetector>

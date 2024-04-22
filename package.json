@@ -27,6 +27,7 @@
     "@types/aes-js": "^3.1.4",
     "@types/react-native-get-random-values": "^1.8.2",
     "aes-js": "^3.1.2",
+    "date-fns": "^3.6.0",
     "expo": "~50.0.17",
     "expo-font": "~11.10.3",
     "expo-linking": "~6.2.2",
