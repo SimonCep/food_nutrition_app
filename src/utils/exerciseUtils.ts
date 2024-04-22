@@ -3,7 +3,7 @@ import { Exercise } from "@/types";
 export const filterExercisesByDate = (
   exercises: Exercise[],
   selectedDate: Date,
-) => {
+): Exercise[] => {
   return exercises.filter((exercise) => {
     const exerciseDate = new Date(exercise.created_at);
     return (
