@@ -72,9 +72,7 @@ export const lightColorsDiary = {
 
   modalBackground: "bg-white",
   modalText: "text-black",
-  //cancelButtonBackground: "bg-gray-300",
   cancelButtonBorder: "border-gray-400",
-  //cancelButtonText: "text-gray-700",
   deleteButtonBackground: "bg-red-500",
   deleteButtonBorder: "border-red-700",
   deleteButtonText: "text-white",
@@ -109,9 +107,7 @@ export const darkColorsDiary = {
 
   modalBackground: "bg-gray-800",
   modalText: "text-white",
-  //cancelButtonBackground: "bg-gray-600",
   cancelButtonBorder: "border-gray-700",
-  //cancelButtonText: "text-gray-200",
   deleteButtonBackground: "bg-red-700",
   deleteButtonBorder: "border-red-900",
   deleteButtonText: "text-white",
@@ -124,4 +120,26 @@ export const darkColorsDiary = {
   datePickerText: "text-white",
   arrowText: "text-white",
   arrowColor: "white",
+};
+
+export const lightColorsUserInfo = {
+  background: "bg-gray-100",
+  primaryBackground: "bg-white",
+  avatarBorder: "border-black",
+  primaryText: "text-black",
+  buttonBackground: "bg-white/50",
+  buttonText: "text-black",
+  logoutButtonBackground: "bg-red-500",
+  logoutButtonText: "text-white",
+};
+
+export const darkColorsUserInfo = {
+  background: "bg-black",
+  primaryBackground: "bg-gray-800",
+  avatarBorder: "border-white",
+  primaryText: "text-white",
+  buttonBackground: "bg-white/50",
+  buttonText: "text-black",
+  logoutButtonBackground: "bg-red-700",
+  logoutButtonText: "text-white",
 };

@@ -8,13 +8,18 @@ import {
   View,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useColorScheme } from "nativewind";
 
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
+import { darkColorsUserInfo, lightColorsUserInfo } from "@/constants/Colors";
 
 export default function UserInfoTab() {
   const { profile } = useAuth();
   const router = useRouter();
+  const { colorScheme } = useColorScheme();
+  const colors =
+    colorScheme === "dark" ? darkColorsUserInfo : lightColorsUserInfo;
 
   const handleEditProfile = () => {
     router.push("../editProfile");
@@ -43,13 +48,15 @@ export default function UserInfoTab() {
 
   return (
     <ImageBackground
-      source={require("../../assets/images/backgroundImage2.png")}
-      className="flex-1 resize-y justify-center bg-white"
+      source={require("../../assets/images/gradientBackground.png")}
+      className={`flex-1 resize-y justify-center ${colors.background}`}
     >
       <ScrollView>
         <View className="flex-grow items-center justify-center">
           <View className="mb-5 mt-20 items-center">
-            <View className="mb-4 flex h-32 w-32 items-center justify-center rounded-full border-4 border-black bg-white shadow-lg">
+            <View
+              className={`mb-4 flex h-32 w-32 items-center justify-center rounded-full border-4 ${colors.avatarBorder} ${colors.primaryBackground} shadow-lg`}
+            >
               {profile?.avatar_url ? (
                 <Image
                   source={{ uri: profile.avatar_url }}
@@ -63,53 +70,61 @@ export default function UserInfoTab() {
               )}
             </View>
             {profile?.username ? (
-              <Text className="mb-2 text-lg font-bold">{profile.username}</Text>
+              <Text className={`mb-2 text-lg font-bold ${colors.primaryText}`}>
+                {profile.username}
+              </Text>
             ) : (
-              <Text className="mb-2 text-lg font-bold">Loading...</Text>
+              <Text className={`mb-2 text-lg font-bold ${colors.primaryText}`}>
+                Loading...
+              </Text>
             )}
           </View>
 
           <View className="m-10 w-screen justify-center p-5">
             <TouchableOpacity
-              className="mb-4 rounded-xl border-2 border-black bg-yellow-200 px-6 py-4"
+              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
               onPress={handleEditProfile}
             >
-              <Text>Profile Settings</Text>
+              <Text className={colors.buttonText}>Profile Settings</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className="mb-4 rounded-xl border-2 border-black bg-yellow-200 px-6 py-4"
+              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
               onPress={handleEditGoals}
             >
-              <Text>Dietary Goals</Text>
+              <Text className={colors.buttonText}>Dietary Goals</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleAccountSecurity}
-              className="mb-4 rounded-xl border-2 border-black bg-yellow-200 px-6 py-4"
+              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
             >
-              <Text>Account Security</Text>
+              <Text className={colors.buttonText}>Account Security</Text>
             </TouchableOpacity>
-            <TouchableOpacity className="mb-4 rounded-xl border-2 border-black bg-yellow-200 px-6 py-4">
-              <Text>Privacy Settings</Text>
+            <TouchableOpacity
+              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
+            >
+              <Text className={colors.buttonText}>Privacy Settings</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleThemeSettings}
-              className="mb-4 rounded-xl border-2 border-black bg-yellow-200 px-6 py-4"
+              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
             >
-              <Text>Theme Settings</Text>
+              <Text className={colors.buttonText}>Theme Settings</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleAboutUs}
-              className="mb-4 rounded-xl border-2 border-black bg-yellow-200 px-6 py-4"
+              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
             >
-              <Text>About Us</Text>
+              <Text className={colors.buttonText}>About Us</Text>
             </TouchableOpacity>
           </View>
 
           <TouchableOpacity
             onPress={handleLogout}
-            className="mb-10 w-1/3 rounded-md px-6 py-4"
+            className={`w-1/1 mb-10 rounded-full px-6 py-4 ${colors.logoutButtonBackground}`}
           >
-            <Text className="text-center text-lg font-bold text-red-500">
+            <Text
+              className={`text-center text-lg font-bold ${colors.logoutButtonText}`}
+            >
               Logout
             </Text>
           </TouchableOpacity>
