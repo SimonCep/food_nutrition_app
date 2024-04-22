@@ -7,5 +7,7 @@ export const inputClassName = (isDarkMode: boolean) =>
 
 export const buttonClassName = (isDarkMode: boolean) =>
   `py-2 px-4 rounded-full border-2 ${
-    isDarkMode ? "bg-blue-600 border-blue-600" : "bg-blue-500 border-blue-500"
+    isDarkMode
+      ? "bg-green-600 border-green-600"
+      : "bg-green-500 border-green-500"
   }`;
