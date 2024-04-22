@@ -21,6 +21,8 @@ export const pressGesture = (
   handlePress: (exerciseId: number) => void,
 ) =>
   Gesture.Tap()
+    .maxDistance(10)
+    .maxDuration(500)
     .onStart(() => {
       runOnJS(setHoldingExerciseId)(exerciseId);
     })
