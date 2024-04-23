@@ -74,7 +74,6 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
           exercise,
           duration,
           calories,
-          userId,
           formattedDate,
         );
       } else {

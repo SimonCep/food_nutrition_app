@@ -86,7 +86,6 @@ export const updateExercise = async (
   exercise: string,
   duration: number,
   calories: number,
-  userId: string,
   selectedDate: string,
 ) => {
   try {
@@ -102,7 +101,6 @@ export const updateExercise = async (
         exercise,
         duration,
         calories,
-        user_id: userId,
         created_at: selectedDate,
       })
       .eq("id", exerciseId);
