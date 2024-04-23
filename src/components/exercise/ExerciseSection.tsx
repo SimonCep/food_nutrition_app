@@ -147,7 +147,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
       setCalories(exercise.calories);
     } else {
       setEditingExercise(null);
-      setExercise("");
+      setExercise("Running");
       setDuration(0);
       setCalories(0);
     }

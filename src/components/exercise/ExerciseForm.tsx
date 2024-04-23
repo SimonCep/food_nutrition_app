@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { useColorScheme } from "nativewind";
 
 import { ExerciseFormProps } from "@/types";
@@ -26,6 +27,9 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
 }) => {
   const { colorScheme } = useColorScheme();
   const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
+  const [isCustomExercise, setIsCustomExercise] = useState(false);
+
+  const predefinedExercises = ["Running", "Walking", "Swimming", "Cycling"];
 
   const getFieldError = (field: string) => {
     return validationErrors?.inner.find((error) => error.path === field)
@@ -42,13 +46,44 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
       <View
         className={`w-full max-w-md rounded-lg p-4 shadow-md ${colors.primaryBackground}`}
       >
-        <TextInput
-          value={exercise}
-          onChangeText={setExercise}
-          placeholder="Exercise"
-          placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-          className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-        />
+        {isCustomExercise ? (
+          <TextInput
+            value={exercise}
+            onChangeText={setExercise}
+            placeholder="Exercise"
+            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+          />
+        ) : (
+          <View className="mb-2">
+            <View className={`border-b ${colors.inputBorder}`}>
+              <Picker
+                selectedValue={exercise}
+                onValueChange={(value) => {
+                  if (value === "custom") {
+                    setIsCustomExercise(true);
+                    setExercise("");
+                  } else {
+                    setExercise(value);
+                  }
+                }}
+                style={{
+                  color: colors.primaryText.split("-")[1],
+                  backgroundColor: colors.unitBackground,
+                }}
+              >
+                {predefinedExercises.map((exerciseItem) => (
+                  <Picker.Item
+                    key={exerciseItem}
+                    label={exerciseItem}
+                    value={exerciseItem}
+                  />
+                ))}
+                <Picker.Item label="Custom" value="custom" />
+              </Picker>
+            </View>
+          </View>
+        )}
         {getFieldError("exercise") && (
           <Text className={`mb-2 ${colors.errorText}`}>
             {getFieldError("exercise")}
