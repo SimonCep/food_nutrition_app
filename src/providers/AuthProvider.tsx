@@ -9,20 +9,13 @@ import {
 } from "react";
 import { router } from "expo-router";
 
-import { Tables } from "@/types";
+import { Tables, AuthData } from "@/types";
 import {
   fetchSession,
   fetchProfile,
   subscribeToAuthStateChange,
   isSessionExpired,
 } from "@/api/authService";
-
-type AuthData = {
-  session: Session | null;
-  profile: Tables<"profiles"> | null;
-  loading: boolean;
-  updateProfileData: (userId: string) => Promise<void>;
-};
 
 const AuthContext = createContext<AuthData>({
   session: null,

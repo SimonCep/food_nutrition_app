@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 
 import { Database } from "@/database.types";
+import { Session } from "@supabase/supabase-js";
 
 export interface SignInFormProps {
   email: string;
@@ -21,6 +22,13 @@ export interface SignUpFormProps {
   colorScheme: ColorScheme;
   validationErrors: Yup.ValidationError | null;
 }
+
+export type AuthData = {
+  session: Session | null;
+  profile: Tables<"profiles"> | null;
+  loading: boolean;
+  updateProfileData: (userId: string) => Promise<void>;
+};
 
 // Exercise-related types
 export type Exercise = Tables<"exercises">;
@@ -92,6 +100,13 @@ export interface DeleteConfirmationModalProps {
   };
   recordType: "exercise" | "water";
 }
+
+export type DiaryContextType = {
+  waterUpdated: boolean;
+  setWaterUpdated: (updated: boolean) => void;
+  exerciseUpdated: boolean;
+  setExerciseUpdated: (updated: boolean) => void;
+};
 
 // Type helpers
 export type Tables<T extends keyof Database["public"]["Tables"]> =

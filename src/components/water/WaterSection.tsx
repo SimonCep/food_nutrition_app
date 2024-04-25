@@ -25,6 +25,7 @@ import { darkColorsDiary, lightColorsDiary } from "@/constants/Colors";
 import { addWaterConsumptionValidationSchema } from "@/utils/validationSchemas";
 import { longPressGesture, pressGesture } from "@/utils/gestureHandlers";
 import { filterWaterConsumptionByDate } from "@/utils/waterUtils";
+import { useDiaryContext } from "@/providers/DiaryProvider";
 
 const WaterSection: React.FC<WaterSectionProps> = ({
   userId,
@@ -47,20 +48,26 @@ const WaterSection: React.FC<WaterSectionProps> = ({
   const [editingRecord, setEditingRecord] = useState<WaterConsumption | null>(
     null,
   );
+  const { waterUpdated, setWaterUpdated } = useDiaryContext();
 
   useEffect(() => {
-    fetchWaterConsumption(userId)
-      .then((data) => {
+    const fetchWaterData = async () => {
+      try {
+        const data = await fetchWaterConsumption(userId);
         const filteredConsumption = filterWaterConsumptionByDate(
           data,
           selectedDate,
         );
         setWaterConsumption(filteredConsumption);
-      })
-      .catch((error) =>
-        console.error("Error fetching water consumption:", error),
-      );
-  }, [userId, selectedDate, filterWaterConsumptionByDate]);
+      } catch (error) {
+        console.error("Error fetching water consumption:", error);
+      }
+    };
+
+    fetchWaterData().catch((error) => {
+      console.error("Error fetching water data:", error);
+    });
+  }, [userId, selectedDate, waterUpdated]);
 
   const handleSaveConsumption = async () => {
     try {
@@ -101,6 +108,7 @@ const WaterSection: React.FC<WaterSectionProps> = ({
           selectedDate,
         );
         setWaterConsumption(filteredConsumption);
+        setWaterUpdated(true);
       } else {
         Alert.alert(
           "Error",
@@ -139,6 +147,7 @@ const WaterSection: React.FC<WaterSectionProps> = ({
           setWaterConsumption(filteredConsumption);
           setSelectedRecordId(null);
           setIsDeleteModalVisible(false);
+          setWaterUpdated(true);
         } else {
           Alert.alert(
             "Error",

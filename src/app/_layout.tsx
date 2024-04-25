@@ -12,6 +12,7 @@ import { useColorScheme } from "nativewind";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import AuthProvider from "@/providers/AuthProvider";
+import DiaryProvider from "@/providers/DiaryProvider";
 
 import "../../global.css"; // For Tailwind CSS styles. XDDDD
 
@@ -52,7 +53,9 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
-        <RootLayoutNav />
+        <DiaryProvider>
+          <RootLayoutNav />
+        </DiaryProvider>
       </AuthProvider>
     </GestureHandlerRootView>
   );

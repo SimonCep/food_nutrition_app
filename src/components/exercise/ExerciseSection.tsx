@@ -24,6 +24,7 @@ import { darkColorsDiary, lightColorsDiary } from "@/constants/Colors";
 import { addExerciseValidationSchema } from "@/utils/validationSchemas";
 import { longPressGesture, pressGesture } from "@/utils/gestureHandlers";
 import { filterExercisesByDate } from "@/utils/exerciseUtils";
+import { useDiaryContext } from "@/providers/DiaryProvider";
 
 const ExerciseSection: React.FC<ExerciseSectionProps> = ({
   userId,
@@ -48,14 +49,23 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
   );
   const [editingExercise, setEditingExercise] = useState<Exercise | null>(null);
 
+  const { exerciseUpdated, setExerciseUpdated } = useDiaryContext();
+
   useEffect(() => {
-    fetchExercises(userId)
-      .then((data) => {
+    const fetchExerciseData = async () => {
+      try {
+        const data = await fetchExercises(userId);
         const filteredExercises = filterExercisesByDate(data, selectedDate);
         setExercises(filteredExercises);
-      })
-      .catch((error) => console.error("Error fetching exercises:", error));
-  }, [userId, selectedDate, filterExercisesByDate]);
+      } catch (error) {
+        console.error("Error fetching exercises:", error);
+      }
+    };
+
+    fetchExerciseData().catch((error) => {
+      console.error("Error fetching exercise data:", error);
+    });
+  }, [userId, selectedDate, exerciseUpdated]);
 
   const handleSaveExercise = async () => {
     try {
@@ -96,6 +106,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
         const data = await fetchExercises(userId);
         const filteredExercises = filterExercisesByDate(data, selectedDate);
         setExercises(filteredExercises);
+        setExerciseUpdated(true);
       } else {
         Alert.alert(
           "Error",
@@ -129,6 +140,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
           setExercises(filteredExercises);
           setSelectedExerciseId(null);
           setIsDeleteModalVisible(false);
+          setExerciseUpdated(true);
         } else {
           Alert.alert("Error", "Failed to delete exercise. Please try again.");
         }
