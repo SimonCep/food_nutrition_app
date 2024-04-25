@@ -97,7 +97,11 @@ const ChangeEmailSection = () => {
         onPress={handleChangeEmail}
         className={buttonClassName(isDarkMode)}
       >
-        <Text className="text-center font-bold text-white">Change Email</Text>
+        <Text
+          className={`text-center font-bold ${isDarkMode ? "text-white" : "text-black"}`}
+        >
+          Change Email
+        </Text>
       </TouchableOpacity>
     </View>
   );

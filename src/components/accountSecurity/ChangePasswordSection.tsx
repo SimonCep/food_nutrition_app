@@ -98,7 +98,9 @@ const ChangePasswordSection = () => {
         onPress={handleChangePassword}
         className={buttonClassName(isDarkMode)}
       >
-        <Text className="text-center font-bold text-white">
+        <Text
+          className={`text-center font-bold ${isDarkMode ? "text-white" : "text-black"}`}
+        >
           Change Password
         </Text>
       </TouchableOpacity>
