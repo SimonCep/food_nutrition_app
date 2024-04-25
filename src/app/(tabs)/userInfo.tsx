@@ -100,11 +100,6 @@ const UserInfoTab = () => {
               <Text className={colors.buttonText}>Account Security</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
-            >
-              <Text className={colors.buttonText}>Privacy Settings</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
               onPress={handleThemeSettings}
               className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
             >
