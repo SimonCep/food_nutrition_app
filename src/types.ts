@@ -14,6 +14,7 @@ export interface SignInFormProps {
   password: string;
   setPassword: (password: string) => void;
   colorScheme: ColorScheme;
+  validationErrors: Yup.ValidationError | null;
 }
 
 // Sign-up related types
@@ -24,13 +25,14 @@ export interface SignUpData {
 }
 
 export interface SignUpFormProps {
-  name: string;
-  setName: (name: string) => void;
+  username: string;
+  setUsername: (name: string) => void;
   email: string;
   setEmail: (email: string) => void;
   password: string;
   setPassword: (password: string) => void;
   colorScheme: ColorScheme;
+  validationErrors: Yup.ValidationError | null;
 }
 
 // Exercise-related types

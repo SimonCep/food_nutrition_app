@@ -28,9 +28,9 @@ export const lightColorsAuth = {
   border: "border-black",
   buttonBackground: "bg-green-100",
   activityIndicatorColor: "#000000",
-  inputBackground: "bg-gray-100",
-  inputBorder: "border-gray-300",
-  inputPlaceholder: "text-gray-400",
+  inputBackground: "bg-white",
+  inputBorder: "border-black",
+  inputPlaceholder: "#4B5563",
   buttonText: "text-black",
   errorText: "text-red-500",
 };
@@ -47,7 +47,7 @@ export const darkColorsAuth = {
   activityIndicatorColor: "#FFFFFF",
   inputBackground: "bg-gray-800",
   inputBorder: "border-gray-600",
-  inputPlaceholder: "text-gray-400",
+  inputPlaceholder: "#A0AEC0",
   buttonText: "text-white",
   errorText: "text-red-500",
 };

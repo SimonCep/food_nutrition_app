@@ -1,59 +1,61 @@
 import React from "react";
-import { TextInput } from "react-native";
+import { Text, TextInput } from "react-native";
 
 import { SignUpFormProps } from "@/types";
+import { darkColorsAuth, lightColorsAuth } from "@/constants/Colors";
 
 const SignUpForm: React.FC<SignUpFormProps> = ({
-  name,
-  setName,
+  username,
+  setUsername,
   email,
   setEmail,
   password,
   setPassword,
   colorScheme,
+  validationErrors,
 }) => {
+  const colors = colorScheme === "dark" ? darkColorsAuth : lightColorsAuth;
+
+  const getFieldError = (field: string) => {
+    return validationErrors?.inner.find((error) => error.path === field)
+      ?.message;
+  };
+
   return (
     <>
       <TextInput
-        value={name}
-        onChangeText={setName}
+        value={username}
+        onChangeText={setUsername}
         placeholder="Username"
-        placeholderTextColor={colorScheme === "dark" ? "#A0AEC0" : "#4B5563"}
-        className={`border-2 ${
-          colorScheme === "dark" ? "border-gray-600" : "border-black"
-        } mb-4 mt-1 p-3 ${
-          colorScheme === "dark" ? "bg-gray-800" : "bg-white"
-        } rounded-md text-lg ${
-          colorScheme === "dark" ? "text-white" : "text-black"
-        }`}
+        placeholderTextColor={colors.inputPlaceholder}
+        className={`border-2 ${colors.inputBorder} mb-2 mt-1 p-3 ${colors.inputBackground} rounded-md text-lg ${colors.primaryText}`}
       />
+      {getFieldError("username") && (
+        <Text className={colors.errorText}>{getFieldError("username")}</Text>
+      )}
       <TextInput
         value={email}
         onChangeText={setEmail}
         placeholder="Email"
-        placeholderTextColor={colorScheme === "dark" ? "#A0AEC0" : "#4B5563"}
-        className={`border-2 ${
-          colorScheme === "dark" ? "border-gray-600" : "border-black"
-        } mb-4 mt-1 p-3 ${
-          colorScheme === "dark" ? "bg-gray-800" : "bg-white"
-        } rounded-md text-lg ${
-          colorScheme === "dark" ? "text-white" : "text-black"
-        }`}
+        placeholderTextColor={colors.inputPlaceholder}
+        className={`border-2 ${colors.inputBorder} mb-2 mt-1 p-3 ${colors.inputBackground} rounded-md text-lg ${colors.primaryText}`}
       />
+      {getFieldError("email") && (
+        <Text className={colors.errorText}>{getFieldError("email")}</Text>
+      )}
       <TextInput
         value={password}
         onChangeText={setPassword}
         placeholder="Password"
-        placeholderTextColor={colorScheme === "dark" ? "#A0AEC0" : "#4B5563"}
-        className={`border-2 ${
-          colorScheme === "dark" ? "border-gray-600" : "border-black"
-        } mb-6 mt-1 p-3 ${
-          colorScheme === "dark" ? "bg-gray-800" : "bg-white"
-        } rounded-md text-lg ${
-          colorScheme === "dark" ? "text-white" : "text-black"
-        }`}
+        placeholderTextColor={colors.inputPlaceholder}
+        className={`border-2 ${colors.inputBorder} mb-2 mt-1 p-3 ${colors.inputBackground} rounded-md text-lg ${colors.primaryText}`}
         secureTextEntry
       />
+      {getFieldError("password") && (
+        <Text className={`mb-4 ${colors.errorText}`}>
+          {getFieldError("password")}
+        </Text>
+      )}
     </>
   );
 };

@@ -1,4 +1,3 @@
-import { Alert } from "react-native";
 import { Session } from "@supabase/supabase-js";
 import * as Yup from "yup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -24,15 +23,9 @@ export const isSessionExpired = (session: Session | null): boolean => {
   return currentTime > expiresAt;
 };
 
-export const signIn = async (
-  email: string,
-  password: string,
-  setIsLoading: (isLoading: boolean) => void,
-  onSuccess: () => void,
-) => {
+export const signIn = async (email: string, password: string) => {
   try {
     await signInValidationSchema.validate({ email, password });
-    setIsLoading(true);
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -40,28 +33,19 @@ export const signIn = async (
     });
 
     if (error) {
-      handleSignInError(error);
+      console.error("Error signing in:", error);
+      return false;
     } else {
       await storeSessionData(data.session);
-      onSuccess();
+      return true;
     }
   } catch (error) {
-    handleSignInValidationError(error);
-  } finally {
-    setIsLoading(false);
-  }
-};
-
-const handleSignInError = (error: any) => {
-  Alert.alert("Error", error.message);
-};
-
-const handleSignInValidationError = (error: any) => {
-  if (error instanceof Yup.ValidationError) {
-    Alert.alert("Validation Error", error.message);
-  } else {
-    Alert.alert("Error", "An error occurred while signing in.");
-    console.error("Sign in error:", error);
+    if (error instanceof Yup.ValidationError) {
+      console.error("Validation error:", error);
+    } else {
+      console.error("Sign in error:", error);
+    }
+    return false;
   }
 };
 
@@ -69,75 +53,48 @@ export const signUp = async (
   username: string,
   email: string,
   password: string,
-  setIsLoading: (isLoading: boolean) => void,
-  onSuccess: () => void,
 ) => {
   try {
     await signUpValidationSchema.validate({ username, email, password });
-    setIsLoading(true);
 
     const { data, error } = await supabase.auth.signUp({ email, password });
 
     if (error) {
-      handleSignUpError(error);
+      console.error("Error signing up:", error);
+      return false;
     } else if (data.user?.id) {
-      await handleProfileUpdate(data.user.id, username, onSuccess);
+      const { error: updateError } = await supabase
+        .from("profiles")
+        .update({ username })
+        .eq("id", data.user.id);
+
+      if (updateError) {
+        console.error("Update username error:", updateError);
+        await supabase.auth.signOut();
+        return false;
+      } else {
+        const { data: sessionData, error: sessionError } =
+          await supabase.auth.getSession();
+
+        if (sessionError) {
+          console.error(
+            "Error retrieving session after sign-up:",
+            sessionError,
+          );
+          return false;
+        } else {
+          await storeSessionData(sessionData.session);
+          return true;
+        }
+      }
     }
   } catch (error) {
-    handleSignUpValidationError(error);
-  } finally {
-    setIsLoading(false);
-  }
-};
-
-const handleSignUpError = (error: any) => {
-  Alert.alert("Error", error.message);
-};
-
-const handleProfileUpdate = async (
-  userId: string,
-  username: string,
-  onSuccess: () => void,
-) => {
-  const { error: updateError } = await supabase
-    .from("profiles")
-    .update({ username })
-    .eq("id", userId);
-
-  if (updateError) {
-    handleUpdateError(updateError);
-    await supabase.auth.signOut();
-  } else {
-    await handleSessionRetrieval(onSuccess);
-  }
-};
-
-const handleUpdateError = (error: any) => {
-  Alert.alert("Error", "Failed to update username");
-  console.error("Update username error:", error);
-};
-
-const handleSessionRetrieval = async (onSuccess: () => void) => {
-  const { data, error } = await supabase.auth.getSession();
-
-  if (error) {
-    console.error("Error retrieving session after sign-up:", error);
-  } else {
-    await storeSessionData(data.session);
-    Alert.alert(
-      "Success",
-      "Account created successfully! You can now log in.",
-      [{ text: "OK", onPress: onSuccess }],
-    );
-  }
-};
-
-const handleSignUpValidationError = (error: any) => {
-  if (error instanceof Yup.ValidationError) {
-    Alert.alert("Validation Error", error.message);
-  } else {
-    Alert.alert("Error", "An error occurred while signing up.");
-    console.error("Sign up error:", error);
+    if (error instanceof Yup.ValidationError) {
+      console.error("Validation error:", error);
+    } else {
+      console.error("Sign up error:", error);
+    }
+    return false;
   }
 };
 
