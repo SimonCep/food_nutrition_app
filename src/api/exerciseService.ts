@@ -28,7 +28,7 @@ export const addExercise = async (
 
     if (error) {
       console.error("Error adding exercise:", error);
-      return false;
+      return null;
     }
 
     return true;
@@ -38,7 +38,7 @@ export const addExercise = async (
     } else {
       console.error("Error adding exercise:", error);
     }
-    return false;
+    return null;
   }
 };
 
