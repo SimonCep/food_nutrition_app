@@ -35,11 +35,12 @@ export default function AboutUs() {
           </View>
         </View>
 
-        <View className=" m-5 mr-14 rounded-3xl bg-emerald-100 dark:bg-emerald-800">
-          <Text className="ml-10 mt-10 text-left text-3xl text-black dark:text-white">
+        <View className=" m-5 mr-14 p-5 rounded-3xl shadow-md bg-white/90 dark:bg-emerald-800">
+          <Text className="ml-5 mt-5 mb-5 text-left text-3xl text-black dark:text-white">
             Our mission
           </Text>
-          <Text className="m-10 text-left text-black dark:text-white">
+          <View className="w-full border-b border-gray-300"></View>
+          <Text className="m-5 text-left text-black dark:text-white">
             At EATHY, our mission is to empower individuals on their journey
             towards better health and well-being. We believe that everyone
             deserves access to personalized nutrition guidance, whether they are
@@ -51,79 +52,82 @@ export default function AboutUs() {
           </Text>
         </View>
 
-        <View className=" m-5 ml-14 rounded-3xl bg-emerald-100 dark:bg-emerald-800">
-          <Text className="mr-10 mt-10 text-right text-3xl text-black dark:text-white">
+        <View className=" m-5 ml-14 p-5 rounded-3xl shadow-md bg-white/90 dark:bg-emerald-800">
+          <Text className="mr-5 mt-5 mb-5 text-right text-3xl text-black dark:text-white">
             Our Values
           </Text>
-          <Text className="m-10 text-pretty text-left text-black dark:text-white">
+          <View className="w-full border-b border-gray-300"></View>
+          <Text className="m-5 text-pretty text-left text-black dark:text-white">
             Accessibility: We are dedicated to making our app accessible to all,
             regardless of health condition, dietary preference, or socioeconomic
             status.
           </Text>
-          <Text className="ml-10 mr-10 text-pretty text-left text-black dark:text-white">
+          <Text className="ml-5 mr-5 text-pretty text-left text-black dark:text-white">
             Accuracy: We prioritize accuracy and evidence-based recommendations,
             ensuring that our users receive reliable information to guide their
             dietary choices.
           </Text>
-          <Text className="m-10 text-pretty text-left text-black dark:text-white">
+          <Text className="m-5 text-pretty text-left text-black dark:text-white">
             Community feedback: We believe that community feedback allows us to
             prioritize features and updates based on what matters most to our
             users, ensuring that our platform remains relevant and impactful.
           </Text>
         </View>
 
-        <View className=" m-5 mr-14 rounded-3xl bg-emerald-100 dark:bg-emerald-800">
-          <Text className="ml-10 mt-10 text-left text-3xl text-black dark:text-white">
+        <View className=" m-5 mr-14 p-5 rounded-3xl shadow-md bg-white/90 dark:bg-emerald-800">
+          <Text className="ml-5 mt-5 mb-5 text-left text-3xl text-black dark:text-white">
             Meet the team
           </Text>
-          <Text className="ml-10 mt-10 text-pretty text-left text-black dark:text-white">
+          <View className="w-full border-b border-gray-300"></View>
+          <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
             Simas Čeponis
           </Text>
-          <Text className="ml-10 text-pretty text-left text-black dark:text-white">
+          <Text className="ml-5 text-pretty text-left text-black dark:text-white">
             simas.ceponis@ktu.edu
           </Text>
-          <Text className="ml-10 mt-10 text-pretty text-left text-black dark:text-white">
+          <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
             Dovydas Šiurkus
           </Text>
-          <Text className="ml-10 text-pretty text-left text-black dark:text-white">
+          <Text className="ml-5 text-pretty text-left text-black dark:text-white">
             dovydas.siurkus@ktu.edu
           </Text>
-          <Text className="ml-10 mt-10 text-pretty text-left text-black dark:text-white">
+          <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
             Dominykas Valčiukas
           </Text>
-          <Text className="ml-10 text-pretty text-left text-black dark:text-white">
+          <Text className="ml-5 text-pretty text-left text-black dark:text-white">
             dominykas.valciukas@ktu.edu
           </Text>
-          <Text className="ml-10 mt-10 text-pretty text-left text-black dark:text-white">
+          <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
             Viltė Sakalauskaitė
           </Text>
-          <Text className="ml-10 text-pretty text-left text-black dark:text-white">
+          <Text className="ml-5 text-pretty text-left text-black dark:text-white">
             vilte.sakalauskaite@ktu.edu
           </Text>
-          <Text className="ml-10 mt-10 text-pretty text-left text-black dark:text-white">
+          <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
             Paulius Alešiūnas
           </Text>
-          <Text className="ml-10 text-pretty text-left text-black dark:text-white">
+          <Text className="ml-5 text-pretty text-left text-black dark:text-white">
             paulius.alesiunas@ktu.edu
           </Text>
-          <Text className="ml-10 mt-10 text-pretty text-left text-black dark:text-white">
+          <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
             Gerda Kaunietytė
           </Text>
-          <Text className="mb-10 ml-10 text-pretty text-left text-black dark:text-white">
+          <Text className="mb-5 ml-5 text-pretty text-left text-black dark:text-white">
             gerda.kaunietyte@ktu.edu
           </Text>
         </View>
 
-        <View className=" m-5 ml-14 rounded-3xl bg-emerald-100 dark:bg-emerald-800">
-          <Text className="mr-10 mt-10 text-right text-3xl text-black dark:text-white">
+        <View className=" m-5 ml-14 p-5 rounded-3xl shadow-md bg-white/90 dark:bg-emerald-800">
+          <Text className="mr-5 mt-5 mb-5 text-right text-3xl text-black dark:text-white">
             Contacts
           </Text>
-          <Text className="ml-10 mr-10 mt-10 text-pretty text-left text-black dark:text-white">
+          <View className="w-full border-b border-gray-300"></View>
+          <Text className="ml-5 mr-5 mt-5 text-pretty text-left text-black dark:text-white">
             Have questions, feedback, or suggestions? We'd love to hear from
             you! You can reach us via email at komandospastas@ktu.lt.
           </Text>
 
-          <Text className="m-10 text-pretty text-left text-black dark:text-white">
+          <Text className="m-5 text-pretty text-left text-black dark:text-white">
             Thank you for choosing EATHY to accompany you on your journey to a
             healthier, happier life.
           </Text>
