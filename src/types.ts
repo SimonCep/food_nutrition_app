@@ -2,12 +2,6 @@ import * as Yup from "yup";
 
 import { Database } from "@/database.types";
 
-// Sign-in related types
-export interface SignInData {
-  email: string;
-  password: string;
-}
-
 export interface SignInFormProps {
   email: string;
   setEmail: (email: string) => void;
@@ -15,13 +9,6 @@ export interface SignInFormProps {
   setPassword: (password: string) => void;
   colorScheme: ColorScheme;
   validationErrors: Yup.ValidationError | null;
-}
-
-// Sign-up related types
-export interface SignUpData {
-  name: string;
-  email: string;
-  password: string;
 }
 
 export interface SignUpFormProps {
