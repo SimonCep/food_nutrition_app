@@ -48,7 +48,6 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
     null,
   );
   const [editingExercise, setEditingExercise] = useState<Exercise | null>(null);
-
   const { exerciseUpdated, setExerciseUpdated } = useDiaryContext();
 
   useEffect(() => {
