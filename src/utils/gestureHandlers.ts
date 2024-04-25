@@ -2,30 +2,30 @@ import { Gesture } from "react-native-gesture-handler";
 import { runOnJS } from "react-native-reanimated";
 
 export const longPressGesture = (
-  exerciseId: number,
-  setHoldingExerciseId: (exerciseId: number | null) => void,
-  handleLongPress: (exerciseId: number) => void,
+  itemId: number,
+  setHoldingItemId: (itemId: number | null) => void,
+  handleLongPress: (itemId: number) => void,
 ) =>
   Gesture.LongPress()
     .onStart(() => {
-      runOnJS(setHoldingExerciseId)(exerciseId);
-      runOnJS(handleLongPress)(exerciseId);
+      runOnJS(setHoldingItemId)(itemId);
+      runOnJS(handleLongPress)(itemId);
     })
     .onEnd(() => {
-      runOnJS(setHoldingExerciseId)(null);
+      runOnJS(setHoldingItemId)(null);
     });
 
 export const pressGesture = (
-  exerciseId: number,
-  setHoldingExerciseId: (exerciseId: number | null) => void,
-  handlePress: (exerciseId: number) => void,
+  itemId: number,
+  setHoldingItemId: (itemId: number | null) => void,
+  handlePress: (itemId: number) => void,
 ) =>
   Gesture.Tap()
     .maxDistance(10)
     .maxDuration(500)
     .onStart(() => {
-      runOnJS(setHoldingExerciseId)(exerciseId);
+      runOnJS(setHoldingItemId)(itemId);
     })
     .onEnd(() => {
-      runOnJS(handlePress)(exerciseId);
+      runOnJS(handlePress)(itemId);
     });
