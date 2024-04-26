@@ -225,7 +225,10 @@ const WaterSection: React.FC<WaterSectionProps> = ({
           contentContainerStyle={{ paddingBottom: 16 }}
         />
         <TouchableOpacity
-          onPress={() => handleOpenForm()}
+          onPress={() => {
+            handleOpenForm();
+            console.log("KIETAI");
+          }}
           className={`${colors.buttonBackground} rounded-full border-2 px-4 py-2 ${colors.buttonBorder} mb-4`}
         >
           <Text className={`${colors.buttonText} text-center font-bold`}>

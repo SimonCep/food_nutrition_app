@@ -4,7 +4,7 @@ import { Tabs } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 
-function TabBarIcon(props: {
+export function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
 }) {
