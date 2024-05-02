@@ -4,6 +4,7 @@ import { useColorScheme } from "nativewind";
 
 import ExerciseSection from "@/components/exercise/ExerciseSection";
 import WaterSection from "@/components/water/WaterSection";
+import FoodSection from "@/components/foodNutrition/FoodNutritionSection";
 import DatePicker from "@/components/DatePicker";
 import { useAuth } from "@/providers/AuthProvider";
 import { darkColorsDiary, lightColorsDiary } from "@/constants/Colors";
@@ -28,6 +29,13 @@ const Diary = () => {
     />
   );
 
+  const renderFoodSection = () => (
+    <FoodSection
+      userId={session?.user?.id ?? ""}
+      selectedDate={selectedDate}
+    />
+  );
+
   return (
     <View className={`flex-1 ${colors.background}`}>
       <DatePicker selectedDate={selectedDate} onDateChange={setSelectedDate} />
@@ -39,6 +47,7 @@ const Diary = () => {
             <>
               {renderExerciseSection()}
               {renderWaterSection()}
+              {renderFoodSection()}
             </>
           )
         }

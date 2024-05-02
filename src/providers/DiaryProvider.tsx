@@ -13,20 +13,25 @@ const DiaryContext = createContext<DiaryContextType>({
   setWaterUpdated: () => {},
   exerciseUpdated: false,
   setExerciseUpdated: () => {},
+  foodUpdated: false,
+  setFoodUpdated: () => {},
 });
 
 const DiaryProvider = ({ children }: Readonly<PropsWithChildren>) => {
   const [waterUpdated, setWaterUpdated] = useState(false);
   const [exerciseUpdated, setExerciseUpdated] = useState(false);
+  const [foodUpdated, setFoodUpdated] = useState(false);
 
   const contextValue = useMemo(
     () => ({
       waterUpdated,
       exerciseUpdated,
+      foodUpdated,
       setWaterUpdated,
       setExerciseUpdated,
+      setFoodUpdated,
     }),
-    [waterUpdated, exerciseUpdated],
+    [waterUpdated, exerciseUpdated, foodUpdated],
   );
 
   return (
