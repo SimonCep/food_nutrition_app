@@ -10,6 +10,7 @@ import { useColorScheme } from "nativewind";
 
 import { FoodNutritionFormProps } from "@/types";
 import { lightColorsDiary, darkColorsDiary } from "@/constants/Colors";
+import { ScrollView } from "react-native-gesture-handler";
 
 const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
   brand,
@@ -75,8 +76,9 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
   };
 
   return (
+    <ScrollView contentContainerStyle={{flexGrow: 1}}>
     <View
-      className={`flex-1 items-center justify-center p-6 ${colors.background}`}
+      className={`items-center justify-center p-6 ${colors.background}`}
     >
       <Text className={`mb-6 text-center text-2xl font-bold ${colors.text}`}>
         {isEditing ? "Edit Food" : "Add Food"}
@@ -134,7 +136,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={calories?.toString() ?? ""}
+          value={calories > 0 ? calories.toString() : ""}
           onChangeText={(text) => setCalories(parseInt(text) || 0)}
           placeholder="Calories (Required)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -147,7 +149,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={fat?.toString() ?? ""}
+          value={fat != null && fat > 0 ? fat.toString() : ""}
           onChangeText={(text) => setFat(parseInt(text) || 0)}
           placeholder="Total Fat (g) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -160,7 +162,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={saturatedFat?.toString() ?? ""}
+          value={saturatedFat != null && saturatedFat > 0 ? saturatedFat.toString() : ""}
           onChangeText={(text) => setSaturatedFat(parseInt(text) || 0)}
           placeholder="Saturated Fat (g) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -173,7 +175,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={polyunsaturatedFat?.toString() ?? ""}
+          value={polyunsaturatedFat != null && polyunsaturatedFat > 0 ? polyunsaturatedFat.toString() : ""}
           onChangeText={(text) => setPolyunsaturatedFat(parseInt(text) || 0)}
           placeholder="Polyunsaturated Fat (g) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -186,7 +188,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={monounsaturatedFat?.toString() ?? ""}
+          value={monounsaturatedFat != null && monounsaturatedFat > 0 ? monounsaturatedFat.toString() : ""}
           onChangeText={(text) => setMonounsaturatedFat(parseInt(text) || 0)}
           placeholder="Monounsaturated Fat (g) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -199,7 +201,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={transFat?.toString() ?? ""}
+          value={transFat != null && transFat > 0 ? transFat.toString() : ""}
           onChangeText={(text) => setTransFat(parseInt(text) || 0)}
           placeholder="Trans Fat (g) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -212,7 +214,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={cholesterol?.toString() ?? ""}
+          value={cholesterol != null && cholesterol > 0 ? cholesterol.toString() : ""}
           onChangeText={(text) => setCholesterol(parseInt(text) || 0)}
           placeholder="Cholesterol (mg) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -225,7 +227,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={sodium?.toString() ?? ""}
+          value={sodium != null && sodium > 0 ? sodium.toString() : ""}
           onChangeText={(text) => setSodium(parseInt(text) || 0)}
           placeholder="Sodium (mg) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -238,7 +240,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={potassium?.toString() ?? ""}
+          value={potassium != null && potassium > 0 ? potassium.toString() : ""}
           onChangeText={(text) => setPotassium(parseInt(text) || 0)}
           placeholder="Potassium (mg) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -251,7 +253,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={carbohydrates?.toString() ?? ""}
+          value={carbohydrates != null && carbohydrates > 0 ? carbohydrates.toString() : ""}
           onChangeText={(text) => setCarbohydrates(parseInt(text) || 0)}
           placeholder="Total Carbohydrates (g) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -264,7 +266,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={fiber?.toString() ?? ""}
+          value={fiber != null && fiber > 0 ? fiber.toString() : ""}
           onChangeText={(text) => setFiber(parseInt(text) || 0)}
           placeholder="Dietary Fiber (g) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -277,7 +279,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={sugar?.toString() ?? ""}
+          value={sugar != null && sugar > 0 ? sugar.toString() : ""}
           onChangeText={(text) => setSugar(parseInt(text) || 0)}
           placeholder="Sugars (g) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -290,7 +292,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={addedSugars?.toString() ?? ""}
+          value={addedSugars != null && addedSugars > 0 ? addedSugars.toString() : ""}
           onChangeText={(text) => setAddedSugars(parseInt(text) || 0)}
           placeholder="Added Sugars (g) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -303,7 +305,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={sugarAlcohols?.toString() ?? ""}
+          value={sugarAlcohols != null && sugarAlcohols > 0 ? sugarAlcohols.toString() : ""}
           onChangeText={(text) => setSugarAlcohols(parseInt(text) || 0)}
           placeholder="Sugar Alcohols (g) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -316,7 +318,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={protein?.toString() ?? ""}
+          value={protein != null && protein > 0 ? protein.toString() : ""}
           onChangeText={(text) => setProtein(parseInt(text) || 0)}
           placeholder="Protein (g) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -329,7 +331,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={vitaminA?.toString() ?? ""}
+          value={vitaminA != null && vitaminA > 0 ? vitaminA.toString() : ""}
           onChangeText={(text) => setVitaminA(parseInt(text) || 0)}
           placeholder="Vitamin A (%) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -342,7 +344,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={vitaminC?.toString() ?? ""}
+          value={vitaminC != null && vitaminC > 0 ? vitaminC.toString() : ""}
           onChangeText={(text) => setVitaminC(parseInt(text) || 0)}
           placeholder="Vitamin C (%) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -355,7 +357,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={vitaminD?.toString() ?? ""}
+          value={vitaminD != null && vitaminD > 0 ? vitaminD.toString() : ""}
           onChangeText={(text) => setVitaminD(parseInt(text) || 0)}
           placeholder="Vitamin D (%) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -368,7 +370,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={calcium?.toString() ?? ""}
+          value={calcium != null && calcium > 0 ? calcium.toString() : ""}
           onChangeText={(text) => setCalcium(parseInt(text) || 0)}
           placeholder="Calcium (%) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -381,7 +383,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </Text>
         )}
         <TextInput
-          value={iron?.toString() ?? ""}
+          value={iron != null && iron > 0 ? iron.toString() : ""}
           onChangeText={(text) => setIron(parseInt(text) || 0)}
           placeholder="Iron (%) (Optional)"
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
@@ -420,6 +422,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
         </TouchableOpacity>
       </View>
     </View>
+    </ScrollView>
   );
 };
 

@@ -83,6 +83,27 @@ export type Database = {
         }
         Relationships: []
       }
+      food_diary: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: number
+          title: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          title?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          title?: string | null
+        }
+        Relationships: []
+      }
       food_in_diet: {
         Row: {
           fk_dietid: number
@@ -239,7 +260,15 @@ export type Database = {
           vitamin_c?: number | null
           vitamin_d?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "nutrition_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {

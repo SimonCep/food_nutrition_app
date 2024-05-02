@@ -32,12 +32,10 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
 }) => {
   const [foods, setFoods] = useState<FoodNutrition[]>([]);
   const [brand, setBrand] = useState<string | null>("");
-  
   const [foodName, setFoodName] = useState("");
   const [measurementUnit, setMeasurementUnit] = useState("");
   const [servingSize, setServingSize] = useState(0);
   const [calories, setCalories] = useState(0);
-
   const [fat, setFat] = useState<number | null>(0);
   const [saturatedFat, setSaturatedFat] = useState<number | null>(0);
   const [polyunsaturatedFat, setPolyunsaturatedFat] = useState<number | null>(0);
