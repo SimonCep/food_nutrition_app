@@ -16,6 +16,8 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
         return "Delete Exercise";
       case "water":
         return "Delete Water Consumption";
+      case "food":
+        return "Delete Food";
       default:
         return "Delete Record";
     }
@@ -27,6 +29,8 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
         return "Are you sure you want to delete this exercise entry?";
       case "water":
         return "Are you sure you want to delete this water entry?";
+      case "food":
+        return "Are you sure you want to delete this food entry?";
       default:
         return "Are you sure you want to delete this record?";
     }

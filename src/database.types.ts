@@ -156,22 +156,22 @@ export type Database = {
           added_sugars: number | null
           brand: string | null
           calcium: number | null
-          calories: number | null
+          calories: number
           carbohydrates: number | null
           cholesterol: number | null
           date_added: string
           fat: number | null
           fiber: number | null
-          food_name: string | null
+          food_name: string
           id: number
           iron: number | null
-          measurement_unit: string | null
+          measurement_unit: string
           monounsaturated_fat: number | null
           polyunsaturated_fat: number | null
           potassium: number | null
           protein: number | null
           saturated_fat: number | null
-          serving_size: number | null
+          serving_size: number
           sodium: number | null
           sugar: number | null
           sugar_alcohols: number | null
@@ -185,22 +185,22 @@ export type Database = {
           added_sugars?: number | null
           brand?: string | null
           calcium?: number | null
-          calories?: number | null
+          calories: number
           carbohydrates?: number | null
           cholesterol?: number | null
-          date_added?: string | null
+          date_added?: string
           fat?: number | null
           fiber?: number | null
-          food_name?: string | null
+          food_name: string
           id?: number
           iron?: number | null
-          measurement_unit?: string | null
+          measurement_unit: string
           monounsaturated_fat?: number | null
           polyunsaturated_fat?: number | null
           potassium?: number | null
           protein?: number | null
           saturated_fat?: number | null
-          serving_size?: number | null
+          serving_size: number
           sodium?: number | null
           sugar?: number | null
           sugar_alcohols?: number | null
@@ -214,22 +214,22 @@ export type Database = {
           added_sugars?: number | null
           brand?: string | null
           calcium?: number | null
-          calories?: number | null
+          calories?: number
           carbohydrates?: number | null
           cholesterol?: number | null
-          date_added?: string | null
+          date_added?: string
           fat?: number | null
           fiber?: number | null
-          food_name?: string | null
+          food_name?: string
           id?: number
           iron?: number | null
-          measurement_unit?: string | null
+          measurement_unit?: string
           monounsaturated_fat?: number | null
           polyunsaturated_fat?: number | null
           potassium?: number | null
           protein?: number | null
           saturated_fat?: number | null
-          serving_size?: number | null
+          serving_size?: number
           sodium?: number | null
           sugar?: number | null
           sugar_alcohols?: number | null
