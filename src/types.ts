@@ -2,6 +2,7 @@ import * as Yup from "yup";
 
 import { Database } from "@/database.types";
 import { Session } from "@supabase/supabase-js";
+import React from "react";
 
 export interface SignInFormProps {
   email: string;
@@ -173,6 +174,11 @@ export type DiaryContextType = {
   setExerciseUpdated: (updated: boolean) => void;
   foodUpdated: boolean;
   setFoodUpdated: (updated: boolean) => void;
+};
+
+export type SectionData = {
+  data: {}[];
+  renderItem: () => React.ReactElement;
 };
 
 // Type helpers
