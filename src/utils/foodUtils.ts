@@ -5,7 +5,7 @@ export const filterFoodNutritionByDate = (
   selectedDate: Date,
 ): FoodNutrition[] => {
   return foodNutritionData.filter((foodNutrition) => {
-    const foodNutritionDate = new Date(foodNutrition.date_added);
+    const foodNutritionDate = new Date(foodNutrition.consumed_at);
     return (
       foodNutritionDate.getFullYear() === selectedDate.getFullYear() &&
       foodNutritionDate.getMonth() === selectedDate.getMonth() &&

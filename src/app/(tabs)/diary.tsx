@@ -15,6 +15,10 @@ const Diary = () => {
   const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  const renderFoodSection = () => (
+    <FoodSection userId={session?.user?.id ?? ""} selectedDate={selectedDate} />
+  );
+
   const renderExerciseSection = () => (
     <ExerciseSection
       userId={session?.user?.id ?? ""}
@@ -29,13 +33,6 @@ const Diary = () => {
     />
   );
 
-  const renderFoodSection = () => (
-    <FoodSection
-      userId={session?.user?.id ?? ""}
-      selectedDate={selectedDate}
-    />
-  );
-
   return (
     <View className={`flex-1 ${colors.background}`}>
       <DatePicker selectedDate={selectedDate} onDateChange={setSelectedDate} />
@@ -45,9 +42,9 @@ const Diary = () => {
         ListEmptyComponent={
           session?.user && (
             <>
+              {renderFoodSection()}
               {renderExerciseSection()}
               {renderWaterSection()}
-              {renderFoodSection()}
             </>
           )
         }

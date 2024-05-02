@@ -38,8 +38,12 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
   const [calories, setCalories] = useState(0);
   const [fat, setFat] = useState<number | null>(0);
   const [saturatedFat, setSaturatedFat] = useState<number | null>(0);
-  const [polyunsaturatedFat, setPolyunsaturatedFat] = useState<number | null>(0);
-  const [monounsaturatedFat, setMonounsaturatedFat] = useState<number | null>(0);
+  const [polyunsaturatedFat, setPolyunsaturatedFat] = useState<number | null>(
+    0,
+  );
+  const [monounsaturatedFat, setMonounsaturatedFat] = useState<number | null>(
+    0,
+  );
   const [transFat, setTransFat] = useState<number | null>(0);
   const [cholesterol, setCholesterol] = useState<number | null>(0);
   const [sodium, setSodium] = useState<number | null>(0);
@@ -61,13 +65,9 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
   const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
   const [validationErrors, setValidationErrors] =
     useState<Yup.ValidationError | null>(null);
-  const [selectedFoodId, setSelectedFoodId] = useState<number | null>(
-    null,
-  );
+  const [selectedFoodId, setSelectedFoodId] = useState<number | null>(null);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-  const [holdingFoodId, setHoldingFoodId] = useState<number | null>(
-    null,
-  );
+  const [holdingFoodId, setHoldingFoodId] = useState<number | null>(null);
   const [editingFood, setEditingFood] = useState<FoodNutrition | null>(null);
   const { foodUpdated, setFoodUpdated } = useDiaryContext();
 
@@ -91,15 +91,15 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
     try {
       setIsLoading(true);
       await addFoodNutritionValidationSchema.validate(
-        { 
-          brand, 
+        {
+          brand,
           foodName,
           measurementUnit,
           servingSize,
           calories,
           fat,
           saturatedFat,
-          polyunsaturatedFat, 
+          polyunsaturatedFat,
           monounsaturatedFat,
           transFat,
           cholesterol,
@@ -115,7 +115,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
           vitaminC,
           vitaminD,
           calcium,
-          iron
+          iron,
         },
         { abortEarly: false },
       );
@@ -126,7 +126,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
       if (editingFood) {
         success = await updateFoodNutrition(
           editingFood.id,
-          brand, 
+          brand,
           foodName,
           formattedDate,
           measurementUnit,
@@ -134,7 +134,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
           calories,
           fat,
           saturatedFat,
-          polyunsaturatedFat, 
+          polyunsaturatedFat,
           monounsaturatedFat,
           transFat,
           cholesterol,
@@ -155,7 +155,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
       } else {
         success = await addFoodNutrition(
           userId,
-          brand, 
+          brand,
           foodName,
           formattedDate,
           measurementUnit,
@@ -163,7 +163,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
           calories,
           fat,
           saturatedFat,
-          polyunsaturatedFat, 
+          polyunsaturatedFat,
           monounsaturatedFat,
           transFat,
           cholesterol,
@@ -184,14 +184,14 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
       }
 
       if (success) {
-        setBrand(""); 
+        setBrand("");
         setFoodName("");
         setMeasurementUnit("");
         setServingSize(0);
         setCalories(0);
         setFat(0);
         setSaturatedFat(0);
-        setPolyunsaturatedFat(0); 
+        setPolyunsaturatedFat(0);
         setMonounsaturatedFat(0);
         setTransFat(0);
         setCholesterol(0);
@@ -244,7 +244,10 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
         const success = await deleteFoodNutrition(selectedFoodId);
         if (success) {
           const data = await fetchFoodNutrition(userId);
-          const filteredExercises = filterFoodNutritionByDate(data, selectedDate);
+          const filteredExercises = filterFoodNutritionByDate(
+            data,
+            selectedDate,
+          );
           setFoods(filteredExercises);
           setSelectedFoodId(null);
           setIsDeleteModalVisible(false);
@@ -262,14 +265,14 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
   const handleOpenForm = (food?: FoodNutrition) => {
     if (food) {
       setEditingFood(food);
-      setBrand(food.brand); 
+      setBrand(food.brand);
       setFoodName(food.food_name);
       setMeasurementUnit(food.measurement_unit);
       setServingSize(food.serving_size);
       setCalories(food.calories);
       setFat(food.fat);
       setSaturatedFat(food.saturated_fat);
-      setPolyunsaturatedFat(food.polyunsaturated_fat); 
+      setPolyunsaturatedFat(food.polyunsaturated_fat);
       setMonounsaturatedFat(food.monounsaturated_fat);
       setTransFat(food.trans_fat);
       setCholesterol(food.cholesterol);
@@ -288,14 +291,14 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
       setIron(food.iron);
     } else {
       setEditingFood(null);
-      setBrand(""); 
+      setBrand("");
       setFoodName("");
       setMeasurementUnit("");
       setServingSize(0);
       setCalories(0);
       setFat(0);
       setSaturatedFat(0);
-      setPolyunsaturatedFat(0); 
+      setPolyunsaturatedFat(0);
       setMonounsaturatedFat(0);
       setTransFat(0);
       setCholesterol(0);
@@ -326,14 +329,14 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
     const food = foods.find((item) => item.id === foodId);
     if (food) {
       setEditingFood(food);
-      setBrand(food.brand); 
+      setBrand(food.brand);
       setFoodName(food.food_name);
       setMeasurementUnit(food.measurement_unit);
       setServingSize(food.serving_size);
       setCalories(food.calories);
       setFat(food.fat);
       setSaturatedFat(food.saturated_fat);
-      setPolyunsaturatedFat(food.polyunsaturated_fat); 
+      setPolyunsaturatedFat(food.polyunsaturated_fat);
       setMonounsaturatedFat(food.monounsaturated_fat);
       setTransFat(food.trans_fat);
       setCholesterol(food.cholesterol);
@@ -376,7 +379,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
             {item.serving_size} {item.measurement_unit}
           </Text>
           <Text className={`${colors.secondaryText}`}>
-            Calories Burned: {item.calories}
+            Calories: {item.calories}
           </Text>
         </View>
       </GestureDetector>

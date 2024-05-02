@@ -33,11 +33,16 @@ export const addFoodNutrition = async (
   iron: number | null,
 ) => {
   try {
-    await addFoodNutritionValidationSchema.validate({ foodName, servingSize, measurementUnit, calories });
+    await addFoodNutritionValidationSchema.validate({
+      foodName,
+      servingSize,
+      measurementUnit,
+      calories,
+    });
     const { error } = await supabase.from("nutrition").insert({
       brand,
       food_name: foodName,
-      date_added: selectedDate,
+      consumed_at: selectedDate,
       measurement_unit: measurementUnit,
       serving_size: servingSize,
       calories,
@@ -61,7 +66,6 @@ export const addFoodNutrition = async (
       calcium,
       iron,
       user_id: userId,
-      consumed_at: selectedDate,
     });
 
     if (error) {
@@ -86,7 +90,7 @@ export const fetchFoodNutrition = async (userId: string) => {
       .from("nutrition")
       .select("*")
       .eq("user_id", userId)
-      .order("date_added", { ascending: false });
+      .order("consumed_at", { ascending: false });
 
     if (error) {
       console.error("Error fetching food nutrition:", error);
@@ -148,14 +152,19 @@ export const updateFoodNutrition = async (
   iron: number | null,
 ) => {
   try {
-    await addFoodNutritionValidationSchema.validate({ foodName, servingSize, measurementUnit, calories });
+    await addFoodNutritionValidationSchema.validate({
+      foodName,
+      servingSize,
+      measurementUnit,
+      calories,
+    });
 
     const { error } = await supabase
       .from("nutrition")
       .update({
         brand,
         food_name: foodName,
-        date_added: selectedDate,
+        consumed_at: selectedDate,
         measurement_unit: measurementUnit,
         serving_size: servingSize,
         calories,
@@ -178,7 +187,6 @@ export const updateFoodNutrition = async (
         vitamin_d: vitaminD,
         calcium,
         iron,
-        consumed_at: selectedDate,
       })
       .eq("id", foodId);
 

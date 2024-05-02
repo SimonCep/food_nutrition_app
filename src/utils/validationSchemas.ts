@@ -52,11 +52,11 @@ export const addWaterConsumptionValidationSchema = Yup.object().shape({
 });
 
 export const addFoodNutritionValidationSchema = Yup.object().shape({
-  food_name: Yup.string().required("Food description is required"),
-  serving_size: Yup.number()
+  foodName: Yup.string().required("Food description is required"),
+  servingSize: Yup.number()
     .min(1, "Serving must be at least 1")
     .required("Serving size is required"),
-  measurement_unit: Yup.string().required("Measurement unit is required"),
+  measurementUnit: Yup.string().required("Measurement unit is required"),
   calories: Yup.number()
     .min(1, "Calories must be at least 1")
     .required("Calories are required"),
