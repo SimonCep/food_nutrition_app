@@ -147,3 +147,82 @@ export const darkColorsUserInfo = {
   logoutButtonBackground: "bg-red-700",
   logoutButtonText: "text-white",
 };
+
+export const lightColorsDashboard = {
+  background: "bg-white/90",
+  backGroundSolid: "bg-white",
+  buttonBackground: "bg-green-100/90",
+  buttonBorder: "border-black",
+  buttonText: "text-black",
+  textColor: "text-black",
+  style: "rgba(0, 0, 0,",
+  chartLabel: "#000000"
+};
+
+export const darkColorsDashboard = {
+  background: "bg-gray-800/90",
+  backGroundSolid: "bg-gray-800",
+  buttonBackground: "bg-green-800/90",
+  buttonBorder: "border-white",
+  buttonText: "text-white",
+  textColor: "text-white",
+  style: "rgba(255, 255, 255,",
+  chartLabel: "#FFFFFF"
+};
+
+export const lightColorsSettingsGoals = {
+  background: "bg-white/90",   // "island" fonas
+  backgroundSolid: "bg-white", //fonas
+  checkmarkBorder: "border-gray-600",
+  checkmarkChecked: "bg-green-200",
+  checkmarkUnchecked: "bg-white",
+  checkmarkCheckedText: "text-black", 
+  checkmarkUncheckedText: "text-black", //keicia varneles spalva
+  textColor: "text-black",
+  buttonBackground: "bg-green-100/90",
+  buttonBorder: "border-black",
+  buttonText: "text-black",
+};
+
+export const darkColorsSettingsGoals = {
+  background: "bg-gray-800/90",  // "island" fonas
+  backgroundSolid: "bg-gray-800",   //fonas
+  checkmarkBorder: "border-white",
+  checkmarkChecked: "bg-green-500",
+  checkmarkUnchecked: "bg-gray-600",
+  heckmarkCheckedText: "text-black",
+  checkmarkUncheckedText: "text-white", //keicia varneles spalva
+  textColor: "text-white",
+  buttonBackground: "bg-green-800/90",
+  buttonBorder: "border-white",
+  buttonText: "text-white",
+};
+
+export const lightColorsSettingsProfile = {
+  background: "bg-white/90",   // "island" fonas
+  backgroundSolid: "bg-white", //fonas
+  checkmarkBorder: "border-gray-600",
+  checkmarkChecked: "bg-green-200",
+  checkmarkUnchecked: "bg-white",
+  checkmarkCheckedText: "text-black", 
+  checkmarkUncheckedText: "text-black", //keicia varneles spalva
+  textColor: "text-black",
+  buttonBackground: "bg-green-100/90",
+  buttonBorder: "border-black",
+  buttonText: "text-black",
+};
+
+export const darkColorsSettingsProfile = {
+  background: "bg-gray-800/90",  // "island" fonas
+  backgroundSolid: "bg-gray-800",   //fonas
+  checkmarkBorder: "border-white",
+  checkmarkChecked: "bg-green-500",
+  checkmarkUnchecked: "bg-gray-600",
+  heckmarkCheckedText: "text-black",
+  checkmarkUncheckedText: "text-white", //keicia varneles spalva
+  textColor: "text-white",
+  buttonBackground: "bg-green-800/90",
+  buttonBorder: "border-white",
+  buttonText: "text-white",
+};
+

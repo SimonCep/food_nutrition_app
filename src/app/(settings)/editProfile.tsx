@@ -15,9 +15,14 @@ import * as Yup from "yup";
 import { updateProfile } from "@/api/profileService";
 import { useAuth } from "@/providers/AuthProvider";
 import { updateProfileValidationSchema } from "@/utils/validationSchemas";
+import { darkColorsSettingsProfile, lightColorsSettingsProfile } from "@/constants/Colors";
+import { useColorScheme } from "nativewind";
 
 const EditProfile: React.FC = () => {
   const { profile, updateProfileData } = useAuth();
+
+  const { colorScheme } = useColorScheme();
+  const colors = colorScheme === "dark" ? darkColorsSettingsProfile : lightColorsSettingsProfile;
 
   const [username, setUsername] = useState<string>(profile?.username ?? "");
   const [fullname, setFullname] = useState<string>(profile?.full_name ?? "");
@@ -73,103 +78,100 @@ const EditProfile: React.FC = () => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 20, backgroundColor: "#f3f4f6" }}>
-      <TouchableOpacity onPress={handleChangeAvatar}>
-        <Image
-          source={{ uri: avatarUrl || "https://via.placeholder.com/150" }}
-          style={{
-            width: 150,
-            height: 150,
-            borderRadius: 75,
-            marginBottom: 20,
-            alignSelf: "center",
-          }}
-        />
-      </TouchableOpacity>
-      <TextInput
-        style={{
-          borderBottomWidth: 1,
-          borderBottomColor: "#ccc",
-          padding: 10,
-          marginBottom: 2,
-          fontSize: 18,
-          color: "#000",
-        }}
-        placeholder="Username"
-        placeholderTextColor="#6B7280"
-        value={username}
-        onChangeText={setUsername}
-      />
-      {getFieldError("username") && (
-        <Text style={{ color: "red", marginBottom: 10 }}>
-          {getFieldError("username")}
-        </Text>
-      )}
-      <TextInput
-        style={{
-          borderBottomWidth: 1,
-          borderBottomColor: "#ccc",
-          padding: 10,
-          marginBottom: 2,
-          fontSize: 18,
-          color: "#000",
-        }}
-        placeholder="Full name"
-        placeholderTextColor="#6B7280"
-        value={fullname}
-        onChangeText={setFullname}
-      />
-      {getFieldError("full_name") && (
-        <Text style={{ color: "red", marginBottom: 10 }}>
-          {getFieldError("full_name")}
-        </Text>
-      )}
-      <TextInput
-        style={{
-          borderBottomWidth: 1,
-          borderBottomColor: "#ccc",
-          padding: 10,
-          marginBottom: 2,
-          fontSize: 18,
-          color: "#000",
-        }}
-        placeholder="Website"
-        placeholderTextColor="#6B7280"
-        value={website}
-        onChangeText={setWebsite}
-      />
-      {getFieldError("website") && (
-        <Text style={{ color: "red", marginBottom: 10 }}>
-          {getFieldError("website")}
-        </Text>
-      )}
-      <Button title="Save" onPress={handleSaveProfile} />
-      <Modal
-        visible={showModal}
-        animationType="slide"
-        onRequestClose={handleModalClose}
-      >
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <TextInput
+    <View className={`flex-1 justify-center items-center p-10 ${colors.background}`}>
+      <View className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} p-5 py-10 justify-start items-right shadow-md`}>
+        <TouchableOpacity onPress={handleChangeAvatar}>
+          <Image
+            source={{ uri: avatarUrl || "https://via.placeholder.com/150" }}
             style={{
-              borderBottomWidth: 1,
-              borderBottomColor: "#ccc",
-              padding: 10,
+              width: 150,
+              height: 150,
+              borderRadius: 75, 
               marginBottom: 20,
-              fontSize: 18,
-              color: "#000",
+              alignSelf: "center",
+              borderColor: "#000000",
+              borderWidth: 2,
+              
             }}
-            placeholder="Avatar URL"
-            placeholderTextColor="#6B7280"
-            value={avatarUrl}
-            onChangeText={setAvatarUrl}
           />
-          <Button title="Save Avatar URL" onPress={handleModalClose} />
-          <Button title="Cancel" onPress={handleModalClose} />
-        </View>
-      </Modal>
+        </TouchableOpacity>
+        <TextInput
+          className={`border-b border-gray-300 py-4 px-4 mb-1 mt-10 text-2xl ${colors.textColor}`}
+          placeholder="Username"
+          placeholderTextColor="#6B7280"
+          value={username}
+          onChangeText={setUsername}
+        />
+        {getFieldError("username") && (
+          <Text style={{ color: "red", marginBottom: 10 }}>
+            {getFieldError("username")}
+          </Text>
+        )}
+        <TextInput
+          className={`border-b border-gray-300 py-4 px-4 mb-1 text-2xl ${colors.textColor}`}
+          placeholder="Full name"
+          placeholderTextColor="#6B7280"
+          value={fullname}
+          onChangeText={setFullname}
+        />
+        {getFieldError("full_name") && (
+          <Text style={{ color: "red", marginBottom: 10 }}>
+            {getFieldError("full_name")}
+          </Text>
+        )}
+        <TextInput
+          className={`border-b border-gray-300 py-4 px-4 mb-10 text-2xl ${colors.textColor}`}
+          placeholder="Website"
+          placeholderTextColor="#6B7280"
+          value={website}
+          onChangeText={setWebsite}
+        />
+        {getFieldError("website") && (
+          <Text style={{ color: "red", marginBottom: 10 }}>
+            {getFieldError("website")}
+          </Text>
+        )}
+        
+        <TouchableOpacity
+          onPress={handleSaveProfile}
+          className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 self-center`}
+        >
+          <Text className={`${colors.buttonText} text-center font-bold`}>Save</Text>
+        </TouchableOpacity> 
+        
+        <Modal
+          visible={showModal}
+          animationType="slide"
+          onRequestClose={handleModalClose}
+        >
+          <View className={`flex-1 justify-center items-center p-10 ${colors.backgroundSolid}`}>
+            <View className={`container mt-5 flex rounded-3xl p-5 mx-2 ${colors.backgroundSolid} justify-start items-right shadow-lg`}>       
+              <TextInput
+                className={`border-b border-gray-300 py-4 px-4 mb-5 text-lg ${colors.textColor}`}
+                placeholder="Avatar URL"
+                placeholderTextColor="#6B7280"
+                value={avatarUrl}
+                onChangeText={setAvatarUrl}
+              />
+              
+              <TouchableOpacity
+                onPress={handleModalClose}
+                className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2 self-center`}
+              >
+                <Text className={`${colors.buttonText} text-center font-bold`}>Save Avatar URL</Text>
+              </TouchableOpacity> 
+              
+              <TouchableOpacity
+                onPress={handleModalClose}
+                className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2 self-center`}
+              >
+                <Text className={`${colors.buttonText} text-center font-bold`}>Cancel</Text>
+              </TouchableOpacity> 
+              
+            </View>
+          </View>
+        </Modal>
+      </View>
     </View>
   );
 };
