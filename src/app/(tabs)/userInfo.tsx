@@ -48,7 +48,7 @@ const UserInfoTab = () => {
 
   return (
     <ImageBackground
-      source={require("../../assets/images/gradientBackground.png")}
+      source={colorScheme === 'dark' ? require("../../assets/images/AnimatedDark.gif") : require("../../assets/images/AnimatedLight.gif")}
       className={`flex-1 resize-y justify-center ${colors.background}`}
     >
       <ScrollView>
@@ -82,32 +82,32 @@ const UserInfoTab = () => {
 
           <View className="m-10 w-screen justify-center p-5">
             <TouchableOpacity
-              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
+              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4 shadow-lg`}
               onPress={handleEditProfile}
             >
               <Text className={colors.buttonText}>Profile Settings</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
+              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4 shadow-lg`}
               onPress={handleEditGoals}
             >
               <Text className={colors.buttonText}>Dietary Goals</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleAccountSecurity}
-              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
+              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4 shadow-lg`}
             >
               <Text className={colors.buttonText}>Account Security</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleThemeSettings}
-              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
+              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4 shadow-lg`}
             >
               <Text className={colors.buttonText}>Theme Settings</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleAboutUs}
-              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4`}
+              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4 shadow-lg`}
             >
               <Text className={colors.buttonText}>About Us</Text>
             </TouchableOpacity>
@@ -115,7 +115,7 @@ const UserInfoTab = () => {
 
           <TouchableOpacity
             onPress={handleLogout}
-            className={`w-1/1 mb-10 rounded-full px-6 py-4 ${colors.logoutButtonBackground}`}
+            className={`w-1/1 mb-10 rounded-full px-6 py-2 border-2 ${colors.buttonBorder} ${colors.logoutButtonBackground}`}
           >
             <Text
               className={`text-center text-lg font-bold ${colors.logoutButtonText}`}

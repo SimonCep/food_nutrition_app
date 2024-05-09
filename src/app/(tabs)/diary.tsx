@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SectionList, View, SectionListRenderItemInfo } from "react-native";
+import { SectionList, View, SectionListRenderItemInfo, ImageBackground } from "react-native";
 import { useColorScheme } from "nativewind";
 
 import ExerciseSection from "@/components/exercise/ExerciseSection";
@@ -53,17 +53,22 @@ const Diary = () => {
   };
 
   return (
-    <View className={`flex-1 ${colors.background}`}>
-      <DatePicker selectedDate={selectedDate} onDateChange={setSelectedDate} />
-      {session?.user && (
-        <SectionList
-          sections={sections}
-          keyExtractor={(_, index) => index.toString()}
-          renderItem={renderSectionItem}
-          stickySectionHeadersEnabled={false}
-        />
-      )}
-    </View>
+    <ImageBackground
+      source={colorScheme === 'dark' ? require("../../assets/images/AnimatedDark.gif") : require("../../assets/images/AnimatedLight.gif")}
+      className={`flex-1 resize-y justify-center ${colors.text} bg-white dark:bg-black`}
+    >
+      <View className={`flex-1 ${colors.background}`}>
+        <DatePicker selectedDate={selectedDate} onDateChange={setSelectedDate} />
+        {session?.user && (
+          <SectionList
+            sections={sections}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={renderSectionItem}
+            stickySectionHeadersEnabled={false}
+          />
+        )}
+      </View>
+    </ImageBackground>
   );
 };
 

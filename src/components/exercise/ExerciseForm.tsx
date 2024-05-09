@@ -38,7 +38,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
 
   return (
     <View
-      className={`flex-1 items-center justify-center p-6 ${colors.background}`}
+      className={`flex-1 items-center justify-center p-6 ${colors.backgroundInDiary}`}
     >
       <Text className={`mb-6 text-center text-2xl font-bold ${colors.text}`}>
         {isEditing ? "Edit Exercise" : "Add Exercise"}

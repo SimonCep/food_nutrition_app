@@ -53,8 +53,9 @@ export const darkColorsAuth = {
 };
 
 export const lightColorsDiary = {
-  background: "bg-gray-100",
-  primaryBackground: "bg-white",
+  background: "bg-gray-100/00",
+  backgroundInDiary: "bg-gray-100",
+  primaryBackground: "bg-white/90",
   secondaryBackground: "bg-gray-200",
   text: "text-black",
   primaryText: "text-black",
@@ -90,8 +91,9 @@ export const lightColorsDiary = {
 };
 
 export const darkColorsDiary = {
-  background: "bg-black",
-  primaryBackground: "bg-gray-800",
+  background: "bg-black/00",
+  backgroundInDiary: "bg-black",
+  primaryBackground: "bg-gray-800/90",
   secondaryBackground: "bg-gray-900",
   text: "text-white",
   primaryText: "text-white",
@@ -131,10 +133,11 @@ export const lightColorsUserInfo = {
   primaryBackground: "bg-white",
   avatarBorder: "border-black",
   primaryText: "text-black",
-  buttonBackground: "bg-white/50",
+  buttonBackground: "bg-white/90",
   buttonText: "text-black",
   logoutButtonBackground: "bg-red-500",
   logoutButtonText: "text-white",
+  buttonBorder: "border-black",
 };
 
 export const darkColorsUserInfo = {
@@ -142,16 +145,17 @@ export const darkColorsUserInfo = {
   primaryBackground: "bg-gray-800",
   avatarBorder: "border-white",
   primaryText: "text-white",
-  buttonBackground: "bg-white/50",
-  buttonText: "text-black",
+  buttonBackground: "bg-gray-800/90",
+  buttonText: "text-white",
   logoutButtonBackground: "bg-red-700",
   logoutButtonText: "text-white",
+  buttonBorder: "border-white",
 };
 
 export const lightColorsDashboard = {
   background: "bg-white/90",
   backGroundSolid: "bg-white",
-  buttonBackground: "bg-green-100/90",
+  buttonBackground: "bg-green-100",
   buttonBorder: "border-black",
   buttonText: "text-black",
   textColor: "text-black",
@@ -162,7 +166,7 @@ export const lightColorsDashboard = {
 export const darkColorsDashboard = {
   background: "bg-gray-800/90",
   backGroundSolid: "bg-gray-800",
-  buttonBackground: "bg-green-800/90",
+  buttonBackground: "bg-green-400/50",
   buttonBorder: "border-white",
   buttonText: "text-white",
   textColor: "text-white",
@@ -185,15 +189,15 @@ export const lightColorsSettingsGoals = {
 };
 
 export const darkColorsSettingsGoals = {
-  background: "bg-gray-800/90",  // "island" fonas
+  background: "bg-black",  // "island" fonas
   backgroundSolid: "bg-gray-800",   //fonas
   checkmarkBorder: "border-white",
   checkmarkChecked: "bg-green-500",
   checkmarkUnchecked: "bg-gray-600",
-  heckmarkCheckedText: "text-black",
+  checkmarkCheckedText: "text-black",
   checkmarkUncheckedText: "text-white", //keicia varneles spalva
   textColor: "text-white",
-  buttonBackground: "bg-green-800/90",
+  buttonBackground: "bg-green-400/50",
   buttonBorder: "border-white",
   buttonText: "text-white",
 };
@@ -213,16 +217,59 @@ export const lightColorsSettingsProfile = {
 };
 
 export const darkColorsSettingsProfile = {
-  background: "bg-gray-800/90",  // "island" fonas
+  background: "bg-black",  // "island" fonas
   backgroundSolid: "bg-gray-800",   //fonas
   checkmarkBorder: "border-white",
   checkmarkChecked: "bg-green-500",
   checkmarkUnchecked: "bg-gray-600",
-  heckmarkCheckedText: "text-black",
+  checkmarkCheckedText: "text-black",
   checkmarkUncheckedText: "text-white", //keicia varneles spalva
   textColor: "text-white",
-  buttonBackground: "bg-green-800/90",
+  buttonBackground: "bg-green-400/50",
   buttonBorder: "border-white",
   buttonText: "text-white",
 };
+
+export const lightColorsAboutUs = {
+  background: "bg-white/90",
+  imageBackground: "bg-white",
+};
+
+export const darkColorsAboutUs = {
+  background: "bg-gray-800/90",
+  imageBackground: "bg-gray-800",  
+};
+
+export const lightColorsIndex = {
+  background: "bg-white/90",
+  backgroundChecked: "bg-white/50",
+  imageBackground: "bg-white",
+  textColor: "text-black",
+  checkmarkBorder: "border-gray-400",
+  checkmarkChecked: "bg-green-200",
+  checkmarkUnchecked: "bg-white",
+  checkmarkCheckedText: "text-black", 
+  checkmarkUncheckedText: "text-gray-400", 
+  taskShadowChecked:"",
+  taskShadow:"shadow-lg",
+  iconColorChecked:"#C7C7C7",
+  iconColor:"black",
+};
+
+export const darkColorsIndex = {
+  background: "bg-gray-800/90",
+  backgroundChecked: "bg-gray-800/90",
+  imageBackground: "bg-gray-800", 
+  textColor: "text-white", 
+  checkmarkBorder: "border-gray-600",
+  checkmarkChecked: "bg-green-400/50",
+  checkmarkUnchecked: "bg-gray-800",
+  checkmarkCheckedText: "text-white", 
+  checkmarkUncheckedText: "text-gray-600", 
+  taskShadowChecked:"",
+  taskShadow:"shadow-lg",
+  iconColorChecked:"#52525b",
+  iconColor:"white",
+};
+
 
