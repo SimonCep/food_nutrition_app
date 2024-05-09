@@ -181,6 +181,19 @@ export type SectionData = {
   renderItem: () => React.ReactElement;
 };
 
+export interface PersonalDataModalProps {
+  modalVisible: boolean;
+  setModalVisible: (visible: boolean) => void;
+  colors: any;
+  onPersonalDataSubmit: (
+    height: string,
+    weight: string,
+    age: number,
+    gender: string,
+    healthIssues: string[],
+  ) => Promise<void>;
+}
+
 // Type helpers
 export type Tables<T extends keyof Database["public"]["Tables"]> =
   Database["public"]["Tables"][T]["Row"];

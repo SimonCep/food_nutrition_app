@@ -61,3 +61,15 @@ export const addFoodNutritionValidationSchema = Yup.object().shape({
     .min(1, "Calories must be at least 1")
     .required("Calories are required"),
 });
+
+export const personalDataValidationSchema = Yup.object().shape({
+  height: Yup.string().required("Height is required"),
+  weight: Yup.string().required("Weight is required"),
+  age: Yup.number()
+    .required("Age is required")
+    .positive("Age must be a positive number"),
+  gender: Yup.string().required("Gender is required"),
+  healthIssues: Yup.array()
+    .of(Yup.string())
+    .required("Health issues are required"),
+});

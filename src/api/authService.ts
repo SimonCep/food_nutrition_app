@@ -3,7 +3,6 @@ import * as Yup from "yup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { supabase } from "@/lib/supabase";
-import { Tables } from "@/types";
 import {
   signInValidationSchema,
   signUpValidationSchema,
@@ -117,7 +116,7 @@ export const fetchProfile = async (userId: string) => {
     return null;
   }
 
-  return data as Tables<"profiles"> | null;
+  return data;
 };
 
 export const subscribeToAuthStateChange = (
