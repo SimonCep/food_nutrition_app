@@ -52,7 +52,7 @@ export const signUp = async (
   username: string,
   email: string,
   password: string,
-) => {
+): Promise<{ success: boolean; userId: string | null } | undefined> => {
   try {
     await signUpValidationSchema.validate({ username, email, password });
 
@@ -60,7 +60,7 @@ export const signUp = async (
 
     if (error) {
       console.error("Error signing up:", error);
-      return false;
+      return { success: false, userId: null };
     } else if (data.user?.id) {
       const { error: updateError } = await supabase
         .from("profiles")
@@ -70,21 +70,9 @@ export const signUp = async (
       if (updateError) {
         console.error("Update username error:", updateError);
         await supabase.auth.signOut();
-        return false;
+        return { success: false, userId: null };
       } else {
-        const { data: sessionData, error: sessionError } =
-          await supabase.auth.getSession();
-
-        if (sessionError) {
-          console.error(
-            "Error retrieving session after sign-up:",
-            sessionError,
-          );
-          return false;
-        } else {
-          await storeSessionData(sessionData.session);
-          return true;
-        }
+        return { success: true, userId: data.user.id };
       }
     }
   } catch (error) {
@@ -93,7 +81,7 @@ export const signUp = async (
     } else {
       console.error("Sign up error:", error);
     }
-    return false;
+    return { success: false, userId: null };
   }
 };
 

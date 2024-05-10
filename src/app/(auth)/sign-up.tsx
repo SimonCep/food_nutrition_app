@@ -14,9 +14,12 @@ import { signUp } from "@/api/authService";
 import { insertPersonalData } from "@/api/personalDataService";
 import SignUpForm from "@/components/authentication/SignUpForm";
 import { darkColorsAuth, lightColorsAuth } from "@/constants/Colors";
-import { signUpValidationSchema } from "@/utils/validationSchemas";
-import { useAuth } from "@/providers/AuthProvider";
+import {
+  personalDataValidationSchema,
+  signUpValidationSchema,
+} from "@/utils/validationSchemas";
 import PersonalDataModal from "@/components/authentication/PersonalDataModal";
+import { supabase } from "@/lib/supabase";
 
 const SignUpScreen = () => {
   const [username, setUsername] = useState("");
@@ -30,7 +33,6 @@ const SignUpScreen = () => {
   const { colorScheme } = useColorScheme();
   const colors = colorScheme === "dark" ? darkColorsAuth : lightColorsAuth;
   const router = useRouter();
-  const { session } = useAuth();
 
   const handleSignUp = async () => {
     try {
@@ -40,13 +42,7 @@ const SignUpScreen = () => {
         { abortEarly: false },
       );
       setValidationErrors(null);
-
-      const success = await signUp(username, email, password);
-      if (success) {
-        setShowPersonalDataModal(true);
-      } else {
-        Alert.alert("Error", "Failed to create an account. Please try again.");
-      }
+      setShowPersonalDataModal(true);
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         setValidationErrors(error);
@@ -67,10 +63,16 @@ const SignUpScreen = () => {
     healthIssues: string[],
   ) => {
     try {
-      const userId = session?.user?.id;
-      if (userId) {
+      setIsLoading(true);
+      await personalDataValidationSchema.validate(
+        { height, weight, age, gender, healthIssues },
+        { abortEarly: false },
+      );
+
+      const result = await signUp(username, email, password);
+      if (result && result.success && result.userId) {
         await insertPersonalData(
-          userId,
+          result.userId,
           height,
           weight,
           age,
@@ -80,17 +82,32 @@ const SignUpScreen = () => {
         Alert.alert(
           "Success",
           "Account created successfully! You can now log in.",
-          [{ text: "OK", onPress: () => router.push("/sign-in") }],
+          [
+            {
+              text: "OK",
+              onPress: () => {
+                setShowPersonalDataModal(false);
+                router.push("/sign-in");
+              },
+            },
+          ],
         );
+        await supabase.auth.signOut();
       } else {
-        console.error("User ID not found in the session:", session);
+        Alert.alert("Error", "Failed to create an account. Please try again.");
       }
     } catch (error) {
-      console.error("Error submitting personal data:", error);
-      Alert.alert(
-        "Error",
-        "An error occurred while submitting personal data. Please try again.",
-      );
+      if (error instanceof Yup.ValidationError) {
+        setValidationErrors(error);
+      } else {
+        console.error("Error submitting personal data:", error);
+        Alert.alert(
+          "Error",
+          "An error occurred while submitting personal data. Please try again.",
+        );
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -141,6 +158,7 @@ const SignUpScreen = () => {
         setModalVisible={setShowPersonalDataModal}
         colors={colors}
         onPersonalDataSubmit={handlePersonalDataSubmit}
+        validationErrors={validationErrors}
       />
     </View>
   );

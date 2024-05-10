@@ -9,6 +9,7 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
   setModalVisible,
   colors,
   onPersonalDataSubmit,
+  validationErrors,
 }) => {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
@@ -16,7 +17,7 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
   const [open1, setOpen1] = useState(false);
   const [gender, setGender] = useState("");
   const [open2, setOpen2] = useState(false);
-  const [healthIssues, setHealthIssues] = useState(null);
+  const [healthIssues, setHealthIssues] = useState<string[]>([]);
   const [items1, setItems1] = useState([
     { label: "Male", value: "male" },
     { label: "Female", value: "female" },
@@ -32,19 +33,21 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
     { label: "Kidney Disease", value: "kidneyDisease" },
   ]);
 
-  const handlePersonalDataSubmit = async () => {
-    try {
-      await onPersonalDataSubmit(
-        height,
-        weight,
-        parseInt(age),
-        gender,
-        healthIssues ? [healthIssues] : [],
-      );
-      setModalVisible(false);
-    } catch (error) {
-      console.error("Error submitting personal data:", error);
-    }
+  const getFieldError = (field: string) => {
+    return validationErrors?.inner.find((error) => error.path === field)
+      ?.message;
+  };
+
+  const handleSubmit = () => {
+    onPersonalDataSubmit(height, weight, parseInt(age), gender, healthIssues)
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error submitting personal data:", error);
+      });
+  };
+
+  const handleCancel = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -71,6 +74,12 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
               setValue={setGender}
               setItems={setItems1}
             />
+            {getFieldError("gender") && (
+              <Text className="self-start text-red-500">
+                {getFieldError("gender")}
+              </Text>
+            )}
+
             <TextInput
               className={`mb-5 w-full self-start border-b border-gray-300 px-4 py-4 text-lg ${colors.text}`}
               placeholder="Enter your height"
@@ -78,6 +87,12 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
               value={height}
               onChangeText={setHeight}
             />
+            {getFieldError("height") && (
+              <Text className="self-start text-red-500">
+                {getFieldError("height")}
+              </Text>
+            )}
+
             <TextInput
               className={`mb-5 w-full self-start border-b border-gray-300 px-4 py-4 text-lg ${colors.text}`}
               placeholder="Enter your weight"
@@ -85,6 +100,12 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
               value={weight}
               onChangeText={setWeight}
             />
+            {getFieldError("weight") && (
+              <Text className="self-start text-red-500">
+                {getFieldError("weight")}
+              </Text>
+            )}
+
             <TextInput
               className={`mb-5 w-full self-start border-b border-gray-300 px-4 py-4 text-lg ${colors.text}`}
               placeholder="Enter your age"
@@ -92,6 +113,11 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
               value={age}
               onChangeText={setAge}
             />
+            {getFieldError("age") && (
+              <Text className="self-start text-red-500">
+                {getFieldError("age")}
+              </Text>
+            )}
 
             <Text className="self-start py-1 text-[#6B7280]">
               Select your health issues
@@ -103,17 +129,30 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
               setOpen={setOpen2}
               setValue={setHealthIssues}
               setItems={setItems2}
+              multiple={true}
             />
+            {getFieldError("healthIssues") && (
+              <Text className="self-start text-red-500">
+                {getFieldError("healthIssues")}
+              </Text>
+            )}
           </View>
           <Text className={`pb-5 text-2xl ${colors.buttonText}`}></Text>
 
           <TouchableOpacity
-            onPress={handlePersonalDataSubmit}
+            onPress={handleSubmit}
             className={`${colors.buttonBackground} rounded-full border-2 ${colors.border} mb-2 mt-4 px-4 py-2`}
           >
             <Text className={`${colors.buttonText} text-center font-bold`}>
               Submit
             </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={handleCancel}
+            className="mb-2 mt-4 px-4 py-2"
+          >
+            <Text className="text-center font-bold text-red-500">Cancel</Text>
           </TouchableOpacity>
         </View>
       </View>

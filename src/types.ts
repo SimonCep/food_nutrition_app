@@ -192,6 +192,7 @@ export interface PersonalDataModalProps {
     gender: string,
     healthIssues: string[],
   ) => Promise<void>;
+  validationErrors: Yup.ValidationError | null;
 }
 
 // Type helpers

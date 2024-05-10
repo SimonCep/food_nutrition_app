@@ -66,10 +66,13 @@ export const personalDataValidationSchema = Yup.object().shape({
   height: Yup.string().required("Height is required"),
   weight: Yup.string().required("Weight is required"),
   age: Yup.number()
+    .typeError("Age must be a number")
     .required("Age is required")
-    .positive("Age must be a positive number"),
+    .positive("Age must be a positive number")
+    .integer("Age must be an integer"),
   gender: Yup.string().required("Gender is required"),
   healthIssues: Yup.array()
     .of(Yup.string())
+    .min(1, "Please select at least one health issue")
     .required("Health issues are required"),
 });

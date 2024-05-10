@@ -20,7 +20,7 @@ export const insertPersonalData = async (
       healthIssues,
     });
 
-    const { data, error } = await supabase.from("personal_data").insert([
+    const { error } = await supabase.from("personal_data").insert([
       {
         user_id: userId,
         height,
@@ -35,7 +35,6 @@ export const insertPersonalData = async (
       console.error("Error inserting personal data:", error);
       return false;
     } else {
-      console.log("Personal data inserted successfully:", data);
       return true;
     }
   } catch (error) {
