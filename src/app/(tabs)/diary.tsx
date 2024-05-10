@@ -19,6 +19,7 @@ import {
   calculateTotalFoodCalories,
   calculateTotalExerciseCalories,
 } from "@/utils/calorieUtils";
+import { calculateTotalWaterConsumption } from "@/utils/waterUtils";
 import { useDiaryContext } from "@/providers/DiaryProvider";
 
 const Diary = () => {
@@ -29,11 +30,17 @@ const Diary = () => {
   const [totalFoodCalories, setTotalFoodCalories] = useState(0);
   const [totalExerciseCalories, setTotalExerciseCalories] = useState(0);
   const [netCalories, setNetCalories] = useState(0);
+  const [totalWaterConsumption, setTotalWaterConsumption] = useState(0);
 
-  const { refreshCalories, shouldRefreshCalories } = useDiaryContext();
+  const {
+    refreshCalories,
+    shouldRefreshCalories,
+    refreshWater,
+    shouldRefreshWater,
+  } = useDiaryContext();
 
   useEffect(() => {
-    const fetchCalories = async () => {
+    const fetchData = async () => {
       if (session?.user?.id) {
         try {
           const foodCalories = await calculateTotalFoodCalories(
@@ -50,14 +57,27 @@ const Diary = () => {
 
           const net = await calculateNetCalories(session.user.id, selectedDate);
           setNetCalories(net);
+
+          const waterConsumption = await calculateTotalWaterConsumption(
+            session.user.id,
+            selectedDate,
+          );
+          setTotalWaterConsumption(waterConsumption);
         } catch (error) {
-          console.error("Error fetching calories:", error);
+          console.error("Error fetching data:", error);
         }
       }
     };
 
-    void fetchCalories();
-  }, [session?.user?.id, selectedDate, refreshCalories, shouldRefreshCalories]);
+    void fetchData();
+  }, [
+    session?.user?.id,
+    selectedDate,
+    refreshCalories,
+    shouldRefreshCalories,
+    refreshWater,
+    shouldRefreshWater,
+  ]);
 
   const sections: SectionData[] = [
     {
@@ -107,6 +127,9 @@ const Diary = () => {
           </Text>
           <Text className={`text-base ${colors.secondaryText} ml-4`}>
             Exercise: {totalExerciseCalories}
+          </Text>
+          <Text className={`text-base ${colors.secondaryText} ml-4`}>
+            Water: {totalWaterConsumption.toFixed(2)} l
           </Text>
         </View>
       </View>

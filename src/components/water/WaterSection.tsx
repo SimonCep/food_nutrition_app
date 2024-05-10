@@ -48,7 +48,7 @@ const WaterSection: React.FC<WaterSectionProps> = ({
   const [editingRecord, setEditingRecord] = useState<WaterConsumption | null>(
     null,
   );
-  const { waterUpdated, setWaterUpdated } = useDiaryContext();
+  const { waterUpdated, setWaterUpdated, refreshWater } = useDiaryContext();
 
   useEffect(() => {
     const fetchWaterData = async () => {
@@ -109,6 +109,7 @@ const WaterSection: React.FC<WaterSectionProps> = ({
         );
         setWaterConsumption(filteredConsumption);
         setWaterUpdated(true);
+        refreshWater();
       } else {
         Alert.alert(
           "Error",
@@ -148,6 +149,7 @@ const WaterSection: React.FC<WaterSectionProps> = ({
           setSelectedRecordId(null);
           setIsDeleteModalVisible(false);
           setWaterUpdated(true);
+          refreshWater();
         } else {
           Alert.alert(
             "Error",
