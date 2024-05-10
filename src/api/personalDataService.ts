@@ -5,8 +5,8 @@ import { personalDataValidationSchema } from "@/utils/validationSchemas";
 
 export const insertPersonalData = async (
   userId: string,
-  height: string,
-  weight: string,
+  height: number,
+  weight: number,
   age: number,
   gender: string,
   healthIssues: string[],

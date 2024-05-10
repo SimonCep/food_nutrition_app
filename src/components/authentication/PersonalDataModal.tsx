@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Modal, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Modal,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
 import { PersonalDataModalProps } from "@/types";
@@ -10,6 +17,7 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
   colors,
   onPersonalDataSubmit,
   validationErrors,
+  isLoading,
 }) => {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
@@ -39,7 +47,13 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
   };
 
   const handleSubmit = () => {
-    onPersonalDataSubmit(height, weight, parseInt(age), gender, healthIssues)
+    onPersonalDataSubmit(
+      parseInt(height),
+      parseFloat(weight),
+      parseInt(age),
+      gender,
+      healthIssues,
+    )
       .then(() => {})
       .catch((error) => {
         console.error("Error submitting personal data:", error);
@@ -75,33 +89,35 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
               setItems={setItems1}
             />
             {getFieldError("gender") && (
-              <Text className="self-start text-red-500">
+              <Text className={`self-start ${colors.errorText}`}>
                 {getFieldError("gender")}
               </Text>
             )}
 
             <TextInput
               className={`mb-5 w-full self-start border-b border-gray-300 px-4 py-4 text-lg ${colors.text}`}
-              placeholder="Enter your height"
+              placeholder="Enter your height in cm"
               placeholderTextColor="#6B7280"
               value={height}
               onChangeText={setHeight}
+              keyboardType="numeric"
             />
             {getFieldError("height") && (
-              <Text className="self-start text-red-500">
+              <Text className={`self-start ${colors.errorText}`}>
                 {getFieldError("height")}
               </Text>
             )}
 
             <TextInput
               className={`mb-5 w-full self-start border-b border-gray-300 px-4 py-4 text-lg ${colors.text}`}
-              placeholder="Enter your weight"
+              placeholder="Enter your weight in kg"
               placeholderTextColor="#6B7280"
               value={weight}
               onChangeText={setWeight}
+              keyboardType="numeric"
             />
             {getFieldError("weight") && (
-              <Text className="self-start text-red-500">
+              <Text className={`self-start ${colors.errorText}`}>
                 {getFieldError("weight")}
               </Text>
             )}
@@ -112,9 +128,10 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
               placeholderTextColor="#6B7280"
               value={age}
               onChangeText={setAge}
+              keyboardType="numeric"
             />
             {getFieldError("age") && (
-              <Text className="self-start text-red-500">
+              <Text className={`self-start ${colors.errorText}`}>
                 {getFieldError("age")}
               </Text>
             )}
@@ -132,7 +149,7 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
               multiple={true}
             />
             {getFieldError("healthIssues") && (
-              <Text className="self-start text-red-500">
+              <Text className={`self-start ${colors.errorText}`}>
                 {getFieldError("healthIssues")}
               </Text>
             )}
@@ -141,18 +158,32 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
 
           <TouchableOpacity
             onPress={handleSubmit}
-            className={`${colors.buttonBackground} rounded-full border-2 ${colors.border} mb-2 mt-4 px-4 py-2`}
+            disabled={isLoading}
+            className={`mb-4 rounded-full border-2 py-3 ${colors.buttonBackground} ${colors.buttonBorder}`}
           >
-            <Text className={`${colors.buttonText} text-center font-bold`}>
-              Submit
-            </Text>
+            {isLoading ? (
+              <ActivityIndicator
+                color={colors.buttonText.split("-")[1]}
+                size="small"
+              />
+            ) : (
+              <Text
+                className={`text-center text-lg font-bold ${colors.buttonText}`}
+              >
+                Submit
+              </Text>
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={handleCancel}
             className="mb-2 mt-4 px-4 py-2"
           >
-            <Text className="text-center font-bold text-red-500">Cancel</Text>
+            <Text
+              className={`text-center font-bold ${colors.cancelButtonText}`}
+            >
+              Cancel
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

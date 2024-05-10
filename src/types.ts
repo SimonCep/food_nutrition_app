@@ -186,13 +186,14 @@ export interface PersonalDataModalProps {
   setModalVisible: (visible: boolean) => void;
   colors: any;
   onPersonalDataSubmit: (
-    height: string,
-    weight: string,
+    height: number,
+    weight: number,
     age: number,
     gender: string,
     healthIssues: string[],
   ) => Promise<void>;
   validationErrors: Yup.ValidationError | null;
+  isLoading: boolean;
 }
 
 // Type helpers

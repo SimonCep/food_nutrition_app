@@ -56,8 +56,8 @@ const SignUpScreen = () => {
   };
 
   const handlePersonalDataSubmit = async (
-    height: string,
-    weight: string,
+    height: number,
+    weight: number,
     age: number,
     gender: string,
     healthIssues: string[],
@@ -159,6 +159,7 @@ const SignUpScreen = () => {
         colors={colors}
         onPersonalDataSubmit={handlePersonalDataSubmit}
         validationErrors={validationErrors}
+        isLoading={isLoading}
       />
     </View>
   );
