@@ -32,12 +32,7 @@ const Diary = () => {
   const [netCalories, setNetCalories] = useState(0);
   const [totalWaterConsumption, setTotalWaterConsumption] = useState(0);
 
-  const {
-    refreshCalories,
-    shouldRefreshCalories,
-    refreshWater,
-    shouldRefreshWater,
-  } = useDiaryContext();
+  const { shouldRefreshCalories, shouldRefreshWater } = useDiaryContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,9 +68,7 @@ const Diary = () => {
   }, [
     session?.user?.id,
     selectedDate,
-    refreshCalories,
     shouldRefreshCalories,
-    refreshWater,
     shouldRefreshWater,
   ]);
 
