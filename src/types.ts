@@ -174,6 +174,8 @@ export type DiaryContextType = {
   setExerciseUpdated: (updated: boolean) => void;
   foodUpdated: boolean;
   setFoodUpdated: (updated: boolean) => void;
+  refreshCalories: () => void;
+  shouldRefreshCalories: boolean;
 };
 
 export type SectionData = {

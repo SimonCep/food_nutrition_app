@@ -48,7 +48,8 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
     null,
   );
   const [editingExercise, setEditingExercise] = useState<Exercise | null>(null);
-  const { exerciseUpdated, setExerciseUpdated } = useDiaryContext();
+  const { exerciseUpdated, setExerciseUpdated, refreshCalories } =
+    useDiaryContext();
 
   useEffect(() => {
     const fetchExerciseData = async () => {
@@ -106,6 +107,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
         const filteredExercises = filterExercisesByDate(data, selectedDate);
         setExercises(filteredExercises);
         setExerciseUpdated(true);
+        refreshCalories();
       } else {
         Alert.alert(
           "Error",
@@ -140,6 +142,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
           setSelectedExerciseId(null);
           setIsDeleteModalVisible(false);
           setExerciseUpdated(true);
+          refreshCalories();
         } else {
           Alert.alert("Error", "Failed to delete exercise. Please try again.");
         }

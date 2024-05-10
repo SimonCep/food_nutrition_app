@@ -14,8 +14,12 @@ import DatePicker from "@/components/DatePicker";
 import { useAuth } from "@/providers/AuthProvider";
 import { darkColorsDiary, lightColorsDiary } from "@/constants/Colors";
 import { SectionData } from "@/types";
-import { calculateTotalCalories } from "@/utils/calorieUtils";
-import { calculateTotalExerciseCalories } from "@/utils/exerciseUtils";
+import {
+  calculateNetCalories,
+  calculateTotalFoodCalories,
+  calculateTotalExerciseCalories,
+} from "@/utils/calorieUtils";
+import { useDiaryContext } from "@/providers/DiaryProvider";
 
 const Diary = () => {
   const { session } = useAuth();
@@ -24,26 +28,36 @@ const Diary = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [totalFoodCalories, setTotalFoodCalories] = useState(0);
   const [totalExerciseCalories, setTotalExerciseCalories] = useState(0);
+  const [netCalories, setNetCalories] = useState(0);
+
+  const { refreshCalories, shouldRefreshCalories } = useDiaryContext();
 
   useEffect(() => {
-    const fetchTotalCalories = async () => {
-      const foodCalories = await calculateTotalCalories(
-        session?.user?.id ?? "",
-        selectedDate,
-      );
-      setTotalFoodCalories(foodCalories);
+    const fetchCalories = async () => {
+      if (session?.user?.id) {
+        try {
+          const foodCalories = await calculateTotalFoodCalories(
+            session.user.id,
+            selectedDate,
+          );
+          setTotalFoodCalories(foodCalories);
 
-      const exerciseCalories = await calculateTotalExerciseCalories(
-        session?.user?.id ?? "",
-        selectedDate,
-      );
-      setTotalExerciseCalories(exerciseCalories);
+          const exerciseCalories = await calculateTotalExerciseCalories(
+            session.user.id,
+            selectedDate,
+          );
+          setTotalExerciseCalories(exerciseCalories);
+
+          const net = await calculateNetCalories(session.user.id, selectedDate);
+          setNetCalories(net);
+        } catch (error) {
+          console.error("Error fetching calories:", error);
+        }
+      }
     };
 
-    fetchTotalCalories();
-  }, [session?.user?.id, selectedDate]);
-
-  const netCalories = totalFoodCalories - totalExerciseCalories;
+    void fetchCalories();
+  }, [session?.user?.id, selectedDate, refreshCalories, shouldRefreshCalories]);
 
   const sections: SectionData[] = [
     {
@@ -97,7 +111,7 @@ const Diary = () => {
         </View>
       </View>
       <DatePicker selectedDate={selectedDate} onDateChange={setSelectedDate} />
-      {session?.user && (
+      {session?.user?.id && (
         <SectionList
           sections={sections}
           keyExtractor={(_, index) => index.toString()}
