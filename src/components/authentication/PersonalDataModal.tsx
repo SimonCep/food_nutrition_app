@@ -46,6 +46,19 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
       ?.message;
   };
 
+  const handleHealthIssuesChange = (
+    callback: (prevState: string[]) => string[],
+  ) => {
+    setHealthIssues((prevSelectedValues) => {
+      const newSelectedValues = callback(prevSelectedValues);
+      if (newSelectedValues.includes("noneSelected")) {
+        return ["noneSelected"];
+      } else {
+        return newSelectedValues.filter((value) => value !== "noneSelected");
+      }
+    });
+  };
+
   const handleSubmit = () => {
     onPersonalDataSubmit(
       parseInt(height),
@@ -144,7 +157,7 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
               value={healthIssues}
               items={items2}
               setOpen={setOpen2}
-              setValue={setHealthIssues}
+              setValue={handleHealthIssuesChange}
               setItems={setItems2}
               multiple={true}
             />
