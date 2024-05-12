@@ -1,7 +1,14 @@
 import React from "react";
 import { ScrollView, View, Text, ImageBackground, Image } from "react-native";
 
+import { darkColorsAboutUs, lightColorsAboutUs } from "@/constants/Colors";
+import { useColorScheme } from "nativewind";
+
+
 export default function AboutUs() {
+  const { colorScheme } = useColorScheme();
+  const colors = colorScheme === "dark" ? darkColorsAboutUs : lightColorsAboutUs;
+
   return (
     <ImageBackground
       source={require("../../assets/images/gradientBackground.png")}
@@ -27,15 +34,15 @@ export default function AboutUs() {
         </View>
 
         <View className="mb-5 mt-10 items-center">
-          <View className="mb-4 h-48 w-48 rounded-full bg-white shadow-lg">
+          <View className={`mb-4 h-48 w-48 rounded-full ${colors.imageBackground} shadow-lg`}>
             <Image
-              source={require("../../assets/images/icon.png")}
+              source={colorScheme === 'dark' ? require("../../assets/images/iconDark.png") : require("../../assets/images/icon.png")}
               className="h-48 w-48 rounded-full"
             />
           </View>
         </View>
 
-        <View className=" m-5 mr-14 p-5 rounded-3xl shadow-md bg-white/90 dark:bg-emerald-800">
+        <View className={`m-5 mr-14 p-5 rounded-3xl shadow-md ${colors.background}`}>
           <Text className="ml-5 mt-5 mb-5 text-left text-3xl text-black dark:text-white">
             Our mission
           </Text>
@@ -52,7 +59,7 @@ export default function AboutUs() {
           </Text>
         </View>
 
-        <View className=" m-5 ml-14 p-5 rounded-3xl shadow-md bg-white/90 dark:bg-emerald-800">
+        <View className={`m-5 ml-14 p-5 rounded-3xl shadow-md ${colors.background}`}>
           <Text className="mr-5 mt-5 mb-5 text-right text-3xl text-black dark:text-white">
             Our Values
           </Text>
@@ -74,7 +81,7 @@ export default function AboutUs() {
           </Text>
         </View>
 
-        <View className=" m-5 mr-14 p-5 rounded-3xl shadow-md bg-white/90 dark:bg-emerald-800">
+        <View className={`m-5 mr-14 p-5 rounded-3xl shadow-md ${colors.background}`}>
           <Text className="ml-5 mt-5 mb-5 text-left text-3xl text-black dark:text-white">
             Meet the team
           </Text>
@@ -117,7 +124,7 @@ export default function AboutUs() {
           </Text>
         </View>
 
-        <View className=" m-5 ml-14 p-5 rounded-3xl shadow-md bg-white/90 dark:bg-emerald-800">
+        <View className={`m-5 ml-14 p-5 rounded-3xl shadow-md ${colors.background}`}>
           <Text className="mr-5 mt-5 mb-5 text-right text-3xl text-black dark:text-white">
             Contacts
           </Text>

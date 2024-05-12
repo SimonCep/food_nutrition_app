@@ -15,8 +15,8 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
       <Switch
         value={colorScheme === "dark"}
         onValueChange={toggleColorScheme}
-        trackColor={{ false: "#d1d5db", true: "#aadbad" }}
-        thumbColor={colorScheme === "dark" ? "#6bf565" : "#f3f4f6"}
+        trackColor={{ false: "#d1d5db", true: "#C7F9CC" }}
+        thumbColor={colorScheme === "dark" ? "#38A3A5" : "#f3f4f6"}
         ios_backgroundColor="#d1d5db"
       />
     </View>

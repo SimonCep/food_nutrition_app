@@ -34,7 +34,7 @@ const WaterForm: React.FC<WaterFormProps> = ({
 
   return (
     <View
-      className={`flex-1 items-center justify-center p-6 ${colors.background}`}
+      className={`flex-1 items-center justify-center p-6 ${colors.backgroundInDiary}`}
     >
       <Text className={`mb-6 text-center text-2xl font-bold ${colors.text}`}>
         {isEditing ? "Edit Water" : "Add Water"}

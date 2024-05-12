@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
-  SectionList,
-  View,
-  SectionListRenderItemInfo,
-  Text,
+    SectionList,
+    View,
+    SectionListRenderItemInfo,
+    Text, ImageBackground,
 } from "react-native";
 import { useColorScheme } from "nativewind";
 
@@ -85,7 +85,7 @@ const Diary = () => {
     {
       data: [{}],
       renderItem: () => (
-        <WaterSection
+        <ExerciseSection
           userId={session?.user?.id ?? ""}
           selectedDate={selectedDate}
         />
@@ -94,7 +94,7 @@ const Diary = () => {
     {
       data: [{}],
       renderItem: () => (
-        <ExerciseSection
+        <WaterSection
           userId={session?.user?.id ?? ""}
           selectedDate={selectedDate}
         />
@@ -109,6 +109,10 @@ const Diary = () => {
   };
 
   return (
+      <ImageBackground
+          source={colorScheme === 'dark' ? require("../../assets/images/AnimatedDark.gif") : require("../../assets/images/AnimatedLight.gif")}
+          className={`flex-1 resize-y justify-center ${colors.text} bg-white dark:bg-black`}
+      >
     <View className={`flex-1 ${colors.background}`}>
       <DatePicker selectedDate={selectedDate} onDateChange={setSelectedDate} />
       <View className="flex-col items-center justify-between px-6 py-4">
@@ -136,6 +140,7 @@ const Diary = () => {
         />
       )}
     </View>
+</ImageBackground>
   );
 };
 

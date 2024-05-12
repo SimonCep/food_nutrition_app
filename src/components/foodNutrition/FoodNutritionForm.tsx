@@ -77,7 +77,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View className={`items-center justify-center p-6 ${colors.background}`}>
+      <View className={`items-center justify-center p-6 ${colors.backgroundInDiary}`}>
         <Text className={`mb-6 text-center text-2xl font-bold ${colors.text}`}>
           {isEditing ? "Edit Food" : "Add Food"}
         </Text>
