@@ -5,8 +5,8 @@ import {
   ImageBackground,
   Dimensions,
   TouchableOpacity,
-  Modal, 
-  Image
+  Modal,
+  Image,
 } from "react-native";
 import {
   LineChart,
@@ -14,17 +14,18 @@ import {
   PieChart,
   ProgressChart,
 } from "react-native-chart-kit";
-import React, { useState } from 'react';
-import { darkColorsDashboard, lightColorsDashboard } from "@/constants/Colors";
+import React, { useState } from "react";
 import { useColorScheme } from "nativewind";
 
+import { darkColorsDashboard, lightColorsDashboard } from "@/constants/Colors";
 
-export default function Dashboard() {
+const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const { colorScheme } = useColorScheme();
-  const colors = colorScheme === "dark" ? darkColorsDashboard : lightColorsDashboard;
+  const colors =
+    colorScheme === "dark" ? darkColorsDashboard : lightColorsDashboard;
 
-  const screenWidth = (Dimensions.get("window").width * 9) / 12;
+  const screenWidth = (Dimensions.get("window").width * 10) / 12;
 
   const lineData = {
     labels: ["January", "February", "March", "April", "May", "June"],
@@ -36,9 +37,27 @@ export default function Dashboard() {
   };
 
   const pieChartData = [
-    { name: "Carbohydrates", population: 15, color: "#FFFF5F", legendFontColor: `${colors.chartLabel}`, legendFontSize: 12  },
-    { name: "Protein", population: 20, color: "#85FF5F", legendFontColor: `${colors.chartLabel}`, legendFontSize: 12 },
-    { name: "Fat", population: 25, color: "#5FD6FF", legendFontColor: `${colors.chartLabel}`, legendFontSize: 12 },
+    {
+      name: "Carbohydrates",
+      population: 15,
+      color: "#FFFF5F",
+      legendFontColor: `${colors.chartLabel}`,
+      legendFontSize: 12,
+    },
+    {
+      name: "Protein",
+      population: 20,
+      color: "#85FF5F",
+      legendFontColor: `${colors.chartLabel}`,
+      legendFontSize: 12,
+    },
+    {
+      name: "Fat",
+      population: 25,
+      color: "#5FD6FF",
+      legendFontColor: `${colors.chartLabel}`,
+      legendFontSize: 12,
+    },
   ];
 
   const columnChartData = {
@@ -71,14 +90,13 @@ export default function Dashboard() {
     useShadowColorFromDataset: false,
     style: {
       borderRadius: 16,
-      
     },
-    propsForDots: { //line charto taskai
+    propsForDots: {
+      //line charto taskai
       r: "6",
       strokeWidth: "2",
       //stroke: "#ffa726",
     },
-    
   };
 
   return (
@@ -88,90 +106,136 @@ export default function Dashboard() {
     >
       <ScrollView>
         <View className="flex-grow items-center p-5">
-          <Text className={`pb-5 text-4xl ${colors.textColor}`}>Your journey</Text>
+          <Text className={`pb-5 text-4xl ${colors.textColor}`}>
+            Your journey
+          </Text>
 
-          <View className={`container mt-5 flex rounded-3xl ${colors.background} p-5 justify-center items-center shadow-md`}>
+          <View
+            className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
+          >
             <Text className={`text-3xl ${colors.textColor}`}>Health</Text>
-            <View className="w-full border-b border-gray-300 my-5"></View>
+            <View className="my-5 w-full border-b border-gray-300"></View>
 
-            <Text className={`text-2xl pb-5 ${colors.textColor}`}>Heart issues</Text> 
-              
-            
-            <Text className={`text-2xl self-start ${colors.textColor}`}>Foods to eat <Text className="text-green-500">more</Text>:</Text>
-            <Text className={`pl-3 text-[15px] text-left self-start ${colors.textColor}`}>Fruits, vegetables, whole grains, lean proteins (e.g., poultry, fish), nuts, seeds, legumes, olive oil.</Text>
-            <View className="w-full border-b border-gray-300 my-5"></View>
+            <Text className={`pb-5 text-2xl ${colors.textColor}`}>
+              Heart issues
+            </Text>
 
-            <Text className={`text-2xl self-start ${colors.textColor}`}>Foods to eat <Text className="text-yellow-500">less</Text>:</Text>
-            <Text className={`pl-3 text-[15px] text-left self-start ${colors.textColor}`}>Saturated and trans fats (e.g., fatty meats, processed foods), high-sodium foods (e.g., canned soups, processed snacks), sugary beverages.</Text>
-            <View className={"w-full border-b border-gray-300 my-5"}></View>
+            <Text className={`self-start text-2xl ${colors.textColor}`}>
+              Foods to eat <Text className="text-green-500">more</Text>:
+            </Text>
+            <Text
+              className={`self-start pl-3 text-left text-[15px] ${colors.textColor}`}
+            >
+              Fruits, vegetables, whole grains, lean proteins (e.g., poultry,
+              fish), nuts, seeds, legumes, olive oil.
+            </Text>
+            <View className="my-5 w-full border-b border-gray-300"></View>
 
-            <Text className={`text-2xl self-start ${colors.textColor}`}>Foods to <Text className="text-red-500">avoid</Text>:</Text>
-            <Text className={`pl-3 text-[15px] text-left self-start ${colors.textColor}`}>Trans fats, excessive saturated fats, high-sodium processed foods.</Text>
-            
+            <Text className={`self-start text-2xl ${colors.textColor}`}>
+              Foods to eat <Text className="text-yellow-500">less</Text>:
+            </Text>
+            <Text
+              className={`self-start pl-3 text-left text-[15px] ${colors.textColor}`}
+            >
+              Saturated and trans fats (e.g., fatty meats, processed foods),
+              high-sodium foods (e.g., canned soups, processed snacks), sugary
+              beverages.
+            </Text>
+            <View className={"my-5 w-full border-b border-gray-300"}></View>
+
+            <Text className={`self-start text-2xl ${colors.textColor}`}>
+              Foods to <Text className="text-red-500">avoid</Text>:
+            </Text>
+            <Text
+              className={`self-start pl-3 text-left text-[15px] ${colors.textColor}`}
+            >
+              Trans fats, excessive saturated fats, high-sodium processed foods.
+            </Text>
+
             <TouchableOpacity
-                onPress={() => setModalVisible(true)}
-                className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2`}
-              >
-                <Text className={`${colors.buttonText} text-center font-bold`}>Find out more</Text>
-              </TouchableOpacity>
+              onPress={() => setModalVisible(true)}
+              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 px-4 py-2`}
+            >
+              <Text className={`${colors.buttonText} text-center font-bold`}>
+                Find out more
+              </Text>
+            </TouchableOpacity>
 
             <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => setModalVisible(false)}
-              >
-                <View className="flex-1 justify-center items-center bg-transparent">
-                  <View className={`${colors.backGroundSolid} p-10 mx-2 rounded-lg shadow-lg`}>
-                    <View className="mb-5 mt-10 items-center">
-                      <View className={`mb-4 h-48 w-48 rounded-full ${colors.backGroundSolid} shadow-lg`}>
-                        <Image
-                          source={require("../../assets/images/icon.png")}
-                          className="h-48 w-48 rounded-full"
-                        />
-                      </View>
-                    </View>
-                    <Text className={`pb-5 text-2xl ${colors.buttonText}`}>Conditions affecting the heart's functioning, including coronary artery disease and heart failure. A heart-healthy diet emphasizes fruits, vegetables, lean proteins, and healthy fats while avoiding saturated fats and excess sodium.</Text>
-                    <TouchableOpacity
-                      onPress={() => setModalVisible(false)}
-                      className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2`}
+              animationType="fade"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => setModalVisible(false)}
+            >
+              <View className="flex-1 items-center justify-center bg-transparent">
+                <View
+                  className={`${colors.backGroundSolid} mx-2 rounded-lg p-10 shadow-lg`}
+                >
+                  <View className="mb-5 mt-10 items-center">
+                    <View
+                      className={`mb-4 h-48 w-48 rounded-full ${colors.backGroundSolid} shadow-lg`}
                     >
-                      <Text className={`${colors.buttonText} text-center font-bold`}>Close</Text>
-                    </TouchableOpacity>
+                      <Image
+                        source={require("../../assets/images/icon.png")}
+                        className="h-48 w-48 rounded-full"
+                      />
+                    </View>
                   </View>
+                  <Text className={`pb-5 text-2xl ${colors.buttonText}`}>
+                    Conditions affecting the heart's functioning, including
+                    coronary artery disease and heart failure. A heart-healthy
+                    diet emphasizes fruits, vegetables, lean proteins, and
+                    healthy fats while avoiding saturated fats and excess
+                    sodium.
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => setModalVisible(false)}
+                    className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 px-4 py-2`}
+                  >
+                    <Text
+                      className={`${colors.buttonText} text-center font-bold`}
+                    >
+                      Close
+                    </Text>
+                  </TouchableOpacity>
                 </View>
-              </Modal> 
-              
+              </View>
+            </Modal>
           </View>
 
-          <View className={`container mt-5 flex rounded-3xl ${colors.background} p-5 justify-center items-center shadow-md`}>
+          <View
+            className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
+          >
             <Text className={`text-3xl ${colors.textColor}`}>Weight</Text>
-            <View className="w-full border-b border-gray-300 my-5"></View>
+            <View className="my-5 w-full border-b border-gray-300"></View>
             <LineChart
               data={lineData}
-              width={(Dimensions.get("window").width * 10) / 12}
+              width={screenWidth}
               height={300}
               chartConfig={chartConfig}
               verticalLabelRotation={290}
               xLabelsOffset={25}
               yAxisInterval={1}
-              
               bezier // padaro smooth lines
             />
             <TouchableOpacity
               //onPress={handle...}
-              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2 self-end`}
+              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-end px-4 py-2`}
             >
-              <Text className={`${colors.buttonText} text-center font-bold`}>Add entry</Text>
+              <Text className={`${colors.buttonText} text-center font-bold`}>
+                Add entry
+              </Text>
             </TouchableOpacity>
           </View>
 
-          <View className={`container mt-5 flex rounded-3xl ${colors.background} p-5 justify-center items-center shadow-md`}>
+          <View
+            className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
+          >
             <Text className={`text-3xl ${colors.textColor}`}>Food intake</Text>
-            <View className="w-full border-b border-gray-300 my-5"></View>
+            <View className="my-5 w-full border-b border-gray-300"></View>
             <PieChart
               data={pieChartData}
-              width={(Dimensions.get("window").width * 10) / 12}
+              width={screenWidth}
               height={200}
               chartConfig={chartConfig}
               accessor="population"
@@ -182,18 +246,24 @@ export default function Dashboard() {
             />
             <TouchableOpacity
               //onPress={handle...}
-              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2 self-end`}
+              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-end px-4 py-2`}
             >
-              <Text className={`${colors.buttonText} text-center font-bold`}>Add entry</Text>
+              <Text className={`${colors.buttonText} text-center font-bold`}>
+                Add entry
+              </Text>
             </TouchableOpacity>
           </View>
 
-          <View className={`container mt-5 flex rounded-3xl ${colors.background} p-5 justify-center items-center shadow-md`}>
-            <Text className={`text-3xl ${colors.textColor}`}>Monthly activity</Text>
-            <View className="w-full border-b border-gray-300 my-5"></View>
+          <View
+            className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
+          >
+            <Text className={`text-3xl ${colors.textColor}`}>
+              Monthly activity
+            </Text>
+            <View className="my-5 w-full border-b border-gray-300"></View>
             <BarChart
               data={columnChartData}
-              width={(Dimensions.get("window").width * 10) / 12}
+              width={screenWidth}
               height={280}
               yAxisLabel=""
               yAxisSuffix=""
@@ -204,18 +274,24 @@ export default function Dashboard() {
             />
             <TouchableOpacity
               //onPress={handle...}
-              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2 self-end`}
+              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-end px-4 py-2`}
             >
-              <Text className={`${colors.buttonText} text-center font-bold`}>Add entry</Text>
+              <Text className={`${colors.buttonText} text-center font-bold`}>
+                Add entry
+              </Text>
             </TouchableOpacity>
           </View>
 
-          <View className={`container mt-5 flex rounded-3xl ${colors.background} p-5 justify-center items-center shadow-md`}>
-            <Text className={`text-3xl ${colors.textColor}`}>Daily activity</Text>
-            <View className="w-full border-b border-gray-300 my-5"></View>
+          <View
+            className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
+          >
+            <Text className={`text-3xl ${colors.textColor}`}>
+              Daily activity
+            </Text>
+            <View className="my-5 w-full border-b border-gray-300"></View>
             <ProgressChart
               data={progressData}
-              width={(Dimensions.get("window").width * 10) / 12}
+              width={screenWidth}
               height={200}
               strokeWidth={16}
               radius={32}
@@ -224,15 +300,17 @@ export default function Dashboard() {
             />
             <TouchableOpacity
               //onPress={handle...}
-              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2 self-end`}
+              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-end px-4 py-2`}
             >
-              <Text className={`${colors.buttonText} text-center font-bold`}>Add entry</Text>
+              <Text className={`${colors.buttonText} text-center font-bold`}>
+                Add entry
+              </Text>
             </TouchableOpacity>
-
           </View>
-          
         </View>
       </ScrollView>
     </ImageBackground>
   );
-}
+};
+
+export default Dashboard;
