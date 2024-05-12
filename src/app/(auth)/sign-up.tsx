@@ -12,11 +12,15 @@ import * as Yup from "yup";
 
 import { signUp } from "@/api/authService";
 import { insertPersonalData } from "@/api/personalDataService";
+import { insertUserHeight } from "@/api/userHeightService";
+import { insertUserWeight } from "@/api/userWeightService";
 import SignUpForm from "@/components/authentication/SignUpForm";
 import { darkColorsAuth, lightColorsAuth } from "@/constants/Colors";
 import {
   personalDataValidationSchema,
   signUpValidationSchema,
+  userHeightValidationSchema,
+  userWeightValidationSchema,
 } from "@/utils/validationSchemas";
 import PersonalDataModal from "@/components/authentication/PersonalDataModal";
 import { supabase } from "@/lib/supabase";
@@ -65,20 +69,25 @@ const SignUpScreen = () => {
     try {
       setIsLoading(true);
       await personalDataValidationSchema.validate(
-        { height, weight, age, gender, healthIssues },
+        { age, gender, healthIssues },
+        { abortEarly: false },
+      );
+
+      await userHeightValidationSchema.validate(
+        { height, unit: "cm" },
+        { abortEarly: false },
+      );
+
+      await userWeightValidationSchema.validate(
+        { weight, unit: "kg" },
         { abortEarly: false },
       );
 
       const result = await signUp(username, email, password);
       if (result && result.success && result.userId) {
-        await insertPersonalData(
-          result.userId,
-          height,
-          weight,
-          age,
-          gender,
-          healthIssues,
-        );
+        await insertPersonalData(result.userId, age, gender, healthIssues);
+        await insertUserHeight(result.userId, height, "cm");
+        await insertUserWeight(result.userId, weight, "kg");
         Alert.alert(
           "Success",
           "Account created successfully! You can now log in.",

@@ -6,16 +6,12 @@ import { personalDataValidationSchema } from "@/utils/validationSchemas";
 
 export const insertPersonalData = async (
   userId: string,
-  height: number,
-  weight: number,
   age: number,
   gender: string,
   healthIssues: string[],
 ) => {
   try {
     await personalDataValidationSchema.validate({
-      height,
-      weight,
       age,
       gender,
       healthIssues,
@@ -24,8 +20,6 @@ export const insertPersonalData = async (
     const { error } = await supabase.from("personal_data").insert([
       {
         user_id: userId,
-        height,
-        weight,
         age,
         gender,
         health_issues: healthIssues,
@@ -70,16 +64,12 @@ export const fetchPersonalData = async (userId: string) => {
 
 export const updatePersonalData = async (
   userId: string,
-  height: number | undefined,
-  weight: number | undefined,
   age: number | undefined,
   gender: string | undefined,
   healthIssues: string[] | undefined,
 ) => {
   try {
     await personalDataValidationSchema.validate({
-      height,
-      weight,
       age,
       gender,
       healthIssues,
@@ -88,8 +78,6 @@ export const updatePersonalData = async (
     const { error } = await supabase
       .from("personal_data")
       .update({
-        height,
-        weight,
         age,
         gender,
         health_issues: healthIssues,
