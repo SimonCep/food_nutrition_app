@@ -188,7 +188,7 @@ export const lightColorsSettingsGoals = {
   checkmarkBorder: "border-gray-600",
   checkmarkChecked: "bg-green-200",
   checkmarkUnchecked: "bg-white",
-  checkmarkCheckedText: "text-black", 
+  checkmarkCheckedText: "text-black",
   checkmarkUncheckedText: "text-black", //keicia varneles spalva
   textColor: "text-black",
   buttonBackground: "bg-green-100/90",
@@ -197,8 +197,8 @@ export const lightColorsSettingsGoals = {
 };
 
 export const darkColorsSettingsGoals = {
-  background: "bg-black",  // "island" fonas
-  backgroundSolid: "bg-gray-800",   //fonas
+  background: "bg-black", // "island" fonas
+  backgroundSolid: "bg-gray-800", //fonas
   checkmarkBorder: "border-white",
   checkmarkChecked: "bg-green-500",
   checkmarkUnchecked: "bg-gray-600",
@@ -211,12 +211,12 @@ export const darkColorsSettingsGoals = {
 };
 
 export const lightColorsSettingsProfile = {
-  background: "bg-white/90",   // "island" fonas
+  background: "bg-white/90", // "island" fonas
   backgroundSolid: "bg-white", //fonas
   checkmarkBorder: "border-gray-600",
   checkmarkChecked: "bg-green-200",
   checkmarkUnchecked: "bg-white",
-  checkmarkCheckedText: "text-black", 
+  checkmarkCheckedText: "text-black",
   checkmarkUncheckedText: "text-black", //keicia varneles spalva
   textColor: "text-black",
   buttonBackground: "bg-green-100/90",
@@ -225,8 +225,8 @@ export const lightColorsSettingsProfile = {
 };
 
 export const darkColorsSettingsProfile = {
-  background: "bg-black",  // "island" fonas
-  backgroundSolid: "bg-gray-800",   //fonas
+  background: "bg-black", // "island" fonas
+  backgroundSolid: "bg-gray-800", //fonas
   checkmarkBorder: "border-white",
   checkmarkChecked: "bg-green-500",
   checkmarkUnchecked: "bg-gray-600",
@@ -258,10 +258,10 @@ export const lightColorsIndex = {
   checkmarkUnchecked: "bg-white",
   checkmarkCheckedText: "text-black",
   checkmarkUncheckedText: "text-gray-400",
-  taskShadowChecked:"",
-  taskShadow:"shadow-lg",
-  iconColorChecked:"#C7C7C7",
-  iconColor:"black",
+  taskShadowChecked: "",
+  taskShadow: "shadow-lg",
+  iconColorChecked: "#C7C7C7",
+  iconColor: "black",
 };
 
 export const darkColorsIndex = {
@@ -274,10 +274,8 @@ export const darkColorsIndex = {
   checkmarkUnchecked: "bg-gray-800",
   checkmarkCheckedText: "text-white",
   checkmarkUncheckedText: "text-gray-600",
-  taskShadowChecked:"",
-  taskShadow:"shadow-lg",
-  iconColorChecked:"#52525b",
-  iconColor:"white",
+  taskShadowChecked: "",
+  taskShadow: "shadow-lg",
+  iconColorChecked: "#52525b",
+  iconColor: "white",
 };
-
-

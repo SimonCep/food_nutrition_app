@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
-    SectionList,
-    View,
-    SectionListRenderItemInfo,
-    Text, ImageBackground,
+  SectionList,
+  View,
+  SectionListRenderItemInfo,
+  Text,
+  ImageBackground,
 } from "react-native";
 import { useColorScheme } from "nativewind";
 
@@ -109,38 +110,45 @@ const Diary = () => {
   };
 
   return (
-      <ImageBackground
-          source={colorScheme === 'dark' ? require("../../assets/images/AnimatedDark.gif") : require("../../assets/images/AnimatedLight.gif")}
-          className={`flex-1 resize-y justify-center ${colors.text} bg-white dark:bg-black`}
-      >
-    <View className={`flex-1 ${colors.background}`}>
-      <DatePicker selectedDate={selectedDate} onDateChange={setSelectedDate} />
-      <View className="flex-col items-center justify-between px-6 py-4">
-        <Text className={`text-lg font-bold ${colors.primaryText}`}>
-          Net Calories: {netCalories}
-        </Text>
-        <View className="flex-row">
-          <Text className={`text-base ${colors.secondaryText}`}>
-            Food: {totalFoodCalories}
-          </Text>
-          <Text className={`text-base ${colors.secondaryText} ml-4`}>
-            Exercise: {totalExerciseCalories}
-          </Text>
-          <Text className={`text-base ${colors.secondaryText} ml-4`}>
-            Water: {totalWaterConsumption.toFixed(2)} l
-          </Text>
-        </View>
-      </View>
-      {session?.user?.id && (
-        <SectionList
-          sections={sections}
-          keyExtractor={(_, index) => index.toString()}
-          renderItem={renderSectionItem}
-          stickySectionHeadersEnabled={false}
+    <ImageBackground
+      source={
+        colorScheme === "dark"
+          ? require("../../assets/images/AnimatedDark.gif")
+          : require("../../assets/images/AnimatedLight.gif")
+      }
+      className={`flex-1 resize-y justify-center ${colors.text} bg-white dark:bg-black`}
+    >
+      <View className={`flex-1 ${colors.background}`}>
+        <DatePicker
+          selectedDate={selectedDate}
+          onDateChange={setSelectedDate}
         />
-      )}
-    </View>
-</ImageBackground>
+        <View className="flex-col items-center justify-between px-6 py-4">
+          <Text className={`text-lg font-bold ${colors.primaryText}`}>
+            Net Calories: {netCalories}
+          </Text>
+          <View className="flex-row">
+            <Text className={`text-base ${colors.secondaryText}`}>
+              Food: {totalFoodCalories}
+            </Text>
+            <Text className={`text-base ${colors.secondaryText} ml-4`}>
+              Exercise: {totalExerciseCalories}
+            </Text>
+            <Text className={`text-base ${colors.secondaryText} ml-4`}>
+              Water: {totalWaterConsumption.toFixed(2)} l
+            </Text>
+          </View>
+        </View>
+        {session?.user?.id && (
+          <SectionList
+            sections={sections}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={renderSectionItem}
+            stickySectionHeadersEnabled={false}
+          />
+        )}
+      </View>
+    </ImageBackground>
   );
 };
 
