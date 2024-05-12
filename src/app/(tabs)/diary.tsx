@@ -86,7 +86,7 @@ const Diary = () => {
     {
       data: [{}],
       renderItem: () => (
-        <ExerciseSection
+        <WaterSection
           userId={session?.user?.id ?? ""}
           selectedDate={selectedDate}
         />
@@ -95,7 +95,7 @@ const Diary = () => {
     {
       data: [{}],
       renderItem: () => (
-        <WaterSection
+        <ExerciseSection
           userId={session?.user?.id ?? ""}
           selectedDate={selectedDate}
         />
