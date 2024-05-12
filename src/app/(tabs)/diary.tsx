@@ -110,6 +110,7 @@ const Diary = () => {
 
   return (
     <View className={`flex-1 ${colors.background}`}>
+      <DatePicker selectedDate={selectedDate} onDateChange={setSelectedDate} />
       <View className="flex-col items-center justify-between px-6 py-4">
         <Text className={`text-lg font-bold ${colors.primaryText}`}>
           Net Calories: {netCalories}
@@ -126,7 +127,6 @@ const Diary = () => {
           </Text>
         </View>
       </View>
-      <DatePicker selectedDate={selectedDate} onDateChange={setSelectedDate} />
       {session?.user?.id && (
         <SectionList
           sections={sections}
