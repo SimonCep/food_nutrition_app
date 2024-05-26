@@ -123,7 +123,7 @@ const Diary = () => {
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}
         />
-        <View className="mx-24 my-4 rounded-lg bg-white p-3 shadow dark:bg-gray-800">
+        <View className="mx-28 my-4 rounded-lg bg-white p-3 shadow dark:bg-gray-800">
           <Text
             className={`text-center text-lg font-bold ${colors.primaryText}`}
           >
