@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   Text,
@@ -11,6 +11,7 @@ import { useColorScheme } from "nativewind";
 import { FoodNutritionFormProps } from "@/types";
 import { lightColorsDiary, darkColorsDiary } from "@/constants/Colors";
 import { ScrollView } from "react-native-gesture-handler";
+import { Ionicons } from "@expo/vector-icons";
 
 const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
   brand,
@@ -69,6 +70,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
 }) => {
   const { colorScheme } = useColorScheme();
   const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
+  const [showOptional, setShowOptional] = useState(false);
 
   const getFieldError = (field: string) => {
     return validationErrors?.inner.find((error) => error.path === field)
@@ -77,20 +79,15 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View className={`items-center justify-center p-6 ${colors.backgroundInDiary}`}>
+      <View
+        className={`flex-1 items-center justify-center p-6 ${colors.backgroundInDiary}`}
+      >
         <Text className={`mb-6 text-center text-2xl font-bold ${colors.text}`}>
           {isEditing ? "Edit Food" : "Add Food"}
         </Text>
         <View
           className={`w-full max-w-md rounded-lg p-4 shadow-md ${colors.primaryBackground}`}
         >
-          <TextInput
-            value={brand ?? ""}
-            onChangeText={setBrand}
-            placeholder="Brand Name (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
           <TextInput
             value={foodName}
             onChangeText={setFoodName}
@@ -141,188 +138,224 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
               {getFieldError("calories")}
             </Text>
           )}
-          <TextInput
-            value={fat != null && fat > 0 ? fat.toString() : ""}
-            onChangeText={(text) => setFat(parseInt(text) || 0)}
-            placeholder="Total Fat (g) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={
-              saturatedFat != null && saturatedFat > 0
-                ? saturatedFat.toString()
-                : ""
-            }
-            onChangeText={(text) => setSaturatedFat(parseInt(text) || 0)}
-            placeholder="Saturated Fat (g) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={
-              polyunsaturatedFat != null && polyunsaturatedFat > 0
-                ? polyunsaturatedFat.toString()
-                : ""
-            }
-            onChangeText={(text) => setPolyunsaturatedFat(parseInt(text) || 0)}
-            placeholder="Polyunsaturated Fat (g) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={
-              monounsaturatedFat != null && monounsaturatedFat > 0
-                ? monounsaturatedFat.toString()
-                : ""
-            }
-            onChangeText={(text) => setMonounsaturatedFat(parseInt(text) || 0)}
-            placeholder="Monounsaturated Fat (g) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={transFat != null && transFat > 0 ? transFat.toString() : ""}
-            onChangeText={(text) => setTransFat(parseInt(text) || 0)}
-            placeholder="Trans Fat (g) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={
-              cholesterol != null && cholesterol > 0
-                ? cholesterol.toString()
-                : ""
-            }
-            onChangeText={(text) => setCholesterol(parseInt(text) || 0)}
-            placeholder="Cholesterol (mg) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={sodium != null && sodium > 0 ? sodium.toString() : ""}
-            onChangeText={(text) => setSodium(parseInt(text) || 0)}
-            placeholder="Sodium (mg) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={
-              potassium != null && potassium > 0 ? potassium.toString() : ""
-            }
-            onChangeText={(text) => setPotassium(parseInt(text) || 0)}
-            placeholder="Potassium (mg) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={
-              carbohydrates != null && carbohydrates > 0
-                ? carbohydrates.toString()
-                : ""
-            }
-            onChangeText={(text) => setCarbohydrates(parseInt(text) || 0)}
-            placeholder="Total Carbohydrates (g) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={fiber != null && fiber > 0 ? fiber.toString() : ""}
-            onChangeText={(text) => setFiber(parseInt(text) || 0)}
-            placeholder="Dietary Fiber (g) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={sugar != null && sugar > 0 ? sugar.toString() : ""}
-            onChangeText={(text) => setSugar(parseInt(text) || 0)}
-            placeholder="Sugars (g) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={
-              addedSugars != null && addedSugars > 0
-                ? addedSugars.toString()
-                : ""
-            }
-            onChangeText={(text) => setAddedSugars(parseInt(text) || 0)}
-            placeholder="Added Sugars (g) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={
-              sugarAlcohols != null && sugarAlcohols > 0
-                ? sugarAlcohols.toString()
-                : ""
-            }
-            onChangeText={(text) => setSugarAlcohols(parseInt(text) || 0)}
-            placeholder="Sugar Alcohols (g) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={protein != null && protein > 0 ? protein.toString() : ""}
-            onChangeText={(text) => setProtein(parseInt(text) || 0)}
-            placeholder="Protein (g) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={vitaminA != null && vitaminA > 0 ? vitaminA.toString() : ""}
-            onChangeText={(text) => setVitaminA(parseInt(text) || 0)}
-            placeholder="Vitamin A (%) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={vitaminC != null && vitaminC > 0 ? vitaminC.toString() : ""}
-            onChangeText={(text) => setVitaminC(parseInt(text) || 0)}
-            placeholder="Vitamin C (%) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={vitaminD != null && vitaminD > 0 ? vitaminD.toString() : ""}
-            onChangeText={(text) => setVitaminD(parseInt(text) || 0)}
-            placeholder="Vitamin D (%) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={calcium != null && calcium > 0 ? calcium.toString() : ""}
-            onChangeText={(text) => setCalcium(parseInt(text) || 0)}
-            placeholder="Calcium (%) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
-          <TextInput
-            value={iron != null && iron > 0 ? iron.toString() : ""}
-            onChangeText={(text) => setIron(parseInt(text) || 0)}
-            placeholder="Iron (%) (Optional)"
-            placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-            keyboardType="numeric"
-            className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-          />
+          <TouchableOpacity
+            onPress={() => setShowOptional(!showOptional)}
+            className={`mb-2 flex-row items-center justify-between rounded-lg p-2`}
+          >
+            <Text className={`text-lg font-bold ${colors.text}`}>
+              Optional Fields
+            </Text>
+            <Ionicons
+              name={showOptional ? "chevron-up" : "chevron-down"}
+              size={24}
+              color={colors.text.split("-")[1]}
+            />
+          </TouchableOpacity>
+          {showOptional && (
+            <>
+              <TextInput
+                value={brand ?? ""}
+                onChangeText={setBrand}
+                placeholder="Brand Name (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={fat != null && fat > 0 ? fat.toString() : ""}
+                onChangeText={(text) => setFat(parseInt(text) || 0)}
+                placeholder="Total Fat (g) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={
+                  saturatedFat != null && saturatedFat > 0
+                    ? saturatedFat.toString()
+                    : ""
+                }
+                onChangeText={(text) => setSaturatedFat(parseInt(text) || 0)}
+                placeholder="Saturated Fat (g) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={
+                  polyunsaturatedFat != null && polyunsaturatedFat > 0
+                    ? polyunsaturatedFat.toString()
+                    : ""
+                }
+                onChangeText={(text) =>
+                  setPolyunsaturatedFat(parseInt(text) || 0)
+                }
+                placeholder="Polyunsaturated Fat (g) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={
+                  monounsaturatedFat != null && monounsaturatedFat > 0
+                    ? monounsaturatedFat.toString()
+                    : ""
+                }
+                onChangeText={(text) =>
+                  setMonounsaturatedFat(parseInt(text) || 0)
+                }
+                placeholder="Monounsaturated Fat (g) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={
+                  transFat != null && transFat > 0 ? transFat.toString() : ""
+                }
+                onChangeText={(text) => setTransFat(parseInt(text) || 0)}
+                placeholder="Trans Fat (g) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={
+                  cholesterol != null && cholesterol > 0
+                    ? cholesterol.toString()
+                    : ""
+                }
+                onChangeText={(text) => setCholesterol(parseInt(text) || 0)}
+                placeholder="Cholesterol (mg) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={sodium != null && sodium > 0 ? sodium.toString() : ""}
+                onChangeText={(text) => setSodium(parseInt(text) || 0)}
+                placeholder="Sodium (mg) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={
+                  potassium != null && potassium > 0 ? potassium.toString() : ""
+                }
+                onChangeText={(text) => setPotassium(parseInt(text) || 0)}
+                placeholder="Potassium (mg) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={
+                  carbohydrates != null && carbohydrates > 0
+                    ? carbohydrates.toString()
+                    : ""
+                }
+                onChangeText={(text) => setCarbohydrates(parseInt(text) || 0)}
+                placeholder="Total Carbohydrates (g) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={fiber != null && fiber > 0 ? fiber.toString() : ""}
+                onChangeText={(text) => setFiber(parseInt(text) || 0)}
+                placeholder="Dietary Fiber (g) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={sugar != null && sugar > 0 ? sugar.toString() : ""}
+                onChangeText={(text) => setSugar(parseInt(text) || 0)}
+                placeholder="Sugars (g) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={
+                  addedSugars != null && addedSugars > 0
+                    ? addedSugars.toString()
+                    : ""
+                }
+                onChangeText={(text) => setAddedSugars(parseInt(text) || 0)}
+                placeholder="Added Sugars (g) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={
+                  sugarAlcohols != null && sugarAlcohols > 0
+                    ? sugarAlcohols.toString()
+                    : ""
+                }
+                onChangeText={(text) => setSugarAlcohols(parseInt(text) || 0)}
+                placeholder="Sugar Alcohols (g) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={protein != null && protein > 0 ? protein.toString() : ""}
+                onChangeText={(text) => setProtein(parseInt(text) || 0)}
+                placeholder="Protein (g) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={
+                  vitaminA != null && vitaminA > 0 ? vitaminA.toString() : ""
+                }
+                onChangeText={(text) => setVitaminA(parseInt(text) || 0)}
+                placeholder="Vitamin A (%) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={
+                  vitaminC != null && vitaminC > 0 ? vitaminC.toString() : ""
+                }
+                onChangeText={(text) => setVitaminC(parseInt(text) || 0)}
+                placeholder="Vitamin C (%) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={
+                  vitaminD != null && vitaminD > 0 ? vitaminD.toString() : ""
+                }
+                onChangeText={(text) => setVitaminD(parseInt(text) || 0)}
+                placeholder="Vitamin D (%) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={calcium != null && calcium > 0 ? calcium.toString() : ""}
+                onChangeText={(text) => setCalcium(parseInt(text) || 0)}
+                placeholder="Calcium (%) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+              <TextInput
+                value={iron != null && iron > 0 ? iron.toString() : ""}
+                onChangeText={(text) => setIron(parseInt(text) || 0)}
+                placeholder="Iron (%) (Optional)"
+                placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                keyboardType="numeric"
+                className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+              />
+            </>
+          )}
           <TouchableOpacity
             onPress={onSubmit}
             disabled={isLoading}
