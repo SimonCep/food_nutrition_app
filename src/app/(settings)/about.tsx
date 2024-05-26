@@ -106,7 +106,7 @@ export default function AboutUs() {
             <Text className="text-pretty text-left text-blue-500">d</Text>
             <Text className="text-pretty text-left text-indigo-500">a</Text>
             <Text className="text-pretty text-left text-purple-500">s</Text>
-            <Text className="text-pretty text-left text-red-500"> </Text>
+            <Text className="text-pretty text-left"> </Text>
             <Text className="text-pretty text-left text-orange-500">Š</Text>
             <Text className="text-pretty text-left text-yellow-500">i</Text>
             <Text className="text-pretty text-left text-green-500">u</Text>
@@ -114,7 +114,7 @@ export default function AboutUs() {
             <Text className="text-pretty text-left text-indigo-500">k</Text>
             <Text className="text-pretty text-left text-purple-500">u</Text>
             <Text className="text-pretty text-left text-red-500">s</Text>
-            <Text className="text-pretty text-left text-orange-500"> </Text>
+            <Text className="text-pretty text-left"> </Text>
             <Text className="text-pretty text-left">✋</Text>
             <Text className="text-pretty text-left">😬</Text>
             <Text className="text-pretty text-left">🤚</Text>
