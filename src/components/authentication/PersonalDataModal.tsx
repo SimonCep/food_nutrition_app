@@ -41,6 +41,15 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
     { label: "Kidney Disease", value: "kidneyDisease" },
   ]);
 
+  const [open3, setOpen3] = useState(false);
+  const [dietaryGoals, setDietaryGoals] = useState<string[]>([]);
+  const [items3, setItems3] = useState([
+    { label: "None", value: "noneSelected" },
+    { label: "Lose weight", value: "loseWeight" },
+    { label: "Increase muscle mass", value: "increaseMuscle" },
+    { label: "Improve overall health", value: "improveHealth" },
+  ]);
+
   const getFieldError = (field: string) => {
     return validationErrors?.inner.find((error) => error.path === field)
       ?.message;
@@ -59,6 +68,19 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
     });
   };
 
+  const handleDietaryGoalsChange = (
+    callback: (prevState: string[]) => string[],
+  ) => {
+    setDietaryGoals((prevSelectedValues) => {
+      const newSelectedValues = callback(prevSelectedValues);
+      if (newSelectedValues.includes("noneSelected")) {
+        return ["noneSelected"];
+      } else {
+        return newSelectedValues.filter((value) => value !== "noneSelected");
+      }
+    });
+  };
+
   const handleSubmit = () => {
     onPersonalDataSubmit(
       parseInt(height),
@@ -66,6 +88,7 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
       parseInt(age),
       gender,
       healthIssues,
+      dietaryGoals,
     )
       .then(() => {})
       .catch((error) => {
@@ -160,6 +183,7 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
               setValue={handleHealthIssuesChange}
               setItems={setItems2}
               multiple={true}
+              zIndex={2000}
             />
             {getFieldError("healthIssues") && (
               <Text className={`self-start ${colors.errorText}`}>
@@ -167,6 +191,25 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
               </Text>
             )}
           </View>
+
+          <Text className="self-start py-1 text-[#6B7280]">
+            Select your dietary goals
+          </Text>
+          <DropDownPicker
+            open={open3}
+            value={dietaryGoals}
+            items={items3}
+            setOpen={setOpen3}
+            setValue={handleDietaryGoalsChange}
+            setItems={setItems3}
+            multiple={true}
+            zIndex={1000}
+          />
+          {getFieldError("dietaryGoals") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("dietaryGoals")}
+            </Text>
+          )}
           <Text className={`pb-5 text-2xl ${colors.buttonText}`}></Text>
 
           <TouchableOpacity

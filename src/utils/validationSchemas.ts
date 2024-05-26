@@ -73,20 +73,24 @@ export const personalDataValidationSchema = Yup.object().shape({
     .of(Yup.string())
     .min(1, "Please select at least one health issue")
     .required("Health issues are required"),
-});
-
-export const userWeightValidationSchema = Yup.object().shape({
-  weight: Yup.number()
-    .typeError("Weight must be a number")
-    .min(1, "Weight must be at least 1 kg")
-    .required("Weight is required"),
-  unit: Yup.string().required("Unit is required"),
+  dietaryGoals: Yup.array()
+    .of(Yup.string())
+    .min(1, "Please select at least one dietary goal")
+    .required("Dietary goals are required"),
 });
 
 export const userHeightValidationSchema = Yup.object().shape({
   height: Yup.number()
     .typeError("Height must be a number")
-    .min(1, "Height must be at least 1 cm")
-    .required("Height is required"),
-  unit: Yup.string().required("Unit is required"),
+    .required("Height is required")
+    .positive("Height must be a positive number"),
+  unit: Yup.string().oneOf(["cm", "in"], "Invalid unit for height"),
+});
+
+export const userWeightValidationSchema = Yup.object().shape({
+  weight: Yup.number()
+    .typeError("Weight must be a number")
+    .required("Weight is required")
+    .positive("Weight must be a positive number"),
+  unit: Yup.string().oneOf(["kg", "lb"], "Invalid unit for weight"),
 });

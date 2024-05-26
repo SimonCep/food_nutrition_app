@@ -9,12 +9,14 @@ export const insertPersonalData = async (
   age: number,
   gender: string,
   healthIssues: string[],
+  dietaryGoals: string[],
 ) => {
   try {
     await personalDataValidationSchema.validate({
       age,
       gender,
       healthIssues,
+      dietaryGoals,
     });
 
     const { error } = await supabase.from("personal_data").insert([
@@ -23,6 +25,7 @@ export const insertPersonalData = async (
         age,
         gender,
         health_issues: healthIssues,
+        dietary_goals: dietaryGoals,
       },
     ]);
 
@@ -67,12 +70,14 @@ export const updatePersonalData = async (
   age: number | undefined,
   gender: string | undefined,
   healthIssues: string[] | undefined,
+  dietaryGoals: string[] | undefined,
 ) => {
   try {
     await personalDataValidationSchema.validate({
       age,
       gender,
       healthIssues,
+      dietaryGoals,
     });
 
     const { error } = await supabase
@@ -81,6 +86,7 @@ export const updatePersonalData = async (
         age,
         gender,
         health_issues: healthIssues,
+        dietary_goals: dietaryGoals,
       })
       .eq("user_id", userId);
 

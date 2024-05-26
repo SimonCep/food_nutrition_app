@@ -65,11 +65,12 @@ const SignUpScreen = () => {
     age: number,
     gender: string,
     healthIssues: string[],
+    dietaryGoals: string[],
   ) => {
     try {
       setIsLoading(true);
       await personalDataValidationSchema.validate(
-        { age, gender, healthIssues },
+        { age, gender, healthIssues, dietaryGoals },
         { abortEarly: false },
       );
 
@@ -85,7 +86,13 @@ const SignUpScreen = () => {
 
       const result = await signUp(username, email, password);
       if (result && result.success && result.userId) {
-        await insertPersonalData(result.userId, age, gender, healthIssues);
+        await insertPersonalData(
+          result.userId,
+          age,
+          gender,
+          healthIssues,
+          dietaryGoals,
+        );
         await insertUserHeight(result.userId, height, "cm");
         await insertUserWeight(result.userId, weight, "kg");
         Alert.alert(
@@ -96,6 +103,10 @@ const SignUpScreen = () => {
               text: "OK",
               onPress: () => {
                 setShowPersonalDataModal(false);
+                setUsername("");
+                setEmail("");
+                setPassword("");
+                setValidationErrors(null);
                 router.push("/sign-in");
               },
             },
