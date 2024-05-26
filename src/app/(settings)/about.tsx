@@ -4,10 +4,10 @@ import { ScrollView, View, Text, ImageBackground, Image } from "react-native";
 import { darkColorsAboutUs, lightColorsAboutUs } from "@/constants/Colors";
 import { useColorScheme } from "nativewind";
 
-
 export default function AboutUs() {
   const { colorScheme } = useColorScheme();
-  const colors = colorScheme === "dark" ? darkColorsAboutUs : lightColorsAboutUs;
+  const colors =
+    colorScheme === "dark" ? darkColorsAboutUs : lightColorsAboutUs;
 
   return (
     <ImageBackground
@@ -34,16 +34,24 @@ export default function AboutUs() {
         </View>
 
         <View className="mb-5 mt-10 items-center">
-          <View className={`mb-4 h-48 w-48 rounded-full ${colors.imageBackground} shadow-lg`}>
+          <View
+            className={`mb-4 h-48 w-48 rounded-full ${colors.imageBackground} shadow-lg`}
+          >
             <Image
-              source={colorScheme === 'dark' ? require("../../assets/images/iconDark.png") : require("../../assets/images/icon.png")}
+              source={
+                colorScheme === "dark"
+                  ? require("../../assets/images/iconDark.png")
+                  : require("../../assets/images/icon.png")
+              }
               className="h-48 w-48 rounded-full"
             />
           </View>
         </View>
 
-        <View className={`m-5 mr-14 p-5 rounded-3xl shadow-md ${colors.background}`}>
-          <Text className="ml-5 mt-5 mb-5 text-left text-3xl text-black dark:text-white">
+        <View
+          className={`m-5 mr-14 rounded-3xl p-5 shadow-md ${colors.background}`}
+        >
+          <Text className="mb-5 ml-5 mt-5 text-left text-3xl text-black dark:text-white">
             Our mission
           </Text>
           <View className="w-full border-b border-gray-300"></View>
@@ -59,8 +67,10 @@ export default function AboutUs() {
           </Text>
         </View>
 
-        <View className={`m-5 ml-14 p-5 rounded-3xl shadow-md ${colors.background}`}>
-          <Text className="mr-5 mt-5 mb-5 text-right text-3xl text-black dark:text-white">
+        <View
+          className={`m-5 ml-14 rounded-3xl p-5 shadow-md ${colors.background}`}
+        >
+          <Text className="mb-5 mr-5 mt-5 text-right text-3xl text-black dark:text-white">
             Our Values
           </Text>
           <View className="w-full border-b border-gray-300"></View>
@@ -81,23 +91,26 @@ export default function AboutUs() {
           </Text>
         </View>
 
-        <View className={`m-5 mr-14 p-5 rounded-3xl shadow-md ${colors.background}`}>
-          <Text className="ml-5 mt-5 mb-5 text-left text-3xl text-black dark:text-white">
+        <View
+          className={`m-5 mr-14 rounded-3xl p-5 shadow-md ${colors.background}`}
+        >
+          <Text className="mb-5 ml-5 mt-5 text-left text-3xl text-black dark:text-white">
             Meet the team
           </Text>
           <View className="w-full border-b border-gray-300"></View>
+          <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
+            Dovydas Šiurkus ✋😬🤚
+          </Text>
+          <Text className="ml-5 text-pretty text-left text-black dark:text-white">
+            dovydas.siurkus@ktu.edu
+          </Text>
           <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
             Simas Čeponis
           </Text>
           <Text className="ml-5 text-pretty text-left text-black dark:text-white">
             simas.ceponis@ktu.edu
           </Text>
-          <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
-            Dovydas Šiurkus
-          </Text>
-          <Text className="ml-5 text-pretty text-left text-black dark:text-white">
-            dovydas.siurkus@ktu.edu
-          </Text>
+
           <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
             Dominykas Valčiukas
           </Text>
@@ -124,8 +137,10 @@ export default function AboutUs() {
           </Text>
         </View>
 
-        <View className={`m-5 ml-14 p-5 rounded-3xl shadow-md ${colors.background}`}>
-          <Text className="mr-5 mt-5 mb-5 text-right text-3xl text-black dark:text-white">
+        <View
+          className={`m-5 ml-14 rounded-3xl p-5 shadow-md ${colors.background}`}
+        >
+          <Text className="mb-5 mr-5 mt-5 text-right text-3xl text-black dark:text-white">
             Contacts
           </Text>
           <View className="w-full border-b border-gray-300"></View>
