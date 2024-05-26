@@ -98,9 +98,27 @@ export default function AboutUs() {
             Meet the team
           </Text>
           <View className="w-full border-b border-gray-300"></View>
-          <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
-            Dovydas Šiurkus ✋😬🤚
-          </Text>
+          <View className="ml-5 mt-5 flex-row">
+            <Text className="text-pretty text-left text-red-500">D</Text>
+            <Text className="text-pretty text-left text-orange-500">o</Text>
+            <Text className="text-pretty text-left text-yellow-500">v</Text>
+            <Text className="text-pretty text-left text-green-500">y</Text>
+            <Text className="text-pretty text-left text-blue-500">d</Text>
+            <Text className="text-pretty text-left text-indigo-500">a</Text>
+            <Text className="text-pretty text-left text-purple-500">s</Text>
+            <Text className="text-pretty text-left text-red-500"> </Text>
+            <Text className="text-pretty text-left text-orange-500">Š</Text>
+            <Text className="text-pretty text-left text-yellow-500">i</Text>
+            <Text className="text-pretty text-left text-green-500">u</Text>
+            <Text className="text-pretty text-left text-blue-500">r</Text>
+            <Text className="text-pretty text-left text-indigo-500">k</Text>
+            <Text className="text-pretty text-left text-purple-500">u</Text>
+            <Text className="text-pretty text-left text-red-500">s</Text>
+            <Text className="text-pretty text-left text-orange-500"> </Text>
+            <Text className="text-pretty text-left">✋</Text>
+            <Text className="text-pretty text-left">😬</Text>
+            <Text className="text-pretty text-left">🤚</Text>
+          </View>
           <Text className="ml-5 text-pretty text-left text-black dark:text-white">
             dovydas.siurkus@ktu.edu
           </Text>
