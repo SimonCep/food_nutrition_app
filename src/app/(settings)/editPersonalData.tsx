@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import { useColorScheme } from "nativewind";
 import DropDownPicker from "react-native-dropdown-picker";
 import * as Yup from "yup";
@@ -281,13 +288,18 @@ const EditPersonalData: React.FC = () => {
         <TouchableOpacity
           onPress={handleSavePersonalData}
           disabled={loading}
-          className={`${
-            loading ? "bg-gray-400" : colors.buttonBackground
-          } w-full rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-center px-4 py-2`}
+          className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-center px-4 py-2`}
         >
-          <Text className={`${colors.buttonText} text-center font-bold`}>
-            {loading ? "Saving..." : "Save"}
-          </Text>
+          {loading ? (
+            <ActivityIndicator
+              color={colors.buttonText.split("-")[1]}
+              size="small"
+            />
+          ) : (
+            <Text className={`${colors.buttonText} text-center font-bold`}>
+              Save
+            </Text>
+          )}
         </TouchableOpacity>
       </View>
     </View>
