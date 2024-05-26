@@ -123,18 +123,20 @@ const Diary = () => {
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}
         />
-        <View className="flex-col items-center justify-between px-6 py-4">
-          <Text className={`text-lg font-bold ${colors.primaryText}`}>
+        <View className="mx-24 my-4 rounded-lg bg-white p-3 shadow dark:bg-gray-800">
+          <Text
+            className={`text-center text-lg font-bold ${colors.primaryText}`}
+          >
             Net Calories: {netCalories}
           </Text>
-          <View className="flex-row">
-            <Text className={`text-base ${colors.secondaryText}`}>
+          <View className="mt-2 flex-row justify-center">
+            <Text className={`text-sm ${colors.secondaryText}`}>
               Food: {totalFoodCalories}
             </Text>
-            <Text className={`text-base ${colors.secondaryText} ml-4`}>
+            <Text className={`text-sm ${colors.secondaryText} ml-4`}>
               Exercise: {totalExerciseCalories}
             </Text>
-            <Text className={`text-base ${colors.secondaryText} ml-4`}>
+            <Text className={`text-sm ${colors.secondaryText} ml-4`}>
               Water: {totalWaterConsumption.toFixed(2)} l
             </Text>
           </View>
