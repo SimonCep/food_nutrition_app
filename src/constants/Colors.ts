@@ -194,6 +194,7 @@ export const lightColorsSettingsGoals = {
   buttonBackground: "bg-green-100/90",
   buttonBorder: "border-black",
   buttonText: "text-black",
+  errorText: "text-red-500",
 };
 
 export const darkColorsSettingsGoals = {
@@ -208,6 +209,7 @@ export const darkColorsSettingsGoals = {
   buttonBackground: "bg-green-400/50",
   buttonBorder: "border-white",
   buttonText: "text-white",
+  errorText: "text-red-500",
 };
 
 export const lightColorsSettingsProfile = {

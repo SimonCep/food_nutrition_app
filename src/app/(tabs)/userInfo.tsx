@@ -26,7 +26,7 @@ const UserInfoTab = () => {
   };
 
   const handleEditGoals = () => {
-    router.push("../editGoals");
+    router.push("/(settings)/editPersonalData");
   };
 
   const handleLogout = async () => {
@@ -48,7 +48,11 @@ const UserInfoTab = () => {
 
   return (
     <ImageBackground
-      source={colorScheme === 'dark' ? require("../../assets/images/AnimatedDark.gif") : require("../../assets/images/AnimatedLight.gif")}
+      source={
+        colorScheme === "dark"
+          ? require("../../assets/images/AnimatedDark.gif")
+          : require("../../assets/images/AnimatedLight.gif")
+      }
       className={`flex-1 resize-y justify-center ${colors.background}`}
     >
       <ScrollView>
@@ -91,7 +95,7 @@ const UserInfoTab = () => {
               className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4 shadow-lg`}
               onPress={handleEditGoals}
             >
-              <Text className={colors.buttonText}>Dietary Goals</Text>
+              <Text className={colors.buttonText}>Personal Data</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleAccountSecurity}
@@ -115,7 +119,7 @@ const UserInfoTab = () => {
 
           <TouchableOpacity
             onPress={handleLogout}
-            className={`w-1/1 mb-10 rounded-full px-6 py-2 border-2 ${colors.buttonBorder} ${colors.logoutButtonBackground}`}
+            className={`w-1/1 mb-10 rounded-full border-2 px-6 py-2 ${colors.buttonBorder} ${colors.logoutButtonBackground}`}
           >
             <Text
               className={`text-center text-lg font-bold ${colors.logoutButtonText}`}
