@@ -3,7 +3,6 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
   Modal,
   Text,
@@ -15,14 +14,20 @@ import * as Yup from "yup";
 import { updateProfile } from "@/api/profileService";
 import { useAuth } from "@/providers/AuthProvider";
 import { updateProfileValidationSchema } from "@/utils/validationSchemas";
-import { darkColorsSettingsProfile, lightColorsSettingsProfile } from "@/constants/Colors";
+import {
+  darkColorsSettingsProfile,
+  lightColorsSettingsProfile,
+} from "@/constants/Colors";
 import { useColorScheme } from "nativewind";
 
 const EditProfile: React.FC = () => {
   const { profile, updateProfileData } = useAuth();
 
   const { colorScheme } = useColorScheme();
-  const colors = colorScheme === "dark" ? darkColorsSettingsProfile : lightColorsSettingsProfile;
+  const colors =
+    colorScheme === "dark"
+      ? darkColorsSettingsProfile
+      : lightColorsSettingsProfile;
 
   const [username, setUsername] = useState<string>(profile?.username ?? "");
   const [fullname, setFullname] = useState<string>(profile?.full_name ?? "");
@@ -78,25 +83,28 @@ const EditProfile: React.FC = () => {
   };
 
   return (
-    <View className={`flex-1 justify-center items-center p-10 ${colors.background}`}>
-      <View className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} p-5 py-10 justify-start items-right shadow-md`}>
+    <View
+      className={`flex-1 items-center justify-center p-10 ${colors.background}`}
+    >
+      <View
+        className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} items-right justify-start p-5 py-10 shadow-md`}
+      >
         <TouchableOpacity onPress={handleChangeAvatar}>
           <Image
             source={{ uri: avatarUrl || "https://via.placeholder.com/150" }}
             style={{
               width: 150,
               height: 150,
-              borderRadius: 75, 
+              borderRadius: 75,
               marginBottom: 20,
               alignSelf: "center",
               borderColor: "#000000",
               borderWidth: 2,
-              
             }}
           />
         </TouchableOpacity>
         <TextInput
-          className={`border-b border-gray-300 py-4 px-4 mb-1 mt-10 text-2xl ${colors.textColor}`}
+          className={`mb-1 mt-10 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
           placeholder="Username"
           placeholderTextColor="#6B7280"
           value={username}
@@ -108,7 +116,7 @@ const EditProfile: React.FC = () => {
           </Text>
         )}
         <TextInput
-          className={`border-b border-gray-300 py-4 px-4 mb-1 text-2xl ${colors.textColor}`}
+          className={`mb-1 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
           placeholder="Full name"
           placeholderTextColor="#6B7280"
           value={fullname}
@@ -120,7 +128,7 @@ const EditProfile: React.FC = () => {
           </Text>
         )}
         <TextInput
-          className={`border-b border-gray-300 py-4 px-4 mb-10 text-2xl ${colors.textColor}`}
+          className={`mb-10 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
           placeholder="Website"
           placeholderTextColor="#6B7280"
           value={website}
@@ -131,43 +139,52 @@ const EditProfile: React.FC = () => {
             {getFieldError("website")}
           </Text>
         )}
-        
+
         <TouchableOpacity
           onPress={handleSaveProfile}
-          className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 self-center`}
+          className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mt-4 self-center px-4 py-2`}
         >
-          <Text className={`${colors.buttonText} text-center font-bold`}>Save</Text>
-        </TouchableOpacity> 
-        
+          <Text className={`${colors.buttonText} text-center font-bold`}>
+            Save
+          </Text>
+        </TouchableOpacity>
+
         <Modal
           visible={showModal}
           animationType="slide"
           onRequestClose={handleModalClose}
         >
-          <View className={`flex-1 justify-center items-center p-10 ${colors.backgroundSolid}`}>
-            <View className={`container mt-5 flex rounded-3xl p-5 mx-2 ${colors.backgroundSolid} justify-start items-right shadow-lg`}>       
+          <View
+            className={`flex-1 items-center justify-center p-10 ${colors.backgroundSolid}`}
+          >
+            <View
+              className={`container mx-2 mt-5 flex rounded-3xl p-5 ${colors.backgroundSolid} items-right justify-start shadow-lg`}
+            >
               <TextInput
-                className={`border-b border-gray-300 py-4 px-4 mb-5 text-lg ${colors.textColor}`}
+                className={`mb-5 border-b border-gray-300 px-4 py-4 text-lg ${colors.textColor}`}
                 placeholder="Avatar URL"
                 placeholderTextColor="#6B7280"
                 value={avatarUrl}
                 onChangeText={setAvatarUrl}
               />
-              
+
               <TouchableOpacity
                 onPress={handleModalClose}
-                className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2 self-center`}
+                className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-center px-4 py-2`}
               >
-                <Text className={`${colors.buttonText} text-center font-bold`}>Save Avatar URL</Text>
-              </TouchableOpacity> 
-              
+                <Text className={`${colors.buttonText} text-center font-bold`}>
+                  Save Avatar URL
+                </Text>
+              </TouchableOpacity>
+
               <TouchableOpacity
                 onPress={handleModalClose}
-                className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2 self-center`}
+                className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-center px-4 py-2`}
               >
-                <Text className={`${colors.buttonText} text-center font-bold`}>Cancel</Text>
-              </TouchableOpacity> 
-              
+                <Text className={`${colors.buttonText} text-center font-bold`}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
