@@ -10,8 +10,10 @@ import {
   buttonClassName,
 } from "@/constants/AccountSecurityStyles";
 import { changeEmailValidationSchema } from "@/utils/validationSchemas";
+import { useTranslation } from 'react-i18next';
 
 const ChangeEmailSection = () => {
+  const { t } = useTranslation();
   const [currentEmail, setCurrentEmail] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [validationError, setValidationError] = useState("");
@@ -71,7 +73,7 @@ const ChangeEmailSection = () => {
       <Text
         className={`mb-4 text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}
       >
-        Change Email
+        {t('CHNGEMAILtitle')}
       </Text>
       <View className="mb-4">
         <TextInput
@@ -83,7 +85,7 @@ const ChangeEmailSection = () => {
       </View>
       <View className="mb-4">
         <TextInput
-          placeholder="New Email"
+          placeholder={t('CHNGEMAILnew')}
           value={newEmail}
           onChangeText={setNewEmail}
           className={inputClassName(isDarkMode)}
@@ -100,7 +102,7 @@ const ChangeEmailSection = () => {
         <Text
           className={`text-center font-bold ${isDarkMode ? "text-white" : "text-black"}`}
         >
-          Change Email
+          {t('CHNGEMAILtitle')}
         </Text>
       </TouchableOpacity>
     </View>

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, Button, TouchableOpacity, ImageBackground } from "react-native";
 
 import { darkColorsSettingsGoals, lightColorsSettingsGoals } from "@/constants/Colors";
 import { useColorScheme } from "nativewind";
+import { useTranslation } from 'react-i18next';
 
 const EditGoals: React.FC = () => {
+  const { t } = useTranslation();
   const [totalCalories, setTotalCalories] = useState<string>("");
   const [weightLossChecked, setWeightLossChecked] = useState<boolean>(false);
   const [veganChecked, setVeganChecked] = useState<boolean>(false);
@@ -20,11 +22,15 @@ const EditGoals: React.FC = () => {
   const colors = colorScheme === "dark" ? darkColorsSettingsGoals : lightColorsSettingsGoals;
 
   return (
-    <View className={`flex-1 py-20 px-10 ${colors.background}`}>
+    <ImageBackground
+      source={require("../../assets/images/background.png")}
+      className="flex-1 resize-y justify-center bg-white dark:bg-black"
+    >
+    <View className={`flex-1 py-20 px-10`}>
       <View className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} p-5 justify-start items-right shadow-md`}>
         <TextInput
           className={`border-b border-gray-300 py-4 px-4 mb-5  text-2xl text-black`}
-          placeholder="Total Calories"
+          placeholder={t('EDTGOALtotalcal')}
           placeholderTextColor="#6B7280"
           value={totalCalories}
           onChangeText={setTotalCalories}
@@ -40,7 +46,7 @@ const EditGoals: React.FC = () => {
                   ${weightLossChecked ? colors.checkmarkChecked : colors.checkmarkUnchecked}`}>
                 {weightLossChecked && <Text className={`${weightLossChecked ? colors.checkmarkUncheckedText : colors.checkmarkUncheckedText}`}>✓</Text>}
               </View>
-              <Text className={` text-2xl ${colors.textColor}`}>Weight Loss</Text>
+              <Text className={` text-2xl ${colors.textColor}`}>{t('EDTGOALweightloss')}</Text>
             </View>
           </TouchableOpacity>
 
@@ -50,7 +56,7 @@ const EditGoals: React.FC = () => {
                   ${veganChecked ? colors.checkmarkChecked : colors.checkmarkUnchecked}`}>
                 {veganChecked && <Text className={`${veganChecked ? colors.checkmarkUncheckedText : colors.checkmarkUncheckedText}`}>✓</Text>}
               </View>
-              <Text className={` text-2xl ${colors.textColor}`}>Vegan</Text>
+              <Text className={` text-2xl ${colors.textColor}`}>{t('EDTGOALvegan')}</Text>
             </View>
           </TouchableOpacity>
 
@@ -62,7 +68,7 @@ const EditGoals: React.FC = () => {
                   ${vegetarianChecked ? colors.checkmarkChecked : colors.checkmarkUnchecked}`}>
                 {vegetarianChecked && <Text className={`${vegetarianChecked ? colors.checkmarkUncheckedText : colors.checkmarkUncheckedText}`}>✓</Text>}
               </View>
-              <Text className={` text-2xl ${colors.textColor}`}>Vegetarian</Text>
+              <Text className={` text-2xl ${colors.textColor}`}>{t('EDTGOALvegetarian')}</Text>
             </View>
           </TouchableOpacity>
 
@@ -74,7 +80,7 @@ const EditGoals: React.FC = () => {
                   ${diseaseSpecificChecked ? colors.checkmarkChecked : colors.checkmarkUnchecked}`}>
                 {diseaseSpecificChecked && (<Text className={`${diseaseSpecificChecked ? colors.checkmarkUncheckedText : colors.checkmarkUncheckedText}`}>✓</Text>)}
               </View>
-              <Text className={` text-2xl ${colors.textColor}`}>Disease specific</Text>
+              <Text className={` text-2xl ${colors.textColor}`}>{t('EDTGOALdiseasespecific')}</Text>
             </View>
           </TouchableOpacity>
           
@@ -83,10 +89,11 @@ const EditGoals: React.FC = () => {
           onPress={handleSaveGoals}
           className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2 self-center`}
         >
-          <Text className={`${colors.buttonText} text-center font-bold`}>Save</Text>
+          <Text className={`${colors.buttonText} text-center font-bold`}>{t('EDTGOALsave')}</Text>
         </TouchableOpacity>  
       </View>           
     </View>
+    </ImageBackground>
   );
 };
 

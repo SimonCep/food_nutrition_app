@@ -5,12 +5,14 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ImageBackground,
 } from "react-native";
 import { useColorScheme } from "nativewind";
 
 import { FoodNutritionFormProps } from "@/types";
 import { lightColorsDiary, darkColorsDiary } from "@/constants/Colors";
 import { ScrollView } from "react-native-gesture-handler";
+import { useTranslation } from 'react-i18next';
 
 const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
   brand,
@@ -67,6 +69,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
   validationErrors,
   isEditing,
 }) => {
+  const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
   const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
 
@@ -76,10 +79,15 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
   };
 
   return (
+    
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View className={`items-center justify-center p-6 ${colors.backgroundInDiary}`}>
+      <ImageBackground
+      source={require("../../assets/images/background.png")}
+      className="flex-1 resize-y justify-center bg-white dark:bg-black"
+      >
+      <View className={`items-center justify-center p-6`}>
         <Text className={`mb-6 text-center text-2xl font-bold ${colors.text}`}>
-          {isEditing ? "Edit Food" : "Add Food"}
+          {isEditing ? t('FOODFRMediting') : t('FOODFRMadding')}
         </Text>
         <View
           className={`w-full max-w-md rounded-lg p-4 shadow-md ${colors.primaryBackground}`}
@@ -87,14 +95,14 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           <TextInput
             value={brand ?? ""}
             onChangeText={setBrand}
-            placeholder="Brand Name (Optional)"
+            placeholder={t('FOODFRMbrand')}
             placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
             className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
           />
           <TextInput
             value={foodName}
             onChangeText={setFoodName}
-            placeholder="Description (Required)"
+            placeholder={t('FOODFRMdesc')}
             placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
             className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
           />
@@ -106,7 +114,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           <TextInput
             value={measurementUnit}
             onChangeText={setMeasurementUnit}
-            placeholder="Measurement Unit (Required)"
+            placeholder={t('FOODFRMuntis')}
             placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
             className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
           />
@@ -118,7 +126,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           <TextInput
             value={servingSize > 0 ? servingSize.toString() : ""}
             onChangeText={(text) => setServingSize(parseInt(text) || 0)}
-            placeholder="Serving Size (Required)"
+            placeholder={t('FOODFRMserving')}
             placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
             keyboardType="numeric"
             className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
@@ -131,7 +139,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           <TextInput
             value={calories > 0 ? calories.toString() : ""}
             onChangeText={(text) => setCalories(parseInt(text) || 0)}
-            placeholder="Calories (Required)"
+            placeholder={t('FOODFRMcals')}
             placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
             keyboardType="numeric"
             className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
@@ -334,7 +342,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
               <Text
                 className={`text-center text-lg font-bold ${colors.buttonText}`}
               >
-                {isEditing ? "Save" : "Add"}
+                {isEditing ? t('FOODFRMsave') : t('FOODFRMadd')}
               </Text>
             )}
           </TouchableOpacity>
@@ -345,11 +353,12 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
             <Text
               className={`text-center text-lg font-bold ${colors.cancelButtonText}`}
             >
-              Cancel
+              {t('FOODFRMcancel')}
             </Text>
           </TouchableOpacity>
         </View>
       </View>
+      </ImageBackground>
     </ScrollView>
   );
 };

@@ -5,12 +5,14 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ImageBackground,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useColorScheme } from "nativewind";
 
 import { ExerciseFormProps } from "@/types";
 import { lightColorsDiary, darkColorsDiary } from "@/constants/Colors";
+import { useTranslation } from 'react-i18next';
 
 const ExerciseForm: React.FC<ExerciseFormProps> = ({
   exercise,
@@ -25,6 +27,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
   validationErrors,
   isEditing,
 }) => {
+  const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
   const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
   const [isCustomExercise, setIsCustomExercise] = useState(false);
@@ -37,11 +40,15 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
   };
 
   return (
+    <ImageBackground
+      source={require("../../assets/images/background.png")}
+      className="flex-1 resize-y justify-center bg-white dark:bg-black"
+    >
     <View
-      className={`flex-1 items-center justify-center p-6 ${colors.backgroundInDiary}`}
+      className={`flex-1 items-center justify-center p-6`}
     >
       <Text className={`mb-6 text-center text-2xl font-bold ${colors.text}`}>
-        {isEditing ? "Edit Exercise" : "Add Exercise"}
+        {isEditing ? t('EXCFRMediting') : t('EXCFRMadding')}
       </Text>
       <View
         className={`w-full max-w-md rounded-lg p-4 shadow-md ${colors.primaryBackground}`}
@@ -50,7 +57,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
           <TextInput
             value={exercise}
             onChangeText={setExercise}
-            placeholder="Exercise"
+            placeholder={t('EXCFRMtitle')}
             placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
             className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
           />
@@ -92,7 +99,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
         <TextInput
           value={duration > 0 ? duration.toString() : ""}
           onChangeText={(text) => setDuration(parseInt(text) || 0)}
-          placeholder="Duration (in minutes)"
+          placeholder={t('EXCFRMduration')}
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
           keyboardType="numeric"
           className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
@@ -105,7 +112,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
         <TextInput
           value={calories > 0 ? calories.toString() : ""}
           onChangeText={(text) => setCalories(parseInt(text) || 0)}
-          placeholder="Calories Burned"
+          placeholder={t('EXCFRMcalsburn')}
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
           keyboardType="numeric"
           className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
@@ -126,7 +133,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
             <Text
               className={`text-center text-lg font-bold ${colors.buttonText}`}
             >
-              {isEditing ? "Save" : "Add"}
+              {isEditing ? t('EXCFRMsave') : t('EXCFRMadd')}
             </Text>
           )}
         </TouchableOpacity>
@@ -137,11 +144,12 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
           <Text
             className={`text-center text-lg font-bold ${colors.cancelButtonText}`}
           >
-            Cancel
+            {t('EXCFRMcancel')}
           </Text>
         </TouchableOpacity>
       </View>
     </View>
+    </ImageBackground>
   );
 };
 

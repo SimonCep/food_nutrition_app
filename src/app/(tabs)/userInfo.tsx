@@ -13,8 +13,11 @@ import { useColorScheme } from "nativewind";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 import { darkColorsUserInfo, lightColorsUserInfo } from "@/constants/Colors";
+import { useTranslation } from 'react-i18next';
 
 const UserInfoTab = () => {
+  const { t } = useTranslation();
+
   const { profile } = useAuth();
   const router = useRouter();
   const { colorScheme } = useColorScheme();
@@ -36,6 +39,10 @@ const UserInfoTab = () => {
 
   const handleThemeSettings = () => {
     router.push("../theme");
+  };
+
+  const handleLanguageSettings = () => {
+    router.push("../language");
   };
 
   const handleAboutUs = () => {
@@ -75,7 +82,7 @@ const UserInfoTab = () => {
               </Text>
             ) : (
               <Text className={`mb-2 text-lg font-bold ${colors.primaryText}`}>
-                Loading...
+                {t('USRLoading')}
               </Text>
             )}
           </View>
@@ -85,31 +92,37 @@ const UserInfoTab = () => {
               className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4 shadow-lg`}
               onPress={handleEditProfile}
             >
-              <Text className={colors.buttonText}>Profile Settings</Text>
+              <Text className={colors.buttonText}>{t('USRProfile')}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4 shadow-lg`}
               onPress={handleEditGoals}
             >
-              <Text className={colors.buttonText}>Dietary Goals</Text>
+              <Text className={colors.buttonText}>{t('USRDietary')}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleAccountSecurity}
               className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4 shadow-lg`}
             >
-              <Text className={colors.buttonText}>Account Security</Text>
+              <Text className={colors.buttonText}>{t('USRAccount')}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleThemeSettings}
               className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4 shadow-lg`}
             >
-              <Text className={colors.buttonText}>Theme Settings</Text>
+              <Text className={colors.buttonText}>{t('USRThemeSelect')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleLanguageSettings}
+              className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4 shadow-lg`}
+            >
+              <Text className={colors.buttonText}>{t('USRLangSelect')}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleAboutUs}
               className={`mb-4 rounded-xl ${colors.buttonBackground} px-6 py-4 shadow-lg`}
             >
-              <Text className={colors.buttonText}>About Us</Text>
+              <Text className={colors.buttonText}>{t('USRabout')}</Text>
             </TouchableOpacity>
           </View>
 
@@ -120,7 +133,7 @@ const UserInfoTab = () => {
             <Text
               className={`text-center text-lg font-bold ${colors.logoutButtonText}`}
             >
-              Logout
+              {t('USRLogout')}
             </Text>
           </TouchableOpacity>
         </View>

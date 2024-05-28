@@ -2,6 +2,8 @@ import React from "react";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 
 import { DeleteConfirmationModalProps } from "@/types";
+import { useTranslation } from 'react-i18next';
+
 
 const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
   isVisible,
@@ -10,29 +12,31 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
   colors,
   recordType,
 }) => {
+  
+  const { t } = useTranslation();
   const getHeadingText = () => {
     switch (recordType) {
       case "exercise":
-        return "Delete Exercise";
+        return t('DELETEexercise');
       case "water":
-        return "Delete Water Consumption";
+        return t('DELETEwater');
       case "food":
-        return "Delete Food";
+        return t('DELETEfood');
       default:
-        return "Delete Record";
+        return t('DELETErecord');
     }
   };
 
   const getBodyText = () => {
     switch (recordType) {
       case "exercise":
-        return "Are you sure you want to delete this exercise entry?";
+        return t('DELETEexerconf');
       case "water":
-        return "Are you sure you want to delete this water entry?";
+        return t('DELETEwaterconf');
       case "food":
-        return "Are you sure you want to delete this food entry?";
+        return t('DELETEfoodconf');
       default:
-        return "Are you sure you want to delete this record?";
+        return t('DELETErecordconf');
     }
   };
 
@@ -52,7 +56,7 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
               className={`${colors.cancelButtonBackground} rounded-full border-2 px-4 py-2 ${colors.cancelButtonBorder} mr-2`}
             >
               <Text className={`${colors.cancelButtonText} font-bold`}>
-                Cancel
+              {t('DELETEcancel')}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -60,7 +64,7 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
               className={`${colors.deleteButtonBackground} rounded-full border-2 px-4 py-2 ${colors.deleteButtonBorder}`}
             >
               <Text className={`${colors.deleteButtonText} font-bold`}>
-                Delete
+              {t('DELETEdelete')}
               </Text>
             </TouchableOpacity>
           </View>

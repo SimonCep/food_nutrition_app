@@ -14,20 +14,23 @@ import { darkColorsIndex, lightColorsIndex } from "@/constants/Colors";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import { useAuth } from "@/providers/AuthProvider";
+import { useTranslation } from 'react-i18next';
 
 const HomePage = () => {
+  const { t } = useTranslation();
+
   const router = useRouter();
   const { session, loading } = useAuth();
   const { colorScheme } = useColorScheme();
   const colors = colorScheme === "dark" ? darkColorsIndex : lightColorsIndex;
 
   const [taskCompleted, setTaskCompleted] = useState(false);
-  const [taskText, setTaskText] = useState("Enter your daily task");
+  const [taskText, setTaskText] = useState(t('INDTASKtextdefault'));
   const [inputVisible, setInputVisible] = useState(false);
   const [newTaskText, setNewTaskText] = useState("");
   const handleSave = () => {
     const updatedTaskText =
-      newTaskText.trim() !== "" ? newTaskText : "Enter your daily task";
+      newTaskText.trim() !== "" ? newTaskText : t('INDTASKtextdefault');
     setTaskText(updatedTaskText);
     setInputVisible(false);
   };
@@ -91,7 +94,7 @@ const HomePage = () => {
           Eathy
         </Text>
         <Text className={`mb-7 text-xl ${colors.textColor}`}>
-          Track your calories and health
+          {t('INDTitle')}
         </Text>
 
         <TouchableOpacity
@@ -111,7 +114,7 @@ const HomePage = () => {
                 />
                 <TextInput
                   className={`mb-1 w-10/12 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
-                  placeholder="Enter task text"
+                  placeholder={t('INDTASKtext')}
                   placeholderTextColor={"#52525b"}
                   onChangeText={(text) => setNewTaskText(text)}
                   value={newTaskText}
@@ -158,7 +161,7 @@ const HomePage = () => {
           onPress={handleDiaryPress}
         >
           <Text className={`text-center text-xl font-bold ${colors.textColor}`}>
-            Diary
+            {t('INDDiary')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -166,7 +169,7 @@ const HomePage = () => {
           onPress={handleProfilePress}
         >
           <Text className={`text-center text-xl font-bold ${colors.textColor}`}>
-            Profile
+            {t('INDProfile')}
           </Text>
         </TouchableOpacity>
       </View>

@@ -4,6 +4,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ImageBackground,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import { Link, useRouter } from "expo-router";
@@ -58,8 +60,23 @@ const SignInScreen = () => {
   };
 
   return (
-    <View className={`${colors.background} flex-1 justify-center`}>
+    <ImageBackground
+      source={require("../../assets/images/background.png")}
+      className="flex-1 resize-y justify-center bg-white dark:bg-black"
+    >
+    <View className={` flex-1 justify-center`}>
       <View className="flex-1 justify-center p-5">
+
+        <View className="mb-2 items-center">
+          <View className={`h-32 w-32 rounded-full bg-white shadow-lg`}>
+            <Image
+              source={require("../../assets/images/icon.png")}
+              className="h-32 w-32 rounded-full"
+            />
+          </View>
+        </View>
+        <Text className=" text-2xl text-center mb-5">Start tracking your progress!</Text>
+
         <View
           className={`${colors.primaryBackground} rounded-xl p-8 shadow-md`}
         >
@@ -98,6 +115,7 @@ const SignInScreen = () => {
         </View>
       </View>
     </View>
+    </ImageBackground>
   );
 };
 

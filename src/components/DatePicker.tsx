@@ -6,11 +6,15 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { darkColorsDiary, lightColorsDiary } from "@/constants/Colors";
 import { DatePickerProps } from "@/types";
+import { useTranslation } from 'react-i18next';
 
 const DatePicker: React.FC<DatePickerProps> = ({
   selectedDate,
   onDateChange,
 }) => {
+  
+  const { t } = useTranslation();
+
   const { colorScheme } = useColorScheme();
   const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -36,11 +40,11 @@ const DatePicker: React.FC<DatePickerProps> = ({
     tomorrow.setDate(today.getDate() + 1);
 
     if (date.toDateString() === today.toDateString()) {
-      return "Today";
+      return t('DATEtoday');
     } else if (date.toDateString() === yesterday.toDateString()) {
-      return "Yesterday";
+      return t('DATEyester');
     } else if (date.toDateString() === tomorrow.toDateString()) {
-      return "Tomorrow";
+      return t('DATEtomorrow');
     } else {
       return date.toLocaleDateString();
     }

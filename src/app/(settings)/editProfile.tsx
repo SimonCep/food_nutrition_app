@@ -8,6 +8,7 @@ import {
   Modal,
   Text,
   Alert,
+  ImageBackground,
 } from "react-native";
 import { router } from "expo-router";
 import * as Yup from "yup";
@@ -17,8 +18,10 @@ import { useAuth } from "@/providers/AuthProvider";
 import { updateProfileValidationSchema } from "@/utils/validationSchemas";
 import { darkColorsSettingsProfile, lightColorsSettingsProfile } from "@/constants/Colors";
 import { useColorScheme } from "nativewind";
+import { useTranslation } from 'react-i18next';
 
 const EditProfile: React.FC = () => {
+  const { t } = useTranslation();
   const { profile, updateProfileData } = useAuth();
 
   const { colorScheme } = useColorScheme();
@@ -78,7 +81,11 @@ const EditProfile: React.FC = () => {
   };
 
   return (
-    <View className={`flex-1 justify-center items-center p-10 ${colors.background}`}>
+    <ImageBackground
+      source={require("../../assets/images/background.png")}
+      className="flex-1 resize-y justify-center bg-white dark:bg-black"
+    >
+    <View className={`flex-1 justify-center items-center p-10`}>
       <View className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} p-5 py-10 justify-start items-right shadow-md`}>
         <TouchableOpacity onPress={handleChangeAvatar}>
           <Image
@@ -97,7 +104,7 @@ const EditProfile: React.FC = () => {
         </TouchableOpacity>
         <TextInput
           className={`border-b border-gray-300 py-4 px-4 mb-1 mt-10 text-2xl ${colors.textColor}`}
-          placeholder="Username"
+          placeholder={t('EDTPROFusername')}
           placeholderTextColor="#6B7280"
           value={username}
           onChangeText={setUsername}
@@ -109,7 +116,7 @@ const EditProfile: React.FC = () => {
         )}
         <TextInput
           className={`border-b border-gray-300 py-4 px-4 mb-1 text-2xl ${colors.textColor}`}
-          placeholder="Full name"
+          placeholder={t('EDTPROFfullname')}
           placeholderTextColor="#6B7280"
           value={fullname}
           onChangeText={setFullname}
@@ -121,7 +128,7 @@ const EditProfile: React.FC = () => {
         )}
         <TextInput
           className={`border-b border-gray-300 py-4 px-4 mb-10 text-2xl ${colors.textColor}`}
-          placeholder="Website"
+          placeholder={t('EDTPROFwebsite')}
           placeholderTextColor="#6B7280"
           value={website}
           onChangeText={setWebsite}
@@ -136,7 +143,7 @@ const EditProfile: React.FC = () => {
           onPress={handleSaveProfile}
           className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 self-center`}
         >
-          <Text className={`${colors.buttonText} text-center font-bold`}>Save</Text>
+          <Text className={`${colors.buttonText} text-center font-bold`}>{t('EDTPROFsave')}</Text>
         </TouchableOpacity> 
         
         <Modal
@@ -158,14 +165,14 @@ const EditProfile: React.FC = () => {
                 onPress={handleModalClose}
                 className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2 self-center`}
               >
-                <Text className={`${colors.buttonText} text-center font-bold`}>Save Avatar URL</Text>
+                <Text className={`${colors.buttonText} text-center font-bold`}>{t('EDTPROFsaveurl')}</Text>
               </TouchableOpacity> 
               
               <TouchableOpacity
                 onPress={handleModalClose}
                 className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} px-4 py-2 mt-4 mb-2 self-center`}
               >
-                <Text className={`${colors.buttonText} text-center font-bold`}>Cancel</Text>
+                <Text className={`${colors.buttonText} text-center font-bold`}>{t('EDTPROFcancel')}</Text>
               </TouchableOpacity> 
               
             </View>
@@ -173,6 +180,7 @@ const EditProfile: React.FC = () => {
         </Modal>
       </View>
     </View>
+    </ImageBackground>
   );
 };
 
