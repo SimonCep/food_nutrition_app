@@ -101,7 +101,11 @@ const Dashboard = () => {
 
   return (
     <ImageBackground
-      source={colorScheme === 'dark' ? require("../../assets/images/AnimatedDark.gif") : require("../../assets/images/AnimatedLight.gif")}
+      source={
+        colorScheme === "dark"
+          ? require("../../assets/images/AnimatedDark.gif")
+          : require("../../assets/images/AnimatedLight.gif")
+      }
       className={`flex-1 resize-y justify-center ${colors.textColor} bg-white dark:bg-black`}
     >
       <ScrollView>

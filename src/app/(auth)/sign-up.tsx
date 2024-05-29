@@ -4,6 +4,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ImageBackground,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import { Link, useRouter } from "expo-router";
@@ -132,56 +134,71 @@ const SignUpScreen = () => {
   };
 
   return (
-    <View className={`${colors.background} flex-1 justify-center`}>
-      <View className="flex-1 justify-center p-5">
-        <View
-          className={`${colors.primaryBackground} rounded-xl p-8 shadow-md`}
-        >
-          <Text className={`${colors.primaryText} mb-4 text-2xl font-bold`}>
-            Create Account:
-          </Text>
-          <SignUpForm
-            username={username}
-            setUsername={setUsername}
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-            colorScheme={colorScheme}
-            validationErrors={validationErrors}
-          />
-          <TouchableOpacity
-            onPress={handleSignUp}
-            disabled={isLoading}
-            className={`${colors.buttonBackground} rounded-full border-2 py-3 ${colors.border}`}
+    <ImageBackground
+      source={require("../../assets/images/background.png")}
+      className="flex-1 resize-y justify-center bg-white dark:bg-black"
+    >
+      <View className={` flex-1 justify-center`}>
+        <View className="flex-1 justify-center p-5">
+          <View className="mb-2 items-center">
+            <View className={`h-32 w-32 rounded-full bg-white shadow-lg`}>
+              <Image
+                source={require("../../assets/images/icon.png")}
+                className="h-32 w-32 rounded-full"
+              />
+            </View>
+          </View>
+          <Text className=" mb-5 text-center text-2xl">Sign up now!</Text>
+
+          <View
+            className={`${colors.primaryBackground} rounded-xl p-8 shadow-md`}
           >
-            {isLoading ? (
-              <ActivityIndicator color={colors.activityIndicatorColor} />
-            ) : (
-              <Text
-                className={`${colors.buttonText} text-center text-lg font-bold`}
-              >
-                Create account
-              </Text>
-            )}
-          </TouchableOpacity>
-          <Link
-            href="/sign-in"
-            className={`mt-4 self-center font-bold ${colors.primaryText} text-lg`}
-          >
-            Sign in
-          </Link>
+            <Text className={`${colors.primaryText} mb-4 text-2xl font-bold`}>
+              Create Account:
+            </Text>
+            <SignUpForm
+              username={username}
+              setUsername={setUsername}
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              colorScheme={colorScheme}
+              validationErrors={validationErrors}
+            />
+            <TouchableOpacity
+              onPress={handleSignUp}
+              disabled={isLoading}
+              className={`${colors.buttonBackground} rounded-full border-2 py-3 ${colors.border}`}
+            >
+              {isLoading ? (
+                <ActivityIndicator color={colors.activityIndicatorColor} />
+              ) : (
+                <Text
+                  className={`${colors.buttonText} text-center text-lg font-bold`}
+                >
+                  Create account
+                </Text>
+              )}
+            </TouchableOpacity>
+            <Link
+              href="/sign-in"
+              className={`mt-4 self-center font-bold ${colors.primaryText} text-lg`}
+            >
+              Sign in
+            </Link>
+          </View>
         </View>
+        <PersonalDataModal
+          modalVisible={showPersonalDataModal}
+          setModalVisible={setShowPersonalDataModal}
+          colors={colors}
+          onPersonalDataSubmit={handlePersonalDataSubmit}
+          validationErrors={validationErrors}
+          isLoading={isLoading}
+        />
       </View>
-      <PersonalDataModal
-        modalVisible={showPersonalDataModal}
-        setModalVisible={setShowPersonalDataModal}
-        colors={colors}
-        onPersonalDataSubmit={handlePersonalDataSubmit}
-        validationErrors={validationErrors}
-        isLoading={isLoading}
-      />
-    </View>
+    </ImageBackground>
   );
 };
 

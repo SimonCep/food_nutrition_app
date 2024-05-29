@@ -5,12 +5,14 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ImageBackground,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useColorScheme } from "nativewind";
 
 import { WaterFormProps } from "@/types";
 import { darkColorsDiary, lightColorsDiary } from "@/constants/Colors";
+import { useTranslation } from 'react-i18next';
 
 const WaterForm: React.FC<WaterFormProps> = ({
   amount,
@@ -23,6 +25,7 @@ const WaterForm: React.FC<WaterFormProps> = ({
   validationErrors,
   isEditing,
 }) => {
+  const { t } = useTranslation();
   const predefinedUnits = ["ml", "l"];
   const { colorScheme } = useColorScheme();
   const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
@@ -33,11 +36,15 @@ const WaterForm: React.FC<WaterFormProps> = ({
   };
 
   return (
+    <ImageBackground
+      source={require("../../assets/images/background.png")}
+      className="flex-1 resize-y justify-center bg-white dark:bg-black"
+    >
     <View
-      className={`flex-1 items-center justify-center p-6 ${colors.backgroundInDiary}`}
+      className={`flex-1 items-center justify-center p-6`}
     >
       <Text className={`mb-6 text-center text-2xl font-bold ${colors.text}`}>
-        {isEditing ? "Edit Water" : "Add Water"}
+        {isEditing ? t('WTRFRMediting') : t('WTRFRMadding')}
       </Text>
       <View
         className={`w-full max-w-md rounded-lg p-4 shadow-md ${colors.primaryBackground}`}
@@ -45,7 +52,7 @@ const WaterForm: React.FC<WaterFormProps> = ({
         <TextInput
           value={amount > 0 ? amount.toString() : ""}
           onChangeText={(text) => setAmount(parseInt(text) || 0)}
-          placeholder="Amount"
+          placeholder={t('WTRFRMamount')}
           placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
           keyboardType="numeric"
           className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.primaryText}`}
@@ -86,7 +93,7 @@ const WaterForm: React.FC<WaterFormProps> = ({
             <Text
               className={`text-center text-lg font-bold ${colors.buttonText}`}
             >
-              {isEditing ? "Save" : "Add"}
+              {isEditing ? t('WTRFRMsave') : t('WTRFRMadd')}
             </Text>
           )}
         </TouchableOpacity>
@@ -97,11 +104,12 @@ const WaterForm: React.FC<WaterFormProps> = ({
           <Text
             className={`text-center text-lg font-bold ${colors.cancelButtonText}`}
           >
-            Cancel
+            {t('WTRFRMcancel')}
           </Text>
         </TouchableOpacity>
       </View>
     </View>
+    </ImageBackground>
   );
 };
 

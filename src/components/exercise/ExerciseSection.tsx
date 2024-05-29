@@ -25,11 +25,13 @@ import { addExerciseValidationSchema } from "@/utils/validationSchemas";
 import { longPressGesture, pressGesture } from "@/utils/gestureHandlers";
 import { filterExercisesByDate } from "@/utils/exerciseUtils";
 import { useDiaryContext } from "@/providers/DiaryProvider";
+import { useTranslation } from "react-i18next";
 
 const ExerciseSection: React.FC<ExerciseSectionProps> = ({
   userId,
   selectedDate,
 }) => {
+  const { t } = useTranslation();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [exercise, setExercise] = useState("");
   const [duration, setDuration] = useState(0);
@@ -204,10 +206,10 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
             {item.exercise}
           </Text>
           <Text className={`${colors.secondaryText}`}>
-            Duration: {item.duration} minutes
+            {t("EXCSECduration")} {item.duration} {t("EXCSECminutes")}
           </Text>
           <Text className={`${colors.secondaryText}`}>
-            Calories Burned: {item.calories}
+            {t("EXCSECcalburn")} {item.calories}
           </Text>
         </View>
       </GestureDetector>
@@ -218,7 +220,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
     <View className={`p-5 ${colors.background}`}>
       <View className={`${colors.primaryBackground} rounded-lg p-4 shadow-md`}>
         <Text className={`mb-2 text-xl font-bold ${colors.primaryText}`}>
-          Exercise
+          {t("EXCSECexercise")}
         </Text>
         <View className={`border-b ${colors.border} mb-4`} />
         <FlatList
@@ -232,7 +234,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
           className={`${colors.buttonBackground} rounded-full border-2 px-4 py-2 ${colors.buttonBorder} mb-4`}
         >
           <Text className={`${colors.buttonText} text-center font-bold`}>
-            Add Exercise
+            {t("EXCSECadd")}
           </Text>
         </TouchableOpacity>
       </View>

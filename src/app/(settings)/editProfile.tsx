@@ -7,6 +7,7 @@ import {
   Modal,
   Text,
   Alert,
+  ImageBackground,
 } from "react-native";
 import { router } from "expo-router";
 import * as Yup from "yup";
@@ -19,8 +20,10 @@ import {
   lightColorsSettingsProfile,
 } from "@/constants/Colors";
 import { useColorScheme } from "nativewind";
+import { useTranslation } from "react-i18next";
 
 const EditProfile: React.FC = () => {
+  const { t } = useTranslation();
   const { profile, updateProfileData } = useAuth();
 
   const { colorScheme } = useColorScheme();
@@ -83,113 +86,120 @@ const EditProfile: React.FC = () => {
   };
 
   return (
-    <View
-      className={`flex-1 items-center justify-center p-10 ${colors.background}`}
+    <ImageBackground
+      source={require("../../assets/images/background.png")}
+      className="flex-1 resize-y justify-center bg-white dark:bg-black"
     >
-      <View
-        className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} items-right justify-start p-5 py-10 shadow-md`}
-      >
-        <TouchableOpacity onPress={handleChangeAvatar}>
-          <Image
-            source={{ uri: avatarUrl || "https://via.placeholder.com/150" }}
-            style={{
-              width: 150,
-              height: 150,
-              borderRadius: 75,
-              marginBottom: 20,
-              alignSelf: "center",
-              borderColor: "#000000",
-              borderWidth: 2,
-            }}
+      <View className={`flex-1 items-center justify-center p-10`}>
+        <View
+          className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} items-right justify-start p-5 py-10 shadow-md`}
+        >
+          <TouchableOpacity onPress={handleChangeAvatar}>
+            <Image
+              source={{ uri: avatarUrl || "https://via.placeholder.com/150" }}
+              style={{
+                width: 150,
+                height: 150,
+                borderRadius: 75,
+                marginBottom: 20,
+                alignSelf: "center",
+                borderColor: "#000000",
+                borderWidth: 2,
+              }}
+            />
+          </TouchableOpacity>
+          <TextInput
+            className={`mb-1 mt-10 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
+            placeholder={t("EDTPROFusername")}
+            placeholderTextColor="#6B7280"
+            value={username}
+            onChangeText={setUsername}
           />
-        </TouchableOpacity>
-        <TextInput
-          className={`mb-1 mt-10 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
-          placeholder="Username"
-          placeholderTextColor="#6B7280"
-          value={username}
-          onChangeText={setUsername}
-        />
-        {getFieldError("username") && (
-          <Text style={{ color: "red", marginBottom: 10 }}>
-            {getFieldError("username")}
-          </Text>
-        )}
-        <TextInput
-          className={`mb-1 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
-          placeholder="Full name"
-          placeholderTextColor="#6B7280"
-          value={fullname}
-          onChangeText={setFullname}
-        />
-        {getFieldError("full_name") && (
-          <Text style={{ color: "red", marginBottom: 10 }}>
-            {getFieldError("full_name")}
-          </Text>
-        )}
-        <TextInput
-          className={`mb-10 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
-          placeholder="Website"
-          placeholderTextColor="#6B7280"
-          value={website}
-          onChangeText={setWebsite}
-        />
-        {getFieldError("website") && (
-          <Text style={{ color: "red", marginBottom: 10 }}>
-            {getFieldError("website")}
-          </Text>
-        )}
+          {getFieldError("username") && (
+            <Text style={{ color: "red", marginBottom: 10 }}>
+              {getFieldError("username")}
+            </Text>
+          )}
+          <TextInput
+            className={`mb-1 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
+            placeholder={t("EDTPROFfullname")}
+            placeholderTextColor="#6B7280"
+            value={fullname}
+            onChangeText={setFullname}
+          />
+          {getFieldError("full_name") && (
+            <Text style={{ color: "red", marginBottom: 10 }}>
+              {getFieldError("full_name")}
+            </Text>
+          )}
+          <TextInput
+            className={`mb-10 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
+            placeholder={t("EDTPROFwebsite")}
+            placeholderTextColor="#6B7280"
+            value={website}
+            onChangeText={setWebsite}
+          />
+          {getFieldError("website") && (
+            <Text style={{ color: "red", marginBottom: 10 }}>
+              {getFieldError("website")}
+            </Text>
+          )}
 
-        <TouchableOpacity
-          onPress={handleSaveProfile}
-          className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mt-4 self-center px-4 py-2`}
-        >
-          <Text className={`${colors.buttonText} text-center font-bold`}>
-            Save
-          </Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleSaveProfile}
+            className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mt-4 self-center px-4 py-2`}
+          >
+            <Text className={`${colors.buttonText} text-center font-bold`}>
+              {t("EDTPROFsave")}
+            </Text>
+          </TouchableOpacity>
 
-        <Modal
-          visible={showModal}
-          animationType="slide"
-          onRequestClose={handleModalClose}
-        >
-          <View
-            className={`flex-1 items-center justify-center p-10 ${colors.backgroundSolid}`}
+          <Modal
+            visible={showModal}
+            animationType="slide"
+            onRequestClose={handleModalClose}
           >
             <View
-              className={`container mx-2 mt-5 flex rounded-3xl p-5 ${colors.backgroundSolid} items-right justify-start shadow-lg`}
+              className={`flex-1 items-center justify-center p-10 ${colors.backgroundSolid}`}
             >
-              <TextInput
-                className={`mb-5 border-b border-gray-300 px-4 py-4 text-lg ${colors.textColor}`}
-                placeholder="Avatar URL"
-                placeholderTextColor="#6B7280"
-                value={avatarUrl}
-                onChangeText={setAvatarUrl}
-              />
-
-              <TouchableOpacity
-                onPress={handleModalClose}
-                className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-center px-4 py-2`}
+              <View
+                className={`container mx-2 mt-5 flex rounded-3xl p-5 ${colors.backgroundSolid} items-right justify-start shadow-lg`}
               >
-                <Text className={`${colors.buttonText} text-center font-bold`}>
-                  Save Avatar URL
-                </Text>
-              </TouchableOpacity>
+                <TextInput
+                  className={`mb-5 border-b border-gray-300 px-4 py-4 text-lg ${colors.textColor}`}
+                  placeholder="Avatar URL"
+                  placeholderTextColor="#6B7280"
+                  value={avatarUrl}
+                  onChangeText={setAvatarUrl}
+                />
 
-              <TouchableOpacity
-                onPress={handleModalClose}
-                className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-center px-4 py-2`}
-              >
-                <Text className={`${colors.buttonText} text-center font-bold`}>
-                  Cancel
-                </Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={handleModalClose}
+                  className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-center px-4 py-2`}
+                >
+                  <Text
+                    className={`${colors.buttonText} text-center font-bold`}
+                  >
+                    {t("EDTPROFsaveurl")}
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={handleModalClose}
+                  className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-center px-4 py-2`}
+                >
+                  <Text
+                    className={`${colors.buttonText} text-center font-bold`}
+                  >
+                    {t("EDTPROFcancel")}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 

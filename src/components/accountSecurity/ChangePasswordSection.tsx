@@ -9,8 +9,10 @@ import {
   buttonClassName,
 } from "@/constants/AccountSecurityStyles";
 import { changePasswordValidationSchema } from "@/utils/validationSchemas";
+import { useTranslation } from 'react-i18next';
 
 const ChangePasswordSection = () => {
+  const { t } = useTranslation();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validationErrors, setValidationErrors] =
@@ -50,11 +52,11 @@ const ChangePasswordSection = () => {
       <Text
         className={`mb-4 text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}
       >
-        Change Password
+        {t('CHNGEPASStitle')}
       </Text>
       <View className="mb-4">
         <TextInput
-          placeholder="New Password"
+          placeholder={t('CHNGEPASSnew')}
           value={newPassword}
           onChangeText={setNewPassword}
           secureTextEntry
@@ -75,7 +77,7 @@ const ChangePasswordSection = () => {
       </View>
       <View className="mb-4">
         <TextInput
-          placeholder="Confirm New Password"
+          placeholder={t('CHNGEPASSnewconf')}
           value={confirmPassword}
           onChangeText={setConfirmPassword}
           secureTextEntry
@@ -101,7 +103,7 @@ const ChangePasswordSection = () => {
         <Text
           className={`text-center font-bold ${isDarkMode ? "text-white" : "text-black"}`}
         >
-          Change Password
+          {t('CHNGEPASStitle')}
         </Text>
       </TouchableOpacity>
     </View>

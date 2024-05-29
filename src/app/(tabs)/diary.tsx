@@ -22,8 +22,11 @@ import {
 } from "@/utils/calorieUtils";
 import { calculateTotalWaterConsumption } from "@/utils/waterUtils";
 import { useDiaryContext } from "@/providers/DiaryProvider";
+import { useTranslation } from "react-i18next";
 
 const Diary = () => {
+  const { t } = useTranslation();
+
   const { session } = useAuth();
   const { colorScheme } = useColorScheme();
   const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
@@ -127,17 +130,17 @@ const Diary = () => {
           <Text
             className={`text-center text-lg font-bold ${colors.primaryText}`}
           >
-            Net Calories: {netCalories}
+            {t("DIARYNetcal")} {netCalories}
           </Text>
           <View className="mt-2 flex-row justify-center">
             <Text className={`text-sm ${colors.secondaryText}`}>
-              Food: {totalFoodCalories}
+              {t("DIARYFood")} {totalFoodCalories}
             </Text>
             <Text className={`text-sm ${colors.secondaryText} ml-4`}>
-              Exercise: {totalExerciseCalories}
+              {t("DIARYExer")} {totalExerciseCalories}
             </Text>
             <Text className={`text-sm ${colors.secondaryText} ml-4`}>
-              Water: {totalWaterConsumption.toFixed(2)} l
+              {t("DIARYWater")} {totalWaterConsumption.toFixed(2)} l
             </Text>
           </View>
         </View>

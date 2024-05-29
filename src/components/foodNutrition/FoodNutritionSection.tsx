@@ -25,11 +25,13 @@ import { addFoodNutritionValidationSchema } from "@/utils/validationSchemas";
 import { longPressGesture, pressGesture } from "@/utils/gestureHandlers";
 import { filterFoodNutritionByDate } from "@/utils/foodUtils";
 import { useDiaryContext } from "@/providers/DiaryProvider";
+import { useTranslation } from "react-i18next";
 
 const FoodSection: React.FC<FoodNutritionSectionProps> = ({
   userId,
   selectedDate,
 }) => {
+  const { t } = useTranslation();
   const [foods, setFoods] = useState<FoodNutrition[]>([]);
   const [brand, setBrand] = useState<string | null>("");
   const [foodName, setFoodName] = useState("");
@@ -381,7 +383,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
             {item.serving_size} {item.measurement_unit}
           </Text>
           <Text className={`${colors.secondaryText}`}>
-            Calories: {item.calories}
+            {t("FOODSECcals")} {item.calories}
           </Text>
         </View>
       </GestureDetector>
@@ -392,7 +394,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
     <View className={`p-5 ${colors.background}`}>
       <View className={`${colors.primaryBackground} rounded-lg p-4 shadow-md`}>
         <Text className={`mb-2 text-xl font-bold ${colors.primaryText}`}>
-          Food
+          {t("FOODSECfood")}
         </Text>
         <View className={`border-b ${colors.border} mb-4`} />
         <FlatList
@@ -406,7 +408,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
           className={`${colors.buttonBackground} rounded-full border-2 px-4 py-2 ${colors.buttonBorder} mb-4`}
         >
           <Text className={`${colors.buttonText} text-center font-bold`}>
-            Add Food
+            {t("FOODSECadd")}
           </Text>
         </TouchableOpacity>
       </View>
