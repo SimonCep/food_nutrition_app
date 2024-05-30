@@ -148,7 +148,9 @@ const SignUpScreen = () => {
               />
             </View>
           </View>
-          <Text className=" mb-5 text-center text-2xl">Sign up now!</Text>
+          <Text className=" mb-5 text-center text-2xl dark:text-white">
+            Sign up now!
+          </Text>
 
           <View
             className={`${colors.primaryBackground} rounded-xl p-8 shadow-md`}

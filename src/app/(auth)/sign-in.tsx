@@ -74,7 +74,7 @@ const SignInScreen = () => {
               />
             </View>
           </View>
-          <Text className=" mb-5 text-center text-2xl">
+          <Text className=" mb-5 text-center text-2xl dark:text-white">
             Start tracking your progress!
           </Text>
 
