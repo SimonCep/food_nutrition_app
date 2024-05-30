@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ScrollView,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
@@ -109,138 +110,140 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
     >
       <View className="flex items-center justify-center">
         <View className={`${colors.background} mx-2 rounded-lg p-10 shadow-lg`}>
-          <View className="mb-5 mt-10 items-center">
-            <Text className={`mb-1 mt-10 px-4 py-4 text-3xl ${colors.text}`}>
-              Enter your personal data
-            </Text>
-            <Text className="self-start py-1 text-[#6B7280]">
-              Select your gender
-            </Text>
-            <DropDownPicker
-              open={open1}
-              value={gender}
-              items={items1}
-              setOpen={setOpen1}
-              setValue={setGender}
-              setItems={setItems1}
-            />
-            {getFieldError("gender") && (
-              <Text className={`self-start ${colors.errorText}`}>
-                {getFieldError("gender")}
+          <ScrollView>
+            <View className="mb-5 mt-10 items-center">
+              <Text className={`mb-1 mt-10 px-4 py-4 text-3xl ${colors.text}`}>
+                Enter your personal data
               </Text>
-            )}
-
-            <TextInput
-              className={`mb-5 w-full self-start border-b border-gray-300 px-4 py-4 text-lg ${colors.text}`}
-              placeholder="Enter your height in cm"
-              placeholderTextColor="#6B7280"
-              value={height}
-              onChangeText={setHeight}
-              keyboardType="numeric"
-            />
-            {getFieldError("height") && (
-              <Text className={`self-start ${colors.errorText}`}>
-                {getFieldError("height")}
+              <Text className="self-start py-1 text-[#6B7280]">
+                Select your gender
               </Text>
-            )}
-
-            <TextInput
-              className={`mb-5 w-full self-start border-b border-gray-300 px-4 py-4 text-lg ${colors.text}`}
-              placeholder="Enter your weight in kg"
-              placeholderTextColor="#6B7280"
-              value={weight}
-              onChangeText={setWeight}
-              keyboardType="numeric"
-            />
-            {getFieldError("weight") && (
-              <Text className={`self-start ${colors.errorText}`}>
-                {getFieldError("weight")}
-              </Text>
-            )}
-
-            <TextInput
-              className={`mb-5 w-full self-start border-b border-gray-300 px-4 py-4 text-lg ${colors.text}`}
-              placeholder="Enter your age"
-              placeholderTextColor="#6B7280"
-              value={age}
-              onChangeText={setAge}
-              keyboardType="numeric"
-            />
-            {getFieldError("age") && (
-              <Text className={`self-start ${colors.errorText}`}>
-                {getFieldError("age")}
-              </Text>
-            )}
-
-            <Text className="self-start py-1 text-[#6B7280]">
-              Select your health issues
-            </Text>
-            <DropDownPicker
-              open={open2}
-              value={healthIssues}
-              items={items2}
-              setOpen={setOpen2}
-              setValue={handleHealthIssuesChange}
-              setItems={setItems2}
-              multiple={true}
-              zIndex={2000}
-            />
-            {getFieldError("healthIssues") && (
-              <Text className={`self-start ${colors.errorText}`}>
-                {getFieldError("healthIssues")}
-              </Text>
-            )}
-          </View>
-
-          <Text className="self-start py-1 text-[#6B7280]">
-            Select your dietary goals
-          </Text>
-          <DropDownPicker
-            open={open3}
-            value={dietaryGoals}
-            items={items3}
-            setOpen={setOpen3}
-            setValue={handleDietaryGoalsChange}
-            setItems={setItems3}
-            multiple={true}
-            zIndex={1000}
-          />
-          {getFieldError("dietaryGoals") && (
-            <Text className={`self-start ${colors.errorText}`}>
-              {getFieldError("dietaryGoals")}
-            </Text>
-          )}
-          <Text className={`pb-5 text-2xl ${colors.buttonText}`}></Text>
-
-          <TouchableOpacity
-            onPress={handleSubmit}
-            disabled={isLoading}
-            className={`mb-4 rounded-full border-2 py-3 ${colors.buttonBackground} ${colors.buttonBorder}`}
-          >
-            {isLoading ? (
-              <ActivityIndicator
-                color={colors.buttonText.split("-")[1]}
-                size="small"
+              <DropDownPicker
+                open={open1}
+                value={gender}
+                items={items1}
+                setOpen={setOpen1}
+                setValue={setGender}
+                setItems={setItems1}
               />
-            ) : (
-              <Text
-                className={`text-center text-lg font-bold ${colors.buttonText}`}
-              >
-                Submit
+              {getFieldError("gender") && (
+                <Text className={`self-start ${colors.errorText}`}>
+                  {getFieldError("gender")}
+                </Text>
+              )}
+
+              <TextInput
+                className={`mb-5 w-full self-start border-b border-gray-300 px-4 py-4 text-lg ${colors.text}`}
+                placeholder="Enter your height in cm"
+                placeholderTextColor="#6B7280"
+                value={height}
+                onChangeText={setHeight}
+                keyboardType="numeric"
+              />
+              {getFieldError("height") && (
+                <Text className={`self-start ${colors.errorText}`}>
+                  {getFieldError("height")}
+                </Text>
+              )}
+
+              <TextInput
+                className={`mb-5 w-full self-start border-b border-gray-300 px-4 py-4 text-lg ${colors.text}`}
+                placeholder="Enter your weight in kg"
+                placeholderTextColor="#6B7280"
+                value={weight}
+                onChangeText={setWeight}
+                keyboardType="numeric"
+              />
+              {getFieldError("weight") && (
+                <Text className={`self-start ${colors.errorText}`}>
+                  {getFieldError("weight")}
+                </Text>
+              )}
+
+              <TextInput
+                className={`mb-5 w-full self-start border-b border-gray-300 px-4 py-4 text-lg ${colors.text}`}
+                placeholder="Enter your age"
+                placeholderTextColor="#6B7280"
+                value={age}
+                onChangeText={setAge}
+                keyboardType="numeric"
+              />
+              {getFieldError("age") && (
+                <Text className={`self-start ${colors.errorText}`}>
+                  {getFieldError("age")}
+                </Text>
+              )}
+
+              <Text className="self-start py-1 text-[#6B7280]">
+                Select your health issues
+              </Text>
+              <DropDownPicker
+                open={open2}
+                value={healthIssues}
+                items={items2}
+                setOpen={setOpen2}
+                setValue={handleHealthIssuesChange}
+                setItems={setItems2}
+                multiple={true}
+                zIndex={2000}
+              />
+              {getFieldError("healthIssues") && (
+                <Text className={`self-start ${colors.errorText}`}>
+                  {getFieldError("healthIssues")}
+                </Text>
+              )}
+            </View>
+
+            <Text className="self-start py-1 text-[#6B7280]">
+              Select your dietary goals
+            </Text>
+            <DropDownPicker
+              open={open3}
+              value={dietaryGoals}
+              items={items3}
+              setOpen={setOpen3}
+              setValue={handleDietaryGoalsChange}
+              setItems={setItems3}
+              multiple={true}
+              zIndex={1000}
+            />
+            {getFieldError("dietaryGoals") && (
+              <Text className={`self-start ${colors.errorText}`}>
+                {getFieldError("dietaryGoals")}
               </Text>
             )}
-          </TouchableOpacity>
+            <Text className={`pb-5 text-2xl ${colors.buttonText}`}></Text>
 
-          <TouchableOpacity
-            onPress={handleCancel}
-            className="mb-2 mt-4 px-4 py-2"
-          >
-            <Text
-              className={`text-center font-bold ${colors.cancelButtonText}`}
+            <TouchableOpacity
+              onPress={handleSubmit}
+              disabled={isLoading}
+              className={`mb-4 rounded-full border-2 py-3 ${colors.buttonBackground} ${colors.buttonBorder}`}
             >
-              Cancel
-            </Text>
-          </TouchableOpacity>
+              {isLoading ? (
+                <ActivityIndicator
+                  color={colors.buttonText.split("-")[1]}
+                  size="small"
+                />
+              ) : (
+                <Text
+                  className={`text-center text-lg font-bold ${colors.buttonText}`}
+                >
+                  Submit
+                </Text>
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={handleCancel}
+              className="mb-2 mt-4 px-4 py-2"
+            >
+              <Text
+                className={`text-center font-bold ${colors.cancelButtonText}`}
+              >
+                Cancel
+              </Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
       </View>
     </Modal>
