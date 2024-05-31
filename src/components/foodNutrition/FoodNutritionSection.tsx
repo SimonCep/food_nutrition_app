@@ -297,7 +297,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
       setEditingFood(null);
       setBrand("");
       setFoodName("");
-      setMeasurementUnit("");
+      setMeasurementUnit("g");
       setServingSize(0);
       setCalories(0);
       setFat(0);

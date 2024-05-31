@@ -14,6 +14,7 @@ import { lightColorsDiary, darkColorsDiary } from "@/constants/Colors";
 import { ScrollView } from "react-native-gesture-handler";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
 
 const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
   brand,
@@ -75,6 +76,8 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
   const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
   const [showOptional, setShowOptional] = useState(false);
 
+  const predifinedMeasurementUnits = ["g", "ml"];
+
   const getFieldError = (field: string) => {
     return validationErrors?.inner.find((error) => error.path === field)
       ?.message;
@@ -108,18 +111,6 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
               </Text>
             )}
             <TextInput
-              value={measurementUnit}
-              onChangeText={setMeasurementUnit}
-              placeholder="Measurement Unit (Required)"
-              placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-              className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-            />
-            {getFieldError("measurementUnit") && (
-              <Text className={`mb-2 ${colors.errorText}`}>
-                {getFieldError("measurementUnit")}
-              </Text>
-            )}
-            <TextInput
               value={servingSize > 0 ? servingSize.toString() : ""}
               onChangeText={(text) => setServingSize(parseInt(text) || 0)}
               placeholder={t("FOODFRMserving")}
@@ -130,6 +121,27 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
             {getFieldError("servingSize") && (
               <Text className={`mb-2 ${colors.errorText}`}>
                 {getFieldError("servingSize")}
+              </Text>
+            )}
+            <View className="mb-2">
+              <View className={`border-b ${colors.inputBorder}`}>
+                <Picker
+                  selectedValue={measurementUnit}
+                  onValueChange={setMeasurementUnit}
+                  style={{
+                    color: colors.primaryText.split("-")[1],
+                    backgroundColor: colors.unitBackground,
+                  }}
+                >
+                  {predifinedMeasurementUnits.map((unit) => (
+                    <Picker.Item key={unit} label={unit} value={unit} />
+                  ))}
+                </Picker>
+              </View>
+            </View>
+            {getFieldError("measurementUnit") && (
+              <Text className={`mb-2 ${colors.errorText}`}>
+                {getFieldError("measurementUnit")}
               </Text>
             )}
             <TextInput
