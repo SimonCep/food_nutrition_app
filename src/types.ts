@@ -46,6 +46,7 @@ export interface ExerciseFormProps {
   isLoading: boolean;
   validationErrors: Yup.ValidationError | null;
   isEditing: boolean;
+  userId: string;
 }
 
 export interface ExerciseSectionProps {
@@ -199,6 +200,13 @@ export interface PersonalDataModalProps {
   ) => Promise<void>;
   validationErrors: Yup.ValidationError | null;
   isLoading: boolean;
+}
+
+export interface ExerciseHistoryModalProps {
+  isVisible: boolean;
+  onClose: () => void;
+  onSelect: (exercise: Tables<"exercises">) => void;
+  previousExercises: Tables<"exercises">[];
 }
 
 // Type helpers

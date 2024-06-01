@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Text,
@@ -10,9 +10,11 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import { useColorScheme } from "nativewind";
 
-import { ExerciseFormProps } from "@/types";
+import { ExerciseFormProps, Tables } from "@/types";
 import { lightColorsDiary, darkColorsDiary } from "@/constants/Colors";
 import { useTranslation } from "react-i18next";
+import { fetchExercises } from "@/api/exerciseService";
+import ExerciseHistoryModal from "./ExerciseHistoryModal";
 
 const ExerciseForm: React.FC<ExerciseFormProps> = ({
   exercise,
@@ -26,6 +28,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
   isLoading,
   validationErrors,
   isEditing,
+  userId,
 }) => {
   const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
@@ -33,6 +36,34 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
   const [isCustomExercise, setIsCustomExercise] = useState(false);
 
   const predefinedExercises = ["Running", "Walking", "Swimming", "Cycling"];
+
+  const [previousExercises, setPreviousExercises] = useState<
+    Tables<"exercises">[]
+  >([]);
+  const [isHistoryModalVisible, setIsHistoryModalVisible] = useState(false);
+  const [selectedExercise, setSelectedExercise] =
+    useState<Tables<"exercises"> | null>(null);
+
+  useEffect(() => {
+    const fetchPreviousExercises = async () => {
+      try {
+        const exercises = await fetchExercises(userId);
+        setPreviousExercises(exercises);
+      } catch (error) {
+        console.error("Error fetching previous exercises:", error);
+      }
+    };
+
+    fetchPreviousExercises();
+  }, [userId]);
+
+  const handleSelectFromHistory = (selectedExercise: Tables<"exercises">) => {
+    setSelectedExercise(selectedExercise);
+    setExercise(selectedExercise.exercise);
+    setDuration(selectedExercise.duration);
+    setCalories(selectedExercise.calories);
+    setIsHistoryModalVisible(false);
+  };
 
   const getFieldError = (field: string) => {
     return validationErrors?.inner.find((error) => error.path === field)
@@ -63,13 +94,21 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
             <View className="mb-2">
               <View className={`border-b ${colors.inputBorder}`}>
                 <Picker
-                  selectedValue={exercise}
+                  selectedValue={selectedExercise?.exercise || exercise || ""}
                   onValueChange={(value) => {
                     if (value === "custom") {
                       setIsCustomExercise(true);
+                      setSelectedExercise(null);
                       setExercise("");
+                      setDuration(0);
+                      setCalories(0);
+                    } else if (value === "history") {
+                      setIsHistoryModalVisible(true);
                     } else {
+                      setSelectedExercise(null);
                       setExercise(value);
+                      setDuration(0);
+                      setCalories(0);
                     }
                   }}
                   style={{
@@ -77,6 +116,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
                     backgroundColor: colors.unitBackground,
                   }}
                 >
+                  <Picker.Item label="Select Exercise" value="" />
                   {predefinedExercises.map((exerciseItem) => (
                     <Picker.Item
                       key={exerciseItem}
@@ -84,6 +124,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
                       value={exerciseItem}
                     />
                   ))}
+                  <Picker.Item label="From History" value="history" />
                   <Picker.Item label="Custom" value="custom" />
                 </Picker>
               </View>
@@ -94,6 +135,12 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
               {getFieldError("exercise")}
             </Text>
           )}
+          <ExerciseHistoryModal
+            isVisible={isHistoryModalVisible}
+            onClose={() => setIsHistoryModalVisible(false)}
+            onSelect={handleSelectFromHistory}
+            previousExercises={previousExercises}
+          />
           <TextInput
             value={duration > 0 ? duration.toString() : ""}
             onChangeText={(text) => setDuration(parseInt(text) || 0)}

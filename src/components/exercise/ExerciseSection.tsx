@@ -163,7 +163,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
       setCalories(exercise.calories);
     } else {
       setEditingExercise(null);
-      setExercise("Running");
+      setExercise("");
       setDuration(0);
       setCalories(0);
     }
@@ -251,6 +251,7 @@ const ExerciseSection: React.FC<ExerciseSectionProps> = ({
           isLoading={isLoading}
           validationErrors={validationErrors}
           isEditing={!!editingExercise}
+          userId={userId}
         />
       </Modal>
       <DeleteConfirmationModal

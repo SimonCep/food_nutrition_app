@@ -79,9 +79,9 @@
   "EXCFRMediting" : "Edit Exercise",
   "EXCFRMadding" : "Add Exercise",
 
-  "EXCSECduration" : "Duration: ",
+  "EXCSECduration" : "Duration:",
   "EXCSECminutes" : " minutes",
-  "EXCSECcalburn" : "Calories Burned: ",
+  "EXCSECcalburn" : "Calories Burned:",
   "EXCSECexercise" : "Exercise",
   "EXCSECadd" : "Add Exercise",
 
@@ -97,7 +97,7 @@
   "FOODFRMadd" : "Add",
   "FOODFRMcancel" : "Cancel",
 
-  "FOODSECcals" : "Calories: ",
+  "FOODSECcals" : "Calories:",
   "FOODSECfood" : "Food",
   "FOODSECadd" : "Add Food",
 
@@ -108,8 +108,8 @@
   "WTRFRMadd" : "Add",
   "WTRFRMcancel" : "Cancel",
 
-  "WTRSECamount" : "Amount: ",
-  "WTRSECconsumed" : "Consumed At: ",
+  "WTRSECamount" : "Amount:",
+  "WTRSECconsumed" : "Consumed At:",
   "WTRSECwater" : "Water",
   "WTRSECaddwater" : "Add Water",
 
