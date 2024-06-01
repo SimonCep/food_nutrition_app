@@ -94,7 +94,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
             <View className="mb-2">
               <View className={`border-b ${colors.inputBorder}`}>
                 <Picker
-                  selectedValue={selectedExercise?.exercise || exercise || ""}
+                  selectedValue={(selectedExercise?.exercise ?? exercise) || ""}
                   onValueChange={(value) => {
                     if (value === "custom") {
                       setIsCustomExercise(true);
