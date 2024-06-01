@@ -467,6 +467,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
           isLoading={isLoading}
           validationErrors={validationErrors}
           isEditing={!!editingFood}
+          userId={userId}
         />
       </Modal>
       <DeleteConfirmationModal

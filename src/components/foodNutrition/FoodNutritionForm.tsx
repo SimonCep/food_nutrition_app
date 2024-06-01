@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Text,
@@ -8,13 +8,16 @@ import {
   ImageBackground,
 } from "react-native";
 import { useColorScheme } from "nativewind";
-
-import { FoodNutritionFormProps } from "@/types";
-import { lightColorsDiary, darkColorsDiary } from "@/constants/Colors";
 import { ScrollView } from "react-native-gesture-handler";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+
+import { FoodNutritionFormProps, Tables } from "@/types";
+import { lightColorsDiary, darkColorsDiary } from "@/constants/Colors";
+import { fetchFoodNutrition } from "@/api/nutritionService";
+import FoodHistoryModal from "@/components/foodNutrition/FoodHistoryModal";
 
 const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
   brand,
@@ -70,6 +73,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
   isLoading,
   validationErrors,
   isEditing,
+  userId,
 }) => {
   const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
@@ -77,6 +81,54 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
   const [showOptional, setShowOptional] = useState(false);
 
   const predifinedMeasurementUnits = ["g", "ml"];
+
+  const [previousFoodEntries, setPreviousFoodEntries] = useState<
+    Tables<"nutrition">[]
+  >([]);
+  const [isHistoryModalVisible, setIsHistoryModalVisible] = useState(false);
+
+  useEffect(() => {
+    const fetchPreviousFoodEntries = async () => {
+      try {
+        const foodEntries = await fetchFoodNutrition(userId);
+        setPreviousFoodEntries(foodEntries);
+      } catch (error) {
+        console.error("Error fetching previous food entries:", error);
+      }
+    };
+
+    fetchPreviousFoodEntries();
+  }, [userId]);
+
+  const handleSelectFromHistory = (selectedFoodEntry: Tables<"nutrition">) => {
+    // Required values
+    setFoodName(selectedFoodEntry.food_name);
+    setServingSize(selectedFoodEntry.serving_size);
+    setMeasurementUnit(selectedFoodEntry.measurement_unit);
+    setCalories(selectedFoodEntry.calories);
+    // Optional values
+    setBrand(selectedFoodEntry.brand);
+    setFat(selectedFoodEntry.fat);
+    setSaturatedFat(selectedFoodEntry.saturated_fat);
+    setPolyunsaturatedFat(selectedFoodEntry.polyunsaturated_fat);
+    setMonounsaturatedFat(selectedFoodEntry.monounsaturated_fat);
+    setTransFat(selectedFoodEntry.trans_fat);
+    setCholesterol(selectedFoodEntry.cholesterol);
+    setSodium(selectedFoodEntry.sodium);
+    setPotassium(selectedFoodEntry.potassium);
+    setCarbohydrates(selectedFoodEntry.carbohydrates);
+    setFiber(selectedFoodEntry.fiber);
+    setSugar(selectedFoodEntry.sugar);
+    setAddedSugars(selectedFoodEntry.added_sugars);
+    setSugarAlcohols(selectedFoodEntry.sugar_alcohols);
+    setProtein(selectedFoodEntry.protein);
+    setVitaminA(selectedFoodEntry.vitamin_a);
+    setVitaminC(selectedFoodEntry.vitamin_c);
+    setVitaminD(selectedFoodEntry.vitamin_d);
+    setCalcium(selectedFoodEntry.calcium);
+    setIron(selectedFoodEntry.iron);
+    setIsHistoryModalVisible(false);
+  };
 
   const getFieldError = (field: string) => {
     return validationErrors?.inner.find((error) => error.path === field)
@@ -98,13 +150,30 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           <View
             className={`w-full max-w-md rounded-lg p-4 shadow-md ${colors.primaryBackground}`}
           >
-            <TextInput
-              value={foodName}
-              onChangeText={setFoodName}
-              placeholder={t("FOODFRMdesc")}
-              placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-              className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-            />
+            <View className="mb-4 flex-row items-center justify-between">
+              <View className="flex-1">
+                <TextInput
+                  value={foodName}
+                  onChangeText={setFoodName}
+                  placeholder={t("FOODFRMdesc")}
+                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+                />
+              </View>
+              <TouchableOpacity
+                onPress={() => setIsHistoryModalVisible(true)}
+                className={`ml-4 flex-row items-center rounded-full px-4 py-2 ${colors.buttonBackground}`}
+              >
+                <FontAwesome
+                  name="history"
+                  size={18}
+                  color={colors.buttonText.split("-")[1]}
+                />
+                <Text className={`ml-2 text-sm font-bold ${colors.buttonText}`}>
+                  History
+                </Text>
+              </TouchableOpacity>
+            </View>
             {getFieldError("foodName") && (
               <Text className={`mb-2 ${colors.errorText}`}>
                 {getFieldError("foodName")}
@@ -409,6 +478,12 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
           </View>
         </View>
       </ImageBackground>
+      <FoodHistoryModal
+        isVisible={isHistoryModalVisible}
+        onClose={() => setIsHistoryModalVisible(false)}
+        onSelect={handleSelectFromHistory}
+        previousFoodEntries={previousFoodEntries}
+      />
     </ScrollView>
   );
 };

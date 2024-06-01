@@ -80,7 +80,7 @@ export type FoodNutrition = Tables<"nutrition">;
 
 export interface FoodNutritionFormProps {
   brand: string | null;
-  setBrand: (brand: string) => void;
+  setBrand: (brand: string | null) => void;
   foodName: string;
   setFoodName: (foodName: string) => void;
   measurementUnit: string;
@@ -90,48 +90,49 @@ export interface FoodNutritionFormProps {
   calories: number;
   setCalories: (calories: number) => void;
   fat: number | null;
-  setFat: (fat: number) => void;
+  setFat: (fat: number | null) => void;
   saturatedFat: number | null;
-  setSaturatedFat: (saturatedFat: number) => void;
+  setSaturatedFat: (saturatedFat: number | null) => void;
   polyunsaturatedFat: number | null;
-  setPolyunsaturatedFat: (polyunsaturatedFat: number) => void;
+  setPolyunsaturatedFat: (polyunsaturatedFat: number | null) => void;
   monounsaturatedFat: number | null;
-  setMonounsaturatedFat: (monounsaturatedFat: number) => void;
+  setMonounsaturatedFat: (monounsaturatedFat: number | null) => void;
   transFat: number | null;
-  setTransFat: (transFat: number) => void;
+  setTransFat: (transFat: number | null) => void;
   cholesterol: number | null;
-  setCholesterol: (cholesterol: number) => void;
+  setCholesterol: (cholesterol: number | null) => void;
   sodium: number | null;
-  setSodium: (sodium: number) => void;
+  setSodium: (sodium: number | null) => void;
   potassium: number | null;
-  setPotassium: (potassium: number) => void;
+  setPotassium: (potassium: number | null) => void;
   carbohydrates: number | null;
-  setCarbohydrates: (carbohydrates: number) => void;
+  setCarbohydrates: (carbohydrates: number | null) => void;
   fiber: number | null;
-  setFiber: (fiber: number) => void;
+  setFiber: (fiber: number | null) => void;
   sugar: number | null;
-  setSugar: (sugar: number) => void;
+  setSugar: (sugar: number | null) => void;
   addedSugars: number | null;
-  setAddedSugars: (addedSugars: number) => void;
+  setAddedSugars: (addedSugars: number | null) => void;
   sugarAlcohols: number | null;
-  setSugarAlcohols: (sugarAlcohols: number) => void;
+  setSugarAlcohols: (sugarAlcohols: number | null) => void;
   protein: number | null;
-  setProtein: (protein: number) => void;
+  setProtein: (protein: number | null) => void;
   vitaminA: number | null;
-  setVitaminA: (vitaminA: number) => void;
+  setVitaminA: (vitaminA: number | null) => void;
   vitaminC: number | null;
-  setVitaminC: (vitaminC: number) => void;
+  setVitaminC: (vitaminC: number | null) => void;
   vitaminD: number | null;
-  setVitaminD: (vitaminD: number) => void;
+  setVitaminD: (vitaminD: number | null) => void;
   calcium: number | null;
-  setCalcium: (calcium: number) => void;
+  setCalcium: (calcium: number | null) => void;
   iron: number | null;
-  setIron: (iron: number) => void;
+  setIron: (iron: number | null) => void;
   onSubmit: () => void;
   onCancel: () => void;
   isLoading: boolean;
   validationErrors: Yup.ValidationError | null;
   isEditing: boolean;
+  userId: string;
 }
 
 export interface FoodNutritionSectionProps {
@@ -215,6 +216,13 @@ export interface WaterHistoryModalProps {
   onClose: () => void;
   onSelect: (water: Tables<"water_consumption">) => void;
   previousWaterEntries: Tables<"water_consumption">[];
+}
+
+export interface FoodHistoryModalProps {
+  isVisible: boolean;
+  onClose: () => void;
+  onSelect: (food: Tables<"nutrition">) => void;
+  previousFoodEntries: Tables<"nutrition">[];
 }
 
 // Type helpers
