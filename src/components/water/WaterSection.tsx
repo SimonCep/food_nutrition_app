@@ -26,7 +26,7 @@ import { addWaterConsumptionValidationSchema } from "@/utils/validationSchemas";
 import { longPressGesture, pressGesture } from "@/utils/gestureHandlers";
 import { filterWaterConsumptionByDate } from "@/utils/waterUtils";
 import { useDiaryContext } from "@/providers/DiaryProvider";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const WaterSection: React.FC<WaterSectionProps> = ({
   userId,
@@ -213,10 +213,10 @@ const WaterSection: React.FC<WaterSectionProps> = ({
           } mb-4 rounded-lg p-4 shadow-md`}
         >
           <Text className={`text-lg font-bold ${colors.primaryText}`}>
-          {t('WTRSECamount')} {item.amount} {item.unit}
+            {t("WTRSECamount")} {item.amount} {item.unit}
           </Text>
           <Text className={`${colors.secondaryText}`}>
-          {t('WTRSECconsumed')} {format(new Date(item.consumed_at), "HH:mm")}
+            {t("WTRSECconsumed")} {format(new Date(item.consumed_at), "HH:mm")}
           </Text>
         </View>
       </GestureDetector>
@@ -227,7 +227,7 @@ const WaterSection: React.FC<WaterSectionProps> = ({
     <View className={`p-5 ${colors.background}`}>
       <View className={`${colors.primaryBackground} rounded-lg p-4 shadow-md`}>
         <Text className={`mb-2 text-xl font-bold ${colors.primaryText}`}>
-        {t('WTRSECwater')}
+          {t("WTRSECwater")}
         </Text>
         <View className={`border-b ${colors.border} mb-4`} />
         <FlatList
@@ -241,7 +241,7 @@ const WaterSection: React.FC<WaterSectionProps> = ({
           className={`${colors.buttonBackground} rounded-full border-2 px-4 py-2 ${colors.buttonBorder} mb-4`}
         >
           <Text className={`${colors.buttonText} text-center font-bold`}>
-          {t('WTRSECaddwater')}
+            {t("WTRSECaddwater")}
           </Text>
         </TouchableOpacity>
       </View>
@@ -256,6 +256,7 @@ const WaterSection: React.FC<WaterSectionProps> = ({
           isLoading={isLoading}
           validationErrors={validationErrors}
           isEditing={!!editingRecord}
+          userId={userId}
         />
       </Modal>
       <DeleteConfirmationModal

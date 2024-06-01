@@ -9,12 +9,13 @@ import {
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useColorScheme } from "nativewind";
+import { useTranslation } from "react-i18next";
+import { FontAwesome } from "@expo/vector-icons";
 
 import { ExerciseFormProps, Tables } from "@/types";
 import { lightColorsDiary, darkColorsDiary } from "@/constants/Colors";
-import { useTranslation } from "react-i18next";
 import { fetchExercises } from "@/api/exerciseService";
-import ExerciseHistoryModal from "./ExerciseHistoryModal";
+import ExerciseHistoryModal from "@/components/exercise/ExerciseHistoryModal";
 
 const ExerciseForm: React.FC<ExerciseFormProps> = ({
   exercise,
@@ -82,65 +83,67 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
         <View
           className={`w-full max-w-md rounded-lg p-4 shadow-md ${colors.primaryBackground}`}
         >
-          {isCustomExercise ? (
-            <TextInput
-              value={exercise}
-              onChangeText={setExercise}
-              placeholder={t("EXCFRMtitle")}
-              placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-              className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-            />
-          ) : (
-            <View className="mb-2">
-              <View className={`border-b ${colors.inputBorder}`}>
-                <Picker
-                  selectedValue={(selectedExercise?.exercise ?? exercise) || ""}
-                  onValueChange={(value) => {
-                    if (value === "custom") {
-                      setIsCustomExercise(true);
-                      setSelectedExercise(null);
-                      setExercise("");
-                      setDuration(0);
-                      setCalories(0);
-                    } else if (value === "history") {
-                      setIsHistoryModalVisible(true);
-                    } else {
-                      setSelectedExercise(null);
-                      setExercise(value);
-                      setDuration(0);
-                      setCalories(0);
-                    }
-                  }}
-                  style={{
-                    color: colors.primaryText.split("-")[1],
-                    backgroundColor: colors.unitBackground,
-                  }}
-                >
-                  <Picker.Item label="Select Exercise" value="" />
-                  {predefinedExercises.map((exerciseItem) => (
-                    <Picker.Item
-                      key={exerciseItem}
-                      label={exerciseItem}
-                      value={exerciseItem}
-                    />
-                  ))}
-                  <Picker.Item label="From History" value="history" />
-                  <Picker.Item label="Custom" value="custom" />
-                </Picker>
-              </View>
+          <View className="mb-4 flex-row items-center justify-between">
+            <View className="flex-1">
+              {isCustomExercise ? (
+                <TextInput
+                  value={exercise}
+                  onChangeText={setExercise}
+                  placeholder={t("EXCFRMtitle")}
+                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+                />
+              ) : (
+                <View className={`border-b ${colors.inputBorder}`}>
+                  <Picker
+                    selectedValue={selectedExercise?.exercise ?? exercise}
+                    onValueChange={(value) => {
+                      if (value === "custom") {
+                        setIsCustomExercise(true);
+                        setSelectedExercise(null);
+                        setExercise("");
+                      } else {
+                        setSelectedExercise(null);
+                        setExercise(value);
+                      }
+                    }}
+                    style={{
+                      color: colors.primaryText.split("-")[1],
+                      backgroundColor: colors.unitBackground,
+                    }}
+                  >
+                    <Picker.Item label="Select Exercise" value="" />
+                    {predefinedExercises.map((exerciseItem) => (
+                      <Picker.Item
+                        key={exerciseItem}
+                        label={exerciseItem}
+                        value={exerciseItem}
+                      />
+                    ))}
+                    <Picker.Item label="Custom" value="custom" />
+                  </Picker>
+                </View>
+              )}
             </View>
-          )}
+            <TouchableOpacity
+              onPress={() => setIsHistoryModalVisible(true)}
+              className={`ml-4 flex-row items-center rounded-full px-4 py-2 ${colors.buttonBackground}`}
+            >
+              <FontAwesome
+                name="history"
+                size={18}
+                color={colors.buttonText.split("-")[1]}
+              />
+              <Text className={`ml-2 text-sm font-bold ${colors.buttonText}`}>
+                History
+              </Text>
+            </TouchableOpacity>
+          </View>
           {getFieldError("exercise") && (
             <Text className={`mb-2 ${colors.errorText}`}>
               {getFieldError("exercise")}
             </Text>
           )}
-          <ExerciseHistoryModal
-            isVisible={isHistoryModalVisible}
-            onClose={() => setIsHistoryModalVisible(false)}
-            onSelect={handleSelectFromHistory}
-            previousExercises={previousExercises}
-          />
           <TextInput
             value={duration > 0 ? duration.toString() : ""}
             onChangeText={(text) => setDuration(parseInt(text) || 0)}
@@ -194,6 +197,12 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
           </TouchableOpacity>
         </View>
       </View>
+      <ExerciseHistoryModal
+        isVisible={isHistoryModalVisible}
+        onClose={() => setIsHistoryModalVisible(false)}
+        onSelect={handleSelectFromHistory}
+        previousExercises={previousExercises}
+      />
     </ImageBackground>
   );
 };

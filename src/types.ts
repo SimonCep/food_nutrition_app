@@ -67,6 +67,7 @@ export interface WaterFormProps {
   isLoading: boolean;
   validationErrors: Yup.ValidationError | null;
   isEditing: boolean;
+  userId: string;
 }
 
 export type WaterSectionProps = {
@@ -207,6 +208,13 @@ export interface ExerciseHistoryModalProps {
   onClose: () => void;
   onSelect: (exercise: Tables<"exercises">) => void;
   previousExercises: Tables<"exercises">[];
+}
+
+export interface WaterHistoryModalProps {
+  isVisible: boolean;
+  onClose: () => void;
+  onSelect: (water: Tables<"water_consumption">) => void;
+  previousWaterEntries: Tables<"water_consumption">[];
 }
 
 // Type helpers
