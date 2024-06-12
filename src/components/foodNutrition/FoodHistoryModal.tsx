@@ -40,7 +40,7 @@ const FoodHistoryModal: React.FC<FoodHistoryModalProps> = ({
     </TouchableOpacity>
   );
 
-  const recentFoodEntries = previousFoodEntries.slice(0, 20);
+  const recentFoodEntries = previousFoodEntries.slice(0, 14);
 
   return (
     <Modal visible={isVisible} animationType="slide">

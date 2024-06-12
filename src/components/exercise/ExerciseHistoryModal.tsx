@@ -41,7 +41,7 @@ const ExerciseHistoryModal: React.FC<ExerciseHistoryModalProps> = ({
     </TouchableOpacity>
   );
 
-  const recentExercises = previousExercises.slice(0, 15);
+  const recentExercises = previousExercises.slice(0, 14);
 
   return (
     <Modal visible={isVisible} animationType="slide">

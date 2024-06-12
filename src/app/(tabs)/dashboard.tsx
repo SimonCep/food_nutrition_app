@@ -115,11 +115,12 @@ const Dashboard = () => {
         try {
           const exercises = await fetchExercises(session.user.id);
           const filteredExercises = filterExercisesByWeek(exercises);
-          const data = [0, 0, 0, 0, 0, 0, 0]; // Initialize data for each day of the week
+
+          const data = [0, 0, 0, 0, 0, 0, 0];
           let total = 0;
 
           filteredExercises.forEach((exercise) => {
-            const dayIndex = new Date(exercise.created_at).getDay();
+            const dayIndex = (new Date(exercise.created_at).getDay() + 6) % 7;
             data[dayIndex] += exercise.duration;
             total += exercise.duration;
           });
@@ -141,7 +142,7 @@ const Dashboard = () => {
           if (userWeight) {
             const recommendedIntake = Math.round(
               (userWeight.weight * 35) / 1000,
-            ); // Convert to liters
+            );
             setRecommendedWaterIntake(recommendedIntake);
           }
         } catch (error) {

@@ -16,24 +16,28 @@ export const filterExercisesByDate = (
 
 export const filterExercisesByWeek = (exercises: Exercise[]): Exercise[] => {
   const today = new Date();
-  const currentDay = today.getUTCDay();
+  const currentDay = today.getDay();
+
   const startOfWeek = new Date(
-    Date.UTC(
-      today.getUTCFullYear(),
-      today.getUTCMonth(),
-      today.getUTCDate() - currentDay + (currentDay === 0 ? -6 : 1),
-    ),
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - (currentDay === 0 ? 6 : currentDay - 1),
+    0,
+    0,
+    0, // Set time to midnight
   );
+
   const endOfWeek = new Date(
-    Date.UTC(
-      startOfWeek.getUTCFullYear(),
-      startOfWeek.getUTCMonth(),
-      startOfWeek.getUTCDate() + 6,
-    ),
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() + (7 - currentDay),
+    23,
+    59,
+    59,
   );
 
   return exercises.filter((exercise) => {
     const exerciseDate = new Date(exercise.created_at);
-    return exerciseDate >= startOfWeek && exerciseDate < endOfWeek;
+    return exerciseDate >= startOfWeek && exerciseDate <= endOfWeek;
   });
 };

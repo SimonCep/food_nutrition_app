@@ -34,7 +34,7 @@ const WaterHistoryModal: React.FC<WaterHistoryModalProps> = ({
     </TouchableOpacity>
   );
 
-  const recentWaterEntries = previousWaterEntries.slice(0, 15);
+  const recentWaterEntries = previousWaterEntries.slice(0, 14);
 
   return (
     <Modal visible={isVisible} animationType="slide">
