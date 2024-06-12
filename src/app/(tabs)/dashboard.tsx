@@ -110,7 +110,7 @@ const Dashboard = () => {
   const [recommendedWaterIntake, setRecommendedWaterIntake] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchExerciseData = async () => {
       if (session?.user?.id) {
         try {
           const exercises = await fetchExercises(session.user.id);
@@ -130,6 +130,15 @@ const Dashboard = () => {
         } catch (error) {
           console.error("Error fetching exercise data:", error);
         }
+      }
+    };
+
+    fetchExerciseData();
+  }, [session?.user?.id, shouldRefreshExercises]);
+
+  useEffect(() => {
+    const fetchWaterData = async () => {
+      if (session?.user?.id) {
         try {
           const today = new Date();
           const totalConsumption = await calculateTotalWaterConsumption(
@@ -140,9 +149,7 @@ const Dashboard = () => {
 
           const userWeight = await fetchUserWeight(session.user.id);
           if (userWeight) {
-            const recommendedIntake = Math.round(
-              (userWeight.weight * 35) / 1000,
-            );
+            const recommendedIntake = (userWeight.weight * 40) / 1000;
             setRecommendedWaterIntake(recommendedIntake);
           }
         } catch (error) {
@@ -151,8 +158,8 @@ const Dashboard = () => {
       }
     };
 
-    fetchData();
-  }, [session?.user?.id, shouldRefreshExercises, shouldRefreshWater]);
+    fetchWaterData();
+  }, [session?.user?.id, shouldRefreshWater]);
 
   const waterConsumptionPercentage =
     recommendedWaterIntake > 0
