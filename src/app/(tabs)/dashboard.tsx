@@ -164,6 +164,8 @@ const Dashboard = () => {
     data: [waterConsumptionPercentage],
   };
 
+  const percentageText = `${Math.round(waterConsumptionPercentage * 100)}%`;
+
   return (
     <ImageBackground
       source={
@@ -331,15 +333,23 @@ const Dashboard = () => {
             </Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
             <View className="flex-row items-center">
-              <ProgressChart
-                data={waterConsumptionData}
-                width={150}
-                height={150}
-                strokeWidth={14}
-                radius={65}
-                chartConfig={chartConfigWater}
-                hideLegend={true}
-              />
+              <View className="w-38 h-38 relative flex items-center justify-center">
+                <ProgressChart
+                  data={waterConsumptionData}
+                  width={150}
+                  height={150}
+                  strokeWidth={14}
+                  radius={65}
+                  chartConfig={chartConfigWater}
+                  hideLegend={true}
+                />
+                <Text
+                  className="absolute text-3xl font-bold"
+                  style={{ color: colors.textColor }}
+                >
+                  {percentageText}
+                </Text>
+              </View>
               <View className="ml-6">
                 <Text className={`text-xl ${colors.textColor}`}>
                   <Text className="font-bold">
