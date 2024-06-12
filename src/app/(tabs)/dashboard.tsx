@@ -109,32 +109,17 @@ const Dashboard = () => {
   const [todayWaterConsumption, setTodayWaterConsumption] = useState(0);
   const [recommendedWaterIntake, setRecommendedWaterIntake] = useState(0);
 
-  useEffect(() => {
-    const fetchExerciseData = async () => {
-      if (session?.user?.id) {
-        try {
-          const exercises = await fetchExercises(session.user.id);
-          const filteredExercises = filterExercisesByWeek(exercises);
+  const waterConsumptionPercentage =
+    recommendedWaterIntake > 0
+      ? Math.min(todayWaterConsumption / recommendedWaterIntake, 1)
+      : 0;
 
-          const data = [0, 0, 0, 0, 0, 0, 0];
-          let total = 0;
+  const waterConsumptionData = {
+    labels: ["Water Consumption"],
+    data: [waterConsumptionPercentage],
+  };
 
-          filteredExercises.forEach((exercise) => {
-            const dayIndex = (new Date(exercise.created_at).getDay() + 6) % 7;
-            data[dayIndex] += exercise.duration;
-            total += exercise.duration;
-          });
-
-          setExerciseData(data);
-          setTotalMinutes(total);
-        } catch (error) {
-          console.error("Error fetching exercise data:", error);
-        }
-      }
-    };
-
-    fetchExerciseData();
-  }, [session?.user?.id, shouldRefreshExercises]);
+  const percentageText = `${Math.round(waterConsumptionPercentage * 100)}%`;
 
   useEffect(() => {
     const fetchWaterData = async () => {
@@ -161,17 +146,32 @@ const Dashboard = () => {
     fetchWaterData();
   }, [session?.user?.id, shouldRefreshWater]);
 
-  const waterConsumptionPercentage =
-    recommendedWaterIntake > 0
-      ? Math.min(todayWaterConsumption / recommendedWaterIntake, 1)
-      : 0;
+  useEffect(() => {
+    const fetchExerciseData = async () => {
+      if (session?.user?.id) {
+        try {
+          const exercises = await fetchExercises(session.user.id);
+          const filteredExercises = filterExercisesByWeek(exercises);
 
-  const waterConsumptionData = {
-    labels: ["Water Consumption"],
-    data: [waterConsumptionPercentage],
-  };
+          const data = [0, 0, 0, 0, 0, 0, 0];
+          let total = 0;
 
-  const percentageText = `${Math.round(waterConsumptionPercentage * 100)}%`;
+          filteredExercises.forEach((exercise) => {
+            const dayIndex = (new Date(exercise.created_at).getDay() + 6) % 7;
+            data[dayIndex] += exercise.duration;
+            total += exercise.duration;
+          });
+
+          setExerciseData(data);
+          setTotalMinutes(total);
+        } catch (error) {
+          console.error("Error fetching exercise data:", error);
+        }
+      }
+    };
+
+    fetchExerciseData();
+  }, [session?.user?.id, shouldRefreshExercises]);
 
   return (
     <ImageBackground
