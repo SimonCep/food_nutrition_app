@@ -181,6 +181,8 @@ export type DiaryContextType = {
   shouldRefreshCalories: boolean;
   refreshWater: () => void;
   shouldRefreshWater: boolean;
+  refreshExercises: () => void;
+  shouldRefreshExercises: boolean;
 };
 
 export type SectionData = {

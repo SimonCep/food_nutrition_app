@@ -14,10 +14,14 @@ import {
   PieChart,
   ProgressChart,
 } from "react-native-chart-kit";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useColorScheme } from "nativewind";
 
 import { darkColorsDashboard, lightColorsDashboard } from "@/constants/Colors";
+import { fetchExercises } from "@/api/exerciseService";
+import { useAuth } from "@/providers/AuthProvider";
+import { filterExercisesByWeek } from "@/utils/exerciseUtils";
+import { useDiaryContext } from "@/providers/DiaryProvider";
 
 const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -60,20 +64,6 @@ const Dashboard = () => {
     },
   ];
 
-  const columnChartData = {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43],
-      },
-    ],
-  };
-
-  const progressData = {
-    labels: ["Swim", "Bike", "Run"],
-    data: [0.4, 0.6, 0.8],
-  };
-
   // https://www.npmjs.com/package/react-native-chart-kit daugiau apie chart`us
 
   const chartConfig = {
@@ -98,6 +88,37 @@ const Dashboard = () => {
       //stroke: "#ffa726",
     },
   };
+
+  const [exerciseData, setExerciseData] = useState<number[]>([]);
+  const [totalMinutes, setTotalMinutes] = useState(0);
+  const { session } = useAuth();
+  const { shouldRefreshExercises } = useDiaryContext();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (session?.user?.id) {
+        try {
+          const exercises = await fetchExercises(session.user.id);
+          const filteredExercises = filterExercisesByWeek(exercises);
+          const data = [0, 0, 0, 0, 0, 0, 0]; // Initialize data for each day of the week
+          let total = 0;
+
+          filteredExercises.forEach((exercise) => {
+            const dayIndex = new Date(exercise.created_at).getDay();
+            data[dayIndex] += exercise.duration;
+            total += exercise.duration;
+          });
+
+          setExerciseData(data);
+          setTotalMinutes(total);
+        } catch (error) {
+          console.error("Error fetching exercise data:", error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [session?.user?.id, shouldRefreshExercises]);
 
   return (
     <ImageBackground
@@ -235,7 +256,7 @@ const Dashboard = () => {
           <View
             className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
           >
-            <Text className={`text-3xl ${colors.textColor}`}>Food intake</Text>
+            <Text className={`text-3xl ${colors.textColor}`}>Food Intake</Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
             <PieChart
               data={pieChartData}
@@ -262,54 +283,52 @@ const Dashboard = () => {
             className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
           >
             <Text className={`text-3xl ${colors.textColor}`}>
-              Monthly activity
+              Weekly Exercise Activity
             </Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
             <BarChart
-              data={columnChartData}
+              data={{
+                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                datasets: [{ data: exerciseData }],
+              }}
               width={screenWidth}
               height={280}
               yAxisLabel=""
-              yAxisSuffix=""
+              yAxisSuffix=" min"
               chartConfig={chartConfig}
               verticalLabelRotation={290}
               xLabelsOffset={25}
               showValuesOnTopOfBars={true}
             />
-            <TouchableOpacity
-              //onPress={handle...}
-              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-end px-4 py-2`}
-            >
-              <Text className={`${colors.buttonText} text-center font-bold`}>
-                Add entry
+            <View className="mt-4">
+              <Text className={`text-lg ${colors.textColor}`}>
+                Total minutes this week: {totalMinutes}
               </Text>
-            </TouchableOpacity>
-          </View>
-
-          <View
-            className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
-          >
-            <Text className={`text-3xl ${colors.textColor}`}>
-              Daily activity
-            </Text>
-            <View className="my-5 w-full border-b border-gray-300"></View>
-            <ProgressChart
-              data={progressData}
-              width={screenWidth}
-              height={200}
-              strokeWidth={16}
-              radius={32}
-              chartConfig={chartConfig}
-              hideLegend={false}
-            />
-            <TouchableOpacity
-              //onPress={handle...}
-              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-end px-4 py-2`}
-            >
-              <Text className={`${colors.buttonText} text-center font-bold`}>
-                Add entry
-              </Text>
-            </TouchableOpacity>
+              {totalMinutes >= 150 ? (
+                <View className="mt-4 rounded-lg bg-green-500 p-4">
+                  <Text className="text-center text-lg font-bold text-white">
+                    Congratulations! 🎉
+                  </Text>
+                  <Text className="mt-2 text-center text-white">
+                    You have reached the recommended 150 minutes of exercise
+                    this week. Keep up the great work!
+                  </Text>
+                </View>
+              ) : (
+                <View className="mt-4 rounded-lg bg-yellow-600 p-4">
+                  <Text
+                    className={`text-center text-lg font-bold ${colors.textColor}`}
+                  >
+                    Keep Pushing! 💪
+                  </Text>
+                  <Text className={`mt-2 text-center ${colors.textColor}`}>
+                    You're {150 - totalMinutes} minutes away from reaching the
+                    recommended 150 minutes of exercise this week. Let's get
+                    moving!
+                  </Text>
+                </View>
+              )}
+            </View>
           </View>
         </View>
       </ScrollView>

@@ -169,6 +169,7 @@ export const lightColorsDashboard = {
   textColor: "text-black",
   style: "rgba(0, 0, 0,",
   chartLabel: "#000000",
+  successText: "text-green-500",
 };
 
 export const darkColorsDashboard = {
@@ -180,6 +181,7 @@ export const darkColorsDashboard = {
   textColor: "text-white",
   style: "rgba(255, 255, 255,",
   chartLabel: "#FFFFFF",
+  successText: "text-green-500",
 };
 
 export const lightColorsSettingsGoals = {
