@@ -22,11 +22,7 @@ import { fetchExercises } from "@/api/exerciseService";
 import { useAuth } from "@/providers/AuthProvider";
 import { filterExercisesByWeek } from "@/utils/exerciseUtils";
 import { useDiaryContext } from "@/providers/DiaryProvider";
-import { fetchWaterConsumption } from "@/api/waterService";
-import {
-  calculateTotalWaterConsumption,
-  filterWaterConsumptionByDate,
-} from "@/utils/waterUtils";
+import { calculateTotalWaterConsumption } from "@/utils/waterUtils";
 import { fetchUserWeight } from "@/api/userWeightService";
 
 const Dashboard = () => {
