@@ -22,6 +22,12 @@ import { fetchExercises } from "@/api/exerciseService";
 import { useAuth } from "@/providers/AuthProvider";
 import { filterExercisesByWeek } from "@/utils/exerciseUtils";
 import { useDiaryContext } from "@/providers/DiaryProvider";
+import { fetchWaterConsumption } from "@/api/waterService";
+import {
+  calculateTotalWaterConsumption,
+  filterWaterConsumptionByDate,
+} from "@/utils/waterUtils";
+import { fetchUserWeight } from "@/api/userWeightService";
 
 const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -89,10 +95,23 @@ const Dashboard = () => {
     },
   };
 
+  const chartConfigWater = {
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientFrom: "#DCFCE7",
+    backgroundGradientToOpacity: 0,
+    backgroundGradientTo: "#DCFCE7",
+    color: (opacity = 1) => `rgba(30, 136, 229, ${opacity})`,
+    strokeWidth: 2,
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false,
+  };
+
+  const { session } = useAuth();
   const [exerciseData, setExerciseData] = useState<number[]>([]);
   const [totalMinutes, setTotalMinutes] = useState(0);
-  const { session } = useAuth();
-  const { shouldRefreshExercises } = useDiaryContext();
+  const { shouldRefreshExercises, shouldRefreshWater } = useDiaryContext();
+  const [todayWaterConsumption, setTodayWaterConsumption] = useState(0);
+  const [recommendedWaterIntake, setRecommendedWaterIntake] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -114,11 +133,39 @@ const Dashboard = () => {
         } catch (error) {
           console.error("Error fetching exercise data:", error);
         }
+        try {
+          const today = new Date();
+          const totalConsumption = await calculateTotalWaterConsumption(
+            session.user.id,
+            today,
+          );
+          setTodayWaterConsumption(totalConsumption);
+
+          const userWeight = await fetchUserWeight(session.user.id);
+          if (userWeight) {
+            const recommendedIntake = Math.round(
+              (userWeight.weight * 35) / 1000,
+            ); // Convert to liters
+            setRecommendedWaterIntake(recommendedIntake);
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
       }
     };
 
     fetchData();
-  }, [session?.user?.id, shouldRefreshExercises]);
+  }, [session?.user?.id, shouldRefreshExercises, shouldRefreshWater]);
+
+  const waterConsumptionPercentage =
+    recommendedWaterIntake > 0
+      ? Math.min(todayWaterConsumption / recommendedWaterIntake, 1)
+      : 0;
+
+  const waterConsumptionData = {
+    labels: ["Water Consumption"],
+    data: [waterConsumptionPercentage],
+  };
 
   return (
     <ImageBackground
@@ -277,6 +324,40 @@ const Dashboard = () => {
                 Add entry
               </Text>
             </TouchableOpacity>
+          </View>
+
+          <View
+            className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
+          >
+            <Text className={`text-3xl ${colors.textColor}`}>
+              Today's Water Consumption
+            </Text>
+            <View className="my-5 w-full border-b border-gray-300"></View>
+            <View className="flex-row items-center">
+              <ProgressChart
+                data={waterConsumptionData}
+                width={150}
+                height={150}
+                strokeWidth={14}
+                radius={65}
+                chartConfig={chartConfigWater}
+                hideLegend={true}
+              />
+              <View className="ml-6">
+                <Text className={`text-xl ${colors.textColor}`}>
+                  <Text className="font-bold">
+                    {todayWaterConsumption.toFixed(2)}
+                  </Text>{" "}
+                  l
+                </Text>
+                <Text className={`text-lg text-gray-500`}>
+                  of {recommendedWaterIntake.toFixed(2)} l
+                </Text>
+                <Text className={`mt-2 text-sm text-gray-400`}>
+                  Recommended Intake
+                </Text>
+              </View>
+            </View>
           </View>
 
           <View
