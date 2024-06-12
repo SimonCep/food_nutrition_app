@@ -345,7 +345,7 @@ const Dashboard = () => {
                 />
                 <Text
                   className="absolute text-3xl font-bold"
-                  style={{ color: colors.textColor }}
+                  style={{ color: colors.percentageText }}
                 >
                   {percentageText}
                 </Text>
