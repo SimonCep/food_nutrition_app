@@ -74,7 +74,7 @@ const Dashboard = () => {
     backgroundGradientFrom: "#DCFCE7",
     backgroundGradientToOpacity: 0,
     backgroundGradientTo: "#DCFCE7",
-    decimalPlaces: 2,
+    decimalPlaces: 1,
     color: (opacity = 1) => `${colors.style} ${opacity})`,
     labelColor: (opacity = 1) => `${colors.style} ${opacity})`,
     strokeWidth: 1,
