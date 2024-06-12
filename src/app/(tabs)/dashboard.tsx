@@ -393,7 +393,9 @@ const Dashboard = () => {
                 Total minutes this week: {totalMinutes}
               </Text>
               {totalMinutes >= 150 ? (
-                <View className="mt-4 rounded-lg bg-green-500 p-4">
+                <View
+                  className={`mt-4 rounded-lg ${colors.islandBackgroundCongratulations} p-4`}
+                >
                   <Text className="text-center text-lg font-bold text-white">
                     Congratulations! 🎉
                   </Text>
@@ -403,7 +405,9 @@ const Dashboard = () => {
                   </Text>
                 </View>
               ) : (
-                <View className="mt-4 rounded-lg bg-yellow-600 p-4">
+                <View
+                  className={`mt-4 rounded-lg ${colors.islandBackgroundKeepPushing} p-4`}
+                >
                   <Text
                     className={`text-center text-lg font-bold ${colors.textColor}`}
                   >

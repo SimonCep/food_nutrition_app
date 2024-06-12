@@ -170,6 +170,8 @@ export const lightColorsDashboard = {
   style: "rgba(0, 0, 0,",
   chartLabel: "#000000",
   successText: "text-green-500",
+  islandBackgroundKeepPushing: "bg-yellow-100",
+  islandBackgroundCongratulations: "bg-teal-500",
 };
 
 export const darkColorsDashboard = {
@@ -181,7 +183,9 @@ export const darkColorsDashboard = {
   textColor: "text-white",
   style: "rgba(255, 255, 255,",
   chartLabel: "#FFFFFF",
-  successText: "text-green-500",
+  successText: "text-green-300",
+  islandBackgroundKeepPushing: "bg-yellow-600",
+  islandBackgroundCongratulations: "bg-teal-600",
 };
 
 export const lightColorsSettingsGoals = {
