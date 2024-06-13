@@ -183,6 +183,8 @@ export type DiaryContextType = {
   shouldRefreshWater: boolean;
   refreshExercises: () => void;
   shouldRefreshExercises: boolean;
+  refreshFood: () => void;
+  shouldRefreshFood: boolean;
 };
 
 export type SectionData = {

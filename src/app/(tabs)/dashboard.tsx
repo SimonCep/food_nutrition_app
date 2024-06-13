@@ -26,7 +26,9 @@ import { useDiaryContext } from "@/providers/DiaryProvider";
 import { calculateTotalWaterConsumption } from "@/utils/waterUtils";
 import { fetchUserWeight } from "@/api/userWeightService";
 import { fetchPersonalData } from "@/api/personalDataService";
-import { FoodRecommendations } from "@/types";
+import { FoodRecommendations, Tables } from "@/types";
+import { fetchFoodNutrition } from "@/api/nutritionService";
+import { filterFoodNutritionByDate } from "@/utils/foodUtils";
 
 const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -44,30 +46,6 @@ const Dashboard = () => {
       },
     ],
   };
-
-  const pieChartData = [
-    {
-      name: "Carbohydrates",
-      population: 15,
-      color: "#FFFF5F",
-      legendFontColor: `${colors.chartLabel}`,
-      legendFontSize: 12,
-    },
-    {
-      name: "Protein",
-      population: 20,
-      color: "#85FF5F",
-      legendFontColor: `${colors.chartLabel}`,
-      legendFontSize: 12,
-    },
-    {
-      name: "Fat",
-      population: 25,
-      color: "#5FD6FF",
-      legendFontColor: `${colors.chartLabel}`,
-      legendFontSize: 12,
-    },
-  ];
 
   // https://www.npmjs.com/package/react-native-chart-kit daugiau apie chart`us
 
@@ -108,7 +86,8 @@ const Dashboard = () => {
   const { session } = useAuth();
   const [exerciseData, setExerciseData] = useState<number[]>([]);
   const [totalMinutes, setTotalMinutes] = useState(0);
-  const { shouldRefreshExercises, shouldRefreshWater } = useDiaryContext();
+  const { shouldRefreshExercises, shouldRefreshWater, shouldRefreshFood } =
+    useDiaryContext();
   const [todayWaterConsumption, setTodayWaterConsumption] = useState(0);
   const [recommendedWaterIntake, setRecommendedWaterIntake] = useState(0);
 
@@ -175,6 +154,68 @@ const Dashboard = () => {
 
     fetchExerciseData();
   }, [session?.user?.id, shouldRefreshExercises]);
+
+  const [nutritionData, setNutritionData] = useState<Tables<"nutrition">[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (session?.user?.id) {
+        const data = await fetchFoodNutrition(session.user.id);
+        const today = new Date();
+        const filteredData = filterFoodNutritionByDate(data, today);
+        setNutritionData(filteredData);
+      }
+    };
+
+    fetchData();
+  }, [session?.user?.id, shouldRefreshFood]);
+
+  const calculateMacronutrients = () => {
+    let totalCalories = 0;
+    let totalProtein = 0;
+    let totalCarbohydrates = 0;
+    let totalFat = 0;
+
+    nutritionData.forEach((item) => {
+      totalCalories += item.calories;
+      totalProtein += item.protein ?? 0;
+      totalCarbohydrates += item.carbohydrates ?? 0;
+      totalFat += item.fat ?? 0;
+    });
+
+    return {
+      calories: totalCalories,
+      protein: totalProtein,
+      carbohydrates: totalCarbohydrates,
+      fat: totalFat,
+    };
+  };
+
+  const { calories, protein, carbohydrates, fat } = calculateMacronutrients();
+
+  const pieChartData = [
+    {
+      name: "Carbohydrates",
+      population: carbohydrates,
+      color: "#FFFF5F",
+      legendFontColor: `${colors.chartLabel}`,
+      legendFontSize: 12,
+    },
+    {
+      name: "Protein",
+      population: protein,
+      color: "#85FF5F",
+      legendFontColor: `${colors.chartLabel}`,
+      legendFontSize: 12,
+    },
+    {
+      name: "Fat",
+      population: fat,
+      color: "#5FD6FF",
+      legendFontColor: `${colors.chartLabel}`,
+      legendFontSize: 12,
+    },
+  ];
 
   const [healthIssues, setHealthIssues] = useState<string[]>([]);
   const [currentIssueIndex, setCurrentIssueIndex] = useState(0);
@@ -470,27 +511,34 @@ const Dashboard = () => {
           <View
             className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
           >
-            <Text className={`text-3xl ${colors.textColor}`}>Food Intake</Text>
+            <Text className={`text-3xl ${colors.textColor}`}>
+              Today's Macronutrients
+            </Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
-            <PieChart
-              data={pieChartData}
-              width={screenWidth}
-              height={200}
-              chartConfig={chartConfig}
-              accessor="population"
-              backgroundColor="transparent"
-              paddingLeft="10"
-              center={[0, 0]}
-              absolute
-            />
-            <TouchableOpacity
-              //onPress={handle...}
-              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-end px-4 py-2`}
-            >
-              <Text className={`${colors.buttonText} text-center font-bold`}>
-                Add entry
-              </Text>
-            </TouchableOpacity>
+            {fat > 0 || protein > 0 || carbohydrates > 0 ? (
+              <>
+                <PieChart
+                  data={pieChartData}
+                  width={screenWidth}
+                  height={200}
+                  chartConfig={chartConfig}
+                  accessor="population"
+                  backgroundColor="transparent"
+                  paddingLeft="10"
+                  center={[0, 0]}
+                  absolute
+                />
+                <Text className={`mt-4 text-lg ${colors.textColor}`}>
+                  Total Calories: {calories}
+                </Text>
+              </>
+            ) : (
+              <View className="items-center justify-center">
+                <Text className={`text-lg text-gray-500`}>
+                  No data available. Go on, add some food!
+                </Text>
+              </View>
+            )}
           </View>
 
           <View

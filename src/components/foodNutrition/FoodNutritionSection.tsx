@@ -71,7 +71,8 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [holdingFoodId, setHoldingFoodId] = useState<number | null>(null);
   const [editingFood, setEditingFood] = useState<FoodNutrition | null>(null);
-  const { foodUpdated, setFoodUpdated, refreshCalories } = useDiaryContext();
+  const { foodUpdated, setFoodUpdated, refreshCalories, refreshFood } =
+    useDiaryContext();
 
   useEffect(() => {
     const fetchFoodNutritionData = async () => {
@@ -218,6 +219,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
         setFoods(filteredExercises);
         setFoodUpdated(true);
         refreshCalories();
+        refreshFood();
       } else {
         Alert.alert(
           "Error",
@@ -256,6 +258,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
           setIsDeleteModalVisible(false);
           setFoodUpdated(true);
           refreshCalories();
+          refreshFood();
         } else {
           Alert.alert("Error", "Failed to delete food. Please try again.");
         }

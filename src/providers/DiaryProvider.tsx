@@ -21,6 +21,8 @@ const DiaryContext = createContext<DiaryContextType>({
   refreshWater: () => {},
   shouldRefreshExercises: false,
   refreshExercises: () => {},
+  shouldRefreshFood: false,
+  refreshFood: () => {},
 });
 
 const DiaryProvider = ({ children }: Readonly<PropsWithChildren>) => {
@@ -30,6 +32,7 @@ const DiaryProvider = ({ children }: Readonly<PropsWithChildren>) => {
   const [shouldRefreshCalories, setShouldRefreshCalories] = useState(false);
   const [shouldRefreshWater, setShouldRefreshWater] = useState(false);
   const [shouldRefreshExercises, setShouldRefreshExercises] = useState(false);
+  const [shouldRefreshFood, setShouldRefreshFood] = useState(false);
 
   const refreshCalories = () => {
     setShouldRefreshCalories((prevValue) => !prevValue);
@@ -41,6 +44,10 @@ const DiaryProvider = ({ children }: Readonly<PropsWithChildren>) => {
 
   const refreshExercises = () => {
     setShouldRefreshExercises((prevValue) => !prevValue);
+  };
+
+  const refreshFood = () => {
+    setShouldRefreshFood((prevValue) => !prevValue);
   };
 
   const contextValue = useMemo(
@@ -57,6 +64,8 @@ const DiaryProvider = ({ children }: Readonly<PropsWithChildren>) => {
       shouldRefreshWater,
       refreshExercises,
       shouldRefreshExercises,
+      refreshFood,
+      shouldRefreshFood,
     }),
     [
       waterUpdated,
@@ -68,6 +77,7 @@ const DiaryProvider = ({ children }: Readonly<PropsWithChildren>) => {
       shouldRefreshCalories,
       shouldRefreshWater,
       shouldRefreshExercises,
+      shouldRefreshFood,
     ],
   );
 

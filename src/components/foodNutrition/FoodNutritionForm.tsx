@@ -108,6 +108,8 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
     setCalories(selectedFoodEntry.calories);
     // Optional values
     setBrand(selectedFoodEntry.brand);
+    setCarbohydrates(selectedFoodEntry.carbohydrates);
+    setProtein(selectedFoodEntry.protein);
     setFat(selectedFoodEntry.fat);
     setSaturatedFat(selectedFoodEntry.saturated_fat);
     setPolyunsaturatedFat(selectedFoodEntry.polyunsaturated_fat);
@@ -116,12 +118,10 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
     setCholesterol(selectedFoodEntry.cholesterol);
     setSodium(selectedFoodEntry.sodium);
     setPotassium(selectedFoodEntry.potassium);
-    setCarbohydrates(selectedFoodEntry.carbohydrates);
     setFiber(selectedFoodEntry.fiber);
     setSugar(selectedFoodEntry.sugar);
     setAddedSugars(selectedFoodEntry.added_sugars);
     setSugarAlcohols(selectedFoodEntry.sugar_alcohols);
-    setProtein(selectedFoodEntry.protein);
     setVitaminA(selectedFoodEntry.vitamin_a);
     setVitaminC(selectedFoodEntry.vitamin_c);
     setVitaminD(selectedFoodEntry.vitamin_d);
@@ -249,9 +249,31 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
                   className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
                 />
                 <TextInput
+                  value={
+                    carbohydrates != null && carbohydrates > 0
+                      ? carbohydrates.toString()
+                      : ""
+                  }
+                  onChangeText={(text) => setCarbohydrates(parseInt(text) || 0)}
+                  placeholder="Total Carbohydrates (g) (Optional)"
+                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                  keyboardType="numeric"
+                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+                />
+                <TextInput
                   value={fat != null && fat > 0 ? fat.toString() : ""}
                   onChangeText={(text) => setFat(parseInt(text) || 0)}
                   placeholder="Total Fat (g) (Optional)"
+                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                  keyboardType="numeric"
+                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+                />
+                <TextInput
+                  value={
+                    protein != null && protein > 0 ? protein.toString() : ""
+                  }
+                  onChangeText={(text) => setProtein(parseInt(text) || 0)}
+                  placeholder="Protein (g) (Optional)"
                   placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
                   keyboardType="numeric"
                   className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
@@ -339,18 +361,6 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
                   className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
                 />
                 <TextInput
-                  value={
-                    carbohydrates != null && carbohydrates > 0
-                      ? carbohydrates.toString()
-                      : ""
-                  }
-                  onChangeText={(text) => setCarbohydrates(parseInt(text) || 0)}
-                  placeholder="Total Carbohydrates (g) (Optional)"
-                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-                  keyboardType="numeric"
-                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-                />
-                <TextInput
                   value={fiber != null && fiber > 0 ? fiber.toString() : ""}
                   onChangeText={(text) => setFiber(parseInt(text) || 0)}
                   placeholder="Dietary Fiber (g) (Optional)"
@@ -386,16 +396,6 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
                   }
                   onChangeText={(text) => setSugarAlcohols(parseInt(text) || 0)}
                   placeholder="Sugar Alcohols (g) (Optional)"
-                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-                  keyboardType="numeric"
-                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-                />
-                <TextInput
-                  value={
-                    protein != null && protein > 0 ? protein.toString() : ""
-                  }
-                  onChangeText={(text) => setProtein(parseInt(text) || 0)}
-                  placeholder="Protein (g) (Optional)"
                   placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
                   keyboardType="numeric"
                   className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
