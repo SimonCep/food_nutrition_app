@@ -568,7 +568,7 @@ const Dashboard = () => {
                   <PieChart
                     data={pieChartData}
                     width={screenWidth * 0.8}
-                    height={200}
+                    height={160}
                     chartConfig={chartConfig}
                     accessor="population"
                     backgroundColor="transparent"
