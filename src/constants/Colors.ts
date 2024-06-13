@@ -174,6 +174,8 @@ export const lightColorsDashboard = {
   islandBackgroundCongratulations: "bg-teal-500",
   percentageText: "#000000",
   arrowColor: "black",
+  islandBackgroundWaterAlmostThere: "bg-blue-100",
+  islandBackgroundWaterCongratulations: "bg-blue-500",
 };
 
 export const darkColorsDashboard = {
@@ -190,6 +192,8 @@ export const darkColorsDashboard = {
   islandBackgroundCongratulations: "bg-teal-600",
   percentageText: "#FFFFFF",
   arrowColor: "white",
+  islandBackgroundWaterAlmostThere: "bg-blue-400",
+  islandBackgroundWaterCongratulations: "bg-blue-600",
 };
 
 export const lightColorsSettingsGoals = {

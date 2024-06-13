@@ -566,6 +566,35 @@ const Dashboard = () => {
                 </Text>
               </View>
             </View>
+            {todayWaterConsumption >= recommendedWaterIntake ? (
+              <View
+                className={`mt-4 rounded-lg ${colors.islandBackgroundWaterCongratulations} p-4`}
+              >
+                <Text className="text-center text-lg font-bold text-white">
+                  Way to go! 💧
+                </Text>
+                <Text className="mt-2 text-center text-white">
+                  You've reached your recommended water intake for today. Keep
+                  staying hydrated and feeling great!
+                </Text>
+              </View>
+            ) : (
+              <View
+                className={`mt-4 rounded-lg ${colors.islandBackgroundWaterAlmostThere} p-4`}
+              >
+                <Text
+                  className={`text-center text-lg font-bold ${colors.textColor}`}
+                >
+                  Almost there! 💦
+                </Text>
+                <Text className={`mt-2 text-center ${colors.textColor}`}>
+                  You're{" "}
+                  {(recommendedWaterIntake - todayWaterConsumption).toFixed(2)}{" "}
+                  l away from reaching your recommended water intake for today.
+                  Drink up and stay hydrated!
+                </Text>
+              </View>
+            )}
           </View>
 
           <View
