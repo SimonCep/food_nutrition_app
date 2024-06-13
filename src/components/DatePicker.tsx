@@ -3,10 +3,10 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { useColorScheme } from "nativewind";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 
 import { darkColorsDiary, lightColorsDiary } from "@/constants/Colors";
 import { DatePickerProps } from "@/types";
-import { useTranslation } from "react-i18next";
 
 const DatePicker: React.FC<DatePickerProps> = ({
   selectedDate,

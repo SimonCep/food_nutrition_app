@@ -16,6 +16,7 @@ import {
 } from "react-native-chart-kit";
 import React, { useEffect, useState } from "react";
 import { useColorScheme } from "nativewind";
+import { Ionicons } from "@expo/vector-icons";
 
 import { darkColorsDashboard, lightColorsDashboard } from "@/constants/Colors";
 import { fetchExercises } from "@/api/exerciseService";
@@ -24,6 +25,8 @@ import { filterExercisesByWeek } from "@/utils/exerciseUtils";
 import { useDiaryContext } from "@/providers/DiaryProvider";
 import { calculateTotalWaterConsumption } from "@/utils/waterUtils";
 import { fetchUserWeight } from "@/api/userWeightService";
+import { fetchPersonalData } from "@/api/personalDataService";
+import { FoodRecommendations } from "@/types";
 
 const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -74,7 +77,7 @@ const Dashboard = () => {
     backgroundGradientFrom: "#DCFCE7",
     backgroundGradientToOpacity: 0,
     backgroundGradientTo: "#DCFCE7",
-    decimalPlaces: 1,
+    decimalPlaces: 0,
     color: (opacity = 1) => `${colors.style} ${opacity})`,
     labelColor: (opacity = 1) => `${colors.style} ${opacity})`,
     strokeWidth: 1,
@@ -173,6 +176,141 @@ const Dashboard = () => {
     fetchExerciseData();
   }, [session?.user?.id, shouldRefreshExercises]);
 
+  const [healthIssues, setHealthIssues] = useState<string[]>([]);
+  const [currentIssueIndex, setCurrentIssueIndex] = useState(0);
+  const healthIssueOptions = [
+    { label: "None", value: "noneSelected" },
+    { label: "Heart disease", value: "heartDisease" },
+    { label: "Thyroid gland disorders", value: "thyroidGlandDisorders" },
+    { label: "Lactose intolerance", value: "lactoseIntolerance" },
+    { label: "Celiac Disease", value: "celiacDisease" },
+    { label: "Hypertension (High Blood Pressure)", value: "hypertension" },
+    { label: "Diabetes", value: "diabetes" },
+    { label: "Kidney Disease", value: "kidneyDisease" },
+  ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (session?.user?.id) {
+        const personalData = await fetchPersonalData(session.user.id);
+        if (personalData) {
+          setHealthIssues(personalData.health_issues);
+        }
+      }
+    };
+
+    fetchData();
+  }, [session?.user?.id]);
+
+  const handleIssueChange = (index: number) => {
+    setCurrentIssueIndex((prevIndex) => {
+      const newIndex = prevIndex + index;
+      if (newIndex < 0) {
+        return healthIssues.length - 1;
+      } else if (newIndex >= healthIssues.length) {
+        return 0;
+      } else {
+        return newIndex;
+      }
+    });
+  };
+
+  if (healthIssues.length === 0) {
+    return null; // or display a loading state
+  }
+
+  const currentIssueValue = healthIssues[currentIssueIndex];
+
+  const getHealthIssueLabel = (value: string) => {
+    const option = healthIssueOptions.find((option) => option.value === value);
+    return option ? option.label : "";
+  };
+
+  const currentIssueLabel = getHealthIssueLabel(currentIssueValue);
+
+  const showArrows = healthIssues.length > 1;
+
+  const foodRecommendations: FoodRecommendations = {
+    heartDisease: {
+      moreText:
+        "Fruits, vegetables, whole grains, lean proteins (e.g., poultry, fish), nuts, seeds, legumes, olive oil.",
+      lessText:
+        "Saturated and trans fats (e.g., fatty meats, processed foods), high-sodium foods (e.g., canned soups, processed snacks), sugary beverages.",
+      avoidText:
+        "Trans fats, excessive saturated fats, high-sodium processed foods.",
+    },
+    thyroidGlandDisorders: {
+      moreText:
+        "Iodine-rich foods (e.g., iodized salt, seafood), selenium-rich foods (e.g., Brazil nuts, fish), fruits, vegetables, lean proteins.",
+      lessText:
+        "Goitrogens (e.g., cruciferous vegetables like broccoli, cabbage, kale, if consumed raw in large amounts), excessive soy products.",
+      avoidText:
+        "There are no strict prohibitions for all cases; dietary adjustments depend on the individual's specific condition and medication.",
+    },
+    lactoseIntolerance: {
+      moreText:
+        "Lactose-free dairy products (e.g., lactose-free milk), lactose-free alternatives (e.g., almond milk, soy milk), lactase-treated dairy products, calcium-fortified foods.",
+      lessText:
+        "Dairy products containing lactose (e.g., milk, cheese, yogurt).",
+      avoidText: "Foods containing lactose.",
+    },
+    celiacDisease: {
+      moreText:
+        "Naturally gluten-free grains (e.g., rice, quinoa), fruits, vegetables, lean proteins, dairy products, certified gluten-free products.",
+      lessText:
+        "Gluten-containing grains (e.g., wheat, barley, rye), processed foods with hidden gluten (e.g., sauces, soups, processed meats).",
+      avoidText: "Gluten-containing grains and any products made from them.",
+    },
+    hypertension: {
+      moreText:
+        "Fruits, vegetables, whole grains, lean proteins, low-fat dairy products, potassium-rich foods.",
+      lessText:
+        "High-sodium foods (e.g., processed foods, canned soups, salty snacks), excess saturated fats, sugary beverages.",
+      avoidText:
+        "High-sodium foods, excessive saturated fats, sugary beverages.",
+    },
+    diabetes: {
+      moreText:
+        "Complex carbohydrates, fiber-rich foods, lean proteins, healthy fats (e.g., olive oil, nuts, avocado), non-starchy vegetables.",
+      lessText:
+        "Sugary beverages, refined carbohydrates, processed snacks, high-sugar desserts.",
+      avoidText:
+        "Foods high in refined sugars, sugary beverages, excessive carbohydrate intake.",
+    },
+    kidneyDisease: {
+      moreText:
+        "Low-phosphorus proteins (e.g., poultry, fish, egg whites), fruits, vegetables (in moderation), whole grains, limited dairy products.",
+      lessText:
+        "High-phosphorus foods (e.g., dairy, nuts, seeds), high-potassium foods (e.g., bananas, oranges, potatoes), excessive sodium.",
+      avoidText:
+        "High-phosphorus foods, high-potassium foods, excessive sodium.",
+    },
+  };
+
+  const currentFoodRecommendation =
+    foodRecommendations[currentIssueValue] || {};
+
+  const getHealthIssueDescription = (value: string) => {
+    switch (value) {
+      case "heartDisease":
+        return "Conditions affecting the heart's functioning, including coronary artery disease and heart failure. A heart-healthy diet emphasizes fruits, vegetables, lean proteins, and healthy fats while avoiding saturated fats and excess sodium.";
+      case "thyroidGlandDisorders":
+        return "Imbalances in thyroid hormone production, such as hypothyroidism or hyperthyroidism. Dietary recommendations may include iodine-rich foods for thyroid function support.";
+      case "lactoseIntolerance":
+        return "Inability to digest lactose, the sugar found in milk and dairy products, leading to digestive discomfort. Individuals should opt for lactose-free alternatives or lactase-treated dairy products.";
+      case "celiacDisease":
+        return "Autoimmune disorder triggered by gluten consumption, causing damage to the small intestine. Treatment involves strict adherence to a gluten-free diet, avoiding gluten-containing grains like wheat, barley, and rye.";
+      case "hypertension":
+        return "High blood pressure, a risk factor for heart disease and stroke. Dietary modifications focus on reducing sodium intake and increasing potassium-rich foods like fruits and vegetables.";
+      case "diabetes":
+        return "Chronic condition affecting blood sugar regulation, characterized by insulin resistance or deficiency. Dietary management involves controlling carbohydrate intake, consuming fiber-rich foods, and avoiding sugary beverages.";
+      case "kidneyDisease":
+        return "Impaired kidney function, leading to electrolyte imbalances and fluid retention. Dietary recommendations may include limiting phosphorus, potassium, and sodium intake while ensuring adequate protein intake.";
+      default:
+        return "";
+    }
+  };
+
   return (
     <ImageBackground
       source={
@@ -194,9 +332,37 @@ const Dashboard = () => {
             <Text className={`text-3xl ${colors.textColor}`}>Health</Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
 
-            <Text className={`pb-5 text-2xl ${colors.textColor}`}>
-              Heart issues
-            </Text>
+            <View className="flex-row items-center justify-between px-6 py-4">
+              {showArrows && (
+                <TouchableOpacity
+                  onPress={() => handleIssueChange(-1)}
+                  className={`rounded-full p-4`}
+                >
+                  <Ionicons
+                    name="chevron-back"
+                    size={24}
+                    color={colors.arrowColor}
+                  />
+                </TouchableOpacity>
+              )}
+
+              <Text className={`text-2xl ${colors.textColor}`}>
+                {currentIssueLabel}
+              </Text>
+
+              {showArrows && (
+                <TouchableOpacity
+                  onPress={() => handleIssueChange(1)}
+                  className={`rounded-full p-4`}
+                >
+                  <Ionicons
+                    name="chevron-forward"
+                    size={24}
+                    color={colors.arrowColor}
+                  />
+                </TouchableOpacity>
+              )}
+            </View>
 
             <Text className={`self-start text-2xl ${colors.textColor}`}>
               Foods to eat <Text className="text-green-500">more</Text>:
@@ -204,8 +370,7 @@ const Dashboard = () => {
             <Text
               className={`self-start pl-3 text-left text-[15px] ${colors.textColor}`}
             >
-              Fruits, vegetables, whole grains, lean proteins (e.g., poultry,
-              fish), nuts, seeds, legumes, olive oil.
+              {currentFoodRecommendation.moreText || ""}
             </Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
 
@@ -215,11 +380,9 @@ const Dashboard = () => {
             <Text
               className={`self-start pl-3 text-left text-[15px] ${colors.textColor}`}
             >
-              Saturated and trans fats (e.g., fatty meats, processed foods),
-              high-sodium foods (e.g., canned soups, processed snacks), sugary
-              beverages.
+              {currentFoodRecommendation.lessText || ""}
             </Text>
-            <View className={"my-5 w-full border-b border-gray-300"}></View>
+            <View className="my-5 w-full border-b border-gray-300"></View>
 
             <Text className={`self-start text-2xl ${colors.textColor}`}>
               Foods to <Text className="text-red-500">avoid</Text>:
@@ -227,7 +390,7 @@ const Dashboard = () => {
             <Text
               className={`self-start pl-3 text-left text-[15px] ${colors.textColor}`}
             >
-              Trans fats, excessive saturated fats, high-sodium processed foods.
+              {currentFoodRecommendation.avoidText || ""}
             </Text>
 
             <TouchableOpacity
@@ -259,12 +422,10 @@ const Dashboard = () => {
                       />
                     </View>
                   </View>
-                  <Text className={`pb-5 text-2xl ${colors.buttonText}`}>
-                    Conditions affecting the heart's functioning, including
-                    coronary artery disease and heart failure. A heart-healthy
-                    diet emphasizes fruits, vegetables, lean proteins, and
-                    healthy fats while avoiding saturated fats and excess
-                    sodium.
+                  <Text
+                    className={`pb-5 text-center text-2xl ${colors.buttonText}`}
+                  >
+                    {getHealthIssueDescription(currentIssueValue)}
                   </Text>
                   <TouchableOpacity
                     onPress={() => setModalVisible(false)}

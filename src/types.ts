@@ -227,6 +227,24 @@ export interface FoodHistoryModalProps {
   previousFoodEntries: Tables<"nutrition">[];
 }
 
+export interface FoodRecommendation {
+  moreText: string;
+  lessText: string;
+  avoidText: string;
+}
+
+export interface FoodRecommendations {
+  [key: string]: FoodRecommendation;
+  heartDisease: FoodRecommendation;
+  thyroidGlandDisorders: FoodRecommendation;
+  lactoseIntolerance: FoodRecommendation;
+  celiacDisease: FoodRecommendation;
+  hypertension: FoodRecommendation;
+  diabetes: FoodRecommendation;
+  kidneyDisease: FoodRecommendation;
+  // Add more health issues and their corresponding food recommendations
+}
+
 // Type helpers
 export type Tables<T extends keyof Database["public"]["Tables"]> =
   Database["public"]["Tables"][T]["Row"];

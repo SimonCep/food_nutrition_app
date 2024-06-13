@@ -7,6 +7,7 @@ import {
   ImageBackground,
 } from "react-native";
 import { useColorScheme } from "nativewind";
+import { useTranslation } from "react-i18next";
 
 import ExerciseSection from "@/components/exercise/ExerciseSection";
 import WaterSection from "@/components/water/WaterSection";
@@ -22,7 +23,6 @@ import {
 } from "@/utils/calorieUtils";
 import { calculateTotalWaterConsumption } from "@/utils/waterUtils";
 import { useDiaryContext } from "@/providers/DiaryProvider";
-import { useTranslation } from "react-i18next";
 
 const Diary = () => {
   const { t } = useTranslation();

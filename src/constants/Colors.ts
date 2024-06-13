@@ -173,6 +173,7 @@ export const lightColorsDashboard = {
   islandBackgroundKeepPushing: "bg-yellow-100",
   islandBackgroundCongratulations: "bg-teal-500",
   percentageText: "#000000",
+  arrowColor: "black",
 };
 
 export const darkColorsDashboard = {
@@ -188,6 +189,7 @@ export const darkColorsDashboard = {
   islandBackgroundKeepPushing: "bg-yellow-600",
   islandBackgroundCongratulations: "bg-teal-600",
   percentageText: "#FFFFFF",
+  arrowColor: "white",
 };
 
 export const lightColorsSettingsGoals = {
