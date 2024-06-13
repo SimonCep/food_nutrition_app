@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
-  FlatList,
+  ScrollView,
 } from "react-native";
 import { useColorScheme } from "nativewind";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -189,126 +189,127 @@ const EditPersonalData: React.FC = () => {
   const colors =
     colorScheme === "dark" ? darkColorsSettingsGoals : lightColorsSettingsGoals;
 
-  const renderContent = () => (
-    <View
-      className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} items-right justify-start p-5 shadow-md`}
-    >
-      <Text className={`mb-2 text-lg ${colors.textColor}`}>Gender</Text>
-      <DropDownPicker
-        open={open1}
-        value={gender}
-        items={items1}
-        setOpen={setOpen1}
-        setValue={setGender}
-        setItems={setItems1}
-      />
-      {getFieldError("gender") && (
-        <Text className={`self-start ${colors.errorText}`}>
-          {getFieldError("gender")}
-        </Text>
-      )}
-
-      <Text className={`mb-2 mt-3 text-lg ${colors.textColor}`}>Age</Text>
-      <TextInput
-        className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
-        value={age}
-        onChangeText={setAge}
-        keyboardType="numeric"
-      />
-      {getFieldError("age") && (
-        <Text className={`self-start ${colors.errorText}`}>
-          {getFieldError("age")}
-        </Text>
-      )}
-
-      <Text className={`mb-2 text-lg ${colors.textColor}`}>Height (cm)</Text>
-      <TextInput
-        className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
-        value={height}
-        onChangeText={setHeight}
-        keyboardType="numeric"
-      />
-      {getFieldError("height") && (
-        <Text className={`self-start ${colors.errorText}`}>
-          {getFieldError("height")}
-        </Text>
-      )}
-
-      <Text className={`mb-2 text-lg ${colors.textColor}`}>Weight (kg)</Text>
-      <TextInput
-        className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
-        value={weight}
-        onChangeText={setWeight}
-        keyboardType="numeric"
-      />
-      {getFieldError("weight") && (
-        <Text className={`self-start ${colors.errorText}`}>
-          {getFieldError("weight")}
-        </Text>
-      )}
-
-      <Text className={`mb-2 text-lg ${colors.textColor}`}>Health Issues</Text>
-      <DropDownPicker
-        open={open2}
-        value={healthIssues}
-        items={items2}
-        setOpen={setOpen2}
-        setValue={handleHealthIssuesChange}
-        setItems={setItems2}
-        multiple={true}
-        zIndex={2000}
-      />
-      {getFieldError("healthIssues") && (
-        <Text className={`self-start ${colors.errorText}`}>
-          {getFieldError("healthIssues")}
-        </Text>
-      )}
-
-      <Text className={`mb-2 mt-3 text-lg ${colors.textColor}`}>
-        Dietary Goals
-      </Text>
-      <DropDownPicker
-        open={open3}
-        value={dietaryGoals}
-        items={items3}
-        setOpen={setOpen3}
-        setValue={handleDietaryGoalsChange}
-        setItems={setItems3}
-        multiple={true}
-        zIndex={1000}
-      />
-      {getFieldError("dietaryGoals") && (
-        <Text className={`self-start ${colors.errorText}`}>
-          {getFieldError("dietaryGoals")}
-        </Text>
-      )}
-
-      <TouchableOpacity
-        onPress={handleSavePersonalData}
-        disabled={loading}
-        className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-center px-4 py-2`}
-      >
-        {loading ? (
-          <ActivityIndicator
-            color={colors.buttonText.split("-")[1]}
-            size="small"
-          />
-        ) : (
-          <Text className={`${colors.buttonText} text-center font-bold`}>
-            Save
-          </Text>
-        )}
-      </TouchableOpacity>
-    </View>
-  );
-
   return (
     <View className={`flex-1 px-10 py-20 ${colors.background}`}>
-      <FlatList
-        data={[null]}
-        renderItem={renderContent}
-        keyExtractor={() => "editPersonalData"}
-      />
+      <ScrollView>
+        <View
+          className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} items-right justify-start p-5 shadow-md`}
+        >
+          <Text className={`mb-2 text-lg ${colors.textColor}`}>Gender</Text>
+          <DropDownPicker
+            open={open1}
+            value={gender}
+            items={items1}
+            setOpen={setOpen1}
+            setValue={setGender}
+            setItems={setItems1}
+          />
+          {getFieldError("gender") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("gender")}
+            </Text>
+          )}
+
+          <Text className={`mb-2 mt-3 text-lg ${colors.textColor}`}>Age</Text>
+          <TextInput
+            className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
+            value={age}
+            onChangeText={setAge}
+            keyboardType="numeric"
+          />
+          {getFieldError("age") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("age")}
+            </Text>
+          )}
+
+          <Text className={`mb-2 text-lg ${colors.textColor}`}>
+            Height (cm)
+          </Text>
+          <TextInput
+            className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
+            value={height}
+            onChangeText={setHeight}
+            keyboardType="numeric"
+          />
+          {getFieldError("height") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("height")}
+            </Text>
+          )}
+
+          <Text className={`mb-2 text-lg ${colors.textColor}`}>
+            Weight (kg)
+          </Text>
+          <TextInput
+            className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
+            value={weight}
+            onChangeText={setWeight}
+            keyboardType="numeric"
+          />
+          {getFieldError("weight") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("weight")}
+            </Text>
+          )}
+
+          <Text className={`mb-2 text-lg ${colors.textColor}`}>
+            Health Issues
+          </Text>
+          <DropDownPicker
+            open={open2}
+            value={healthIssues}
+            items={items2}
+            setOpen={setOpen2}
+            setValue={handleHealthIssuesChange}
+            setItems={setItems2}
+            multiple={true}
+            zIndex={2000}
+            dropDownDirection={"TOP"}
+          />
+          {getFieldError("healthIssues") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("healthIssues")}
+            </Text>
+          )}
+
+          <Text className={`mb-2 mt-3 text-lg ${colors.textColor}`}>
+            Dietary Goals
+          </Text>
+          <DropDownPicker
+            open={open3}
+            value={dietaryGoals}
+            items={items3}
+            setOpen={setOpen3}
+            setValue={handleDietaryGoalsChange}
+            setItems={setItems3}
+            multiple={true}
+            zIndex={1000}
+          />
+          {getFieldError("dietaryGoals") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("dietaryGoals")}
+            </Text>
+          )}
+
+          <TouchableOpacity
+            onPress={handleSavePersonalData}
+            disabled={loading}
+            className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-center px-4 py-2`}
+          >
+            {loading ? (
+              <ActivityIndicator
+                color={colors.buttonText.split("-")[1]}
+                size="small"
+              />
+            ) : (
+              <Text className={`${colors.buttonText} text-center font-bold`}>
+                Save
+              </Text>
+            )}
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };

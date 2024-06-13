@@ -220,7 +220,7 @@ const Dashboard = () => {
   const [healthIssues, setHealthIssues] = useState<string[]>([]);
   const [currentIssueIndex, setCurrentIssueIndex] = useState(0);
   const healthIssueOptions = [
-    { label: "None", value: "noneSelected" },
+    { label: "No Health Issues", value: "noneSelected" },
     { label: "Heart disease", value: "heartDisease" },
     { label: "Thyroid gland disorders", value: "thyroidGlandDisorders" },
     { label: "Lactose intolerance", value: "lactoseIntolerance" },
@@ -272,6 +272,14 @@ const Dashboard = () => {
   const showArrows = healthIssues.length > 1;
 
   const foodRecommendations: FoodRecommendations = {
+    noneSelected: {
+      moreText:
+        "Fruits, vegetables, whole grains, lean proteins (e.g., poultry, fish, legumes), healthy fats (e.g., nuts, seeds, olive oil), low-fat dairy products.",
+      lessText:
+        "Processed foods, sugary beverages, excessive saturated and trans fats, high-sodium foods.",
+      avoidText:
+        "There are no strict prohibitions for a generally healthy diet, but it's best to limit processed foods, added sugars, and excessive saturated fats.",
+    },
     heartDisease: {
       moreText:
         "Fruits, vegetables, whole grains, lean proteins (e.g., poultry, fish), nuts, seeds, legumes, olive oil.",
@@ -333,6 +341,8 @@ const Dashboard = () => {
 
   const getHealthIssueDescription = (value: string) => {
     switch (value) {
+      case "noneSelected":
+        return "For individuals without specific health concerns, a balanced diet rich in fruits, vegetables, whole grains, lean proteins, and healthy fats promotes overall well-being and helps prevent chronic diseases.";
       case "heartDisease":
         return "Conditions affecting the heart's functioning, including coronary artery disease and heart failure. A heart-healthy diet emphasizes fruits, vegetables, lean proteins, and healthy fats while avoiding saturated fats and excess sodium.";
       case "thyroidGlandDisorders":
@@ -364,7 +374,7 @@ const Dashboard = () => {
       <ScrollView>
         <View className="flex-grow items-center p-5">
           <Text className={`pb-5 text-4xl ${colors.textColor}`}>
-            Your journey
+            Your Journey
           </Text>
 
           <View
@@ -481,31 +491,6 @@ const Dashboard = () => {
                 </View>
               </View>
             </Modal>
-          </View>
-
-          <View
-            className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
-          >
-            <Text className={`text-3xl ${colors.textColor}`}>Weight</Text>
-            <View className="my-5 w-full border-b border-gray-300"></View>
-            <LineChart
-              data={lineData}
-              width={screenWidth}
-              height={300}
-              chartConfig={chartConfig}
-              verticalLabelRotation={290}
-              xLabelsOffset={25}
-              yAxisInterval={1}
-              bezier // padaro smooth lines
-            />
-            <TouchableOpacity
-              //onPress={handle...}
-              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-end px-4 py-2`}
-            >
-              <Text className={`${colors.buttonText} text-center font-bold`}>
-                Add entry
-              </Text>
-            </TouchableOpacity>
           </View>
 
           <View

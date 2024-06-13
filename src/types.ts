@@ -237,6 +237,7 @@ export interface FoodRecommendation {
 
 export interface FoodRecommendations {
   [key: string]: FoodRecommendation;
+  noneSelected: FoodRecommendation;
   heartDisease: FoodRecommendation;
   thyroidGlandDisorders: FoodRecommendation;
   lactoseIntolerance: FoodRecommendation;
@@ -244,7 +245,6 @@ export interface FoodRecommendations {
   hypertension: FoodRecommendation;
   diabetes: FoodRecommendation;
   kidneyDisease: FoodRecommendation;
-  // Add more health issues and their corresponding food recommendations
 }
 
 // Type helpers

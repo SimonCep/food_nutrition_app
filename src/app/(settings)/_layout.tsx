@@ -10,7 +10,7 @@ export default function SettingsLayout() {
       <Stack.Screen name="editProfile" options={{ title: t("LAYSTKuser") }} />
       <Stack.Screen
         name="editPersonalData"
-        options={{ title: t("LAYSTKgoal") }}
+        options={{ title: t("LAYSTKpersonalData") }}
       />
       <Stack.Screen
         name="accountSecurity"
