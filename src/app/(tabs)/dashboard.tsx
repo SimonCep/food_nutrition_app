@@ -605,7 +605,7 @@ const Dashboard = () => {
               showValuesOnTopOfBars={true}
             />
             <View className="mt-4">
-              <Text className={`text-lg ${colors.textColor}`}>
+              <Text className={`text-center text-lg ${colors.textColor}`}>
                 Total minutes this week: {totalMinutes}
               </Text>
               {totalMinutes >= 150 ? (
