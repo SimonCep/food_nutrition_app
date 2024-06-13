@@ -29,6 +29,7 @@ import { fetchPersonalData } from "@/api/personalDataService";
 import { FoodRecommendations, Tables } from "@/types";
 import { fetchFoodNutrition } from "@/api/nutritionService";
 import { filterFoodNutritionByDate } from "@/utils/foodUtils";
+import { fetchUserHeight } from "@/api/userHeightService";
 
 const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -156,6 +157,11 @@ const Dashboard = () => {
   }, [session?.user?.id, shouldRefreshExercises]);
 
   const [nutritionData, setNutritionData] = useState<Tables<"nutrition">[]>([]);
+  const [userGoal, setUserGoal] = useState<string | null>(null);
+  const [userWeight, setUserWeight] = useState<number | null>(null);
+  const [userHeight, setUserHeight] = useState<number | null>(null);
+  const [userAge, setUserAge] = useState<number | null>(null);
+  const [userGender, setUserGender] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -164,11 +170,50 @@ const Dashboard = () => {
         const today = new Date();
         const filteredData = filterFoodNutritionByDate(data, today);
         setNutritionData(filteredData);
+
+        const weightData = await fetchUserWeight(session.user.id);
+        setUserWeight(weightData?.weight ?? null);
+
+        const heightData = await fetchUserHeight(session.user.id);
+        setUserHeight(heightData?.height ?? null);
+
+        const personalData = await fetchPersonalData(session.user.id);
+        setUserGoal(personalData?.dietary_goals ?? null);
+        setUserAge(personalData?.age ?? null);
+        setUserGender(personalData?.gender ?? null);
       }
     };
 
     fetchData();
   }, [session?.user?.id, shouldRefreshFood]);
+
+  const calculateCalorieGoal = () => {
+    if (!userWeight || !userHeight || !userAge || !userGender || !userGoal)
+      return null;
+
+    let bmr = 0;
+
+    if (userGender === "male") {
+      bmr = 10 * userWeight + 6.25 * userHeight - 5 * userAge + 5;
+    } else if (userGender === "female") {
+      bmr = 10 * userWeight + 6.25 * userHeight - 5 * userAge - 161;
+    }
+
+    switch (userGoal) {
+      case "loseWeight":
+        return bmr * 0.8;
+      case "gainWeight":
+        return bmr * 1.2;
+      case "increaseMuscle":
+        return bmr * 1.1;
+      case "improveHealth":
+        return bmr;
+      default:
+        return null;
+    }
+  };
+
+  const calorieGoal = calculateCalorieGoal();
 
   const calculateMacronutrients = () => {
     let totalCalories = 0;
@@ -516,6 +561,11 @@ const Dashboard = () => {
                 <Text className={`mt-4 text-lg ${colors.textColor}`}>
                   Total Calories: {calories}
                 </Text>
+                {calorieGoal && (
+                  <Text className={`mt-2 text-lg ${colors.textColor}`}>
+                    Calorie Goal: {calorieGoal.toFixed(0)}
+                  </Text>
+                )}
               </>
             ) : (
               <View className="items-center justify-center">
