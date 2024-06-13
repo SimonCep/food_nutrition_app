@@ -176,6 +176,10 @@ export const lightColorsDashboard = {
   arrowColor: "black",
   islandBackgroundWaterAlmostThere: "bg-blue-100",
   islandBackgroundWaterCongratulations: "bg-blue-500",
+  activityIndicatorColor: "#000000",
+  islandBackgroundMacroAlmostThere: "bg-green-100",
+  islandBackgroundMacroCongratulations: "bg-green-400",
+  islandBackgroundMacroExceeded: "bg-orange-100",
 };
 
 export const darkColorsDashboard = {
@@ -194,6 +198,10 @@ export const darkColorsDashboard = {
   arrowColor: "white",
   islandBackgroundWaterAlmostThere: "bg-blue-400",
   islandBackgroundWaterCongratulations: "bg-blue-600",
+  activityIndicatorColor: "#FFFFFF",
+  islandBackgroundMacroAlmostThere: "bg-green-500",
+  islandBackgroundMacroCongratulations: "bg-green-600",
+  islandBackgroundMacroExceeded: "bg-orange-600",
 };
 
 export const lightColorsSettingsGoals = {

@@ -7,13 +7,9 @@ import {
   TouchableOpacity,
   Modal,
   Image,
+  ActivityIndicator,
 } from "react-native";
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-} from "react-native-chart-kit";
+import { BarChart, PieChart, ProgressChart } from "react-native-chart-kit";
 import React, { useEffect, useState } from "react";
 import { useColorScheme } from "nativewind";
 import { Ionicons } from "@expo/vector-icons";
@@ -21,7 +17,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { darkColorsDashboard, lightColorsDashboard } from "@/constants/Colors";
 import { fetchExercises } from "@/api/exerciseService";
 import { useAuth } from "@/providers/AuthProvider";
-import { filterExercisesByWeek } from "@/utils/exerciseUtils";
+import {
+  filterExercisesByDate,
+  filterExercisesByWeek,
+} from "@/utils/exerciseUtils";
 import { useDiaryContext } from "@/providers/DiaryProvider";
 import { calculateTotalWaterConsumption } from "@/utils/waterUtils";
 import { fetchUserWeight } from "@/api/userWeightService";
@@ -30,6 +29,7 @@ import { FoodRecommendations, Tables } from "@/types";
 import { fetchFoodNutrition } from "@/api/nutritionService";
 import { filterFoodNutritionByDate } from "@/utils/foodUtils";
 import { fetchUserHeight } from "@/api/userHeightService";
+import { usePersonalDataContext } from "@/providers/PersonalDataProvider";
 
 const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -38,15 +38,6 @@ const Dashboard = () => {
     colorScheme === "dark" ? darkColorsDashboard : lightColorsDashboard;
 
   const screenWidth = (Dimensions.get("window").width * 10) / 12;
-
-  const lineData = {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-      {
-        data: [72, 73, 72, 73, 73.5, 74.2],
-      },
-    ],
-  };
 
   // https://www.npmjs.com/package/react-native-chart-kit daugiau apie chart`us
 
@@ -91,6 +82,7 @@ const Dashboard = () => {
     useDiaryContext();
   const [todayWaterConsumption, setTodayWaterConsumption] = useState(0);
   const [recommendedWaterIntake, setRecommendedWaterIntake] = useState(0);
+  const { shouldRefreshPersonalData } = usePersonalDataContext();
 
   const waterConsumptionPercentage =
     recommendedWaterIntake > 0
@@ -127,7 +119,7 @@ const Dashboard = () => {
     };
 
     fetchWaterData();
-  }, [session?.user?.id, shouldRefreshWater]);
+  }, [session?.user?.id, shouldRefreshWater, shouldRefreshPersonalData]);
 
   useEffect(() => {
     const fetchExerciseData = async () => {
@@ -162,6 +154,9 @@ const Dashboard = () => {
   const [userHeight, setUserHeight] = useState<number | null>(null);
   const [userAge, setUserAge] = useState<number | null>(null);
   const [userGender, setUserGender] = useState<string | null>(null);
+  const [exerciseDataCalories, setExerciseDataCalories] = useState<
+    Tables<"exercises">[]
+  >([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -181,11 +176,20 @@ const Dashboard = () => {
         setUserGoal(personalData?.dietary_goals ?? null);
         setUserAge(personalData?.age ?? null);
         setUserGender(personalData?.gender ?? null);
+
+        const exerciseData = await fetchExercises(session.user.id);
+        const todayExercises = filterExercisesByDate(exerciseData, today);
+        setExerciseDataCalories(todayExercises);
       }
     };
 
     fetchData();
-  }, [session?.user?.id, shouldRefreshFood]);
+  }, [
+    session?.user?.id,
+    shouldRefreshFood,
+    shouldRefreshExercises,
+    shouldRefreshPersonalData,
+  ]);
 
   const calculateCalorieGoal = () => {
     if (!userWeight || !userHeight || !userAge || !userGender || !userGoal)
@@ -227,6 +231,15 @@ const Dashboard = () => {
       totalCarbohydrates += item.carbohydrates ?? 0;
       totalFat += item.fat ?? 0;
     });
+
+    // Calculate total exercise calories
+    const totalExerciseCalories = exerciseDataCalories.reduce(
+      (total, exercise) => total + (exercise.calories ?? 0),
+      0,
+    );
+
+    // Subtract exercise calories from total calories
+    totalCalories -= totalExerciseCalories;
 
     return {
       calories: totalCalories,
@@ -286,7 +299,7 @@ const Dashboard = () => {
     };
 
     fetchData();
-  }, [session?.user?.id]);
+  }, [session?.user?.id, shouldRefreshPersonalData]);
 
   const handleIssueChange = (index: number) => {
     setCurrentIssueIndex((prevIndex) => {
@@ -302,7 +315,11 @@ const Dashboard = () => {
   };
 
   if (healthIssues.length === 0) {
-    return null; // or display a loading state
+    return (
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator size="large" color={colors.activityIndicatorColor} />
+      </View>
+    );
   }
 
   const currentIssueValue = healthIssues[currentIssueIndex];
@@ -545,26 +562,89 @@ const Dashboard = () => {
               Today's Macronutrients
             </Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
-            {fat > 0 || protein > 0 || carbohydrates > 0 ? (
+            {calories > 0 ? (
               <>
-                <PieChart
-                  data={pieChartData}
-                  width={screenWidth}
-                  height={200}
-                  chartConfig={chartConfig}
-                  accessor="population"
-                  backgroundColor="transparent"
-                  paddingLeft="10"
-                  center={[0, 0]}
-                  absolute
-                />
-                <Text className={`mt-4 text-lg ${colors.textColor}`}>
-                  Total Calories: {calories}
-                </Text>
-                {calorieGoal && (
-                  <Text className={`mt-2 text-lg ${colors.textColor}`}>
-                    Calorie Goal: {calorieGoal.toFixed(0)}
+                <View className="items-center justify-center">
+                  <PieChart
+                    data={pieChartData}
+                    width={screenWidth * 0.8}
+                    height={200}
+                    chartConfig={chartConfig}
+                    accessor="population"
+                    backgroundColor="transparent"
+                    paddingLeft="10"
+                    center={[0, 0]}
+                    absolute
+                  />
+                </View>
+                <View className="mt-4 items-center">
+                  <Text className={`text-xl ${colors.textColor}`}>
+                    <Text className="font-bold">{calories}</Text> calories
                   </Text>
+                  {calorieGoal ? (
+                    <>
+                      <Text className={`mt-2 text-lg text-gray-500`}>
+                        of {calorieGoal.toFixed(0)} calories
+                      </Text>
+                      <Text className={`mt-2 text-sm text-gray-400`}>
+                        Calorie Goal
+                      </Text>
+                    </>
+                  ) : null}
+                </View>
+                {calorieGoal && calories >= calorieGoal ? (
+                  calories > calorieGoal * 1.2 ? (
+                    <View
+                      className={`mt-4 rounded-lg ${colors.islandBackgroundMacroExceeded} p-4`}
+                    >
+                      <Text
+                        className={`text-center text-lg font-bold ${colors.textColor}`}
+                      >
+                        Oops! You exceeded your calorie goal. 🐷
+                      </Text>
+                      <Text className={`mt-2 text-center ${colors.textColor}`}>
+                        Try to be mindful of your calorie intake and make
+                        healthier choices tomorrow. Don't worry, you've got
+                        this!
+                      </Text>
+                    </View>
+                  ) : (
+                    <View
+                      className={`mt-4 rounded-lg ${colors.islandBackgroundMacroCongratulations} p-4`}
+                    >
+                      <Text
+                        className={`${colors.textColor} text-center text-lg font-bold`}
+                      >
+                        Awesome job! 🍽️
+                      </Text>
+                      <Text className={`${colors.textColor} mt-2 text-center`}>
+                        You've reached your calorie goal for today. Keep fueling
+                        your body with healthy and nutritious food!
+                      </Text>
+                    </View>
+                  )
+                ) : (
+                  <View
+                    className={`mt-4 rounded-lg ${colors.islandBackgroundMacroAlmostThere} p-4`}
+                  >
+                    <Text
+                      className={`text-center text-lg font-bold ${colors.textColor}`}
+                    >
+                      Keep going! 🍒
+                    </Text>
+                    {calorieGoal ? (
+                      <Text className={`mt-2 text-center ${colors.textColor}`}>
+                        You're {(calorieGoal - calories).toFixed(0)} calories
+                        away from reaching your calorie goal for today. Fuel up
+                        with healthy and balanced meals!
+                      </Text>
+                    ) : (
+                      <Text className={`mt-2 text-center ${colors.textColor}`}>
+                        Keep tracking your calories to reach your daily goal.
+                        Fuel up with healthy and balanced meals!
+                      </Text>
+                    )}
+                  </View>
                 )}
               </>
             ) : (

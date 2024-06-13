@@ -13,6 +13,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import AuthProvider from "@/providers/AuthProvider";
 import DiaryProvider from "@/providers/DiaryProvider";
+import PersonalDataProvider from "@/providers/PersonalDataProvider";
 
 import "../../global.css"; // For Tailwind CSS styles. XDDDD
 
@@ -53,9 +54,11 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
-        <DiaryProvider>
-          <RootLayoutNav />
-        </DiaryProvider>
+        <PersonalDataProvider>
+          <DiaryProvider>
+            <RootLayoutNav />
+          </DiaryProvider>
+        </PersonalDataProvider>
       </AuthProvider>
     </GestureHandlerRootView>
   );

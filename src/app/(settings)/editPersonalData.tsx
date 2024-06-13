@@ -28,6 +28,7 @@ import {
   userHeightValidationSchema,
   userWeightValidationSchema,
 } from "@/utils/validationSchemas";
+import { usePersonalDataContext } from "@/providers/PersonalDataProvider";
 
 const EditPersonalData: React.FC = () => {
   const { session } = useAuth();
@@ -64,6 +65,8 @@ const EditPersonalData: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [validationErrors, setValidationErrors] =
     useState<Yup.ValidationError | null>(null);
+
+  const { refreshPersonalData } = usePersonalDataContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -151,6 +154,7 @@ const EditPersonalData: React.FC = () => {
 
         if (updatedPersonalData && updatedHeight && updatedWeight) {
           Alert.alert("Success", "Personal data saved successfully!");
+          refreshPersonalData();
         } else {
           Alert.alert(
             "Error",

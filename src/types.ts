@@ -247,6 +247,23 @@ export interface FoodRecommendations {
   kidneyDisease: FoodRecommendation;
 }
 
+export type PersonalDataContextType = {
+  height: number;
+  setHeight: (height: number) => void;
+  weight: number;
+  setWeight: (weight: number) => void;
+  age: number;
+  setAge: (age: number) => void;
+  gender: string;
+  setGender: (gender: string) => void;
+  healthIssues: string[];
+  setHealthIssues: (healthIssues: string[]) => void;
+  dietaryGoals: string;
+  setDietaryGoals: (dietaryGoals: string) => void;
+  shouldRefreshPersonalData: boolean;
+  refreshPersonalData: () => void;
+};
+
 // Type helpers
 export type Tables<T extends keyof Database["public"]["Tables"]> =
   Database["public"]["Tables"][T]["Row"];
