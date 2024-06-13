@@ -52,11 +52,12 @@ const EditPersonalData: React.FC = () => {
     { label: "Diabetes", value: "diabetes" },
     { label: "Kidney Disease", value: "kidneyDisease" },
   ]);
-  const [dietaryGoals, setDietaryGoals] = useState<string[]>([]);
+  const [dietaryGoals, setDietaryGoals] = useState<string>("");
   const [open3, setOpen3] = useState(false);
   const [items3, setItems3] = useState([
     { label: "None", value: "noneSelected" },
     { label: "Lose weight", value: "loseWeight" },
+    { label: "Gain weight", value: "gainWeight" },
     { label: "Increase muscle mass", value: "increaseMuscle" },
     { label: "Improve overall health", value: "improveHealth" },
   ]);
@@ -77,7 +78,7 @@ const EditPersonalData: React.FC = () => {
           setHeight(userHeight?.height?.toString() ?? "");
           setWeight(userWeight?.weight?.toString() ?? "");
           setHealthIssues(personalData?.health_issues || []);
-          setDietaryGoals(personalData?.dietary_goals || []);
+          setDietaryGoals(personalData?.dietary_goals ?? "");
         } catch (error) {
           console.error("Error fetching personal data:", error);
           Alert.alert(
@@ -100,19 +101,6 @@ const EditPersonalData: React.FC = () => {
     callback: (prevState: string[]) => string[],
   ) => {
     setHealthIssues((prevSelectedValues) => {
-      const newSelectedValues = callback(prevSelectedValues);
-      if (newSelectedValues.includes("noneSelected")) {
-        return ["noneSelected"];
-      } else {
-        return newSelectedValues.filter((value) => value !== "noneSelected");
-      }
-    });
-  };
-
-  const handleDietaryGoalsChange = (
-    callback: (prevState: string[]) => string[],
-  ) => {
-    setDietaryGoals((prevSelectedValues) => {
       const newSelectedValues = callback(prevSelectedValues);
       if (newSelectedValues.includes("noneSelected")) {
         return ["noneSelected"];
@@ -281,9 +269,9 @@ const EditPersonalData: React.FC = () => {
             value={dietaryGoals}
             items={items3}
             setOpen={setOpen3}
-            setValue={handleDietaryGoalsChange}
+            setValue={setDietaryGoals}
             setItems={setItems3}
-            multiple={true}
+            multiple={false}
             zIndex={1000}
           />
           {getFieldError("dietaryGoals") && (

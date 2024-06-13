@@ -67,7 +67,7 @@ const SignUpScreen = () => {
     age: number,
     gender: string,
     healthIssues: string[],
-    dietaryGoals: string[],
+    dietaryGoals: string,
   ) => {
     try {
       setIsLoading(true);

@@ -9,7 +9,7 @@ export const insertPersonalData = async (
   age: number,
   gender: string,
   healthIssues: string[],
-  dietaryGoals: string[],
+  dietaryGoals: string,
 ) => {
   try {
     await personalDataValidationSchema.validate({
@@ -70,7 +70,7 @@ export const updatePersonalData = async (
   age: number | undefined,
   gender: string | undefined,
   healthIssues: string[] | undefined,
-  dietaryGoals: string[] | undefined,
+  dietaryGoals: string | undefined,
 ) => {
   try {
     await personalDataValidationSchema.validate({

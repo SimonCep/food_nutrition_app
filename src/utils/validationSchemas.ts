@@ -73,10 +73,7 @@ export const personalDataValidationSchema = Yup.object().shape({
     .of(Yup.string())
     .min(1, "Please select at least one health issue")
     .required("Health issues are required"),
-  dietaryGoals: Yup.array()
-    .of(Yup.string())
-    .min(1, "Please select at least one dietary goal")
-    .required("Dietary goals are required"),
+  dietaryGoals: Yup.string().required("Dietary goals are required"),
 });
 
 export const userHeightValidationSchema = Yup.object().shape({

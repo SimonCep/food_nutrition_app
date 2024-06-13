@@ -202,7 +202,7 @@ export interface PersonalDataModalProps {
     age: number,
     gender: string,
     healthIssues: string[],
-    dietaryGoals: string[],
+    dietaryGoals: string,
   ) => Promise<void>;
   validationErrors: Yup.ValidationError | null;
   isLoading: boolean;

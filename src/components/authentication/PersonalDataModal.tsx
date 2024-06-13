@@ -43,10 +43,11 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
   ]);
 
   const [open3, setOpen3] = useState(false);
-  const [dietaryGoals, setDietaryGoals] = useState<string[]>([]);
+  const [dietaryGoals, setDietaryGoals] = useState<string>("");
   const [items3, setItems3] = useState([
     { label: "None", value: "noneSelected" },
     { label: "Lose weight", value: "loseWeight" },
+    { label: "Gain weight", value: "gainWeight" },
     { label: "Increase muscle mass", value: "increaseMuscle" },
     { label: "Improve overall health", value: "improveHealth" },
   ]);
@@ -60,19 +61,6 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
     callback: (prevState: string[]) => string[],
   ) => {
     setHealthIssues((prevSelectedValues) => {
-      const newSelectedValues = callback(prevSelectedValues);
-      if (newSelectedValues.includes("noneSelected")) {
-        return ["noneSelected"];
-      } else {
-        return newSelectedValues.filter((value) => value !== "noneSelected");
-      }
-    });
-  };
-
-  const handleDietaryGoalsChange = (
-    callback: (prevState: string[]) => string[],
-  ) => {
-    setDietaryGoals((prevSelectedValues) => {
       const newSelectedValues = callback(prevSelectedValues);
       if (newSelectedValues.includes("noneSelected")) {
         return ["noneSelected"];
@@ -202,9 +190,9 @@ const PersonalDataModal: React.FC<PersonalDataModalProps> = ({
               value={dietaryGoals}
               items={items3}
               setOpen={setOpen3}
-              setValue={handleDietaryGoalsChange}
+              setValue={setDietaryGoals}
               setItems={setItems3}
-              multiple={true}
+              multiple={false}
               zIndex={1000}
             />
             {getFieldError("dietaryGoals") && (
