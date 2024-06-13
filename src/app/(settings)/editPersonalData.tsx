@@ -181,7 +181,7 @@ const EditPersonalData: React.FC = () => {
     <View className={`flex-1 px-10 py-20 ${colors.background}`}>
       <ScrollView>
         <View
-          className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} items-right justify-start p-5 shadow-md`}
+          className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} items-right justify-start p-5`}
         >
           <Text className={`mb-2 text-lg ${colors.textColor}`}>Gender</Text>
           <DropDownPicker
