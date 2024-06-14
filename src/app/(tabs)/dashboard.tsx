@@ -232,13 +232,11 @@ const Dashboard = () => {
       totalFat += item.fat ?? 0;
     });
 
-    // Calculate total exercise calories
     const totalExerciseCalories = exerciseDataCalories.reduce(
       (total, exercise) => total + (exercise.calories ?? 0),
       0,
     );
 
-    // Subtract exercise calories from total calories
     totalCalories -= totalExerciseCalories;
 
     return {
