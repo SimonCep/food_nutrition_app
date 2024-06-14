@@ -86,6 +86,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
     Tables<"nutrition">[]
   >([]);
   const [isHistoryModalVisible, setIsHistoryModalVisible] = useState(false);
+  const [showMacronutrients, setShowMacronutrients] = useState(false);
 
   useEffect(() => {
     const fetchPreviousFoodEntries = async () => {
@@ -99,6 +100,13 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
 
     fetchPreviousFoodEntries();
   }, [userId]);
+
+  useEffect(() => {
+    if (fat !== null && protein !== null && carbohydrates !== null) {
+      const calculatedCalories = fat * 9 + protein * 4 + carbohydrates * 4;
+      setCalories(calculatedCalories);
+    }
+  }, [fat, protein, carbohydrates]);
 
   const handleSelectFromHistory = (selectedFoodEntry: Tables<"nutrition">) => {
     // Required values
@@ -227,11 +235,61 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
               </Text>
             )}
             <TouchableOpacity
+              onPress={() => setShowMacronutrients(!showMacronutrients)}
+              className={`mb-2 flex-row items-center justify-between rounded-lg p-2`}
+            >
+              <Text className={`text-lg font-bold ${colors.text}`}>
+                Macronutrients (Optional)
+              </Text>
+              <Ionicons
+                name={showMacronutrients ? "chevron-up" : "chevron-down"}
+                size={24}
+                color={colors.text.split("-")[1]}
+              />
+            </TouchableOpacity>
+
+            {showMacronutrients && (
+              <>
+                <TextInput
+                  value={
+                    carbohydrates != null && carbohydrates > 0
+                      ? carbohydrates.toString()
+                      : ""
+                  }
+                  onChangeText={(text) => setCarbohydrates(parseInt(text) || 0)}
+                  placeholder="Total Carbohydrates (g)"
+                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                  keyboardType="numeric"
+                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+                />
+
+                <TextInput
+                  value={
+                    protein != null && protein > 0 ? protein.toString() : ""
+                  }
+                  onChangeText={(text) => setProtein(parseInt(text) || 0)}
+                  placeholder="Protein (g)"
+                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                  keyboardType="numeric"
+                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+                />
+
+                <TextInput
+                  value={fat != null && fat > 0 ? fat.toString() : ""}
+                  onChangeText={(text) => setFat(parseInt(text) || 0)}
+                  placeholder="Total Fat (g)"
+                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
+                  keyboardType="numeric"
+                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
+                />
+              </>
+            )}
+            <TouchableOpacity
               onPress={() => setShowOptional(!showOptional)}
               className={`mb-2 flex-row items-center justify-between rounded-lg p-2`}
             >
               <Text className={`text-lg font-bold ${colors.text}`}>
-                Optional Fields
+                More Optional Fields
               </Text>
               <Ionicons
                 name={showOptional ? "chevron-up" : "chevron-down"}
@@ -241,43 +299,6 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
             </TouchableOpacity>
             {showOptional && (
               <>
-                <TextInput
-                  value={brand ?? ""}
-                  onChangeText={setBrand}
-                  placeholder={t("FOODFRMbrand")}
-                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-                />
-                <TextInput
-                  value={
-                    carbohydrates != null && carbohydrates > 0
-                      ? carbohydrates.toString()
-                      : ""
-                  }
-                  onChangeText={(text) => setCarbohydrates(parseInt(text) || 0)}
-                  placeholder="Total Carbohydrates (g) (Optional)"
-                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-                  keyboardType="numeric"
-                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-                />
-                <TextInput
-                  value={fat != null && fat > 0 ? fat.toString() : ""}
-                  onChangeText={(text) => setFat(parseInt(text) || 0)}
-                  placeholder="Total Fat (g) (Optional)"
-                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-                  keyboardType="numeric"
-                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-                />
-                <TextInput
-                  value={
-                    protein != null && protein > 0 ? protein.toString() : ""
-                  }
-                  onChangeText={(text) => setProtein(parseInt(text) || 0)}
-                  placeholder="Protein (g) (Optional)"
-                  placeholderTextColor={colors.inputPlaceholder.split("-")[1]}
-                  keyboardType="numeric"
-                  className={`mb-2 border-b p-2 text-lg ${colors.inputBorder} ${colors.text}`}
-                />
                 <TextInput
                   value={
                     saturatedFat != null && saturatedFat > 0
