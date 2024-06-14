@@ -79,9 +79,9 @@
   "EXCFRMediting" : "Redaguoti veiklą",
   "EXCFRMadding" : "Pridėti veiklą",
 
-  "EXCSECduration" : "Trukmė: ",
-  "EXCSECminutes" : " minutės",
-  "EXCSECcalburn" : "Sudegintos kalorijos: ",
+  "EXCSECduration" : "Trukmė:",
+  "EXCSECminutes" : "minutės",
+  "EXCSECcalburn" : "Sudegintos kalorijos:",
   "EXCSECexercise" : "Veikla",
   "EXCSECadd" : "Pridėti veiklą",
 
@@ -96,7 +96,7 @@
   "FOODFRMadd" : "Pridėti",
   "FOODFRMcancel" : "Atšaukti",
 
-  "FOODSECcals" : "Kalorijų skaičius: ",
+  "FOODSECcals" : "Kalorijų skaičius:",
   "FOODSECfood" : "Suvartotas maistas",
   "FOODSECadd" : "Pridėti suvartotą maistą",
   
@@ -107,8 +107,8 @@
   "WTRFRMadd" : "Pridėti",
   "WTRFRMcancel" : "Atšaukti",
 
-  "WTRSECamount" : "Kiekis: ",
-  "WTRSECconsumed" : "Suvartota: ",
+  "WTRSECamount" : "Kiekis:",
+  "WTRSECconsumed" : "Suvartota:",
   "WTRSECwater" : "Vanduo",
   "WTRSECaddwater" : "Pridėti vandens kiekį",
 
