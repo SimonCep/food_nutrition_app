@@ -198,20 +198,20 @@ const Dashboard = () => {
     let bmr = 0;
 
     if (userGender === "male") {
-      bmr = 10 * userWeight + 6.25 * userHeight - 5 * userAge + 5;
+      bmr = 66.5 + 13.75 * userWeight + 5.003 * userHeight - 6.755 * userAge;
     } else if (userGender === "female") {
-      bmr = 10 * userWeight + 6.25 * userHeight - 5 * userAge - 161;
+      bmr = 55.1 + 9.563 * userWeight + 1.85 * userHeight - 4.676 * userAge;
     }
 
     switch (userGoal) {
       case "loseWeight":
-        return bmr * 0.8;
-      case "gainWeight":
-        return bmr * 1.2;
-      case "increaseMuscle":
-        return bmr * 1.1;
-      case "improveHealth":
         return bmr;
+      case "gainWeight":
+        return bmr * 1.4;
+      case "increaseMuscle":
+        return bmr * 1.3;
+      case "improveHealth":
+        return bmr * 1.2;
       default:
         return null;
     }
