@@ -12,7 +12,7 @@ import { useColorScheme } from "nativewind";
 import { useTranslation } from "react-i18next";
 import { FontAwesome } from "@expo/vector-icons";
 
-import { ExerciseFormProps, Tables } from "@/types";
+import { ExerciseFormProps, ExerciseType, Tables } from "@/types";
 import { lightColorsDiary, darkColorsDiary } from "@/constants/Colors";
 import { fetchExercises } from "@/api/exerciseService";
 import ExerciseHistoryModal from "@/components/exercise/ExerciseHistoryModal";
@@ -45,6 +45,13 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
   const [selectedExercise, setSelectedExercise] =
     useState<Tables<"exercises"> | null>(null);
 
+  const calorieBurnRates: Record<ExerciseType, number> = {
+    Running: 10,
+    Walking: 5,
+    Swimming: 8,
+    Cycling: 7,
+  };
+
   useEffect(() => {
     const fetchPreviousExercises = async () => {
       try {
@@ -57,6 +64,16 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
 
     fetchPreviousExercises();
   }, [userId]);
+
+  useEffect(() => {
+    if (exercise && duration > 0) {
+      const calorieBurnRate = calorieBurnRates[exercise as ExerciseType] || 0;
+      const calculatedCalories = duration * calorieBurnRate;
+      setCalories(calculatedCalories);
+    } else {
+      setCalories(0);
+    }
+  }, [exercise, duration]);
 
   const handleSelectFromHistory = (selectedExercise: Tables<"exercises">) => {
     setSelectedExercise(selectedExercise);

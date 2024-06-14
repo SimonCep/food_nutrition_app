@@ -264,6 +264,8 @@ export type PersonalDataContextType = {
   refreshPersonalData: () => void;
 };
 
+export type ExerciseType = "Running" | "Walking" | "Swimming" | "Cycling";
+
 // Type helpers
 export type Tables<T extends keyof Database["public"]["Tables"]> =
   Database["public"]["Tables"][T]["Row"];
