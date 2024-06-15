@@ -7,6 +7,7 @@ import {
   Alert,
   ActivityIndicator,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import { useColorScheme } from "nativewind";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -29,8 +30,11 @@ import {
   userWeightValidationSchema,
 } from "@/utils/validationSchemas";
 import { usePersonalDataContext } from "@/providers/PersonalDataProvider";
+import { useTranslation } from 'react-i18next';
 
 const EditPersonalData: React.FC = () => {
+  
+  const { t } = useTranslation();
   const { session } = useAuth();
   const [age, setAge] = useState<string>("");
   const [gender, setGender] = useState<string>("");
@@ -44,23 +48,23 @@ const EditPersonalData: React.FC = () => {
   const [healthIssues, setHealthIssues] = useState<string[]>([]);
   const [open2, setOpen2] = useState(false);
   const [items2, setItems2] = useState([
-    { label: "None", value: "noneSelected" },
-    { label: "Heart disease", value: "heartDisease" },
-    { label: "Thyroid gland disorders", value: "thyroidGlandDisorders" },
-    { label: "Lactose intolerance", value: "lactoseIntolerance" },
-    { label: "Celiac Disease", value: "celiacDisease" },
-    { label: "Hypertension (High Blood Pressure)", value: "hypertension" },
-    { label: "Diabetes", value: "diabetes" },
-    { label: "Kidney Disease", value: "kidneyDisease" },
+    { label: t('EDTGOALLBL1'), value: "noneSelected" },
+    { label: t('EDTGOALLBL2'), value: "heartDisease" },
+    { label: t('EDTGOALLBL3'), value: "thyroidGlandDisorders" },
+    { label: t('EDTGOALLBL4'), value: "lactoseIntolerance" },
+    { label: t('EDTGOALLBL5'), value: "celiacDisease" },
+    { label: t('EDTGOALLBL6'), value: "hypertension" },
+    { label: t('EDTGOALLBL7'), value: "diabetes" },
+    { label: t('EDTGOALLBL8'), value: "kidneyDisease" },
   ]);
   const [dietaryGoals, setDietaryGoals] = useState<string>("");
   const [open3, setOpen3] = useState(false);
   const [items3, setItems3] = useState([
-    { label: "None", value: "noneSelected" },
-    { label: "Lose weight", value: "loseWeight" },
-    { label: "Gain weight", value: "gainWeight" },
-    { label: "Increase muscle mass", value: "increaseMuscle" },
-    { label: "Improve overall health", value: "improveHealth" },
+    { label: t('EDTGOALGoal1'), value: "noneSelected" },
+    { label: t('EDTGOALGoal2'), value: "loseWeight" },
+    { label: t('EDTGOALGoal3'), value: "gainWeight" },
+    { label: t('EDTGOALGoal4'), value: "increaseMuscle" },
+    { label: t('EDTGOALGoal5'), value: "improveHealth" },
   ]);
   const [loading, setLoading] = useState<boolean>(false);
   const [validationErrors, setValidationErrors] =
@@ -182,12 +186,15 @@ const EditPersonalData: React.FC = () => {
     colorScheme === "dark" ? darkColorsSettingsGoals : lightColorsSettingsGoals;
 
   return (
-    <View className={`flex-1 px-10 py-20 ${colors.background}`}>
-      <ScrollView>
+    <ImageBackground
+        source={require("../../assets/images/background.png")}
+        className="flex-1 resize-y justify-center bg-white dark:bg-black"
+      >
+      <View className={`flex-1 px-10 py-5 `}>
         <View
-          className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} items-right justify-start p-5`}
+          className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} items-right justify-start p-5 shadow-md`}
         >
-          <Text className={`mb-2 text-lg ${colors.textColor}`}>Gender</Text>
+          <Text className={`mb-2 text-lg ${colors.textColor}`}>{t('EDTGOALGender')}</Text>
           <DropDownPicker
             open={open1}
             value={gender}
@@ -202,7 +209,7 @@ const EditPersonalData: React.FC = () => {
             </Text>
           )}
 
-          <Text className={`mb-2 mt-3 text-lg ${colors.textColor}`}>Age</Text>
+          <Text className={`mb-2 mt-3 text-lg ${colors.textColor}`}>{t('EDTGOALAge')}</Text>
           <TextInput
             className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
             value={age}
@@ -216,7 +223,7 @@ const EditPersonalData: React.FC = () => {
           )}
 
           <Text className={`mb-2 text-lg ${colors.textColor}`}>
-            Height (cm)
+            {t('EDTGOALheight')}
           </Text>
           <TextInput
             className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
@@ -231,7 +238,7 @@ const EditPersonalData: React.FC = () => {
           )}
 
           <Text className={`mb-2 text-lg ${colors.textColor}`}>
-            Weight (kg)
+            {t('EDTGOALweight')}
           </Text>
           <TextInput
             className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
@@ -246,7 +253,7 @@ const EditPersonalData: React.FC = () => {
           )}
 
           <Text className={`mb-2 text-lg ${colors.textColor}`}>
-            Health Issues
+          {t('EDTGOALhealth')}
           </Text>
           <DropDownPicker
             open={open2}
@@ -266,7 +273,7 @@ const EditPersonalData: React.FC = () => {
           )}
 
           <Text className={`mb-2 mt-3 text-lg ${colors.textColor}`}>
-            Dietary Goals
+          {t('EDTGOALdietary')}
           </Text>
           <DropDownPicker
             open={open3}
@@ -296,13 +303,13 @@ const EditPersonalData: React.FC = () => {
               />
             ) : (
               <Text className={`${colors.buttonText} text-center font-bold`}>
-                Save
+                {t('EDTGOALsave')}
               </Text>
             )}
           </TouchableOpacity>
         </View>
-      </ScrollView>
-    </View>
+        </View>  
+      </ImageBackground>
   );
 };
 
