@@ -101,7 +101,7 @@ const WaterForm: React.FC<WaterFormProps> = ({
                 color={colors.buttonText.split("-")[1]}
               />
               <Text className={`ml-2 text-sm font-bold ${colors.buttonText}`}>
-              {t('History')}
+                {t("History")}
               </Text>
             </TouchableOpacity>
           </View>
@@ -161,12 +161,12 @@ const WaterForm: React.FC<WaterFormProps> = ({
           </TouchableOpacity>
 
           <TouchableOpacity
-              onPress={() => setModalVisible(true)}
-              className={`mb-2 mt-4 px-4 py-2`}
-            >
-              <Text className={`${colors.secondaryText} text-center font-bold`}>
-              {t('DSHServing')}
-              </Text>
+            onPress={() => setModalVisible(true)}
+            className={`mb-2 mt-4 px-4 py-2`}
+          >
+            <Text className={`${colors.secondaryText} text-center font-bold`}>
+              {t("DSHServing")}
+            </Text>
           </TouchableOpacity>
           <Modal
             animationType="fade"
@@ -178,24 +178,44 @@ const WaterForm: React.FC<WaterFormProps> = ({
               <View
                 className={`${colors.inputBackground} mx-2 rounded-lg p-10 shadow-lg`}
               >
-              <Image
-                source={require("../../assets/images/WaterServingSizes.png")}
-                className="h-96 w-72 resize-y"
-              />
-              <TouchableOpacity
-                onPress={() => setModalVisible(false)}
-                className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 px-4 py-2`}
-              >
-                <Text
-                  className={`${colors.buttonText} text-center font-bold`}
+                <TouchableOpacity
+                  onPress={(event) => {
+                    const { locationX, locationY } = event.nativeEvent;
+                    const servingSizes = [
+                      { x: 50, y: 100, size: 150 },
+                      { x: 180, y: 100, size: 240 },
+                      { x: 50, y: 260, size: 250 },
+                      { x: 180, y: 260, size: 200 },
+                    ];
+                    const clickedServingSize = servingSizes.find(
+                      (servingSize) =>
+                        Math.abs(servingSize.x - locationX) < 50 &&
+                        Math.abs(servingSize.y - locationY) < 50,
+                    );
+                    if (clickedServingSize) {
+                      setAmount(clickedServingSize.size);
+                      setModalVisible(false);
+                    }
+                  }}
                 >
-                  {t('DSHClose')}
-                </Text>
-              </TouchableOpacity>
+                  <Image
+                    source={require("../../assets/images/WaterServingSizes.png")}
+                    className="h-96 w-72 resize-y"
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(false)}
+                  className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 px-4 py-2`}
+                >
+                  <Text
+                    className={`${colors.buttonText} text-center font-bold`}
+                  >
+                    {t("DSHClose")}
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </Modal>
-
         </View>
       </View>
       <WaterHistoryModal

@@ -5,6 +5,7 @@
   "LANen" : "Anglų",
 
   "History" : "Istorija",
+  "Macronutrients": "Makroelementai (neprivaloma)",
   "OptionalFields" : "Neprivalomi laukai",
 
   "USRabout" : "Apie mus",
@@ -214,8 +215,8 @@
   "DSHCaloriesGJ" : "Nuostabus darbas!",
   "DSHCaloriesReached" : "Jūs pasiekėte savo kalorijų tikslą šiandien. Tęskite kūno kurą su sveiku ir maistingu maistu!",
   "DSHKeepGoing" : "Stenkitės toliau!",
-  "DSHYoure" : "Jūs ",
-  "DSHcaloriesAway" : " kalorijų atstumu nuo savo kalorijų tikslo šiandien. Pasisotinkite sveikais ir subalansuotais patiekalais!",
+  "DSHYoure" : "Jūs",
+  "DSHcaloriesAway" : "kalorijų atstumu nuo savo kalorijų tikslo šiandien. Pasisotinkite sveikais ir subalansuotais patiekalais!",
   "DSHMotivate" : "Sekite savo kalorijas, kad pasiektumėte kasdienį tikslą. Pasisotinkite sveikais ir subalansuotais patiekalais!",
   "DSHCaloriesNoData" : "Nėra duomenų. Pridėkite maisto!",
   "DSHTodaysWater" : "Šiandienos vandens suvartojimas",

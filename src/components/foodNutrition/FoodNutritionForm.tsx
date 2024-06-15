@@ -178,7 +178,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
                   color={colors.buttonText.split("-")[1]}
                 />
                 <Text className={`ml-2 text-sm font-bold ${colors.buttonText}`}>
-                {t('History')}
+                  {t("History")}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -239,7 +239,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
               className={`mb-2 flex-row items-center justify-between rounded-lg p-2`}
             >
               <Text className={`text-lg font-bold ${colors.text}`}>
-                Macronutrients (Optional)
+                {t("Macronutrients")}
               </Text>
               <Ionicons
                 name={showMacronutrients ? "chevron-up" : "chevron-down"}
@@ -289,7 +289,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
               className={`mb-2 flex-row items-center justify-between rounded-lg p-2`}
             >
               <Text className={`text-lg font-bold ${colors.text}`}>
-                  {t('OptionalFields')}
+                {t("OptionalFields")}
               </Text>
               <Ionicons
                 name={showOptional ? "chevron-up" : "chevron-down"}

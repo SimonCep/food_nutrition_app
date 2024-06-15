@@ -119,12 +119,6 @@ export default function AboutUs() {
             simas.ceponis@ktu.edu
           </Text>
           <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
-            Dovydas Šiurkus
-          </Text>
-          <Text className="ml-5 text-pretty text-left text-black dark:text-white">
-            dovydas.siurkus@ktu.edu
-          </Text>
-          <Text className="ml-5 mt-5 text-pretty text-left text-black dark:text-white">
             Dominykas Valčiukas
           </Text>
           <Text className="ml-5 text-pretty text-left text-black dark:text-white">

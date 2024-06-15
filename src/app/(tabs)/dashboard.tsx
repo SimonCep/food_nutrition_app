@@ -31,7 +31,7 @@ import { filterFoodNutritionByDate } from "@/utils/foodUtils";
 import { fetchUserHeight } from "@/api/userHeightService";
 import { usePersonalDataContext } from "@/providers/PersonalDataProvider";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -255,21 +255,21 @@ const Dashboard = () => {
 
   const pieChartData = [
     {
-      name: t('DSHCarbs'),
+      name: t("DSHCarbs"),
       population: carbohydrates,
       color: "#FFFF5F",
       legendFontColor: `${colors.chartLabel}`,
       legendFontSize: 10,
     },
     {
-      name: t('DSHProtein'),
+      name: t("DSHProtein"),
       population: protein,
       color: "#85FF5F",
       legendFontColor: `${colors.chartLabel}`,
       legendFontSize: 10,
     },
     {
-      name: t('DSHFat'),
+      name: t("DSHFat"),
       population: fat,
       color: "#5FD6FF",
       legendFontColor: `${colors.chartLabel}`,
@@ -280,14 +280,14 @@ const Dashboard = () => {
   const [healthIssues, setHealthIssues] = useState<string[]>([]);
   const [currentIssueIndex, setCurrentIssueIndex] = useState(0);
   const healthIssueOptions = [
-    { label: t('DSHLBL1'), value: "noneSelected" },
-    { label: t('DSHLBL2'), value: "heartDisease" },
-    { label: t('DSHLBL3'), value: "thyroidGlandDisorders" },
-    { label: t('DSHLBL4'), value: "lactoseIntolerance" },
-    { label: t('DSHLBL5'), value: "celiacDisease" },
-    { label: t('DSHLBL6'), value: "hypertension" },
-    { label: t('DSHLBL7'), value: "diabetes" },
-    { label: t('DSHLBL8'), value: "kidneyDisease" },
+    { label: t("DSHLBL1"), value: "noneSelected" },
+    { label: t("DSHLBL2"), value: "heartDisease" },
+    { label: t("DSHLBL3"), value: "thyroidGlandDisorders" },
+    { label: t("DSHLBL4"), value: "lactoseIntolerance" },
+    { label: t("DSHLBL5"), value: "celiacDisease" },
+    { label: t("DSHLBL6"), value: "hypertension" },
+    { label: t("DSHLBL7"), value: "diabetes" },
+    { label: t("DSHLBL8"), value: "kidneyDisease" },
   ];
 
   useEffect(() => {
@@ -337,68 +337,44 @@ const Dashboard = () => {
 
   const foodRecommendations: FoodRecommendations = {
     noneSelected: {
-      moreText:
-      t('DSHLbl1More'),
-      lessText:
-      t('DSHLbl1Less'),
-      avoidText:
-      t('DSHLbl1Avoid'),
+      moreText: t("DSHLbl1More"),
+      lessText: t("DSHLbl1Less"),
+      avoidText: t("DSHLbl1Avoid"),
     },
     heartDisease: {
-      moreText:
-      t('DSHLbl2More'),
-      lessText:
-      t('DSHLbl2Less'),
-      avoidText:
-      t('DSHLbl2Avoid'),
+      moreText: t("DSHLbl2More"),
+      lessText: t("DSHLbl2Less"),
+      avoidText: t("DSHLbl2Avoid"),
     },
     thyroidGlandDisorders: {
-      moreText:
-      t('DSHLbl3More'),
-      lessText:
-      t('DSHLbl3Less'),
-      avoidText:
-      t('DSHLbl3Avoid'),
+      moreText: t("DSHLbl3More"),
+      lessText: t("DSHLbl3Less"),
+      avoidText: t("DSHLbl3Avoid"),
     },
     lactoseIntolerance: {
-      moreText:
-      t('DSHLbl4More'),
-      lessText:
-      t('DSHLbl4Less'),
-      avoidText:
-      t('DSHLbl4Avoid'),
+      moreText: t("DSHLbl4More"),
+      lessText: t("DSHLbl4Less"),
+      avoidText: t("DSHLbl4Avoid"),
     },
     celiacDisease: {
-      moreText:
-      t('DSHLbl5More'),
-      lessText:
-      t('DSHLbl5Less'),
-      avoidText:
-      t('DSHLbl5Avoid'),
+      moreText: t("DSHLbl5More"),
+      lessText: t("DSHLbl5Less"),
+      avoidText: t("DSHLbl5Avoid"),
     },
     hypertension: {
-      moreText:
-      t('DSHLbl6More'),
-      lessText:
-      t('DSHLbl6Less'),
-      avoidText:
-      t('DSHLbl6Avoid'),
+      moreText: t("DSHLbl6More"),
+      lessText: t("DSHLbl6Less"),
+      avoidText: t("DSHLbl6Avoid"),
     },
     diabetes: {
-      moreText:
-      t('DSHLbl7More'),
-      lessText:
-      t('DSHLbl7Less'),
-      avoidText:
-      t('DSHLbl7Avoid'),
+      moreText: t("DSHLbl7More"),
+      lessText: t("DSHLbl7Less"),
+      avoidText: t("DSHLbl7Avoid"),
     },
     kidneyDisease: {
-      moreText:
-      t('DSHLbl8More'),
-      lessText:
-      t('DSHLbl8Less'),
-      avoidText:
-      t('DSHLbl8Avoid'),
+      moreText: t("DSHLbl8More"),
+      lessText: t("DSHLbl8Less"),
+      avoidText: t("DSHLbl8Avoid"),
     },
   };
 
@@ -408,21 +384,21 @@ const Dashboard = () => {
   const getHealthIssueDescription = (value: string) => {
     switch (value) {
       case "noneSelected":
-        return t('DSHLBL1Desc');
+        return t("DSHLBL1Desc");
       case "heartDisease":
-        return t('DSHLBL2Desc');
+        return t("DSHLBL2Desc");
       case "thyroidGlandDisorders":
-        return t('DSHLBL3Desc');
+        return t("DSHLBL3Desc");
       case "lactoseIntolerance":
-        return t('DSHLBL4Desc');
+        return t("DSHLBL4Desc");
       case "celiacDisease":
-        return t('DSHLBL5Desc');
+        return t("DSHLBL5Desc");
       case "hypertension":
-        return t('DSHLBL6Desc');
+        return t("DSHLBL6Desc");
       case "diabetes":
-        return t('DSHLBL7Desc');
+        return t("DSHLBL7Desc");
       case "kidneyDisease":
-        return t('DSHLBL8Desc');
+        return t("DSHLBL8Desc");
       default:
         return "";
     }
@@ -440,13 +416,15 @@ const Dashboard = () => {
       <ScrollView>
         <View className="flex-grow items-center p-5">
           <Text className={`pb-5 text-4xl ${colors.textColor}`}>
-          {t('DSHYourJourney')}
+            {t("DSHYourJourney")}
           </Text>
 
           <View
             className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
           >
-            <Text className={`text-3xl ${colors.textColor}`}>{t('DSHHealth')}</Text>
+            <Text className={`text-center text-3xl ${colors.textColor}`}>
+              {t("DSHHealth")}
+            </Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
 
             <View className="flex-row items-center justify-between px-6 py-4">
@@ -482,7 +460,8 @@ const Dashboard = () => {
             </View>
 
             <Text className={`self-start text-2xl ${colors.textColor}`}>
-            {t('DSHFoodToEat')} <Text className="text-green-500">{t('DSHtomore')}</Text>:
+              {t("DSHFoodToEat")}{" "}
+              <Text className="text-green-500">{t("DSHtomore")}</Text>:
             </Text>
             <Text
               className={`self-start pl-3 text-left text-[15px] ${colors.textColor}`}
@@ -492,7 +471,8 @@ const Dashboard = () => {
             <View className="my-5 w-full border-b border-gray-300"></View>
 
             <Text className={`self-start text-2xl ${colors.textColor}`}>
-            {t('DSHFoodToEat')}  <Text className="text-yellow-500">{t('DSHtoless')}</Text>:
+              {t("DSHFoodToEat")}{" "}
+              <Text className="text-yellow-500">{t("DSHtoless")}</Text>:
             </Text>
             <Text
               className={`self-start pl-3 text-left text-[15px] ${colors.textColor}`}
@@ -502,7 +482,8 @@ const Dashboard = () => {
             <View className="my-5 w-full border-b border-gray-300"></View>
 
             <Text className={`self-start text-2xl ${colors.textColor}`}>
-            {t('DSHFoodsTo')} <Text className="text-red-500">{t('DSHtoavoid')}</Text>:
+              {t("DSHFoodsTo")}{" "}
+              <Text className="text-red-500">{t("DSHtoavoid")}</Text>:
             </Text>
             <Text
               className={`self-start pl-3 text-left text-[15px] ${colors.textColor}`}
@@ -515,7 +496,7 @@ const Dashboard = () => {
               className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 px-4 py-2`}
             >
               <Text className={`${colors.buttonText} text-center font-bold`}>
-              {t('DSHFindOutMore')}
+                {t("DSHFindOutMore")}
               </Text>
             </TouchableOpacity>
 
@@ -551,7 +532,7 @@ const Dashboard = () => {
                     <Text
                       className={`${colors.buttonText} text-center font-bold`}
                     >
-                      {t('DSHClose')}
+                      {t("DSHClose")}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -562,8 +543,8 @@ const Dashboard = () => {
           <View
             className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
           >
-            <Text className={`text-3xl ${colors.textColor}`}>
-            {t('DSHTodaysMacro')}
+            <Text className={`text-center text-3xl ${colors.textColor}`}>
+              {t("DSHTodaysMacro")}
             </Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
             {calories > 0 ? (
@@ -583,15 +564,16 @@ const Dashboard = () => {
                 </View>
                 <View className="mt-4 items-center">
                   <Text className={`text-xl ${colors.textColor}`}>
-                    <Text className="font-bold">{calories}</Text> {t('DSHcalories')}
+                    <Text className="font-bold">{calories}</Text>{" "}
+                    {t("DSHcalories")}
                   </Text>
                   {calorieGoal ? (
                     <>
                       <Text className={`mt-2 text-lg text-gray-500`}>
-                      {t('DSHof')} {calorieGoal.toFixed(0)} {t('DSHcalories')}
+                        {t("DSHof")} {calorieGoal.toFixed(0)} {t("DSHcalories")}
                       </Text>
                       <Text className={`mt-2 text-sm text-gray-400`}>
-                      {t('DSHCalorieGoal')}
+                        {t("DSHCalorieGoal")}
                       </Text>
                     </>
                   ) : null}
@@ -604,10 +586,10 @@ const Dashboard = () => {
                       <Text
                         className={`text-center text-lg font-bold ${colors.textColor}`}
                       >
-                        {t('DSHCaloriesExceeded')} 🐷
+                        {t("DSHCaloriesExceeded")} 🐷
                       </Text>
                       <Text className={`mt-2 text-center ${colors.textColor}`}>
-                      {t('DSHCaloriesTip')}
+                        {t("DSHCaloriesTip")}
                       </Text>
                     </View>
                   ) : (
@@ -617,10 +599,10 @@ const Dashboard = () => {
                       <Text
                         className={`${colors.textColor} text-center text-lg font-bold`}
                       >
-                      {t('DSHCaloriesGJ')} 🍽️
+                        {t("DSHCaloriesGJ")} 🍽️
                       </Text>
                       <Text className={`${colors.textColor} mt-2 text-center`}>
-                      {t('DSHCaloriesReached')}
+                        {t("DSHCaloriesReached")}
                       </Text>
                     </View>
                   )
@@ -631,15 +613,16 @@ const Dashboard = () => {
                     <Text
                       className={`text-center text-lg font-bold ${colors.textColor}`}
                     >
-                      {t('DSHKeepGoing')} 🍒
+                      {t("DSHKeepGoing")} 🍒
                     </Text>
                     {calorieGoal ? (
                       <Text className={`mt-2 text-center ${colors.textColor}`}>
-                        {t('DSHYoure')} {(calorieGoal - calories).toFixed(0)} {t('DSHcaloriesAway')}
+                        {t("DSHYoure")} {(calorieGoal - calories).toFixed(0)}{" "}
+                        {t("DSHcaloriesAway")}
                       </Text>
                     ) : (
                       <Text className={`mt-2 text-center ${colors.textColor}`}>
-                        {t('DSHMotivate')}
+                        {t("DSHMotivate")}
                       </Text>
                     )}
                   </View>
@@ -648,7 +631,7 @@ const Dashboard = () => {
             ) : (
               <View className="items-center justify-center">
                 <Text className={`text-lg text-gray-500`}>
-                {t('DSHCaloriesNoData')}
+                  {t("DSHCaloriesNoData")}
                 </Text>
               </View>
             )}
@@ -657,8 +640,8 @@ const Dashboard = () => {
           <View
             className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
           >
-            <Text className={`text-3xl ${colors.textColor}`}>
-            {t('DSHTodaysWater')}
+            <Text className={`text-center text-3xl ${colors.textColor}`}>
+              {t("DSHTodaysWater")}
             </Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
             <View className="flex-row items-center">
@@ -687,10 +670,10 @@ const Dashboard = () => {
                   l
                 </Text>
                 <Text className={`text-lg text-gray-500`}>
-                {t('DSHofwater')} {recommendedWaterIntake.toFixed(2)} l
+                  {t("DSHofwater")} {recommendedWaterIntake.toFixed(2)} l
                 </Text>
                 <Text className={`mt-2 text-sm text-gray-400`}>
-                {t('DSHRecommendedIntake')}
+                  {t("DSHRecommendedIntake")}
                 </Text>
               </View>
             </View>
@@ -699,10 +682,10 @@ const Dashboard = () => {
                 className={`mt-4 rounded-lg ${colors.islandBackgroundWaterCongratulations} p-4`}
               >
                 <Text className="text-center text-lg font-bold text-white">
-                {t('DSHWayToGo')} 💧
+                  {t("DSHWayToGo")} 💧
                 </Text>
                 <Text className="mt-2 text-center text-white">
-                {t('DSHWaterGJ')}
+                  {t("DSHWaterGJ")}
                 </Text>
               </View>
             ) : (
@@ -712,12 +695,12 @@ const Dashboard = () => {
                 <Text
                   className={`text-center text-lg font-bold ${colors.textColor}`}
                 >
-                {t('DSHAlmostThere')} 🌊
+                  {t("DSHAlmostThere")} 🌊
                 </Text>
                 <Text className={`mt-2 text-center ${colors.textColor}`}>
-                {t('DSHYoure')}{" "}
+                  {t("DSHYoure")}{" "}
                   {(recommendedWaterIntake - todayWaterConsumption).toFixed(2)}{" "}
-                  {t('DSHAwayFrom')}
+                  {t("DSHAwayFrom")}
                 </Text>
               </View>
             )}
@@ -726,20 +709,21 @@ const Dashboard = () => {
           <View
             className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
           >
-            <Text className={`text-3xl ${colors.textColor}`}>
-            {t('DSHWeeklyExercise')}
+            <Text className={`text-center text-3xl ${colors.textColor}`}>
+              {t("DSHWeeklyExercise")}
             </Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
             <BarChart
               data={{
                 labels: [
-                  t('DSHDateMON'), 
-                  t('DSHDateTUE'), 
-                  t('DSHDateWED'), 
-                  t('DSHDateTHU'), 
-                  t('DSHDateFRI'), 
-                  t('DSHDateSAT'), 
-                  t('DSHDateSUN')],
+                  t("DSHDateMON"),
+                  t("DSHDateTUE"),
+                  t("DSHDateWED"),
+                  t("DSHDateTHU"),
+                  t("DSHDateFRI"),
+                  t("DSHDateSAT"),
+                  t("DSHDateSUN"),
+                ],
                 datasets: [{ data: exerciseData }],
               }}
               width={screenWidth}
@@ -753,17 +737,17 @@ const Dashboard = () => {
             />
             <View className="mt-4">
               <Text className={`text-center text-lg ${colors.textColor}`}>
-              {t('DSHMinutesThisWeek')} {totalMinutes}
+                {t("DSHMinutesThisWeek")} {totalMinutes}
               </Text>
               {totalMinutes >= 150 ? (
                 <View
                   className={`mt-4 rounded-lg ${colors.islandBackgroundCongratulations} p-4`}
                 >
                   <Text className="text-center text-lg font-bold text-white">
-                  {t('DSHCongrats')} 🎉
+                    {t("DSHCongrats")} 🎉
                   </Text>
                   <Text className="mt-2 text-center text-white">
-                  {t('DSHYouHaveReached')}
+                    {t("DSHYouHaveReached")}
                   </Text>
                 </View>
               ) : (
@@ -773,10 +757,10 @@ const Dashboard = () => {
                   <Text
                     className={`text-center text-lg font-bold ${colors.textColor}`}
                   >
-                    {t('DSHKeepPushing')} 💪
+                    {t("DSHKeepPushing")} 💪
                   </Text>
                   <Text className={`mt-2 text-center ${colors.textColor}`}>
-                  {t('DSHYoure')} {150 - totalMinutes} {t('DSHminutesAway')}
+                    {t("DSHYoure")} {150 - totalMinutes} {t("DSHminutesAway")}
                   </Text>
                 </View>
               )}

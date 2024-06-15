@@ -5,6 +5,7 @@
   "LANen" : "English",
 
   "History" : "History",
+  "Macronutrients" : "Macronutrients (Optional)",
   "OptionalFields" : "Optional fields",
 
   "USRabout" : "About us",
@@ -215,8 +216,8 @@
   "DSHCaloriesGJ" : "Awesome job!",
   "DSHCaloriesReached" : "You've reached your calorie goal for today. Keep fueling your body with healthy and nutritious food!",
   "DSHKeepGoing" : "Keep going!",
-  "DSHYoure" : "You're ",
-  "DSHcaloriesAway" : " calories away from reaching your calorie goal for today. Fuel up with healthy and balanced meals!",
+  "DSHYoure" : "You're",
+  "DSHcaloriesAway" : "calories away from reaching your calorie goal for today. Fuel up with healthy and balanced meals!",
   "DSHMotivate" : "Keep tracking your calories to reach your daily goal. Fuel up with healthy and balanced meals!",
   "DSHCaloriesNoData" : "No data available. Go on, add some food!",
   "DSHTodaysWater" : "Today's Water Consumption",
