@@ -152,7 +152,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
                 color={colors.buttonText.split("-")[1]}
               />
               <Text className={`ml-2 text-sm font-bold ${colors.buttonText}`}>
-                History
+               {t('History')}
               </Text>
             </TouchableOpacity>
           </View>

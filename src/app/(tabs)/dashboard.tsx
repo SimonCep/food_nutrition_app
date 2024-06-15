@@ -31,7 +31,11 @@ import { filterFoodNutritionByDate } from "@/utils/foodUtils";
 import { fetchUserHeight } from "@/api/userHeightService";
 import { usePersonalDataContext } from "@/providers/PersonalDataProvider";
 
+import { useTranslation } from 'react-i18next';
+
 const Dashboard = () => {
+  const { t } = useTranslation();
+
   const [modalVisible, setModalVisible] = useState(false);
   const { colorScheme } = useColorScheme();
   const colors =
@@ -251,39 +255,39 @@ const Dashboard = () => {
 
   const pieChartData = [
     {
-      name: "Carbohydrates",
+      name: t('DSHCarbs'),
       population: carbohydrates,
       color: "#FFFF5F",
       legendFontColor: `${colors.chartLabel}`,
-      legendFontSize: 12,
+      legendFontSize: 10,
     },
     {
-      name: "Protein",
+      name: t('DSHProtein'),
       population: protein,
       color: "#85FF5F",
       legendFontColor: `${colors.chartLabel}`,
-      legendFontSize: 12,
+      legendFontSize: 10,
     },
     {
-      name: "Fat",
+      name: t('DSHFat'),
       population: fat,
       color: "#5FD6FF",
       legendFontColor: `${colors.chartLabel}`,
-      legendFontSize: 12,
+      legendFontSize: 10,
     },
   ];
 
   const [healthIssues, setHealthIssues] = useState<string[]>([]);
   const [currentIssueIndex, setCurrentIssueIndex] = useState(0);
   const healthIssueOptions = [
-    { label: "No Health Issues", value: "noneSelected" },
-    { label: "Heart disease", value: "heartDisease" },
-    { label: "Thyroid gland disorders", value: "thyroidGlandDisorders" },
-    { label: "Lactose intolerance", value: "lactoseIntolerance" },
-    { label: "Celiac Disease", value: "celiacDisease" },
-    { label: "Hypertension (High Blood Pressure)", value: "hypertension" },
-    { label: "Diabetes", value: "diabetes" },
-    { label: "Kidney Disease", value: "kidneyDisease" },
+    { label: t('DSHLBL1'), value: "noneSelected" },
+    { label: t('DSHLBL2'), value: "heartDisease" },
+    { label: t('DSHLBL3'), value: "thyroidGlandDisorders" },
+    { label: t('DSHLBL4'), value: "lactoseIntolerance" },
+    { label: t('DSHLBL5'), value: "celiacDisease" },
+    { label: t('DSHLBL6'), value: "hypertension" },
+    { label: t('DSHLBL7'), value: "diabetes" },
+    { label: t('DSHLBL8'), value: "kidneyDisease" },
   ];
 
   useEffect(() => {
@@ -334,65 +338,67 @@ const Dashboard = () => {
   const foodRecommendations: FoodRecommendations = {
     noneSelected: {
       moreText:
-        "Fruits, vegetables, whole grains, lean proteins (e.g., poultry, fish, legumes), healthy fats (e.g., nuts, seeds, olive oil), low-fat dairy products.",
+      t('DSHLbl1More'),
       lessText:
-        "Processed foods, sugary beverages, excessive saturated and trans fats, high-sodium foods.",
+      t('DSHLbl1Less'),
       avoidText:
-        "There are no strict prohibitions for a generally healthy diet, but it's best to limit processed foods, added sugars, and excessive saturated fats.",
+      t('DSHLbl1Avoid'),
     },
     heartDisease: {
       moreText:
-        "Fruits, vegetables, whole grains, lean proteins (e.g., poultry, fish), nuts, seeds, legumes, olive oil.",
+      t('DSHLbl2More'),
       lessText:
-        "Saturated and trans fats (e.g., fatty meats, processed foods), high-sodium foods (e.g., canned soups, processed snacks), sugary beverages.",
+      t('DSHLbl2Less'),
       avoidText:
-        "Trans fats, excessive saturated fats, high-sodium processed foods.",
+      t('DSHLbl2Avoid'),
     },
     thyroidGlandDisorders: {
       moreText:
-        "Iodine-rich foods (e.g., iodized salt, seafood), selenium-rich foods (e.g., Brazil nuts, fish), fruits, vegetables, lean proteins.",
+      t('DSHLbl3More'),
       lessText:
-        "Goitrogens (e.g., cruciferous vegetables like broccoli, cabbage, kale, if consumed raw in large amounts), excessive soy products.",
+      t('DSHLbl3Less'),
       avoidText:
-        "There are no strict prohibitions for all cases; dietary adjustments depend on the individual's specific condition and medication.",
+      t('DSHLbl3Avoid'),
     },
     lactoseIntolerance: {
       moreText:
-        "Lactose-free dairy products (e.g., lactose-free milk), lactose-free alternatives (e.g., almond milk, soy milk), lactase-treated dairy products, calcium-fortified foods.",
+      t('DSHLbl4More'),
       lessText:
-        "Dairy products containing lactose (e.g., milk, cheese, yogurt).",
-      avoidText: "Foods containing lactose.",
+      t('DSHLbl4Less'),
+      avoidText:
+      t('DSHLbl4Avoid'),
     },
     celiacDisease: {
       moreText:
-        "Naturally gluten-free grains (e.g., rice, quinoa), fruits, vegetables, lean proteins, dairy products, certified gluten-free products.",
+      t('DSHLbl5More'),
       lessText:
-        "Gluten-containing grains (e.g., wheat, barley, rye), processed foods with hidden gluten (e.g., sauces, soups, processed meats).",
-      avoidText: "Gluten-containing grains and any products made from them.",
+      t('DSHLbl5Less'),
+      avoidText:
+      t('DSHLbl5Avoid'),
     },
     hypertension: {
       moreText:
-        "Fruits, vegetables, whole grains, lean proteins, low-fat dairy products, potassium-rich foods.",
+      t('DSHLbl6More'),
       lessText:
-        "High-sodium foods (e.g., processed foods, canned soups, salty snacks), excess saturated fats, sugary beverages.",
+      t('DSHLbl6Less'),
       avoidText:
-        "High-sodium foods, excessive saturated fats, sugary beverages.",
+      t('DSHLbl6Avoid'),
     },
     diabetes: {
       moreText:
-        "Complex carbohydrates, fiber-rich foods, lean proteins, healthy fats (e.g., olive oil, nuts, avocado), non-starchy vegetables.",
+      t('DSHLbl7More'),
       lessText:
-        "Sugary beverages, refined carbohydrates, processed snacks, high-sugar desserts.",
+      t('DSHLbl7Less'),
       avoidText:
-        "Foods high in refined sugars, sugary beverages, excessive carbohydrate intake.",
+      t('DSHLbl7Avoid'),
     },
     kidneyDisease: {
       moreText:
-        "Low-phosphorus proteins (e.g., poultry, fish, egg whites), fruits, vegetables (in moderation), whole grains, limited dairy products.",
+      t('DSHLbl8More'),
       lessText:
-        "High-phosphorus foods (e.g., dairy, nuts, seeds), high-potassium foods (e.g., bananas, oranges, potatoes), excessive sodium.",
+      t('DSHLbl8Less'),
       avoidText:
-        "High-phosphorus foods, high-potassium foods, excessive sodium.",
+      t('DSHLbl8Avoid'),
     },
   };
 
@@ -402,21 +408,21 @@ const Dashboard = () => {
   const getHealthIssueDescription = (value: string) => {
     switch (value) {
       case "noneSelected":
-        return "For individuals without specific health concerns, a balanced diet rich in fruits, vegetables, whole grains, lean proteins, and healthy fats promotes overall well-being and helps prevent chronic diseases.";
+        return t('DSHLBL1Desc');
       case "heartDisease":
-        return "Conditions affecting the heart's functioning, including coronary artery disease and heart failure. A heart-healthy diet emphasizes fruits, vegetables, lean proteins, and healthy fats while avoiding saturated fats and excess sodium.";
+        return t('DSHLBL2Desc');
       case "thyroidGlandDisorders":
-        return "Imbalances in thyroid hormone production, such as hypothyroidism or hyperthyroidism. Dietary recommendations may include iodine-rich foods for thyroid function support.";
+        return t('DSHLBL3Desc');
       case "lactoseIntolerance":
-        return "Inability to digest lactose, the sugar found in milk and dairy products, leading to digestive discomfort. Individuals should opt for lactose-free alternatives or lactase-treated dairy products.";
+        return t('DSHLBL4Desc');
       case "celiacDisease":
-        return "Autoimmune disorder triggered by gluten consumption, causing damage to the small intestine. Treatment involves strict adherence to a gluten-free diet, avoiding gluten-containing grains like wheat, barley, and rye.";
+        return t('DSHLBL5Desc');
       case "hypertension":
-        return "High blood pressure, a risk factor for heart disease and stroke. Dietary modifications focus on reducing sodium intake and increasing potassium-rich foods like fruits and vegetables.";
+        return t('DSHLBL6Desc');
       case "diabetes":
-        return "Chronic condition affecting blood sugar regulation, characterized by insulin resistance or deficiency. Dietary management involves controlling carbohydrate intake, consuming fiber-rich foods, and avoiding sugary beverages.";
+        return t('DSHLBL7Desc');
       case "kidneyDisease":
-        return "Impaired kidney function, leading to electrolyte imbalances and fluid retention. Dietary recommendations may include limiting phosphorus, potassium, and sodium intake while ensuring adequate protein intake.";
+        return t('DSHLBL8Desc');
       default:
         return "";
     }
@@ -434,13 +440,13 @@ const Dashboard = () => {
       <ScrollView>
         <View className="flex-grow items-center p-5">
           <Text className={`pb-5 text-4xl ${colors.textColor}`}>
-            Your Journey
+          {t('DSHYourJourney')}
           </Text>
 
           <View
             className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
           >
-            <Text className={`text-3xl ${colors.textColor}`}>Health</Text>
+            <Text className={`text-3xl ${colors.textColor}`}>{t('DSHHealth')}</Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
 
             <View className="flex-row items-center justify-between px-6 py-4">
@@ -476,7 +482,7 @@ const Dashboard = () => {
             </View>
 
             <Text className={`self-start text-2xl ${colors.textColor}`}>
-              Foods to eat <Text className="text-green-500">more</Text>:
+            {t('DSHFoodToEat')} <Text className="text-green-500">{t('DSHtomore')}</Text>:
             </Text>
             <Text
               className={`self-start pl-3 text-left text-[15px] ${colors.textColor}`}
@@ -486,7 +492,7 @@ const Dashboard = () => {
             <View className="my-5 w-full border-b border-gray-300"></View>
 
             <Text className={`self-start text-2xl ${colors.textColor}`}>
-              Foods to eat <Text className="text-yellow-500">less</Text>:
+            {t('DSHFoodToEat')}  <Text className="text-yellow-500">{t('DSHtoless')}</Text>:
             </Text>
             <Text
               className={`self-start pl-3 text-left text-[15px] ${colors.textColor}`}
@@ -496,7 +502,7 @@ const Dashboard = () => {
             <View className="my-5 w-full border-b border-gray-300"></View>
 
             <Text className={`self-start text-2xl ${colors.textColor}`}>
-              Foods to <Text className="text-red-500">avoid</Text>:
+            {t('DSHFoodsTo')} <Text className="text-red-500">{t('DSHtoavoid')}</Text>:
             </Text>
             <Text
               className={`self-start pl-3 text-left text-[15px] ${colors.textColor}`}
@@ -509,7 +515,7 @@ const Dashboard = () => {
               className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 px-4 py-2`}
             >
               <Text className={`${colors.buttonText} text-center font-bold`}>
-                Find out more
+              {t('DSHFindOutMore')}
               </Text>
             </TouchableOpacity>
 
@@ -545,7 +551,7 @@ const Dashboard = () => {
                     <Text
                       className={`${colors.buttonText} text-center font-bold`}
                     >
-                      Close
+                      {t('DSHClose')}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -557,7 +563,7 @@ const Dashboard = () => {
             className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
           >
             <Text className={`text-3xl ${colors.textColor}`}>
-              Today's Macronutrients
+            {t('DSHTodaysMacro')}
             </Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
             {calories > 0 ? (
@@ -577,15 +583,15 @@ const Dashboard = () => {
                 </View>
                 <View className="mt-4 items-center">
                   <Text className={`text-xl ${colors.textColor}`}>
-                    <Text className="font-bold">{calories}</Text> calories
+                    <Text className="font-bold">{calories}</Text> {t('DSHcalories')}
                   </Text>
                   {calorieGoal ? (
                     <>
                       <Text className={`mt-2 text-lg text-gray-500`}>
-                        of {calorieGoal.toFixed(0)} calories
+                      {t('DSHof')} {calorieGoal.toFixed(0)} {t('DSHcalories')}
                       </Text>
                       <Text className={`mt-2 text-sm text-gray-400`}>
-                        Calorie Goal
+                      {t('DSHCalorieGoal')}
                       </Text>
                     </>
                   ) : null}
@@ -598,12 +604,10 @@ const Dashboard = () => {
                       <Text
                         className={`text-center text-lg font-bold ${colors.textColor}`}
                       >
-                        Oops! You exceeded your calorie goal. 🐷
+                        {t('DSHCaloriesExceeded')} 🐷
                       </Text>
                       <Text className={`mt-2 text-center ${colors.textColor}`}>
-                        Try to be mindful of your calorie intake and make
-                        healthier choices tomorrow. Don't worry, you've got
-                        this!
+                      {t('DSHCaloriesTip')}
                       </Text>
                     </View>
                   ) : (
@@ -613,11 +617,10 @@ const Dashboard = () => {
                       <Text
                         className={`${colors.textColor} text-center text-lg font-bold`}
                       >
-                        Awesome job! 🍽️
+                      {t('DSHCaloriesGJ')} 🍽️
                       </Text>
                       <Text className={`${colors.textColor} mt-2 text-center`}>
-                        You've reached your calorie goal for today. Keep fueling
-                        your body with healthy and nutritious food!
+                      {t('DSHCaloriesReached')}
                       </Text>
                     </View>
                   )
@@ -628,18 +631,15 @@ const Dashboard = () => {
                     <Text
                       className={`text-center text-lg font-bold ${colors.textColor}`}
                     >
-                      Keep going! 🍒
+                      {t('DSHKeepGoing')} 🍒
                     </Text>
                     {calorieGoal ? (
                       <Text className={`mt-2 text-center ${colors.textColor}`}>
-                        You're {(calorieGoal - calories).toFixed(0)} calories
-                        away from reaching your calorie goal for today. Fuel up
-                        with healthy and balanced meals!
+                        {t('DSHYoure')} {(calorieGoal - calories).toFixed(0)} {t('DSHcaloriesAway')}
                       </Text>
                     ) : (
                       <Text className={`mt-2 text-center ${colors.textColor}`}>
-                        Keep tracking your calories to reach your daily goal.
-                        Fuel up with healthy and balanced meals!
+                        {t('DSHMotivate')}
                       </Text>
                     )}
                   </View>
@@ -648,7 +648,7 @@ const Dashboard = () => {
             ) : (
               <View className="items-center justify-center">
                 <Text className={`text-lg text-gray-500`}>
-                  No data available. Go on, add some food!
+                {t('DSHCaloriesNoData')}
                 </Text>
               </View>
             )}
@@ -658,7 +658,7 @@ const Dashboard = () => {
             className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
           >
             <Text className={`text-3xl ${colors.textColor}`}>
-              Today's Water Consumption
+            {t('DSHTodaysWater')}
             </Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
             <View className="flex-row items-center">
@@ -687,10 +687,10 @@ const Dashboard = () => {
                   l
                 </Text>
                 <Text className={`text-lg text-gray-500`}>
-                  of {recommendedWaterIntake.toFixed(2)} l
+                {t('DSHofwater')} {recommendedWaterIntake.toFixed(2)} l
                 </Text>
                 <Text className={`mt-2 text-sm text-gray-400`}>
-                  Recommended Intake
+                {t('DSHRecommendedIntake')}
                 </Text>
               </View>
             </View>
@@ -699,11 +699,10 @@ const Dashboard = () => {
                 className={`mt-4 rounded-lg ${colors.islandBackgroundWaterCongratulations} p-4`}
               >
                 <Text className="text-center text-lg font-bold text-white">
-                  Way to go! 💧
+                {t('DSHWayToGo')} 💧
                 </Text>
                 <Text className="mt-2 text-center text-white">
-                  You've reached your recommended water intake for today. Keep
-                  staying hydrated and feeling great!
+                {t('DSHWaterGJ')}
                 </Text>
               </View>
             ) : (
@@ -713,13 +712,12 @@ const Dashboard = () => {
                 <Text
                   className={`text-center text-lg font-bold ${colors.textColor}`}
                 >
-                  Almost there! 💦
+                {t('DSHAlmostThere')} 🌊
                 </Text>
                 <Text className={`mt-2 text-center ${colors.textColor}`}>
-                  You're{" "}
+                {t('DSHYoure')}{" "}
                   {(recommendedWaterIntake - todayWaterConsumption).toFixed(2)}{" "}
-                  l away from reaching your recommended water intake for today.
-                  Drink up and stay hydrated!
+                  {t('DSHAwayFrom')}
                 </Text>
               </View>
             )}
@@ -729,12 +727,19 @@ const Dashboard = () => {
             className={`container mt-5 flex rounded-3xl ${colors.background} items-center justify-center p-5 shadow-md`}
           >
             <Text className={`text-3xl ${colors.textColor}`}>
-              Weekly Exercise Activity
+            {t('DSHWeeklyExercise')}
             </Text>
             <View className="my-5 w-full border-b border-gray-300"></View>
             <BarChart
               data={{
-                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                labels: [
+                  t('DSHDateMON'), 
+                  t('DSHDateTUE'), 
+                  t('DSHDateWED'), 
+                  t('DSHDateTHU'), 
+                  t('DSHDateFRI'), 
+                  t('DSHDateSAT'), 
+                  t('DSHDateSUN')],
                 datasets: [{ data: exerciseData }],
               }}
               width={screenWidth}
@@ -748,18 +753,17 @@ const Dashboard = () => {
             />
             <View className="mt-4">
               <Text className={`text-center text-lg ${colors.textColor}`}>
-                Total minutes this week: {totalMinutes}
+              {t('DSHMinutesThisWeek')} {totalMinutes}
               </Text>
               {totalMinutes >= 150 ? (
                 <View
                   className={`mt-4 rounded-lg ${colors.islandBackgroundCongratulations} p-4`}
                 >
                   <Text className="text-center text-lg font-bold text-white">
-                    Congratulations! 🎉
+                  {t('DSHCongrats')} 🎉
                   </Text>
                   <Text className="mt-2 text-center text-white">
-                    You have reached the recommended 150 minutes of exercise
-                    this week. Keep up the great work!
+                  {t('DSHYouHaveReached')}
                   </Text>
                 </View>
               ) : (
@@ -769,12 +773,10 @@ const Dashboard = () => {
                   <Text
                     className={`text-center text-lg font-bold ${colors.textColor}`}
                   >
-                    Keep Pushing! 💪
+                    {t('DSHKeepPushing')} 💪
                   </Text>
                   <Text className={`mt-2 text-center ${colors.textColor}`}>
-                    You're {150 - totalMinutes} minutes away from reaching the
-                    recommended 150 minutes of exercise this week. Let's get
-                    moving!
+                  {t('DSHYoure')} {150 - totalMinutes} {t('DSHminutesAway')}
                   </Text>
                 </View>
               )}

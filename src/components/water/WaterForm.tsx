@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
+  Modal,
+  Image,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useColorScheme } from "nativewind";
@@ -30,6 +32,7 @@ const WaterForm: React.FC<WaterFormProps> = ({
   userId,
 }) => {
   const { t } = useTranslation();
+  const [modalVisible, setModalVisible] = useState(false);
   const predefinedUnits = ["ml", "l"];
   const { colorScheme } = useColorScheme();
   const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
@@ -98,7 +101,7 @@ const WaterForm: React.FC<WaterFormProps> = ({
                 color={colors.buttonText.split("-")[1]}
               />
               <Text className={`ml-2 text-sm font-bold ${colors.buttonText}`}>
-                History
+              {t('History')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -156,6 +159,43 @@ const WaterForm: React.FC<WaterFormProps> = ({
               {t("WTRFRMcancel")}
             </Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+              onPress={() => setModalVisible(true)}
+              className={`mb-2 mt-4 px-4 py-2`}
+            >
+              <Text className={`${colors.secondaryText} text-center font-bold`}>
+              {t('DSHServing')}
+              </Text>
+          </TouchableOpacity>
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => setModalVisible(false)}
+          >
+            <View className="flex-1 items-center justify-center bg-transparent">
+              <View
+                className={`${colors.inputBackground} mx-2 rounded-lg p-10 shadow-lg`}
+              >
+              <Image
+                source={require("../../assets/images/WaterServingSizes.png")}
+                className="h-96 w-72 resize-y"
+              />
+              <TouchableOpacity
+                onPress={() => setModalVisible(false)}
+                className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 px-4 py-2`}
+              >
+                <Text
+                  className={`${colors.buttonText} text-center font-bold`}
+                >
+                  {t('DSHClose')}
+                </Text>
+              </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+
         </View>
       </View>
       <WaterHistoryModal
