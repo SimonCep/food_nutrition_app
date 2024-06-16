@@ -58,7 +58,7 @@ const RecipeList: React.FC = () => {
 
   return (
     <ScrollView className="flex-1 p-4 bg-white dark:bg-black">
-      <Text className="text-2xl font-bold mb-4 text-center">Recipes</Text>
+      <Text className="text-2xl font-bold mb-4 text-center">Find your desired recipes!</Text>
       <View className="flex-row items-center mb-4">
         <TextInput
           className="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg p-2 mr-2"
