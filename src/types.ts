@@ -266,6 +266,45 @@ export type PersonalDataContextType = {
 
 export type ExerciseType = "Running" | "Walking" | "Swimming" | "Cycling";
 
+export type Nutrient = {
+  label: string;
+  quantity: number;
+  unit: string;
+};
+
+export type Nutrients = {
+  ENERC_KCAL?: Nutrient;
+  CHOCDF?: Nutrient;
+  FAT?: Nutrient;
+  PROCNT?: Nutrient;
+  SUGAR?: Nutrient;
+  FASAT?: Nutrient;
+  FATRN?: Nutrient;
+  MG?: Nutrient;
+  NA?: Nutrient;
+  VITA_RAE?: Nutrient;
+  VITB12?: Nutrient;
+  ZN?: Nutrient;
+  FE?: Nutrient;
+  [key: string]: Nutrient | undefined;
+};
+
+export type Food = {
+  foodId: string;
+  label: string;
+  nutrients: Nutrients;
+  foodContentsLabel?: string;
+};
+
+export type FoodHint = {
+  food: Food;
+};
+
+export type FoodData = {
+  text: string;
+  hints: FoodHint[];
+};
+
 // Type helpers
 export type Tables<T extends keyof Database["public"]["Tables"]> =
   Database["public"]["Tables"][T]["Row"];

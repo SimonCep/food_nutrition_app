@@ -80,7 +80,7 @@ const FoodNutritionForm: React.FC<FoodNutritionFormProps> = ({
   const colors = colorScheme === "dark" ? darkColorsDiary : lightColorsDiary;
   const [showOptional, setShowOptional] = useState(false);
 
-  const predifinedMeasurementUnits = ["g", "ml"];
+  const predifinedMeasurementUnits = ["g", "ml", "pcs"];
 
   const [previousFoodEntries, setPreviousFoodEntries] = useState<
     Tables<"nutrition">[]

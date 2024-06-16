@@ -71,8 +71,13 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [holdingFoodId, setHoldingFoodId] = useState<number | null>(null);
   const [editingFood, setEditingFood] = useState<FoodNutrition | null>(null);
-  const { foodUpdated, setFoodUpdated, refreshCalories, refreshFood } =
-    useDiaryContext();
+  const {
+    foodUpdated,
+    setFoodUpdated,
+    refreshCalories,
+    refreshFood,
+    shouldRefreshFood,
+  } = useDiaryContext();
 
   useEffect(() => {
     const fetchFoodNutritionData = async () => {
@@ -88,7 +93,7 @@ const FoodSection: React.FC<FoodNutritionSectionProps> = ({
     fetchFoodNutritionData().catch((error) => {
       console.error("Error fetching food data:", error);
     });
-  }, [userId, selectedDate, foodUpdated]);
+  }, [userId, selectedDate, foodUpdated, shouldRefreshFood]);
 
   const handleSaveFood = async () => {
     try {
