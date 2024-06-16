@@ -60,6 +60,10 @@ const HomePage = () => {
     );
   }
 
+  const handleRecipePress = () => {
+    router.push("./recipeList");
+  };
+
   const handleDiaryPress = () => {
     router.push("./diary");
   };
@@ -154,6 +158,15 @@ const HomePage = () => {
               </View>
             )}
           </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          className={`mb-4 rounded-full ${colors.background} px-7 py-4`}
+          onPress={handleRecipePress}
+        >
+          <Text className={`text-center text-xl font-bold ${colors.textColor}`}>
+            {t("INDRecipe")}
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity

@@ -30,6 +30,15 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
+
+      <Tabs.Screen
+        name="recipes"
+        options={{
+          title: t("LAYrecipe"),
+          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
+        }}
+      />
+
       <Tabs.Screen
         name="diary"
         options={{

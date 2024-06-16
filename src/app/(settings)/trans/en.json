@@ -23,6 +23,7 @@
   "DIARYWater" : "Water:",
 
   "INDTitle" : "Track your calories and health",
+  "INDRecipe" : "Recipes",
   "INDDiary" : "Diary",
   "INDProfile" : "Profile",
   "INDTASKtext" : "Enter task text",
@@ -71,6 +72,7 @@
   "THEME" : "Theme",
 
   "LAYhome" : "Home",
+  "LAYrecipe" : "Recipes",
   "LAYdiary" : "Diary",
   "LAYdash" : "Dashboard",
   "LAYuser" : "Profile",
