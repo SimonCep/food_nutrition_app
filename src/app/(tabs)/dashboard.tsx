@@ -32,12 +32,14 @@ import { fetchUserHeight } from "@/api/userHeightService";
 import { usePersonalDataContext } from "@/providers/PersonalDataProvider";
 
 import { useTranslation } from 'react-i18next';
+import { useRouter } from "expo-router";
 
 const Dashboard = () => {
   const { t } = useTranslation();
 
   const [modalVisible, setModalVisible] = useState(false);
   const { colorScheme } = useColorScheme();
+  const router = useRouter();
   const colors =
     colorScheme === "dark" ? darkColorsDashboard : lightColorsDashboard;
 
@@ -77,6 +79,10 @@ const Dashboard = () => {
     strokeWidth: 2,
     barPercentage: 0.5,
     useShadowColorFromDataset: false,
+  };
+
+  const handleTestasPress = () => {
+    router.push("/../Nutrition");
   };
 
   const { session } = useAuth();
@@ -516,6 +522,15 @@ const Dashboard = () => {
             >
               <Text className={`${colors.buttonText} text-center font-bold`}>
               {t('DSHFindOutMore')}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={handleTestasPress}
+              className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 px-4 py-2`}
+            >
+              <Text className={`${colors.buttonText} text-center font-bold`}>
+              {t('DSHCheckFood')}
               </Text>
             </TouchableOpacity>
 
