@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
   ScrollView,
   ImageBackground,
-  Modal,
 } from "react-native";
 import { useColorScheme } from "nativewind";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -31,12 +30,10 @@ import {
   userWeightValidationSchema,
 } from "@/utils/validationSchemas";
 import { usePersonalDataContext } from "@/providers/PersonalDataProvider";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-const EditPersonalData: React.FC<{
-  isVisible: boolean;
-  onClose: () => void;
-}> = ({ isVisible, onClose }) => {
+const EditPersonalData: React.FC = () => {
+  
   const { t } = useTranslation();
   const { session } = useAuth();
   const [age, setAge] = useState<string>("");
@@ -51,23 +48,23 @@ const EditPersonalData: React.FC<{
   const [healthIssues, setHealthIssues] = useState<string[]>([]);
   const [open2, setOpen2] = useState(false);
   const [items2, setItems2] = useState([
-    { label: t("EDTGOALLBL1"), value: "noneSelected" },
-    { label: t("EDTGOALLBL2"), value: "heartDisease" },
-    { label: t("EDTGOALLBL3"), value: "thyroidGlandDisorders" },
-    { label: t("EDTGOALLBL4"), value: "lactoseIntolerance" },
-    { label: t("EDTGOALLBL5"), value: "celiacDisease" },
-    { label: t("EDTGOALLBL6"), value: "hypertension" },
-    { label: t("EDTGOALLBL7"), value: "diabetes" },
-    { label: t("EDTGOALLBL8"), value: "kidneyDisease" },
+    { label: t('EDTGOALLBL1'), value: "noneSelected" },
+    { label: t('EDTGOALLBL2'), value: "heartDisease" },
+    { label: t('EDTGOALLBL3'), value: "thyroidGlandDisorders" },
+    { label: t('EDTGOALLBL4'), value: "lactoseIntolerance" },
+    { label: t('EDTGOALLBL5'), value: "celiacDisease" },
+    { label: t('EDTGOALLBL6'), value: "hypertension" },
+    { label: t('EDTGOALLBL7'), value: "diabetes" },
+    { label: t('EDTGOALLBL8'), value: "kidneyDisease" },
   ]);
   const [dietaryGoals, setDietaryGoals] = useState<string>("");
   const [open3, setOpen3] = useState(false);
   const [items3, setItems3] = useState([
-    { label: t("EDTGOALGoal1"), value: "noneSelected" },
-    { label: t("EDTGOALGoal2"), value: "loseWeight" },
-    { label: t("EDTGOALGoal3"), value: "gainWeight" },
-    { label: t("EDTGOALGoal4"), value: "increaseMuscle" },
-    { label: t("EDTGOALGoal5"), value: "improveHealth" },
+    { label: t('EDTGOALGoal1'), value: "noneSelected" },
+    { label: t('EDTGOALGoal2'), value: "loseWeight" },
+    { label: t('EDTGOALGoal3'), value: "gainWeight" },
+    { label: t('EDTGOALGoal4'), value: "increaseMuscle" },
+    { label: t('EDTGOALGoal5'), value: "improveHealth" },
   ]);
   const [loading, setLoading] = useState<boolean>(false);
   const [validationErrors, setValidationErrors] =
@@ -99,10 +96,8 @@ const EditPersonalData: React.FC<{
       }
     };
 
-    if (isVisible) {
-      fetchData();
-    }
-  }, [session?.user?.id, isVisible]);
+    fetchData();
+  }, [session?.user?.id]);
 
   const getFieldError = (field: string) => {
     return validationErrors?.inner.find((error) => error.path === field)
@@ -164,7 +159,6 @@ const EditPersonalData: React.FC<{
         if (updatedPersonalData && updatedHeight && updatedWeight) {
           Alert.alert("Success", "Personal data saved successfully!");
           refreshPersonalData();
-          onClose();
         } else {
           Alert.alert(
             "Error",
@@ -192,149 +186,130 @@ const EditPersonalData: React.FC<{
     colorScheme === "dark" ? darkColorsSettingsGoals : lightColorsSettingsGoals;
 
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={isVisible}
-      onRequestClose={onClose}
-    >
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <ImageBackground
+        source={require("../../assets/images/background.png")}
+        className="flex-1 resize-y justify-center bg-white dark:bg-black"
+      >
+      <View className={`flex-1 px-10 py-5 `}>
         <View
-          style={{ backgroundColor: "white", padding: 20, borderRadius: 10 }}
+          className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} items-right justify-start p-5 shadow-md`}
         >
-          <ImageBackground
-            source={require("../../assets/images/background.png")}
-            className="flex-1 resize-y justify-center bg-white dark:bg-black"
+          <Text className={`mb-2 text-lg ${colors.textColor}`}>{t('EDTGOALGender')}</Text>
+          <DropDownPicker
+            open={open1}
+            value={gender}
+            items={items1}
+            setOpen={setOpen1}
+            setValue={setGender}
+            setItems={setItems1}
+          />
+          {getFieldError("gender") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("gender")}
+            </Text>
+          )}
+
+          <Text className={`mb-2 mt-3 text-lg ${colors.textColor}`}>{t('EDTGOALAge')}</Text>
+          <TextInput
+            className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
+            value={age}
+            onChangeText={setAge}
+            keyboardType="numeric"
+          />
+          {getFieldError("age") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("age")}
+            </Text>
+          )}
+
+          <Text className={`mb-2 text-lg ${colors.textColor}`}>
+            {t('EDTGOALheight')}
+          </Text>
+          <TextInput
+            className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
+            value={height}
+            onChangeText={setHeight}
+            keyboardType="numeric"
+          />
+          {getFieldError("height") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("height")}
+            </Text>
+          )}
+
+          <Text className={`mb-2 text-lg ${colors.textColor}`}>
+            {t('EDTGOALweight')}
+          </Text>
+          <TextInput
+            className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
+            value={weight}
+            onChangeText={setWeight}
+            keyboardType="numeric"
+          />
+          {getFieldError("weight") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("weight")}
+            </Text>
+          )}
+
+          <Text className={`mb-2 text-lg ${colors.textColor}`}>
+          {t('EDTGOALhealth')}
+          </Text>
+          <DropDownPicker
+            open={open2}
+            value={healthIssues}
+            items={items2}
+            setOpen={setOpen2}
+            setValue={handleHealthIssuesChange}
+            setItems={setItems2}
+            multiple={true}
+            zIndex={2000}
+            dropDownDirection={"TOP"}
+          />
+          {getFieldError("healthIssues") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("healthIssues")}
+            </Text>
+          )}
+
+          <Text className={`mb-2 mt-3 text-lg ${colors.textColor}`}>
+          {t('EDTGOALdietary')}
+          </Text>
+          <DropDownPicker
+            open={open3}
+            value={dietaryGoals}
+            items={items3}
+            setOpen={setOpen3}
+            setValue={setDietaryGoals}
+            setItems={setItems3}
+            multiple={false}
+            zIndex={1000}
+          />
+          {getFieldError("dietaryGoals") && (
+            <Text className={`self-start ${colors.errorText}`}>
+              {getFieldError("dietaryGoals")}
+            </Text>
+          )}
+
+          <TouchableOpacity
+            onPress={handleSavePersonalData}
+            disabled={loading}
+            className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-center px-4 py-2`}
           >
-            <View className={`flex-1 px-10 py-5`}>
-              <View
-                className={`container mt-5 flex rounded-3xl ${colors.backgroundSolid} items-right justify-start p-5 shadow-md`}
-              >
-                <Text className={`mb-2 text-lg ${colors.textColor}`}>
-                  {t("EDTGOALGender")}
-                </Text>
-                <DropDownPicker
-                  open={open1}
-                  value={gender}
-                  items={items1}
-                  setOpen={setOpen1}
-                  setValue={setGender}
-                  setItems={setItems1}
-                />
-                {getFieldError("gender") && (
-                  <Text className={`self-start ${colors.errorText}`}>
-                    {getFieldError("gender")}
-                  </Text>
-                )}
-
-                <Text className={`mb-2 mt-3 text-lg ${colors.textColor}`}>
-                  {t("EDTGOALAge")}
-                </Text>
-                <TextInput
-                  className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
-                  value={age}
-                  onChangeText={setAge}
-                  keyboardType="numeric"
-                />
-                {getFieldError("age") && (
-                  <Text className={`self-start ${colors.errorText}`}>
-                    {getFieldError("age")}
-                  </Text>
-                )}
-
-                <Text className={`mb-2 text-lg ${colors.textColor}`}>
-                  {t("EDTGOALheight")}
-                </Text>
-                <TextInput
-                  className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
-                  value={height}
-                  onChangeText={setHeight}
-                  keyboardType="numeric"
-                />
-                {getFieldError("height") && (
-                  <Text className={`self-start ${colors.errorText}`}>
-                    {getFieldError("height")}
-                  </Text>
-                )}
-
-                <Text className={`mb-2 text-lg ${colors.textColor}`}>
-                  {t("EDTGOALweight")}
-                </Text>
-                <TextInput
-                  className={`mb-5 border-b border-gray-300 px-4 py-4 text-2xl ${colors.textColor}`}
-                  value={weight}
-                  onChangeText={setWeight}
-                  keyboardType="numeric"
-                />
-                {getFieldError("weight") && (
-                  <Text className={`self-start ${colors.errorText}`}>
-                    {getFieldError("weight")}
-                  </Text>
-                )}
-
-                <Text className={`mb-2 text-lg ${colors.textColor}`}>
-                  {t("EDTGOALhealth")}
-                </Text>
-                <DropDownPicker
-                  open={open2}
-                  value={healthIssues}
-                  items={items2}
-                  setOpen={setOpen2}
-                  setValue={handleHealthIssuesChange}
-                  setItems={setItems2}
-                  multiple={true}
-                  zIndex={2000}
-                  dropDownDirection={"TOP"}
-                />
-                {getFieldError("healthIssues") && (
-                  <Text className={`self-start ${colors.errorText}`}>
-                    {getFieldError("healthIssues")}
-                  </Text>
-                )}
-
-                <Text className={`mb-2 mt-3 text-lg ${colors.textColor}`}>
-                  {t("EDTGOALdietary")}
-                </Text>
-                <DropDownPicker
-                  open={open3}
-                  value={dietaryGoals}
-                  items={items3}
-                  setOpen={setOpen3}
-                  setValue={setDietaryGoals}
-                  setItems={setItems3}
-                  multiple={false}
-                  zIndex={1000}
-                />
-                {getFieldError("dietaryGoals") && (
-                  <Text className={`self-start ${colors.errorText}`}>
-                    {getFieldError("dietaryGoals")}
-                  </Text>
-                )}
-
-                <TouchableOpacity
-                  onPress={handleSavePersonalData}
-                  disabled={loading}
-                  className={`${colors.buttonBackground} w-full rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 self-center px-4 py-2`}
-                >
-                  {loading ? (
-                    <ActivityIndicator
-                      color={colors.buttonText.split("-")[1]}
-                      size="small"
-                    />
-                  ) : (
-                    <Text
-                      className={`${colors.buttonText} text-center font-bold`}
-                    >
-                      {t("EDTGOALsave")}
-                    </Text>
-                  )}
-                </TouchableOpacity>
-              </View>
-            </View>
-          </ImageBackground>
+            {loading ? (
+              <ActivityIndicator
+                color={colors.buttonText.split("-")[1]}
+                size="small"
+              />
+            ) : (
+              <Text className={`${colors.buttonText} text-center font-bold`}>
+                {t('EDTGOALsave')}
+              </Text>
+            )}
+          </TouchableOpacity>
         </View>
-      </View>
-    </Modal>
+        </View>  
+      </ImageBackground>
   );
 };
 
