@@ -72,6 +72,10 @@ const HomePage = () => {
     router.push("./userInfo");
   };
 
+  const handleNutritionPress = () => {
+    router.push("./Nutrition");
+  };
+
   return (
     <ImageBackground
       source={
@@ -158,6 +162,15 @@ const HomePage = () => {
               </View>
             )}
           </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          className={`mb-4 rounded-full ${colors.background} px-7 py-4`}
+          onPress={handleNutritionPress}
+        >
+          <Text className={`text-center text-xl font-bold ${colors.textColor}`}>
+            {t("INDNutrition")}
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
