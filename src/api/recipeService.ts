@@ -9,6 +9,8 @@ interface Recipe {
     image: string;
     source: string;
     url: string;
+    dietLabels: string[];
+    healthLabels: string[];
 }
 
 interface RecipeResponse {
