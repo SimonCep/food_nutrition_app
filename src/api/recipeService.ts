@@ -10,7 +10,7 @@ interface Recipe {
     source: string;
     url: string;
     dietLabels: string[];
-    healthLabels: string[];
+    healthLabelss: string[];
 }
 
 interface RecipeResponse {
