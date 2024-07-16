@@ -367,14 +367,16 @@ const CheckFood = () => {
 
       {feedback !== "" && <Text style={styles.feedback}>{feedback}</Text>}
 
-      <TouchableOpacity
-        className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 px-4 py-2`}
-        onPress={() => setIsModalVisible(true)}
-      >
-        <Text className={`${colors.buttonText} text-center font-bold`}>
-          Select Health Issue
-        </Text>
-      </TouchableOpacity>
+      {!healthProblems.some((problem) => problem.value === "noneSelected") && (
+        <TouchableOpacity
+          className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-2 mt-4 px-4 py-2`}
+          onPress={() => setIsModalVisible(true)}
+        >
+          <Text className={`${colors.buttonText} text-center font-bold`}>
+            Select Health Issue
+          </Text>
+        </TouchableOpacity>
+      )}
 
       <Modal
         animationType="slide"
@@ -410,7 +412,7 @@ const CheckFood = () => {
             )}
           >
             Calories:{" "}
-            {Math.round(selectedFood.nutrients.ENERC_KCAL?.quantity || 0)} kcal
+            {Math.round(selectedFood.nutrients.ENERC_KCAL?.quantity ?? 0)} kcal
           </Text>
           <Text
             style={getNutrientStyle(
@@ -419,7 +421,7 @@ const CheckFood = () => {
               userHealthProblem,
             )}
           >
-            Carbs: {Math.round(selectedFood.nutrients.CHOCDF?.quantity || 0)} g
+            Carbs: {Math.round(selectedFood.nutrients.CHOCDF?.quantity ?? 0)} g
           </Text>
           <Text
             style={getNutrientStyle(
@@ -428,7 +430,7 @@ const CheckFood = () => {
               userHealthProblem,
             )}
           >
-            Fat: {Math.round(selectedFood.nutrients.FAT?.quantity || 0)} g
+            Fat: {Math.round(selectedFood.nutrients.FAT?.quantity ?? 0)} g
           </Text>
           <Text
             style={getNutrientStyle(
@@ -438,7 +440,7 @@ const CheckFood = () => {
             )}
           >
             Saturated Fat:{" "}
-            {Math.round(selectedFood.nutrients.FASAT?.quantity || 0)} g
+            {Math.round(selectedFood.nutrients.FASAT?.quantity ?? 0)} g
           </Text>
           <Text
             style={getNutrientStyle(
@@ -447,7 +449,7 @@ const CheckFood = () => {
               userHealthProblem,
             )}
           >
-            Trans Fat: {Math.round(selectedFood.nutrients.FATRN?.quantity || 0)}{" "}
+            Trans Fat: {Math.round(selectedFood.nutrients.FATRN?.quantity ?? 0)}{" "}
             g
           </Text>
           <Text
@@ -457,7 +459,7 @@ const CheckFood = () => {
               userHealthProblem,
             )}
           >
-            Protein: {Math.round(selectedFood.nutrients.PROCNT?.quantity || 0)}{" "}
+            Protein: {Math.round(selectedFood.nutrients.PROCNT?.quantity ?? 0)}{" "}
             g
           </Text>
           <Text
@@ -467,7 +469,7 @@ const CheckFood = () => {
               userHealthProblem,
             )}
           >
-            Sugar: {Math.round(selectedFood.nutrients.SUGAR?.quantity || 0)} g
+            Sugar: {Math.round(selectedFood.nutrients.SUGAR?.quantity ?? 0)} g
           </Text>
           <Text
             style={getNutrientStyle(
@@ -476,7 +478,7 @@ const CheckFood = () => {
               userHealthProblem,
             )}
           >
-            Magnesium: {Math.round(selectedFood.nutrients.MG?.quantity || 0)} mg
+            Magnesium: {Math.round(selectedFood.nutrients.MG?.quantity ?? 0)} mg
           </Text>
           <Text
             style={getNutrientStyle(
@@ -485,7 +487,7 @@ const CheckFood = () => {
               userHealthProblem,
             )}
           >
-            Sodium: {Math.round(selectedFood.nutrients.NA?.quantity || 0)} mg
+            Sodium: {Math.round(selectedFood.nutrients.NA?.quantity ?? 0)} mg
           </Text>
           <Text
             style={getNutrientStyle(
@@ -495,7 +497,7 @@ const CheckFood = () => {
             )}
           >
             Vitamin A:{" "}
-            {Math.round(selectedFood.nutrients.VITA_RAE?.quantity || 0)} μg
+            {Math.round(selectedFood.nutrients.VITA_RAE?.quantity ?? 0)} μg
           </Text>
           <Text
             style={getNutrientStyle(
@@ -505,7 +507,7 @@ const CheckFood = () => {
             )}
           >
             Vitamin B12:{" "}
-            {Math.round(selectedFood.nutrients.VITB12?.quantity || 0)} μg
+            {Math.round(selectedFood.nutrients.VITB12?.quantity ?? 0)} μg
           </Text>
           <Text
             style={getNutrientStyle(
@@ -514,7 +516,7 @@ const CheckFood = () => {
               userHealthProblem,
             )}
           >
-            Zinc: {Math.round(selectedFood.nutrients.ZN?.quantity || 0)} mg
+            Zinc: {Math.round(selectedFood.nutrients.ZN?.quantity ?? 0)} mg
           </Text>
           <Text
             style={getNutrientStyle(
@@ -523,22 +525,24 @@ const CheckFood = () => {
               userHealthProblem,
             )}
           >
-            Iron: {Math.round(selectedFood.nutrients.FE?.quantity || 0)} mg
+            Iron: {Math.round(selectedFood.nutrients.FE?.quantity ?? 0)} mg
           </Text>
         </View>
       )}
-      <TouchableOpacity
-        onPress={handleAddToDiary}
-        className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-5 mt-4 px-4 py-2`}
-      >
-        <Text className={`${colors.buttonText} text-center font-bold`}>
-          Add to Diary
-        </Text>
-      </TouchableOpacity>
+      {selectedFood && (
+        <TouchableOpacity
+          onPress={handleAddToDiary}
+          className={`${colors.buttonBackground} rounded-full border-2 ${colors.buttonBorder} mb-5 mt-4 px-4 py-2`}
+        >
+          <Text className={`${colors.buttonText} text-center font-bold`}>
+            Add to Diary
+          </Text>
+        </TouchableOpacity>
+      )}
 
       <View className="border border-gray-400 p-5">
         <Text className={`${colors.buttonText} text-center `}>
-          You can also check food nutritrion by specific disease needs
+          You can also check food nutrition by specific disease needs
         </Text>
         <Text className={`text- text-center text-green-500`}>
           Nutrients that could be dangerous in high amounts
